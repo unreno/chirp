@@ -24,15 +24,16 @@ From this point on, I am just brainstorming / rambling.
 
 
 Observation (fact)
-* Of What/Whom? (patient dimension [names,???])
-* Who made it? (provider dimension [doctor,nurse,???])
-* Where was it made? (location dimension [WalGreens,Renown Hospital,ER,???])
-* When was it made? (time dimension / visit dimension?)
-* What was made? (concept dimension)
-* How was it made? (not sure what I mean here)
-* value of observation
+* Of What/Whom? (patient dimension [NO IDENTIFIABLE INFO])
+* Who made this observation? (provider dimension [doctor,nurse,???])
+* Where was this observation made? (visit dimension [WalGreens,Renown Hospital,ER,???])
+* When was this observation made? (time dimension / visit dimension?)
+* What observation was made? (concept dimension)
+* How was this observation made? (not sure what I mean here)
+* value of observation (several fields actually)
 
 
+Observation "concepts" are things that change.
 I suppose in practice, every attribute on a birth certificate
 and any other type of observation
 needs to be accurately recordable in this system.
@@ -48,14 +49,61 @@ What don't we record?
 * blood pressure
 * just visited doctor to say hello?
 * broken arm
+* ICD10 codes
 * incarcerated?
-* changed address?
-* changed phone number?
+* changed address?  (perhaps just zip code)
+* changed phone number?  (unlikely)
+* sex (it can change)
+
+
+i2b2 has sex, religion, and vital status part of the patient dimension
+and language and race as part of the visit dimension.
+I'm not sure that I agree with that.
+
+
+1 visit, 1 patient, 1 (or more?) provider(s), MANY observations and concepts
+
+
+
+ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/2014/ICD10CM-FY2014_OrderFiles.zip
+
+https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/Downloads/cmsv31-master-descriptions.zip
+
+https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/Downloads/ICD-9-CM-v32-master-descriptions.zip
+
+https://downloads.cms.gov/medicare-coverage-database/downloads/exports/all_lmrp.zip
+
+
+
+Local Coverage Determination [LCD] or Local Coverage Documents
+Medicare Coverage Database [MCD] 
+Local Medical Review Policies [LMRPs],
+https://downloads.cms.gov/medicare-coverage-database/downloads/exports/all_lmrp.zip
+All CPT codes are HCPCS codes, but not all HCPCS codes are CPT codes.
+all_lmrp includes 
+-rw-r--r-- 1 jakewendt  25676215 Feb  1 14:10 hcpc_code_lookup.csv
+-rw-r--r-- 1 jakewendt  16776749 Feb  1 14:10 icd10_code_lookup.csv
 
 
 
 
 
+
+Meddling locally with postgres ...
+
+sudo mkdir -p /opt/local/var/db/postgresql95/defaultdb
+sudo chown postgres:postgres /opt/local/var/db/postgresql95/defaultdb
+sudo chown postgres:postgres /opt/local/var/db/postgresql95
+sudo su postgres -c '/opt/local/lib/postgresql95/bin/initdb -D /opt/local/var/db/postgresql95/defaultdb' 
+sudo su postgres -c '/opt/local/lib/postgresql95/bin/pg_ctl -D /opt/local/var/db/postgresql95/defaultdb -l /opt/local/var/db/postgresql95/logfile start'
+
+
+sudo su postgres -c 'createdb jakewendt; createuser --superuser jakewendt;'
+
+psql
+
+
+psql < crc_create_datamart_postgresql.sql
 
 
 
