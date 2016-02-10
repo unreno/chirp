@@ -97,6 +97,7 @@ sudo chown postgres:postgres /opt/local/var/db/postgresql95
 sudo su postgres -c '/opt/local/lib/postgresql95/bin/initdb -D /opt/local/var/db/postgresql95/defaultdb' 
 sudo su postgres -c '/opt/local/lib/postgresql95/bin/pg_ctl -D /opt/local/var/db/postgresql95/defaultdb -l /opt/local/var/db/postgresql95/logfile start'
 
+sudo port select postgresql postgresql95
 
 sudo su postgres -c 'createdb jakewendt; createuser --superuser jakewendt;'
 
