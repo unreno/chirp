@@ -13,7 +13,8 @@ GO
 
 IF OBJECT_ID('debug_log', 'U') IS NOT NULL
 	DROP TABLE debug_log;
-CREATE TABLE debug_log ( message text, logged_at DATETIME );
+--CREATE TABLE debug_log ( message text, logged_at DATETIME );
+CREATE TABLE debug_log ( message text, logged_at DATETIME DEFAULT CURRENT_TIMESTAMP );
 GO
 IF OBJECT_ID ( 'log', 'P' ) IS NOT NULL
 	DROP PROCEDURE log;
@@ -24,8 +25,10 @@ BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
-	INSERT INTO debug_log ( message, logged_at )
-	VALUES ( @msg, CURRENT_TIMESTAMP );
+--	INSERT INTO debug_log ( message, logged_at )
+--	VALUES ( @msg, CURRENT_TIMESTAMP );
+	INSERT INTO debug_log ( message )
+	VALUES ( @msg );
 END
 GO
 
@@ -48,7 +51,8 @@ CREATE TABLE births (
 	middle_name VARCHAR(255),
 	last_name VARCHAR(255),
 	sex VARCHAR(1),
-	imported_at DATETIME
+	imported_at DATETIME DEFAULT CURRENT_TIMESTAMP
+--	imported_at DATETIME
 );
 ALTER TABLE births
 	ADD CONSTRAINT unique_births_number UNIQUE (number);
@@ -105,7 +109,8 @@ CREATE TABLE deaths (
 	middle_name VARCHAR(255),
 	last_name VARCHAR(255),
 	sex VARCHAR(1),
-	imported_at DATETIME
+	imported_at DATETIME DEFAULT CURRENT_TIMESTAMP
+--	imported_at DATETIME
 );
 CREATE UNIQUE NONCLUSTERED INDEX unique_deaths_deathid ON deaths(deathid)
 	WHERE deathid IS NOT NULL;
@@ -149,7 +154,8 @@ CREATE TABLE renowns (
 	middle_name VARCHAR(255),
 	last_name VARCHAR(255),
 	sex VARCHAR(1),
-	imported_at DATETIME
+	imported_at DATETIME DEFAULT CURRENT_TIMESTAMP
+--	imported_at DATETIME
 );
 
 IF OBJECT_ID('identifiers', 'U') IS NOT NULL
@@ -159,13 +165,14 @@ CREATE TABLE identifiers (
 	chirp_id VARCHAR(255) NOT NULL,
 	source_name VARCHAR(255) NOT NULL,
 	source_id VARCHAR(255) NOT NULL,
-	created_at DATETIME
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 ALTER TABLE identifiers
 	ADD CONSTRAINT unique_source_name_and_id UNIQUE (source_name,source_id);
 
 GO
 
+/*
 IF OBJECT_ID ( 'identifiers_after_insert', 'TR' ) IS NOT NULL
 	DROP TRIGGER identifiers_after_insert;
 GO
@@ -228,6 +235,8 @@ BEGIN
 		FROM inserted i
 		WHERE deaths.id = i.id;
 END
+
+*/
 
 GO
 
