@@ -1,0 +1,35 @@
+
+-- MUST be DROPped in the correct order.
+-- DROPping concepts first is not allowed due to constraint.
+-- (after having created, obviously)
+
+DROP TABLE fkt_observations;
+DROP TABLE fkt_concepts;
+CREATE TABLE fkt_concepts (
+	id int IDENTITY(1,1),
+	concept varchar(255) not null PRIMARY KEY,
+	description varchar(255)
+);
+
+CREATE TABLE fkt_observations (
+	id int IDENTITY(1,1) PRIMARY KEY,
+	concept varchar(255) not null
+	CONSTRAINT fk_concept
+		FOREIGN KEY (concept) REFERENCES fkt_concepts(concept)
+);
+
+
+INSERT INTO fkt_concepts(concept,description) VALUES ('apple', 'red');
+INSERT INTO fkt_concepts(concept,description) VALUES ('orange', 'orange');
+INSERT INTO fkt_concepts(concept,description) VALUES ('banana', 'yellow');
+
+INSERT INTO fkt_observations(concept) VALUES ('banana');
+INSERT INTO fkt_observations(concept) VALUES ('banana');
+INSERT INTO fkt_observations(concept) VALUES ('banana');
+
+--	This will fail as it does not exist.
+--INSERT INTO fkt_observations(concept) VALUES ('blah');
+
+SELECT * from fkt_concepts;
+SELECT * from fkt_observations;
+
