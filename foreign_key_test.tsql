@@ -11,6 +11,11 @@ CREATE TABLE fkt_concepts (
 	description varchar(255)
 );
 
+
+-- Foreign keys MUST by primary keys in the foreign table.
+-- Foreign key values MUST exist in foreign table.
+
+
 CREATE TABLE fkt_observations (
 	id int IDENTITY(1,1) PRIMARY KEY,
 	concept varchar(255) not null
