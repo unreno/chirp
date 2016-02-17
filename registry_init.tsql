@@ -3,7 +3,7 @@
 --CREATE DATABASE chirp;
 --CONNECT chirp;
 
--- SADLY, UNIQUE CONSTRAINTS DO NOT ALLOW MULTIPLE NULLS IN SQL SERVER AS MYSQL DOES
+
 -- MS Sets these before every “CREATE TRIGGER”
 -- Not sure if calling them once will suffice.
 SET ANSI_NULLS ON
@@ -13,7 +13,6 @@ GO
 
 IF OBJECT_ID('debug_log', 'U') IS NOT NULL
 	DROP TABLE debug_log;
---CREATE TABLE debug_log ( message text, logged_at DATETIME );
 CREATE TABLE debug_log ( message text, logged_at DATETIME DEFAULT CURRENT_TIMESTAMP );
 GO
 IF OBJECT_ID ( 'log', 'P' ) IS NOT NULL
@@ -25,8 +24,6 @@ BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
---	INSERT INTO debug_log ( message, logged_at )
---	VALUES ( @msg, CURRENT_TIMESTAMP );
 	INSERT INTO debug_log ( message )
 	VALUES ( @msg );
 END
@@ -52,25 +49,25 @@ CREATE TABLE births (
 	last_name VARCHAR(255),
 	sex VARCHAR(1),
 	imported_at DATETIME DEFAULT CURRENT_TIMESTAMP
---	imported_at DATETIME
 );
+-- I could put these constraints in the "create table" specs, 
+-- but having them here helps show how to add more later.
 ALTER TABLE births
 	ADD CONSTRAINT unique_births_number UNIQUE (number);
 
--- I don’t exactly know what NONCLUSTERED means, but this conditional unique index works.
-CREATE UNIQUE NONCLUSTERED INDEX unique_births_birthid ON births(birthid)
+CREATE UNIQUE INDEX unique_births_birthid ON births(birthid)
 	WHERE birthid IS NOT NULL;
 GO
-CREATE UNIQUE NONCLUSTERED INDEX unique_births_birth2id ON births(birth2id)
+CREATE UNIQUE INDEX unique_births_birth2id ON births(birth2id)
 	WHERE birth2id IS NOT NULL;
 GO
-CREATE UNIQUE NONCLUSTERED INDEX unique_births_local_file_number ON births(local_file_number)
+CREATE UNIQUE INDEX unique_births_local_file_number ON births(local_file_number)
 	WHERE local_file_number IS NOT NULL;
 GO
-CREATE UNIQUE NONCLUSTERED INDEX unique_births_state_file_number ON births(state_file_number)
+CREATE UNIQUE INDEX unique_births_state_file_number ON births(state_file_number)
 	WHERE state_file_number IS NOT NULL;
 GO
-CREATE UNIQUE NONCLUSTERED INDEX unique_births_local_reg_number ON births(local_reg_number)
+CREATE UNIQUE INDEX unique_births_local_reg_number ON births(local_reg_number)
 	WHERE local_reg_number IS NOT NULL;
 GO
 
@@ -82,10 +79,10 @@ CREATE TABLE birth2s (
 	birthid INT,  -- probably unique
 	birth2id INT  -- probably unique
 );
-CREATE UNIQUE NONCLUSTERED INDEX unique_birth2s_birthid ON birth2s(birthid)
+CREATE UNIQUE INDEX unique_birth2s_birthid ON birth2s(birthid)
 	WHERE birthid IS NOT NULL;
 GO
-CREATE UNIQUE NONCLUSTERED INDEX unique_birth2s_birth2id ON birth2s(birth2id)
+CREATE UNIQUE INDEX unique_birth2s_birth2id ON birth2s(birth2id)
 	WHERE birth2id IS NOT NULL;
 GO
 
@@ -110,21 +107,20 @@ CREATE TABLE deaths (
 	last_name VARCHAR(255),
 	sex VARCHAR(1),
 	imported_at DATETIME DEFAULT CURRENT_TIMESTAMP
---	imported_at DATETIME
 );
-CREATE UNIQUE NONCLUSTERED INDEX unique_deaths_deathid ON deaths(deathid)
+CREATE UNIQUE INDEX unique_deaths_deathid ON deaths(deathid)
 	WHERE deathid IS NOT NULL;
 GO
-CREATE UNIQUE NONCLUSTERED INDEX unique_deaths_death2id ON deaths(death2id)
+CREATE UNIQUE INDEX unique_deaths_death2id ON deaths(death2id)
 	WHERE death2id IS NOT NULL;
 GO
-CREATE UNIQUE NONCLUSTERED INDEX unique_deaths_state_file_number ON deaths(state_file_number)
+CREATE UNIQUE INDEX unique_deaths_state_file_number ON deaths(state_file_number)
 	WHERE state_file_number IS NOT NULL;
 GO
-CREATE UNIQUE NONCLUSTERED INDEX unique_deaths_local_file_number ON deaths(local_file_number)
+CREATE UNIQUE INDEX unique_deaths_local_file_number ON deaths(local_file_number)
 	WHERE local_file_number IS NOT NULL;
 GO
-CREATE UNIQUE NONCLUSTERED INDEX unique_deaths_local_reg_number ON deaths(local_reg_number)
+CREATE UNIQUE INDEX unique_deaths_local_reg_number ON deaths(local_reg_number)
 	WHERE local_reg_number IS NOT NULL;
 GO
 
@@ -137,10 +133,10 @@ CREATE TABLE death2s (
 	deathid INT,  -- probably unique
 	death2id INT  -- probably unique
 );
-CREATE UNIQUE NONCLUSTERED INDEX unique_death2s_deathid ON death2s(deathid)
+CREATE UNIQUE INDEX unique_death2s_deathid ON death2s(deathid)
 	WHERE deathid IS NOT NULL;
 GO
-CREATE UNIQUE NONCLUSTERED INDEX unique_death2s_death2id ON death2s(death2id)
+CREATE UNIQUE INDEX unique_death2s_death2id ON death2s(death2id)
 	WHERE death2id IS NOT NULL;
 GO
 
@@ -155,14 +151,26 @@ CREATE TABLE renowns (
 	last_name VARCHAR(255),
 	sex VARCHAR(1),
 	imported_at DATETIME DEFAULT CURRENT_TIMESTAMP
---	imported_at DATETIME
 );
+
+/*
+
+	Our chirp_id is, currently, a random integer roughly between 1 and 2 billion
+	so it is 10 digits.  As it is computed as an integer, keep it as an integer?
+	Or convert it to a VARCHAR(10)?
+
+*/
 
 IF OBJECT_ID('identifiers', 'U') IS NOT NULL
 	DROP TABLE identifiers;
 CREATE TABLE identifiers (
 	id int IDENTITY(1,1) PRIMARY KEY,
-	chirp_id VARCHAR(255) NOT NULL,
+--	chirp_id VARCHAR(255) NOT NULL,				--- WHY IS THIS VARCHAR AND NOT INT?
+-- Why is it VARCHAR and not INT?
+--	chirp_id VARCHAR(10) NOT NULL,				--- WHY IS THIS VARCHAR AND NOT INT?
+-- If it should be VARCHAR, why 255?  Its only 10 digits?
+-- VARCHAR or INT.  Both seem to work in this little demo.
+	chirp_id INT NOT NULL,				--- WHY IS THIS VARCHAR AND NOT INT?
 	source_name VARCHAR(255) NOT NULL,
 	source_id VARCHAR(255) NOT NULL,
 	created_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -264,6 +272,7 @@ BEGIN
 		SET @TEMPID = CAST(
 			(@MINID + (RAND() * (@MAXID-@MINID)))
 			AS INTEGER);
+--			AS VARCHAR(10) );
 	END
  
 	DECLARE @NUMB VARCHAR(255);
@@ -335,7 +344,9 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 	
-	DECLARE @cid VARCHAR(255);
+--	DECLARE @cid VARCHAR(255);	--	WHY VARCHAR AND NOT INT?
+--	DECLARE @cid VARCHAR(10);	--	WHY VARCHAR AND NOT INT?
+	DECLARE @cid INT;
 	DECLARE @dn VARCHAR(255);
 	DECLARE @ds VARCHAR(11);
 	DECLARE @di INT;
@@ -377,7 +388,9 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	DECLARE @cid VARCHAR(255);
+--	DECLARE @cid VARCHAR(255);	--	WHY VARCHAR AND NOT INT?
+--	DECLARE @cid VARCHAR(10);	--	WHY VARCHAR AND NOT INT?
+	DECLARE @cid INT;	--	WHY VARCHAR AND NOT INT?
 	DECLARE @rnum VARCHAR(255);
 	DECLARE @rlname VARCHAR(255);
 	DECLARE @rsex VARCHAR(1);
