@@ -407,6 +407,17 @@ BEGIN
 	OPEN unlinked_renown_record;
 	FETCH unlinked_renown_record INTO @rid,@rnum,@rlname,@rdob,@rsex;
 
+-- I don't like that the FETCH command is in 2 places. Not exactly DRY.
+-- Could make this a WHILE(1=1) loop, with an internal condition and BREAK.
+-- Or perhaps I can squeeze the actualy fetch in the while condition?
+
+-- WHILE( FETCH unlinked_renown_record INTO @rid,@rnum,@rlname,@rdob,@rsex && @@FETCH_STATUS = 0 )???
+--WHILE(1=1)BEGIN
+--   FETCH NEXT FROM abc;
+--   IF(@@FETCH_STATUS <> 0)
+--     BREAK
+--END
+
 	WHILE ( @@FETCH_STATUS = 0 )
 	BEGIN
 		SET @cid = NULL;	--	this will remember the last loop?
