@@ -263,6 +263,10 @@ BEGIN
 
 	WHILE ((@TEMPID = 0) OR
 		EXISTS (SELECT * FROM identifiers WHERE chirp_id=@TEMPID))
+
+-- Would adding this condition speed up or slow down?
+-- AND source_name = 'birth'	
+
 	BEGIN
 		SELECT @MSG = 'Setting unique CHIRP_ID for identifier id :' + 
 			CAST(id AS VARCHAR(255)) FROM inserted;
@@ -279,9 +283,11 @@ BEGIN
 	SELECT @NUMB = b.number FROM births b
 		JOIN inserted i ON i.id = b.id;
 
-	INSERT INTO identifiers
-		( chirp_id, source_name, source_id )
-		VALUES ( @TEMPID, 'chirp', @TEMPID );
+--	Why? The 'birth' value seems sufficient.
+--	INSERT INTO identifiers
+--		( chirp_id, source_name, source_id )
+--		VALUES ( @TEMPID, 'chirp', @TEMPID );
+
 	INSERT INTO identifiers
 		( chirp_id, source_name, source_id )
 		VALUES ( @TEMPID, 'birth', @NUMB );
