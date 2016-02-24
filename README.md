@@ -38,7 +38,9 @@ http://loinc.org/downloads/files/loinc-and-relma-complete-download/loinc-and-rel
 
 
 Local Coverage Determination [LCD] or Local Coverage Documents 
+
 Medicare Coverage Database [MCD] 
+
 Local Medical Review Policies [LMRPs],
 
 https://downloads.cms.gov/medicare-coverage-database/downloads/exports/all_lmrp.zip
