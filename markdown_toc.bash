@@ -25,13 +25,28 @@ for file in *md ; do
 		#	remove slashes, apostrophes, 
 		anchor=${anchor//\/}
 		anchor=${anchor//\'}
+		#	remove leading #s
+		anchor=${anchor//\#}
+		# remove leading whitespace characters
+		anchor="${anchor#"${anchor%%[![:space:]]*}"}"
+		# remove trailing whitespace characters
+		anchor="${anchor%"${anchor##*[![:space:]]}"}"
 		#	replace spaces with dashes
 		anchor=${anchor// /-}
 
 		#	grab the leading # string (will lose one)
 		indent=${tag%#*}
 		indent=${indent//\#/  }
-		echo "$indent* [${tag//\#}]($base#${anchor//\#})"
+
+		#	remove leading #s
+		tag=${tag//\#}
+		# remove leading whitespace characters
+		tag="${tag#"${tag%%[![:space:]]*}"}"
+		# remove trailing whitespace characters
+		tag="${tag%"${tag##*[![:space:]]}"}"
+
+#		echo "$indent* [${tag//\#}]($base#${anchor//\#})"
+		echo "$indent* [${tag}]($base#${anchor})"
 
 	done
 
