@@ -1,0 +1,11 @@
+
+-- How to copy an entire database structure without the data?
+
+-- This will copy a table.
+SELECT * INTO testing FROM modifier_dimension WHERE 0=1;
+
+-- Triggers?
+-- Procedures?
+-- Other objects?
+
+
