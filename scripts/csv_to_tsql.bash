@@ -18,6 +18,7 @@ while [ $# -ne 0 ] ; do
 #        id int IDENTITY(1,1) PRIMARY KEY,
 
 	base=${1%.*}
+	base=${base,,}
 	echo
 #	echo "CREATE TABLE ${base,,} ("
 	echo "IF OBJECT_ID('[$schema].$base', 'U') IS NOT NULL"
@@ -34,7 +35,7 @@ while [ $# -ne 0 ] ; do
 		else if( $4 == "datet" )
 			type="DATETIME"
 		null=( $3 == "NO" ) ? " NOT NULL" : ""
-		buffer=sprintf("\t%s %s%s", $1, type, null)
+		buffer=sprintf("\t%s %s%s", tolower($1), type, null)
 	}
 	END {
 		printf "%s\n", buffer
