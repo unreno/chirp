@@ -16,12 +16,12 @@ while [ $# -ne 0 ] ; do
 		if( buffer )
 			printf "%s,\n", buffer
 		type=$4
-		if( $4 == "varch" ){
+		if( $4 == "varch" )
 			type="VARCHAR("$5")"
-		}else if( $4 == "datet" ){
+		else if( $4 == "datet" )
 			type="DATETIME"
-		} 
-		buffer=sprintf("\t%s %s", $1, type)
+		null=( $3 == "NO" ) ? " NOT NULL" : ""
+		buffer=sprintf("\t%s %s%s", $1, type, null)
 	}
 	END {
 		printf "%s\n", buffer
