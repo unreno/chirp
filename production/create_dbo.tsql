@@ -2,7 +2,9 @@ USE chirp
 
 
 GO
-CREATE SCHEMA private
+
+IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='private')
+	EXEC('CREATE SCHEMA private')
 GO
 IF OBJECT_ID('[private].identifiers', 'U') IS NOT NULL
 	DROP TABLE [private].identifiers;
@@ -14,6 +16,12 @@ CREATE TABLE [private].identifiers (
 	created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
 	CONSTRAINT unique_source_name_and_id 
 		UNIQUE (source_name,source_id)
+--
+--This should be true, but from what I understand mistakes could
+--exist where a single patient has multiple record numbers.
+--	CONSTRAINT unique_chirp_id_and_source_name
+--		UNIQUE (chirp_id,source_name)
+--
 );
 GO
 
@@ -25,8 +33,8 @@ IF OBJECT_ID('[dbo].observations', 'U') IS NOT NULL
 	DROP TABLE [dbo].observations;
 CREATE TABLE [dbo].observations (
 	id int IDENTITY(1,1) PRIMARY KEY,
-	encounter_id    INT NOT NULL,
 	chirp_id        INT NOT NULL,
+	encounter_id    INT NOT NULL,
 	provider_id     INT NOT NULL,
 	location_id     INT NOT NULL,
 	concept         VARCHAR(50) NOT NULL,
@@ -35,8 +43,8 @@ CREATE TABLE [dbo].observations (
 	value_type      VARCHAR(1) NOT NULL,
 	n_value         DECIMAL(18,5) NULL,
 	s_value         VARCHAR(255) NULL,
-	l_value         VARCHAR(MAX) NULL,
-	d_value         DATE NULL,
+--	l_value         VARCHAR(MAX) NULL,
+--	d_value         DATE NULL,
 	t_value         DATETIME NULL,
 	units           VARCHAR(20) NULL,
 	downloaded_at   DATETIME NULL,
@@ -55,16 +63,17 @@ CREATE TABLE [dbo].observations (
 
 -- These could have been included in the CREATE
 ALTER TABLE [dbo].observations ADD CONSTRAINT ck_value_type CHECK (
-	value_type IN ('N','D','T','S','L')
+	value_type IN ('N','T','S')
+--	value_type IN ('N','D','T','S','L')
 );
 ALTER TABLE [dbo].observations ADD CONSTRAINT ck_n_value CHECK (
 	( value_type <> 'N' AND n_value IS NULL ) OR
 	( value_type = 'N' AND n_value IS NOT NULL )
 );
-ALTER TABLE [dbo].observations ADD CONSTRAINT ck_d_value CHECK (
-	( value_type <> 'D' AND d_value IS NULL ) OR
-	( value_type = 'D' AND d_value IS NOT NULL )
-);
+--ALTER TABLE [dbo].observations ADD CONSTRAINT ck_d_value CHECK (
+--	( value_type <> 'D' AND d_value IS NULL ) OR
+--	( value_type = 'D' AND d_value IS NOT NULL )
+--);
 ALTER TABLE [dbo].observations ADD CONSTRAINT ck_t_value CHECK (
 	( value_type <> 'T' AND t_value IS NULL ) OR
 	( value_type = 'T' AND t_value IS NOT NULL )
@@ -75,10 +84,10 @@ ALTER TABLE [dbo].observations ADD CONSTRAINT ck_s_value CHECK (
 	( value_type = 'S' AND s_value IS NOT NULL )
 );
 -- Can the l_value contain data when not Long Text type?
-ALTER TABLE [dbo].observations ADD CONSTRAINT ck_l_value CHECK (
-	( value_type <> 'L' AND l_value IS NULL ) OR
-	( value_type = 'L' AND l_value IS NOT NULL )
-);
+--ALTER TABLE [dbo].observations ADD CONSTRAINT ck_l_value CHECK (
+--	( value_type <> 'L' AND l_value IS NULL ) OR
+--	( value_type = 'L' AND l_value IS NOT NULL )
+--);
 
 
 
