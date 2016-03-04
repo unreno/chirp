@@ -1,0 +1,128 @@
+USE chirp
+
+
+GO
+CREATE SCHEMA private
+GO
+IF OBJECT_ID('[private].identifiers', 'U') IS NOT NULL
+	DROP TABLE [private].identifiers;
+CREATE TABLE [private].identifiers (
+	id int IDENTITY(1,1) PRIMARY KEY,
+	chirp_id    INT NOT NULL,
+	source_name VARCHAR(255) NOT NULL,
+	source_id   VARCHAR(255) NOT NULL,
+	created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT unique_source_name_and_id 
+		UNIQUE (source_name,source_id)
+);
+GO
+
+
+
+
+
+IF OBJECT_ID('[dbo].observations', 'U') IS NOT NULL
+	DROP TABLE [dbo].observations;
+CREATE TABLE [dbo].observations (
+	id int IDENTITY(1,1) PRIMARY KEY,
+	encounter_id    INT NOT NULL,
+	chirp_id        INT NOT NULL,
+	provider_id     INT NOT NULL,
+	location_id     INT NOT NULL,
+	concept         VARCHAR(50) NOT NULL,
+	started_at      DATETIME NOT NULL,
+	ended_at        DATETIME NULL,
+	value_type      VARCHAR(1) NOT NULL,
+	n_value         DECIMAL(18,5) NULL,
+	s_value         VARCHAR(255) NULL,
+	l_value         VARCHAR(MAX) NULL,
+	d_value         DATE NULL,
+	t_value         DATETIME NULL,
+	units           VARCHAR(20) NULL,
+	downloaded_at   DATETIME NULL,
+	downloaded_from VARCHAR(50) NULL,
+	imported_at     DATETIME NULL,
+	CONSTRAINT fk_encounter_id
+		FOREIGN KEY (encounter_id) REFERENCES encounters(id),
+	CONSTRAINT fk_provider_od
+		FOREIGN KEY (provider_id) REFERENCES providers(id),
+	CONSTRAINT fk_location_id
+		FOREIGN KEY (location_id) REFERENCES locations(id),
+	CONSTRAINT fk_concept_code
+		FOREIGN KEY (concept) REFERENCES concepts(code)
+);
+
+
+-- These could have been included in the CREATE
+ALTER TABLE [dbo].observations ADD CONSTRAINT ck_value_type CHECK (
+	value_type IN ('N','D','T','S','L')
+);
+ALTER TABLE [dbo].observations ADD CONSTRAINT ck_n_value CHECK (
+	( value_type <> 'N' AND n_value IS NULL ) OR
+	( value_type = 'N' AND n_value IS NOT NULL )
+);
+ALTER TABLE [dbo].observations ADD CONSTRAINT ck_d_value CHECK (
+	( value_type <> 'D' AND d_value IS NULL ) OR
+	( value_type = 'D' AND d_value IS NOT NULL )
+);
+ALTER TABLE [dbo].observations ADD CONSTRAINT ck_t_value CHECK (
+	( value_type <> 'T' AND t_value IS NULL ) OR
+	( value_type = 'T' AND t_value IS NOT NULL )
+);
+-- The s_value can contain data when not Short Text type.
+ALTER TABLE [dbo].observations ADD CONSTRAINT ck_s_value CHECK (
+	( value_type <> 'S' ) OR
+	( value_type = 'S' AND s_value IS NOT NULL )
+);
+-- Can the l_value contain data when not Long Text type?
+ALTER TABLE [dbo].observations ADD CONSTRAINT ck_l_value CHECK (
+	( value_type <> 'L' AND l_value IS NULL ) OR
+	( value_type = 'L' AND l_value IS NOT NULL )
+);
+
+
+
+
+CREATE TABLE [dbo].concepts (
+	id int IDENTITY(1,1),           -- this column is perhaps unnecessary
+	code VARCHAR(50) PRIMARY KEY,
+	path VARCHAR(255),
+	description VARCHAR(MAX),
+	CONSTRAINT unique_code 
+		UNIQUE (code)
+);
+-- Examples:
+-- code: ICD10CM:M71.432, description: Calcium deposit in bursa, left wrist
+-- code: HCPC:0356T, description: INSERTION OF DRUG-ELUTING IMPLANT ....
+-- code: LOINC:8302-2, description: Body Height (LOINC:8302-2)
+-- code: LOINC:3141-9, description: Body Weight (LOINC:3141-9)
+-- code: DEM:Race, description: Race
+-- code: DEM:Language, description: Language
+
+
+
+
+
+CREATE TABLE [dbo].providers (
+	id int IDENTITY(1,1) PRIMARY KEY,
+
+
+);
+
+
+
+
+CREATE TABLE [dbo].encounters (
+	id int IDENTITY(1,1) PRIMARY KEY,
+
+
+);
+
+
+
+
+CREATE TABLE [dbo].locations (
+	id int IDENTITY(1,1) PRIMARY KEY,
+
+
+);

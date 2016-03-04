@@ -1,7 +1,39 @@
 
---DROP DATABASE IF EXISTS chirp;
+--SET NOEXEC OFF
+
+--IF db_id('chirp') IS NOT NULL
+--	DROP DATABASE chirp;
+
 --CREATE DATABASE chirp;
---CONNECT chirp;
+--USE chirp;
+
+--Wanted to see these Database Diagrams and this seemed to work.
+ALTER AUTHORIZATION ON DATABASE::chirp TO [sa];
+
+
+
+
+
+
+--SET NOEXEC ON
+-- NOTHING ELSE SHOULD EXECUTE
+
+
+--Ways to not execute the rest of a script.
+--
+--SET NOEXEC ON (code still gets parsed so could get weird.)
+--	OR
+--GOTO STATEMENT (need to define the final statement.)
+--	OR
+--RAISEERROR	(error can be caught, in theory.)
+--
+--
+--GOTO FinalStateMent;
+--
+--FinalStatement:
+--     Select @CoumnName from TableName
+
+
 
 
 -- MS Sets these before every “CREATE TRIGGER”
