@@ -4,11 +4,6 @@ schema='vital_records'
 
 echo "USE chirp"
 
-#
-#	NOTE: databases and schemas must be unique on entire server.
-#		If another database has a schema of the same name, too bad.
-#
-
 #	FYI: 'CREATE SCHEMA' must be the first statement in a query batch.
 #		So precede with a GO call.
 echo "GO"
