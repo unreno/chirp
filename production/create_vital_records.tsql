@@ -8,11 +8,11 @@ GO
 IF OBJECT_ID('[vital_records].birth', 'U') IS NOT NULL
 	DROP TABLE [vital_records].birth;
 CREATE TABLE [vital_records].birth (
-	birthid int NOT NULL,
-	birth2id int,
-	medicalid int,
-	hearingbid int,
-	event_year int,
+	birthid INT NOT NULL,
+	birth2id INT,
+	medicalid INT,
+	hearingbid INT,
+	event_year INT,
 	local_file_number VARCHAR(15),
 	state_file_number VARCHAR(11),
 	local_reg_number VARCHAR(15),
@@ -24,7 +24,7 @@ CREATE TABLE [vital_records].birth (
 	record_is_complete VARCHAR(1),
 	isactive VARCHAR(1),
 	modify_date DATETIME,
-	modify_userid int,
+	modify_userid INT,
 	modify_user_name VARCHAR(51),
 	create_date DATETIME,
 	name_first VARCHAR(250),
@@ -41,9 +41,9 @@ CREATE TABLE [vital_records].birth (
 	ssn_child VARCHAR(9),
 	plurality VARCHAR(2),
 	birth_order VARCHAR(2),
-	facid int,
+	facid INT,
 	fac_name VARCHAR(50),
-	fac_type_code int,
+	fac_type_code INT,
 	fac_type_name VARCHAR(35),
 	fac_city_fips VARCHAR(5),
 	fac_number VARCHAR(10),
@@ -54,7 +54,7 @@ CREATE TABLE [vital_records].birth (
 	fac_cnty_fips VARCHAR(3),
 	fac_state VARCHAR(50),
 	fac_npi VARCHAR(20),
-	fac_stateid int,
+	fac_stateid INT,
 	fac_state_name_abbr VARCHAR(25),
 	infant_deceased VARCHAR(1),
 	death_matched VARCHAR(1),
@@ -73,21 +73,21 @@ CREATE TABLE [vital_records].birth (
 	mother_name_last_p VARCHAR(250),
 	mother_name_suffix_p VARCHAR(6),
 	mother_birth_country VARCHAR(50),
-	mother_birth_countryid int,
-	mother_birth_stateid int,
+	mother_birth_countryid INT,
+	mother_birth_stateid INT,
 	mother_birth_state VARCHAR(25),
 	mother_ssn VARCHAR(9),
 	mother_res_addr1 VARCHAR(40),
 	mother_res_apt VARCHAR(10),
 	mother_res_country VARCHAR(50),
-	mother_res_countryid int,
+	mother_res_countryid INT,
 	mother_res_state VARCHAR(25),
-	mother_res_stateid int,
+	mother_res_stateid INT,
 	mother_res_county VARCHAR(40),
 	mother_res_cnty_fips VARCHAR(3),
 	mother_res_mun VARCHAR(40),
 	mother_res_city_fips VARCHAR(5),
-	mother_res_zipcodeid int,
+	mother_res_zipcodeid INT,
 	mother_res_zip VARCHAR(9),
 	mother_res_nchs_geo VARCHAR(5),
 	mother_res_incity VARCHAR(1),
@@ -96,13 +96,13 @@ CREATE TABLE [vital_records].birth (
 	mother_mail_addr2 VARCHAR(50),
 	mother_mail_apt VARCHAR(10),
 	mother_mail_country VARCHAR(50),
-	mother_mail_countryid int,
+	mother_mail_countryid INT,
 	mother_birth_country_fips VARCHAR(2),
-	mother_mail_stateid int,
+	mother_mail_stateid INT,
 	mother_mail_state VARCHAR(25),
 	mother_mail_city VARCHAR(40),
 	mother_mail_zip VARCHAR(9),
-	mother_mail_zipcodeid int,
+	mother_mail_zipcodeid INT,
 	mother_phone VARCHAR(10),
 	mother_phone_ext VARCHAR(7),
 	father_name_first VARCHAR(250),
@@ -110,33 +110,33 @@ CREATE TABLE [vital_records].birth (
 	father_name_last VARCHAR(250),
 	father_name_suffix VARCHAR(4),
 	father_birth_country VARCHAR(50),
-	father_birth_countryid int,
+	father_birth_countryid INT,
 	father_birth_country_fips VARCHAR(2),
-	father_birth_stateid int,
+	father_birth_stateid INT,
 	father_birth_state VARCHAR(25),
 	father_res_same_mother VARCHAR(1),
 	father_res_addr1 VARCHAR(40),
 	father_res_apt VARCHAR(10),
 	father_res_country VARCHAR(50),
-	father_res_countryid int,
-	father_res_stateid int,
+	father_res_countryid INT,
+	father_res_stateid INT,
 	father_res_state VARCHAR(25),
 	father_res_county VARCHAR(40),
 	father_res_mun VARCHAR(40),
 	father_res_zip VARCHAR(9),
-	father_res_zipcodeid int,
+	father_res_zipcodeid INT,
 	father_res_incity VARCHAR(1),
 	father_mail_same_as_res VARCHAR(1),
 	father_mail_addr1 VARCHAR(40),
 	father_mail_apt VARCHAR(10),
 	father_mail_country VARCHAR(50),
-	father_mail_countryid int,
-	father_mail_stateid int,
+	father_mail_countryid INT,
+	father_mail_stateid INT,
 	father_mail_state VARCHAR(25),
 	father_mail_county VARCHAR(50),
 	father_mail_city VARCHAR(40),
 	father_mail_zip VARCHAR(9),
-	father_mail_zipcodeid int,
+	father_mail_zipcodeid INT,
 	father_ssn VARCHAR(9),
 	father_phone VARCHAR(10),
 	mother_occupation VARCHAR(50),
@@ -157,21 +157,21 @@ CREATE TABLE [vital_records].birth (
 	father_and_husband_sign VARCHAR(1),
 	father_sign_pat_affidavit VARCHAR(1),
 	menses_date DATETIME,
-	gestation_weeks int,
-	birth_weight_grams int,
-	birth_weight_oz int,
-	birth_weight_lbs int,
+	gestation_weeks INT,
+	birth_weight_grams INT,
+	birth_weight_oz INT,
+	birth_weight_lbs INT,
 	birth_weight_unit VARCHAR(1),
 	apgar_10 VARCHAR(2),
 	apgar_5 VARCHAR(2),
 	trans_infant VARCHAR(1),
 	trans_infant_fac VARCHAR(50),
-	trans_infant_facid int,
+	trans_infant_facid INT,
 	registrar_name_lfm VARCHAR(50),
-	registrarid int,
+	registrarid INT,
 	registrar_regis_date DATETIME,
 	registrar_sign VARCHAR(1),
-	registrar_sig int,
+	registrar_sig INT,
 	informant_name_first VARCHAR(250),
 	informant_name_middle VARCHAR(250),
 	informant_name_last VARCHAR(250),
@@ -184,23 +184,23 @@ CREATE TABLE [vital_records].birth (
 	informant_zip VARCHAR(5),
 	informant_phone VARCHAR(14),
 	attendant_name_lfm VARCHAR(100),
-	attendantid int,
-	attendanttitleid int,
+	attendantid INT,
+	attendanttitleid INT,
 	attendant_title VARCHAR(35),
 	attendant_title_code VARCHAR(2),
 	attendant_addr1 VARCHAR(100),
 	attendant_state VARCHAR(35),
 	attendant_zipcode VARCHAR(5),
-	certifierid int,
+	certifierid INT,
 	certifier_name_lfm VARCHAR(100),
 	certifier_date_comp DATETIME,
-	certifiertitleid int,
+	certifiertitleid INT,
 	certifier_title VARCHAR(35),
 	certifier_addr1 VARCHAR(100),
 	certifier_state VARCHAR(35),
 	certifier_zipcode VARCHAR(5),
 	certifier_sign VARCHAR(1),
-	certifier_sig int,
+	certifier_sig INT,
 	stop_flag VARCHAR(1),
 	stop_date DATETIME,
 	ok_to_print VARCHAR(1),
@@ -210,8 +210,8 @@ CREATE TABLE [vital_records].birth (
 	nchs_ready VARCHAR(1),
 	nchs_date_sent DATETIME,
 	ssa_date_sent DATETIME,
-	alert_count int,
-	print_number int,
+	alert_count INT,
+	print_number INT,
 	oos_year VARCHAR(4),
 	oos_b_num VARCHAR(15),
 	death_occurred VARCHAR(1),
@@ -269,9 +269,9 @@ GO
 IF OBJECT_ID('[vital_records].birth2', 'U') IS NOT NULL
 	DROP TABLE [vital_records].birth2;
 CREATE TABLE [vital_records].birth2 (
-	birth2id int NOT NULL,
+	birth2id INT NOT NULL,
 	isactive VARCHAR(1),
-	event_year int,
+	event_year INT,
 	mother_ethnic_yesno VARCHAR(1),
 	mother_mexican VARCHAR(1),
 	mother_pr VARCHAR(1),
@@ -381,7 +381,7 @@ CREATE TABLE [vital_records].birth2 (
 	prenat_tot_visits_bypass VARCHAR(2),
 	trans_mother VARCHAR(1),
 	trans_mother_fac VARCHAR(50),
-	trans_mother_facid int,
+	trans_mother_facid INT,
 	trans_date_string VARCHAR(30),
 	birroute_desc VARCHAR(50),
 	birroute_code VARCHAR(1),
@@ -390,7 +390,7 @@ CREATE TABLE [vital_records].birth2 (
 	birth_number VARCHAR(2),
 	infant_living VARCHAR(1),
 	mother_ed VARCHAR(50),
-	match_number int,
+	match_number INT,
 	born_alive VARCHAR(2),
 	source_payment VARCHAR(50),
 	source_pay_code VARCHAR(1),
@@ -536,8 +536,8 @@ GO
 IF OBJECT_ID('[vital_records].death', 'U') IS NOT NULL
 	DROP TABLE [vital_records].death;
 CREATE TABLE [vital_records].death (
-	deathid int NOT NULL,
-	event_year int,
+	deathid INT NOT NULL,
+	event_year INT,
 	state_file_number VARCHAR(11),
 	local_file_number VARCHAR(15),
 	record_status VARCHAR(30),
@@ -546,7 +546,7 @@ CREATE TABLE [vital_records].death (
 	permit_number VARCHAR(15),
 	create_date DATETIME,
 	create_username VARCHAR(51),
-	create_userid int,
+	create_userid INT,
 	death_state VARCHAR(2),
 	void_flag VARCHAR(1),
 	name_first VARCHAR(50),
@@ -599,7 +599,7 @@ CREATE TABLE [vital_records].death (
 	fac_address VARCHAR(50),
 	fac_state VARCHAR(50),
 	fac_zip VARCHAR(9),
-	facid int,
+	facid INT,
 	disposition VARCHAR(30),
 	date_of_death DATETIME,
 	dod_string VARCHAR(10),
@@ -619,7 +619,7 @@ CREATE TABLE [vital_records].death (
 	occupat_code VARCHAR(3),
 	industry_lit VARCHAR(50),
 	industry_code VARCHAR(3),
-	birth_stateid int,
+	birth_stateid INT,
 	birth_sfn VARCHAR(11),
 	birth_year VARCHAR(4),
 	birth_city VARCHAR(50),
@@ -660,7 +660,7 @@ CREATE TABLE [vital_records].death (
 	cert_sign_date DATETIME,
 	cert_name_fml VARCHAR(150),
 	cert_title VARCHAR(50),
-	certid int,
+	certid INT,
 	cert_license VARCHAR(15),
 	cert_date DATETIME,
 	cert_addr VARCHAR(50),
@@ -688,7 +688,7 @@ CREATE TABLE [vital_records].death (
 	findings_used VARCHAR(1),
 	fem_preg VARCHAR(60),
 	manner_death VARCHAR(60),
-	manner_deathid int,
+	manner_deathid INT,
 	tobacco_yn VARCHAR(1),
 	injury_date DATETIME,
 	injury_time VARCHAR(20),
@@ -699,9 +699,9 @@ CREATE TABLE [vital_records].death (
 	injury_muni VARCHAR(40),
 	injury_county VARCHAR(60),
 	injury_state VARCHAR(40),
-	injury_stateid int,
+	injury_stateid INT,
 	injury_zip VARCHAR(9),
-	injury_zipid int,
+	injury_zipid INT,
 	injury_at_work VARCHAR(1),
 	injury_how_occur VARCHAR(240),
 	injury_transp VARCHAR(1),
@@ -715,7 +715,7 @@ CREATE TABLE [vital_records].death (
 	cem_name VARCHAR(50),
 	cem_mun VARCHAR(50),
 	cem_state VARCHAR(50),
-	cem_stateid int,
+	cem_stateid INT,
 	cor_phy_title VARCHAR(40),
 	cor_phy_sig VARCHAR(1),
 	att_phy_title VARCHAR(40),
@@ -737,7 +737,7 @@ CREATE TABLE [vital_records].death (
 	ovs_trans_date DATETIME,
 	ovs_verify_date DATETIME,
 	ovs_case_numb VARCHAR(20),
-	ovs_num_tries int,
+	ovs_num_tries INT,
 	ovs_was_verified_data VARCHAR(80),
 	ovs_was_verified_flag VARCHAR(1),
 	ssa_flag VARCHAR(1),
@@ -746,26 +746,26 @@ CREATE TABLE [vital_records].death (
 	nchs_date DATETIME,
 	val_table_ind VARCHAR(1),
 	plc_death_cd VARCHAR(1),
-	birth_countryid int,
+	birth_countryid INT,
 	disp_code VARCHAR(1),
 	ok_to_print VARCHAR(1),
-	print_number int,
+	print_number INT,
 	print_reason VARCHAR(150),
 	birth_matched VARCHAR(1),
 	chart_x_flg VARCHAR(1),
 	chart_x_date DATETIME,
-	alert_count int,
-	maritalid int,
-	death2id int,
+	alert_count INT,
+	maritalid INT,
+	death2id INT,
 	userlocation_county VARCHAR(50),
-	death3id int,
+	death3id INT,
 	isactive VARCHAR(1),
 	modify_date DATETIME,
-	modify_userid int,
+	modify_userid INT,
 	modify_user_name VARCHAR(51),
 	date_cc_printed DATETIME,
 	cert_degree VARCHAR(30),
-	funer_sig int,
+	funer_sig INT,
 	att_phy_sign VARCHAR(1),
 	cor_phy_sign VARCHAR(1),
 	reg_sign VARCHAR(1),
@@ -796,8 +796,8 @@ GO
 IF OBJECT_ID('[vital_records].death2', 'U') IS NOT NULL
 	DROP TABLE [vital_records].death2;
 CREATE TABLE [vital_records].death2 (
-	death2id int NOT NULL,
-	event_year int,
+	death2id INT NOT NULL,
+	event_year INT,
 	injury_date_string VARCHAR(10),
 	d_to_p_print_date DATETIME,
 	d_to_p_printed VARCHAR(1),
@@ -809,8 +809,8 @@ CREATE TABLE [vital_records].death2 (
 	injuryplace VARCHAR(1),
 	activity_code VARCHAR(1),
 	pend_investigat VARCHAR(1),
-	resid_zipid_x int,
-	fac_zipid_x int,
+	resid_zipid_x INT,
+	fac_zipid_x INT,
 	dethnice VARCHAR(3),
 	injury_placeid VARCHAR(2),
 	injury_activity VARCHAR(1),
@@ -850,7 +850,7 @@ CREATE TABLE [vital_records].death2 (
 	st_compl_user VARCHAR(51),
 	registrar_name VARCHAR(50),
 	registrar_id VARCHAR(5),
-	registrar_sign int,
+	registrar_sign INT,
 	phy_assign VARCHAR(50),
 	phy_filter_loc VARCHAR(3),
 	phy_location VARCHAR(100),
@@ -1004,7 +1004,7 @@ CREATE TABLE [vital_records].death2 (
 	reject_queue VARCHAR(1),
 	isactive VARCHAR(1),
 	modify_date DATETIME,
-	modify_userid int,
+	modify_userid INT,
 	modify_user VARCHAR(51),
 	rap_rpt_sent VARCHAR(1),
 	rap_rpt_sent_date DATETIME,
@@ -1021,8 +1021,8 @@ GO
 IF OBJECT_ID('[vital_records].death3', 'U') IS NOT NULL
 	DROP TABLE [vital_records].death3;
 CREATE TABLE [vital_records].death3 (
-	death3id int NOT NULL,
-	event_year int,
+	death3id INT NOT NULL,
+	event_year INT,
 	create_date DATETIME,
 	user_location VARCHAR(10),
 	case_file_number VARCHAR(11),
@@ -1130,7 +1130,7 @@ CREATE TABLE [vital_records].death3 (
 	ancestory_nchs VARCHAR(2),
 	isactive VARCHAR(1),
 	modify_date DATETIME,
-	modify_userid int,
+	modify_userid INT,
 	modify_user_name VARCHAR(50),
 	burial_permit_recvd VARCHAR(1),
 	alert_1 VARCHAR(50),
@@ -1211,16 +1211,16 @@ CREATE TABLE [vital_records].death3 (
 	sos_sent_date DATETIME,
 	dmv_sent VARCHAR(1),
 	dmv_sent_date DATETIME,
-	infant_dob_yr int,
+	infant_dob_yr INT,
 	alias_code_nv VARCHAR(1),
 	reg_code_nv VARCHAR(1),
 	age_wk_print VARCHAR(2),
 	bp_reg_ok_sign VARCHAR(1),
-	bp_reg_ok_sig int,
+	bp_reg_ok_sig INT,
 	bp_reg_name VARCHAR(30),
 	bp_reg_date DATETIME,
 	bp_reg_by VARCHAR(30),
-	bp_reg_id int,
+	bp_reg_id INT,
 	race_nchshisp VARCHAR(3),
 	bp_ok_by_fml VARCHAR(50)
 );
@@ -1230,11 +1230,11 @@ GO
 IF OBJECT_ID('[vital_records].death_alert', 'U') IS NOT NULL
 	DROP TABLE [vital_records].death_alert;
 CREATE TABLE [vital_records].death_alert (
-	death_alertid int,
+	death_alertid INT,
 	alert_desc VARCHAR(150),
 	isactive VARCHAR(50),
 	modify_date DATETIME,
-	modify_userid int
+	modify_userid INT
 );
 GO
 
@@ -1242,14 +1242,14 @@ GO
 IF OBJECT_ID('[vital_records].death_cert_num', 'U') IS NOT NULL
 	DROP TABLE [vital_records].death_cert_num;
 CREATE TABLE [vital_records].death_cert_num (
-	death_cert_numid int,
+	death_cert_numid INT,
 	item VARCHAR(15),
 	item_desc VARCHAR(150),
 	field_name VARCHAR(255),
 	event VARCHAR(10),
 	isactive VARCHAR(50),
 	modify_date DATETIME,
-	modify_userid int
+	modify_userid INT
 );
 GO
 
@@ -1257,12 +1257,12 @@ GO
 IF OBJECT_ID('[vital_records].death_coroner', 'U') IS NOT NULL
 	DROP TABLE [vital_records].death_coroner;
 CREATE TABLE [vital_records].death_coroner (
-	death_coronerid int NOT NULL,
+	death_coronerid INT NOT NULL,
 	coroner_reason VARCHAR(50),
 	coroner_code VARCHAR(4),
 	isactive VARCHAR(1),
 	modify_date DATETIME,
-	modify_userid int
+	modify_userid INT
 );
 GO
 
@@ -1270,7 +1270,7 @@ GO
 IF OBJECT_ID('[vital_records].death_hpc', 'U') IS NOT NULL
 	DROP TABLE [vital_records].death_hpc;
 CREATE TABLE [vital_records].death_hpc (
-	death_hpcid int,
+	death_hpcid INT,
 	hpc_code VARCHAR(10),
 	nv_code_pre VARCHAR(3),
 	nv_code_fac_old VARCHAR(4),
@@ -1300,7 +1300,7 @@ CREATE TABLE [vital_records].death_hpc (
 	email VARCHAR(50),
 	fax VARCHAR(10),
 	preferred_method VARCHAR(10),
-	year_voided int,
+	year_voided INT,
 	birth_fac VARCHAR(4),
 	death_fac VARCHAR(4),
 	acos_number VARCHAR(10),
@@ -1310,7 +1310,7 @@ CREATE TABLE [vital_records].death_hpc (
 	fips_class_code VARCHAR(2),
 	isactive VARCHAR(1),
 	modify_date DATETIME,
-	modify_userid int
+	modify_userid INT
 );
 GO
 
@@ -1318,10 +1318,10 @@ GO
 IF OBJECT_ID('[vital_records].death_inform', 'U') IS NOT NULL
 	DROP TABLE [vital_records].death_inform;
 CREATE TABLE [vital_records].death_inform (
-	death_informid int,
+	death_informid INT,
 	dth_inform_desc VARCHAR(50),
 	modify_date DATETIME,
-	modify_userid int,
+	modify_userid INT,
 	isactive VARCHAR(1),
 	event_filter VARCHAR(10)
 );
@@ -1331,11 +1331,11 @@ GO
 IF OBJECT_ID('[vital_records].death_injury_place', 'U') IS NOT NULL
 	DROP TABLE [vital_records].death_injury_place;
 CREATE TABLE [vital_records].death_injury_place (
-	death_injury_placeid int NOT NULL,
+	death_injury_placeid INT NOT NULL,
 	placetype_code VARCHAR(5),
 	placetype_name VARCHAR(30),
 	isactive VARCHAR(1),
-	modify_userid int,
+	modify_userid INT,
 	modify_date DATETIME,
 	nv_codes VARCHAR(2),
 	supermicar_code VARCHAR(1)
@@ -1346,12 +1346,12 @@ GO
 IF OBJECT_ID('[vital_records].death_marital', 'U') IS NOT NULL
 	DROP TABLE [vital_records].death_marital;
 CREATE TABLE [vital_records].death_marital (
-	maritaldthid int,
+	maritaldthid INT,
 	marital_code VARCHAR(1),
 	marital_desc VARCHAR(25),
 	modify_date DATETIME,
 	isactive VARCHAR(1),
-	modify_userid int,
+	modify_userid INT,
 	import_code VARCHAR(1)
 );
 GO
@@ -1360,13 +1360,13 @@ GO
 IF OBJECT_ID('[vital_records].death_place', 'U') IS NOT NULL
 	DROP TABLE [vital_records].death_place;
 CREATE TABLE [vital_records].death_place (
-	death_placeid int NOT NULL,
+	death_placeid INT NOT NULL,
 	place_of_death VARCHAR(40),
 	nv_codes VARCHAR(1),
 	place_of_death_code VARCHAR(1),
 	isactive VARCHAR(1),
 	modify_date DATETIME,
-	modify_userid int,
+	modify_userid INT,
 	prime_input VARCHAR(1)
 );
 GO
@@ -1381,7 +1381,7 @@ CREATE TABLE [vital_records].death_reject (
 	reject_reason_desc VARCHAR(50),
 	isactive VARCHAR(1),
 	modify_date DATETIME,
-	modify_userid int
+	modify_userid INT
 );
 GO
 
@@ -1396,7 +1396,7 @@ CREATE TABLE [vital_records].death_reject_type (
 	reject_reason_desc VARCHAR(50),
 	isactive VARCHAR(1),
 	modify_date DATETIME,
-	modify_userid int
+	modify_userid INT
 );
 GO
 
@@ -1404,16 +1404,21 @@ GO
 IF OBJECT_ID('[vital_records].death_status', 'U') IS NOT NULL
 	DROP TABLE [vital_records].death_status;
 CREATE TABLE [vital_records].death_status (
-	death_statusid int,
+	death_statusid INT,
 	dea_status_desc VARCHAR(25),
 	dea_status_sect VARCHAR(10),
 	isactive VARCHAR(1),
 	modify_date DATETIME,
-	modify_userid int
+	modify_userid INT
 );
 GO
 
 
+
+--
+--These constraints would REQUIRE that birth2 record exists BEFORE birth record.
+--Not sure how we're gonna get them so ...
+--
 --ALTER TABLE birth
 --	ADD CONSTRAINT fk_birth2id 
 --		FOREIGN KEY (birth2id) REFERENCES birth2(birth2id);
