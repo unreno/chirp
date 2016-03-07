@@ -1,0 +1,84 @@
+USE chirp
+-- Sadly, TSQL scripts don't seem to crash
+-- IF chirp doesn't exist, this script continues after the GO statement.
+
+
+GO
+
+IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='private')
+	EXEC('CREATE SCHEMA private')
+GO
+IF OBJECT_ID('[private].identifiers', 'U') IS NOT NULL
+	DROP TABLE [private].identifiers;
+CREATE TABLE [private].identifiers (
+	id int IDENTITY(1,1) PRIMARY KEY,
+	chirp_id    INT NOT NULL,
+	source_name VARCHAR(255) NOT NULL,
+	source_id   VARCHAR(255) NOT NULL,
+	created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
+	CONSTRAINT unique_source_name_and_id 
+		UNIQUE (source_name,source_id)
+);
+GO
+--
+--This should be true, but from what I understand mistakes could
+--exist where a single patient has multiple record numbers.
+--	CONSTRAINT unique_chirp_id_and_source_name
+--		UNIQUE (chirp_id,source_name)
+--
+
+
+
+
+
+
+--IF OBJECT_ID ( 'create_unique_chirp_id', 'FN' ) IS NOT NULL
+--	DROP FUNCTION create_unique_chirp_id;
+--GO
+--CREATE FUNCTION create_unique_chirp_id RETURNS INTEGER
+--Can't use RAND() inside a function
+
+IF OBJECT_ID ( 'create_unique_chirp_id', 'P' ) IS NOT NULL
+	DROP PROCEDURE create_unique_chirp_id;
+GO
+CREATE PROCEDURE create_unique_chirp_id
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	DECLARE @MINID INT = 1e9;
+	DECLARE @MAXID INT = POWER(2.,31)-1;
+	DECLARE @TEMPID INT = 0;
+	DECLARE @MSG VARCHAR(MAX);
+
+	WHILE ((@TEMPID = 0) OR
+		EXISTS (SELECT * FROM [private].identifiers WHERE chirp_id=@TEMPID))
+	BEGIN
+--		SELECT @MSG = 'Setting unique CHIRP_ID for identifier id :' + 
+--			CAST(id AS VARCHAR(255)) FROM inserted;
+--		EXEC log @MSG;
+
+		-- By using a min of 1e9, no need for leading zeroes.
+		SET @TEMPID = CAST(
+			(@MINID + (RAND() * (@MAXID-@MINID)))
+			AS INTEGER);
+	END
+
+	RETURN @TEMPID
+END
+
+
+
+
+
+--DECLARE @return_status int;
+--EXEC @return_status = create_unique_chirp_id
+--PRINT @return_status
+
+
+

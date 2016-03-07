@@ -1,31 +1,9 @@
 USE chirp
+-- Sadly, TSQL scripts don't seem to crash
+-- IF chirp doesn't exist, this script continues after the GO statement.
 
 
 GO
-
-IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='private')
-	EXEC('CREATE SCHEMA private')
-GO
-IF OBJECT_ID('[private].identifiers', 'U') IS NOT NULL
-	DROP TABLE [private].identifiers;
-CREATE TABLE [private].identifiers (
-	id int IDENTITY(1,1) PRIMARY KEY,
-	chirp_id    INT NOT NULL,
-	source_name VARCHAR(255) NOT NULL,
-	source_id   VARCHAR(255) NOT NULL,
-	created_at  DATETIME DEFAULT CURRENT_TIMESTAMP,
-	CONSTRAINT unique_source_name_and_id 
-		UNIQUE (source_name,source_id)
---
---This should be true, but from what I understand mistakes could
---exist where a single patient has multiple record numbers.
---	CONSTRAINT unique_chirp_id_and_source_name
---		UNIQUE (chirp_id,source_name)
---
-);
-GO
-
-
 
 
 
