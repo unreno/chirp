@@ -47,6 +47,6 @@ EOF
 
 cat create_identifiers.tsql
 
-#cat create_warehouse.tsql
+cat create_warehouse.tsql
 
-#cat create_vital_records.tsql
+cat create_vital_records.tsql
