@@ -1,6 +1,8 @@
 USE chirp
 GO
-CREATE SCHEMA vital_records
+
+IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='vital_records')
+	EXEC('CREATE SCHEMA vital_records')
 GO
 
 IF OBJECT_ID('[vital_records].birth', 'U') IS NOT NULL
@@ -261,6 +263,7 @@ CREATE TABLE [vital_records].birth (
 	reg_sign_cnty VARCHAR(1)
 );
 GO
+
 
 
 IF OBJECT_ID('[vital_records].birth2', 'U') IS NOT NULL
@@ -1409,4 +1412,20 @@ CREATE TABLE [vital_records].death_status (
 	modify_userid int
 );
 GO
+
+
+--ALTER TABLE birth
+--	ADD CONSTRAINT fk_birth2id 
+--		FOREIGN KEY (birth2id) REFERENCES birth2(birth2id);
+--ALTER TABLE death
+--	ADD CONSTRAINT fk_death2id 
+--		FOREIGN KEY (death2id) REFERENCES death2(death2id);
+
+
+
+--Do this for every table?
+
+--ALTER TABLE [vital_records].birth ADD imported_to_dw BIT NOT NULL DEFAULT 0;
+
+
 
