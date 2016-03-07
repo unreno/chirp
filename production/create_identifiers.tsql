@@ -71,6 +71,7 @@ BEGIN
 
 	RETURN @TEMPID
 END
+GO
 
 
 
