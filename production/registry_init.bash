@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+#	As SQL apparently can't "include" other files,
+#	and as this will really only be used once,
+#	just catting them.
+
 
 cat << EOF
 
