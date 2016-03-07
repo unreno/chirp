@@ -1433,4 +1433,10 @@ GO
 --ALTER TABLE [vital_records].birth ADD imported_to_dw BIT NOT NULL DEFAULT 0;
 
 
+--insert into vital_records.birth (birthid,imported_to_dw) values (1,'true');  -- 'true'=1
+--insert into vital_records.birth (birthid,imported_to_dw) values (1,'false'); -- 'false'=0
+--insert into vital_records.birth (birthid,imported_to_dw) values (1,'blahblahblah');
+--Conversion failed when converting the varchar value 'blahblahblah' to data type bit
+
+
 
