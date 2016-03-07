@@ -17,6 +17,7 @@ ALTER AUTHORIZATION ON DATABASE::chirp TO [sa];
 
 --SET NOEXEC ON
 -- NOTHING ELSE SHOULD EXECUTE
+--That does not work as advertised. Only works to next "GO"
 
 
 --Ways to not execute the rest of a script.
