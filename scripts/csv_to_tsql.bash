@@ -34,6 +34,8 @@ while [ $# -ne 0 ] ; do
 			type="VARCHAR("$5")"
 		else if( $4 == "datet" )
 			type="DATETIME"
+		else if( $4 == "int" )
+			type="INT"
 		null=( $3 == "NO" ) ? " NOT NULL" : ""
 		buffer=sprintf("\t%s %s%s", tolower($1), type, null)
 	}
