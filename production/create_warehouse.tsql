@@ -1,12 +1,63 @@
 USE chirp
 -- Sadly, TSQL scripts don't seem to crash
 -- IF chirp doesn't exist, this script continues after the GO statement.
-
-
 GO
 
 
+IF OBJECT_ID('[dbo].concepts', 'U') IS NOT NULL
+	DROP TABLE [dbo].concepts;
+CREATE TABLE [dbo].concepts (
+	id int IDENTITY(1,1),
+	code VARCHAR(50) PRIMARY KEY,
+	path VARCHAR(255),
+	description VARCHAR(MAX),
+	CONSTRAINT unique_code 
+		UNIQUE (code)
+);
+-- Examples:
+-- code: ICD10CM:M71.432, description: Calcium deposit in bursa, left wrist
+-- code: HCPC:0356T, description: INSERTION OF DRUG-ELUTING IMPLANT ....
+-- code: LOINC:8302-2, description: Body Height (LOINC:8302-2)
+-- code: LOINC:3141-9, description: Body Weight (LOINC:3141-9)
+-- code: DEM:Race, description: Race
+-- code: DEM:Language, description: Language
 
+
+
+IF OBJECT_ID('[dbo].providers', 'U') IS NOT NULL
+	DROP TABLE [dbo].providers;
+CREATE TABLE [dbo].providers (
+	id int IDENTITY(1,1) PRIMARY KEY,
+
+
+);
+
+
+
+
+IF OBJECT_ID('[dbo].encounters', 'U') IS NOT NULL
+	DROP TABLE [dbo].encounters;
+CREATE TABLE [dbo].encounters (
+	id int IDENTITY(1,1) PRIMARY KEY,
+
+
+);
+
+
+
+
+IF OBJECT_ID('[dbo].locations', 'U') IS NOT NULL
+	DROP TABLE [dbo].locations;
+CREATE TABLE [dbo].locations (
+	id int IDENTITY(1,1) PRIMARY KEY,
+
+
+);
+
+
+
+
+--Can't declare foreign key constraints until those tables exist.
 IF OBJECT_ID('[dbo].observations', 'U') IS NOT NULL
 	DROP TABLE [dbo].observations;
 CREATE TABLE [dbo].observations (
@@ -66,50 +117,3 @@ ALTER TABLE [dbo].observations ADD CONSTRAINT ck_s_value CHECK (
 --	( value_type <> 'L' AND l_value IS NULL ) OR
 --	( value_type = 'L' AND l_value IS NOT NULL )
 --);
-
-
-
-
-CREATE TABLE [dbo].concepts (
-	id int IDENTITY(1,1),           -- this column is perhaps unnecessary
-	code VARCHAR(50) PRIMARY KEY,
-	path VARCHAR(255),
-	description VARCHAR(MAX),
-	CONSTRAINT unique_code 
-		UNIQUE (code)
-);
--- Examples:
--- code: ICD10CM:M71.432, description: Calcium deposit in bursa, left wrist
--- code: HCPC:0356T, description: INSERTION OF DRUG-ELUTING IMPLANT ....
--- code: LOINC:8302-2, description: Body Height (LOINC:8302-2)
--- code: LOINC:3141-9, description: Body Weight (LOINC:3141-9)
--- code: DEM:Race, description: Race
--- code: DEM:Language, description: Language
-
-
-
-
-
-CREATE TABLE [dbo].providers (
-	id int IDENTITY(1,1) PRIMARY KEY,
-
-
-);
-
-
-
-
-CREATE TABLE [dbo].encounters (
-	id int IDENTITY(1,1) PRIMARY KEY,
-
-
-);
-
-
-
-
-CREATE TABLE [dbo].locations (
-	id int IDENTITY(1,1) PRIMARY KEY,
-
-
-);
