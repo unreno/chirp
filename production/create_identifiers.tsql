@@ -77,9 +77,23 @@ GO
 
 
 
---DECLARE @return_status int;
---EXEC @return_status = create_unique_chirp_id
---PRINT @return_status
+--DECLARE @chirpid INT;
+--EXEC @chirpid = create_unique_chirp_id;
+--
+--INSERT INTO [private].[identifiers] 
+--	( chirp_id, source_name, source_id ) 
+--	VALUES ( @chirpid, 'Renown', 'MYEMRNUMBER' );
+--
+--EXEC @chirpid = create_unique_chirp_id;
+--INSERT INTO [private].[identifiers] 
+--	( chirp_id, source_name, source_id ) 
+--	VALUES ( @chirpid, 'birth_state_file_number', 'MYNUMBER' );
+--
+--EXEC @chirpid = create_unique_chirp_id;
+--INSERT INTO [private].[identifiers] 
+--	( chirp_id, source_name, source_id ) 
+--	VALUES ( @chirpid, 'birth_local_file_number', 'MYNUMBER' );
+
 
 
 
