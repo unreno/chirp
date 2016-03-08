@@ -4,8 +4,29 @@
 <style>
 body {
 	background-color: #003366;
-	width: 1000px;
-	margin: 10px auto;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+#container {
+	background-color: #002F60;
+
+	/* box-shadow: <horizontal> <vertical> <blur> <color> */
+	box-shadow: 10px 10px 35px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+
+	/* http://css-radius.heroku.com */
+	-webkit-border-bottom-left-radius: 15px;
+	-webkit-border-bottom-right-radius: 15px;
+	-moz-border-radius-bottomright: 15px;
+	-moz-border-radius-bottomleft: 15px;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+
+	width: 800px;
+	padding: 10px 30px;
+	margin: auto;
 }
 * {
 	font-family: Calibri;
@@ -14,6 +35,7 @@ body {
 </style>
 </head>
 <body>
+<div id='container'>
 <h1><a href="http://chirp.unr.edu">Children's Health Information and Registry Program</a></h1>
 <h2>Linking children's health information to support healthy outcomes</h2>
 
@@ -32,5 +54,6 @@ body {
 &nbsp;|&nbsp;
 <a href="http://github.com/unreno/chirp/wiki">Github Wiki</a>
 </p>
+</div><!-- id='container' -->
 </body>
 </html>
