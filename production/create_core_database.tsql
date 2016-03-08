@@ -115,3 +115,9 @@ GO
 --INSERT INTO vital_records.birth (birthid) values (1);
 --Conversion failed when converting the varchar value 'blahblahblah' to data type bit
 
+
+
+
+--USE chirp;
+--EXEC add_imported_to_dw_bit_column_to_schema 'vital_records';
+
