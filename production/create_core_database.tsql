@@ -1,0 +1,117 @@
+
+-- MS Sets these before every “CREATE TRIGGER”
+-- Not sure if calling them once will suffice.
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+IF db_id('chirp') IS NOT NULL
+	DROP DATABASE chirp;
+
+-- "WITH TRUSTWORTHY ON" required for use of tSQLt Testing Framework.
+CREATE DATABASE chirp WITH TRUSTWORTHY ON;
+GO
+USE chirp;
+
+--Wanted to see these Database Diagrams and this seemed to work.
+ALTER AUTHORIZATION ON DATABASE::chirp TO [sa];
+
+IF OBJECT_ID('debug_log', 'U') IS NOT NULL
+	DROP TABLE debug_log;
+CREATE TABLE debug_log ( message text, logged_at DATETIME DEFAULT CURRENT_TIMESTAMP );
+GO
+IF OBJECT_ID ( 'log', 'P' ) IS NOT NULL
+	DROP PROCEDURE log;
+GO
+CREATE PROCEDURE log(@msg TEXT)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	INSERT INTO debug_log ( message )
+	VALUES ( @msg );
+END
+GO
+
+
+
+
+
+USE chirp;
+IF OBJECT_ID ( 'add_imported_to_dw_bit_column_to_schema', 'P' ) IS NOT NULL
+	DROP PROCEDURE add_imported_to_dw_bit_column_to_schema;
+GO
+CREATE PROCEDURE add_imported_to_dw_bit_column_to_schema(@schema VARCHAR(255))
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	DECLARE @cmd VARCHAR(255);
+	DECLARE @cname VARCHAR(255);
+	DECLARE @table VARCHAR(255);
+
+	DECLARE schemas CURSOR FOR SELECT t.name 
+		FROM sys.tables AS t
+		INNER JOIN sys.schemas AS s
+		ON t.[schema_id] = s.[schema_id]
+		WHERE s.name = @schema;
+
+	OPEN schemas;
+	WHILE(1=1)BEGIN
+		FETCH schemas INTO @table;
+		IF(@@FETCH_STATUS <> 0)
+			BREAK
+		print @table
+		SELECT @cname = @schema + '_' + @table + '_imported_to_dw_default';
+
+		--Remove constraint if exists
+		SELECT @cmd = 'IF OBJECT_ID(''[' + @schema + '].[' + @cname + ']'') IS NOT NULL ' +
+			'ALTER TABLE ' + @schema + '.[' + @table +'] DROP CONSTRAINT ' + @cname + ';'
+		print @cmd
+		EXEC (@cmd);	--	Parenthese required here!
+
+		--Remove column if exists
+		SELECT @cmd = 'IF COL_LENGTH(''[' + @schema + '].[' + @table + 
+			']'',''imported_to_dw'') IS NOT NULL '+
+			'ALTER TABLE ' + @schema + '.[' + @table + '] DROP COLUMN imported_to_dw;'
+		print @cmd
+		EXEC (@cmd);	--	Parenthese required here!
+
+		--Add column with constraint
+		SELECT @cmd = 'ALTER TABLE [' + @schema + '].[' + @table + 
+			'] ADD imported_to_dw BIT CONSTRAINT '
+			+ @cname + ' DEFAULT ''FALSE'' NOT NULL ;';
+		print @cmd
+		EXEC (@cmd);	--	Parenthese required here!
+	END
+	CLOSE schemas;
+	DEALLOCATE schemas;
+
+END
+GO
+
+
+--Can't imagine doing this often so run this and then cut-n-paste the output and run it.
+--SELECT 'ALTER TABLE [' + s.name + '].[' + t.name + '] ADD imported_to_dw BIT CONSTRAINT '+s.name+'_'+t.name+'_default_false_imported_to_dw DEFAULT ''FALSE'' NOT NULL ;'
+--  FROM sys.tables AS t
+--  INNER JOIN sys.schemas AS s
+--  ON t.[schema_id] = s.[schema_id]
+--  WHERE s.name = 'vital_records';
+
+--Give the constraint a predictable name so that can be removed if needed.
+--(Otherwise name is arbitrary DF__birth__importe_____ADF4456 or similar.)
+--FYI (NOT NULL is not a "constraint", but DEFAULT is so it must be adjacent to the name.)
+--CONSTRAINT -NAME- DEFAULT 0 NOT NULL - works
+--CONSTRAINT -NAME- NOT NULL DEFAULT - DOES NOT work (arbitrarily named)
+
+
+--INSERT INTO vital_records.birth (birthid,imported_to_dw) VALUES (1,'true');  -- 'true'=1
+--INSERT INTO vital_records.birth (birthid,imported_to_dw) VALUES (1,'false'); -- 'false'=0
+--INSERT INTO vital_records.birth (birthid,imported_to_dw) VALUES (1,'blahblahblah');
+--INSERT INTO vital_records.birth (birthid) values (1);
+--Conversion failed when converting the varchar value 'blahblahblah' to data type bit
+

@@ -1428,35 +1428,10 @@ GO
 
 
 
---Do this for every table?
-
---ALTER TABLE [vital_records].birth ADD imported_to_dw BIT NOT NULL DEFAULT 'FALSE';
-
---Can't imagine doing this often so run this and then cut-n-paste the output and run it.
---SELECT 'ALTER TABLE [' + s.name + '].[' + t.name + '] ADD imported_to_dw BIT CONSTRAINT '+s.name+'_'+t.name+'_default_false_imported_to_dw DEFAULT ''FALSE'' NOT NULL ;'
---  FROM sys.tables AS t
---  INNER JOIN sys.schemas AS s
---  ON t.[schema_id] = s.[schema_id]
---  WHERE s.name = 'vital_records';
-
---Give the constraint a predictable name so that can be removed if needed.
---(Otherwise name is arbitrary DF__birth__importe_____ADF4456 or similar.)
---FYI (NOT NULL is not a "constraint", but DEFAULT is so it must be adjacent to the name.)
---CONSTRAINT -NAME- DEFAULT 0 NOT NULL - works
---CONSTRAINT -NAME- NOT NULL DEFAULT - DOES NOT work (arbitrarily named)
-
-
---INSERT INTO vital_records.birth (birthid,imported_to_dw) VALUES (1,'true');  -- 'true'=1
---INSERT INTO vital_records.birth (birthid,imported_to_dw) VALUES (1,'false'); -- 'false'=0
---INSERT INTO vital_records.birth (birthid,imported_to_dw) VALUES (1,'blahblahblah');
---INSERT INTO vital_records.birth (birthid) values (1);
---Conversion failed when converting the varchar value 'blahblahblah' to data type bit
 
 
 
 
-
-/*
 IF OBJECT_ID ( 'create_random_vital_records', 'P' ) IS NOT NULL
 	DROP PROCEDURE create_random_vital_records;
 GO
@@ -1499,5 +1474,5 @@ BEGIN
 
 END
 GO
-*/
+
 
