@@ -17,7 +17,8 @@ GO
 IF db_id('chirp') IS NOT NULL
 	DROP DATABASE chirp;
 
-CREATE DATABASE chirp;
+-- "WITH TRUSTWORTHY ON" required for use of tSQLt Testing Framework.
+CREATE DATABASE chirp WITH TRUSTWORTHY ON;
 GO
 USE chirp;
 
