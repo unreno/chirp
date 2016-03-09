@@ -34,14 +34,17 @@ CREATE TABLE [dbo].providers (
 
 
 
+/*
+
+--Not sure what purpose this table can serve.
 
 IF OBJECT_ID('[dbo].encounters', 'U') IS NOT NULL
 	DROP TABLE [dbo].encounters;
 CREATE TABLE [dbo].encounters (
 	id int IDENTITY(1,1) PRIMARY KEY,
 
-
 );
+*/
 
 
 
@@ -63,28 +66,28 @@ IF OBJECT_ID('[dbo].observations', 'U') IS NOT NULL
 CREATE TABLE [dbo].observations (
 	id int IDENTITY(1,1) PRIMARY KEY,
 	chirp_id        INT NOT NULL,
-	encounter_id    INT NOT NULL,
+--	encounter_id    INT NOT NULL,
 	provider_id     INT NOT NULL,
 	location_id     INT NOT NULL,
 	concept         VARCHAR(255) NOT NULL,
 	started_at      DATETIME NOT NULL,
-	ended_at        DATETIME NULL,
+	ended_at        DATETIME,
 	value_type      VARCHAR(1) NOT NULL,
-	n_value         DECIMAL(18,5) NULL,
-	s_value         VARCHAR(255) NULL,
---	l_value         VARCHAR(MAX) NULL,
---	d_value         DATE NULL,
-	t_value         DATETIME NULL,
-	units           VARCHAR(20) NULL,
-	downloaded_at   DATETIME NULL,
-	downloaded_from VARCHAR(50) NULL,
-	imported_at     DATETIME NULL,
-	CONSTRAINT fk_encounter_id
-		FOREIGN KEY (encounter_id) REFERENCES encounters(id),
-	CONSTRAINT fk_provider_od
-		FOREIGN KEY (provider_id) REFERENCES providers(id),
-	CONSTRAINT fk_location_id
-		FOREIGN KEY (location_id) REFERENCES locations(id),
+	n_value         DECIMAL(18,5),
+	s_value         VARCHAR(255),
+--	l_value         VARCHAR(MAX),
+--	d_value         DATE,
+	t_value         DATETIME,
+	units           VARCHAR(20),
+	downloaded_at   DATETIME,
+	downloaded_from VARCHAR(50),
+	imported_at     DATETIME,
+--	CONSTRAINT fk_encounter_id
+--		FOREIGN KEY (encounter_id) REFERENCES encounters(id),
+--	CONSTRAINT fk_provider_id
+--		FOREIGN KEY (provider_id) REFERENCES providers(id),
+--	CONSTRAINT fk_location_id
+--		FOREIGN KEY (location_id) REFERENCES locations(id),
 	CONSTRAINT fk_concept_code
 		FOREIGN KEY (concept) REFERENCES concepts(code)
 );
@@ -123,8 +126,48 @@ ALTER TABLE [dbo].observations ADD CONSTRAINT ck_s_value CHECK (
 
 
 
-
 USE chirp;
+
+IF OBJECT_ID ( 'import_into_data_warehouse_by_table_birth', 'P' ) IS NOT NULL
+	DROP PROCEDURE import_into_data_warehouse_by_table_birth;
+GO
+CREATE PROCEDURE import_into_data_warehouse_by_table_birth
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+--date_of_birth
+--sex
+--birth_weight_lbs
+
+	INSERT INTO observations
+		(chirp_id,provider_id,location_id,concept,started_at,value_type,t_value) 
+		SELECT 123,456,789,'birth:date_of_birth',b.date_of_birth,'T',b.date_of_birth
+		FROM vital_records.birth b
+
+	--		JOIN private.identifiers i
+	--			ON i.source_schema = 'vital_records'
+	--			AND i.source_table = 'birth'
+	--			AND i.source_column = 'state_file_number'
+	--			AND i.source_id = b.state_file_number
+
+		WHERE b.imported_to_dw = 'FALSE'
+
+	--			AND
+
+
+	UPDATE vital_records.birth
+		SET imported_to_dw = 'TRUE'
+		WHERE b.imported_to_dw = 'FALSE'
+	--	WHERE
+	--		(same as above)
+
+END
+GO
+
+
 
 IF OBJECT_ID ( 'import_into_data_warehouse_by_schema', 'P' ) IS NOT NULL
 	DROP PROCEDURE import_into_data_warehouse_by_schema;
