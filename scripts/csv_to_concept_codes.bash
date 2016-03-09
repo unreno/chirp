@@ -63,7 +63,7 @@ while [ $# -ne 0 ] ; do
 
 	sort -t, -k2,2n $1 | awk -F, -v schema=$schema -v table=$table '{
 		print "INSERT INTO [dbo].[concepts] VALUES ("
-		print "\t\x27table":"tolower($1)"\x27,"
+		print "\t\x27"table":"tolower($1)"\x27,"
 		print "\t\x27/"schema"/"table"/"tolower($1)"\x27,"
 		print "\t\x27"schema":"table":"tolower($1)"\x27);"
 	}'
