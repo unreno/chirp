@@ -121,29 +121,6 @@ ALTER TABLE [dbo].observations ADD CONSTRAINT ck_s_value CHECK (
 
 
 
---REPLACE will replace ALL matches so be as specific as possible.
---REPLACE ( string_expression , string_pattern , string_replacement )
---STUFF in conjunction with CharIndex and Len is more powerful.
---STUFF ( character_expression , start , length , replaceWith_expression )
-/*
-
-UPDATE dbo.concepts
-SET code = REPLACE(code, 'vital_records:', '')
-
-
-DECLARE @find varchar(8000)
-SELECT @find='Replace this'
-UPDATE myTable
-SET myCol=Stuff(myCol, CharIndex(@find, myCol), Len(@find), 'Replacement text')
-
-print STUFF( 'abcdefcdgh', CharIndex('cd','abcdefcdgh'), Len('cd'), 'NewStuff')
--> abNewStuffefcdgh
-
-
-*/
-
-
-
 
 
 
