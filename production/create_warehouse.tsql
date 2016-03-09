@@ -195,23 +195,27 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	DECLARE @schemas TABLE ( name VARCHAR(50) )
-	INSERT INTO @schemas VALUES ( 'vital_records' )	
+--	DECLARE @schemas TABLE ( name VARCHAR(50) )
+--	INSERT INTO @schemas VALUES ( 'vital_records' )	
+--
+--	DECLARE schemas CURSOR FOR SELECT s.name FROM @schemas s
+--
+--	DECLARE @schema VARCHAR(50)
+--
+--	OPEN schemas
+--	WHILE(1=1)BEGIN
+--		FETCH schemas INTO @schema;
+--		IF(@@FETCH_STATUS <> 0)
+--			BREAK
+--		PRINT @schema
+--		EXEC import_into_data_warehouse_by_schema @schema
 
-	DECLARE schemas CURSOR FOR SELECT s.name FROM @schemas s
+		--Until there are more than a dozen, this above is a bit excessive!
+		EXEC import_into_data_warehouse_by_schema 'vital_records'
 
-	DECLARE @schema VARCHAR(50)
-
-	OPEN schemas
-	WHILE(1=1)BEGIN
-		FETCH schemas INTO @schema;
-		IF(@@FETCH_STATUS <> 0)
-			BREAK
-		PRINT @schema
-		EXEC import_into_data_warehouse_by_schema @schema
-	END
-	CLOSE schemas;
-	DEALLOCATE schemas;
+--	END
+--	CLOSE schemas;
+--	DEALLOCATE schemas;
 
 END	--	import_into_data_warehouse
 GO
