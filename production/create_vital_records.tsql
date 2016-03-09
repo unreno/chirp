@@ -1415,6 +1415,12 @@ GO
 
 
 
+EXEC add_imported_at_column_to_tables_by_schema 'vital_records';
+EXEC add_imported_to_dw_column_to_tables_by_schema 'vital_records';
+
+
+
+
 --
 --These constraints would REQUIRE that birth2 record exists BEFORE birth record.
 --Not sure how we're gonna get them so ...
@@ -1430,6 +1436,26 @@ GO
 
 
 
+--http://stackoverflow.com/questions/9645348/how-to-insert-1000-random-dates-between-a-given-range
+IF OBJECT_ID ( 'create_a_random_date', 'P' ) IS NOT NULL
+	DROP PROCEDURE create_a_random_date;
+GO
+CREATE PROCEDURE create_a_random_date(@random_date DATE OUTPUT)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	DECLARE @FromDate DATE = '2011-01-01'
+	DECLARE @ToDate DATE = '2011-12-31'
+
+	SELECT @random_date = DATEADD(day, 
+               RAND(CHECKSUM(NEWID()))*(1+DATEDIFF(DAY, @FromDate, @ToDate)), 
+               @FromDate)
+
+END
+
 
 
 IF OBJECT_ID ( 'create_random_vital_records', 'P' ) IS NOT NULL
@@ -1442,22 +1468,28 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	DECLARE @count INT = 0;
+	DECLARE @count INT = 0
+	DECLARE @random_date DATE
+	DECLARE @sexes TABLE ( id int identity(1,1), sex varchar(1) )
+	INSERT INTO @sexes VALUES ('M'),('F')
+	DECLARE @sex VARCHAR(1)
 
 	WHILE @count < 100
 	BEGIN
 		SET @count = @count + 1;
-		INSERT INTO [vital_records].birth ( birthid, state_file_number )
-			VALUES ( @count, CAST(RAND()*1e9 AS INT) );
+		EXEC create_a_random_date @random_date OUTPUT
+		SELECT @sex = sex FROM @sexes WHERE id = CAST(2*rand() as int)+1;
+		INSERT INTO [vital_records].birth ( birthid, state_file_number, date_of_birth, sex )
+			VALUES ( @count, CAST(RAND()*1e9 AS INT), @random_date, @sex );
 	END
 
-	SET @count = 0;
-	WHILE @count < 100
-	BEGIN
-		SET @count = @count + 1;
-		INSERT INTO [vital_records].death ( deathid, state_file_number )
-			VALUES ( @count, CAST(RAND()*1e9 AS INT) );
-	END
+--	SET @count = 0;
+--	WHILE @count < 100
+--	BEGIN
+--		SET @count = @count + 1;
+--		INSERT INTO [vital_records].death ( deathid, state_file_number )
+--			VALUES ( @count, CAST(RAND()*1e9 AS INT) );
+--	END
 
 	-- Multiple matching renown records will only be linked to the first birth record.
 
