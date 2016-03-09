@@ -1455,7 +1455,7 @@ BEGIN
                @FromDate)
 
 END
-
+GO
 
 
 IF OBJECT_ID ( 'create_random_vital_records', 'P' ) IS NOT NULL
