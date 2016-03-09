@@ -19,4 +19,7 @@ cat create_vital_records.tsql
 #cat ../tSQLt_V1.0.5873.27393/tSQLt.class.sql
 #
 
+../scripts/csv_to_concept_codes.bash ../scripts/vital_records/*csv
+
+
 
