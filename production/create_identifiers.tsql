@@ -12,33 +12,19 @@ IF OBJECT_ID('[private].identifiers', 'U') IS NOT NULL
 	DROP TABLE [private].identifiers;
 CREATE TABLE [private].identifiers (
 	id int IDENTITY(1,1) PRIMARY KEY,
-	chirp_id    INT NOT NULL,
-	source_name VARCHAR(255) NOT NULL,
-	source_id   VARCHAR(255) NOT NULL,
-	created_at  DATETIME 
+	chirp_id      INT NOT NULL,
+	source_schema VARCHAR(255) NOT NULL,
+	source_table  VARCHAR(255) NOT NULL,
+	source_column VARCHAR(255) NOT NULL,
+	source_id     VARCHAR(255) NOT NULL,
+	created_at    DATETIME 
 		CONSTRAINT private_identifiers_created_at_default 
 		DEFAULT CURRENT_TIMESTAMP,
 	CONSTRAINT unique_source_name_and_id 
 		UNIQUE (source_name,source_id)
 );
 GO
---
---This should be true, but from what I understand mistakes could
---exist where a single patient has multiple record numbers.
---	CONSTRAINT unique_chirp_id_and_source_name
---		UNIQUE (chirp_id,source_name)
---
 
-
-
-
-
-
---IF OBJECT_ID ( 'create_unique_chirp_id', 'FN' ) IS NOT NULL
---	DROP FUNCTION create_unique_chirp_id;
---GO
---CREATE FUNCTION create_unique_chirp_id RETURNS INTEGER
---Can't use RAND() inside a function
 
 IF OBJECT_ID ( 'create_unique_chirp_id', 'P' ) IS NOT NULL
 	DROP PROCEDURE create_unique_chirp_id;
@@ -61,10 +47,6 @@ BEGIN
 	WHILE ((@TEMPID = 0) OR
 		EXISTS (SELECT * FROM [private].identifiers WHERE chirp_id=@TEMPID))
 	BEGIN
---		SELECT @MSG = 'Setting unique CHIRP_ID for identifier id :' + 
---			CAST(id AS VARCHAR(255)) FROM inserted;
---		EXEC log @MSG;
-
 		-- By using a min of 1e9, no need for leading zeroes.
 		SET @TEMPID = CAST(
 			(@MINID + (RAND() * (@MAXID-@MINID)))
@@ -83,18 +65,22 @@ GO
 --EXEC @chirpid = create_unique_chirp_id;
 --
 --INSERT INTO [private].[identifiers] 
---	( chirp_id, source_name, source_id ) 
---	VALUES ( @chirpid, 'Renown', 'MYEMRNUMBER' );
+--	( chirp_id, source_schema, source_table, source_column, source_id ) 
+--	VALUES ( @chirpid, 'Renown', 'ABC', 'XYZ', 'MYEMRNUMBER' );
 --
 --EXEC @chirpid = create_unique_chirp_id;
 --INSERT INTO [private].[identifiers] 
---	( chirp_id, source_name, source_id ) 
---	VALUES ( @chirpid, 'birth_state_file_number', 'MYNUMBER' );
+--	( chirp_id, source_schema, source_table, source_column, source_id ) 
+--	VALUES ( @chirpid, 'vital_records', 'birth', 'state_file_number', 'MYNUMBER' );
 --
 --EXEC @chirpid = create_unique_chirp_id;
 --INSERT INTO [private].[identifiers] 
---	( chirp_id, source_name, source_id ) 
---	VALUES ( @chirpid, 'birth_local_file_number', 'MYNUMBER' );
+--	( chirp_id, source_schema, source_table, source_column, source_id ) 
+--	VALUES ( @chirpid, 'vital_records', 'birth', 'local_file_number', 'MYNUMBER' );
+
+
+
+
 
 
 

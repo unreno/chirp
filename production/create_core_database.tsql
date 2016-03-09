@@ -190,14 +190,16 @@ For each table in schema
 
 
 
-Can I define a column alias? Or do I need to create a table of them?
 
-
+(WILL THIS WORK?) Gonna try this tomorrow
+SET @schema = 'vital_records'
+SET @table = 'birth'
 
 		DECLARE records CURSOR FOR SELECT * from [@schema].[@table] x
 			JOIN [private].[identifiers] i
-			ON i.source_name = 
-			WHERE imported_to_dw = 'FALSE' AND
+			ON i.source_schema = @schema AND i.source_table = @table 
+				AND i.source_id = [@schema].[@table].[i.source_column]
+			WHERE imported_to_dw = 'FALSE'
 
 	
 
