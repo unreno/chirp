@@ -160,7 +160,8 @@ BEGIN
 
 	UPDATE vital_records.birth
 		SET imported_to_dw = 'TRUE'
-		WHERE b.imported_to_dw = 'FALSE'
+		WHERE imported_to_dw = 'FALSE'
+
 	--	WHERE
 	--		(same as above)
 
@@ -180,6 +181,7 @@ BEGIN
 	SET NOCOUNT ON;
 
 	DECLARE @table VARCHAR(50)
+	DECLARE @proc VARCHAR(50)
 
 	DECLARE tables CURSOR FOR SELECT t.name 
 		FROM sys.tables AS t
@@ -194,9 +196,15 @@ BEGIN
 			BREAK
 		PRINT @table
 		--	EXEC import_into_data_warehouse_by_table(@schema,@table)
+		SET @proc = 'import_into_data_warehouse_by_table_' + @table
 
---IF OBJECT_ID ( 'import_into_data_warehouse_by_table_@table', 'P' ) IS NOT NULL
-
+		IF OBJECT_ID ( @proc, 'P' ) IS NOT NULL
+		BEGIN
+			PRINT 'Importing select fields'
+			EXEC @proc
+		END
+		ELSE
+			PRINT 'Ignoring table'
 
 	END
 	CLOSE tables;
