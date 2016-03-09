@@ -184,10 +184,8 @@ BEGIN
 		FETCH tables INTO @table;
 		IF(@@FETCH_STATUS <> 0)
 			BREAK
-
 		PRINT @table
 		EXEC add_imported_to_dw_bit_column_to_table @schema, @table
-
 	END
 	CLOSE tables;
 	DEALLOCATE tables;
@@ -257,57 +255,4 @@ SELECT * FROM sys.columns  c
 	ON cc.code = s.name + ':' + t.name + ':' + c.name 
 	WHERE s.name = 'vital_records' AND t.name = 'birth' AND cc.id IS NOT NULL
 
-
-For each table in schema 
-	DECLARE tables CURSOR FOR SELECT t.name 
-		FROM sys.tables AS t
-		INNER JOIN sys.schemas AS s
-		ON t.[schema_id] = s.[schema_id]
-		WHERE s.name = @schema;
-	FETCH tables INTO @table;
-
-
-	For each record in this table that is linked, NOT imported
-
-
-
-
-(WILL THIS WORK?) Gonna try this tomorrow
-SET @schema = 'vital_records'
-SET @table = 'birth'
-
-		DECLARE records CURSOR FOR SELECT * from [@schema].[@table] x
-			JOIN [private].[identifiers] i
-			ON i.source_schema = @schema AND i.source_table = @table 
-				AND i.source_id = [@schema].[@table].[i.source_column]
-			WHERE imported_to_dw = 'FALSE'
-
-	
-
-
-		For each column in table that is described in the concepts table
-			DECLARE columns CURSOR FOR SELECT * FROM sys.columns  c
-				INNER JOIN sys.tables t 
-				ON c.object_id = t.object_id
-				INNER JOIN sys.schemas s
-				ON t.schema_id = s.schema_id
-				JOIN concepts cc 
-				ON cc.code = s.name + ':' + t.name + ':' + c.name 
-				WHERE s.name = @schema AND t.name = @table AND cc.id IS NOT NULL
-
-			FETCH columns INTO @column;
-
-
-		
-		END
-
-	end
-
-end
-
-
-
-
-
 */
-
