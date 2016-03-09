@@ -141,3 +141,80 @@ print STUFF( 'abcdefcdgh', CharIndex('cd','abcdefcdgh'), Len('cd'), 'NewStuff')
 
 
 */
+
+
+
+
+
+
+USE chirp;
+
+IF OBJECT_ID ( 'import_into_data_warehouse_by_schema', 'P' ) IS NOT NULL
+	DROP PROCEDURE import_into_data_warehouse_by_schema;
+GO
+CREATE PROCEDURE import_into_data_warehouse_by_schema( @schema VARCHAR(50) )
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	DECLARE @table VARCHAR(50)
+
+	DECLARE tables CURSOR FOR SELECT t.name 
+		FROM sys.tables AS t
+		INNER JOIN sys.schemas AS s
+		ON t.[schema_id] = s.[schema_id]
+		WHERE s.name = @schema;
+
+	OPEN tables
+	WHILE(1=1)BEGIN
+		FETCH tables INTO @table;
+		IF(@@FETCH_STATUS <> 0)
+			BREAK
+		PRINT @table
+		--	EXEC import_into_data_warehouse_by_table(@schema,@table)
+
+--IF OBJECT_ID ( 'import_into_data_warehouse_by_table_@table', 'P' ) IS NOT NULL
+
+
+	END
+	CLOSE tables;
+	DEALLOCATE tables;
+
+END	--	import_into_data_warehouse_by_schema
+GO
+
+IF OBJECT_ID ( 'import_into_data_warehouse', 'P' ) IS NOT NULL
+	DROP PROCEDURE import_into_data_warehouse;
+GO
+CREATE PROCEDURE import_into_data_warehouse
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	DECLARE @schemas TABLE ( name VARCHAR(50) )
+	INSERT INTO @schemas VALUES ( 'vital_records' )	
+
+	DECLARE schemas CURSOR FOR SELECT s.name FROM @schemas s
+
+	DECLARE @schema VARCHAR(50)
+
+	OPEN schemas
+	WHILE(1=1)BEGIN
+		FETCH schemas INTO @schema;
+		IF(@@FETCH_STATUS <> 0)
+			BREAK
+		PRINT @schema
+		EXEC import_into_data_warehouse_by_schema @schema
+	END
+	CLOSE schemas;
+	DEALLOCATE schemas;
+
+END	--	import_into_data_warehouse
+GO
+
+
+
