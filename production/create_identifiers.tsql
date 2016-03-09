@@ -19,7 +19,7 @@ CREATE TABLE [private].identifiers (
 	source_id     VARCHAR(255) NOT NULL,
 	created_at    DATETIME 
 		CONSTRAINT private_identifiers_created_at_default 
-		DEFAULT CURRENT_TIMESTAMP,
+		DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	CONSTRAINT unique_source_name_and_id 
 		UNIQUE (source_name,source_id)
 );
