@@ -1,15 +1,21 @@
 
 Once imported ...
 
-Create some random birth data
+Create some random birth data (100 records each call)
+
 
 
 USE chirp
+EXEC create_random_vital_records
+EXEC create_random_vital_records
+EXEC create_random_vital_records
+EXEC create_random_vital_records
 EXEC create_random_vital_records
 
 
 
 Create some chirp ids for this random data
+
 
 
 USE chirp
@@ -20,76 +26,16 @@ INSERT INTO [private].[identifiers]
 
 
 
-
-UNPIVOT the data from the birth records into observations.
-
+UNPIVOT this birth data into the observations table
 
 
-USE chirp
 
-INSERT INTO observations
-	(chirp_id, provider_id, location_id, started_at, value_type, concept, s_value) 
-SELECT chirp_id, provider_id, location_id, started_at, value_type, concept, s_value
-FROM (
-  SELECT i.chirp_id, b.date_of_birth AS started_at, 
-      '123' AS provider_id,
-      '456' AS location_id,
-      'S' as value_type,
-    CONVERT(VARCHAR(50), b.sex) AS [birth:sex]
-  FROM vital_records.birth b
-  JOIN private.identifiers i
-    ON i.source_id = b.state_file_number
-    AND i.source_column = 'state_file_number'
-    AND i.source_table = 'birth'
-    AND i.source_schema = 'vital_records'
-	WHERE b.imported_to_dw = 'FALSE'
-) arbitraryrequiredandignoredname
-UNPIVOT (
-  s_value FOR concept IN ( [birth:sex] )
-) AS anotherarbitraryrequiredname
+EXEC import_into_data_warehouse
 
-INSERT INTO observations
-	(chirp_id, provider_id, location_id, started_at, value_type, concept, t_value) 
-SELECT chirp_id, provider_id, location_id, started_at, value_type, concept, t_value
-FROM (
-  SELECT i.chirp_id, b.date_of_birth AS started_at, 
-      '123' AS provider_id,
-      '456' AS location_id,
-      'T' as value_type,
-			b.date_of_birth AS [birth:date_of_birth]
-  FROM vital_records.birth b
-  JOIN private.identifiers i
-    ON i.source_id = b.state_file_number
-    AND i.source_column = 'state_file_number'
-    AND i.source_table = 'birth'
-    AND i.source_schema = 'vital_records'
-	WHERE b.imported_to_dw = 'FALSE'
-) arbitraryrequiredandignoredname
-UNPIVOT (
-  t_value FOR concept IN ( [birth:date_of_birth] )
-) AS anotherarbitraryrequiredname
-
-INSERT INTO observations
-	(chirp_id, provider_id, location_id, started_at, value_type, concept, n_value) 
-SELECT chirp_id, provider_id, location_id, started_at, value_type, concept, n_value
-FROM (
-  SELECT i.chirp_id, b.date_of_birth AS started_at, 
-      '123' AS provider_id,
-      '456' AS location_id,
-      'N' as value_type,
-			b.birth_weight_lbs AS [birth:birth_weight_lbs],
-			b.birth_weight_oz AS [birth:birth_weight_oz]
-  FROM vital_records.birth b
-  JOIN private.identifiers i
-    ON i.source_id = b.state_file_number
-    AND i.source_column = 'state_file_number'
-    AND i.source_table = 'birth'
-    AND i.source_schema = 'vital_records'
-	WHERE b.imported_to_dw = 'FALSE'
-) arbitraryrequiredandignoredname
-UNPIVOT (
-  n_value FOR concept IN ( [birth:birth_weight_lbs], [birth:birth_weight_oz] )
-) AS anotherarbitraryrequiredname
-
+SELECT COUNT(*) from vital_records.birth
+SELECT COUNT(*) from vital_records.birth
+	WHERE imported_to_dw = 'FALSE'
+SELECT COUNT(*) from private.identifiers
+SELECT COUNT(*) from dbo.observations
 
 
