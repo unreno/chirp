@@ -7,11 +7,14 @@
 
 cat create_core_database.tsql
 
-cat create_identifiers.tsql
+cat create_private_structure.tsql
+cat create_private_procedures.tsql
 
-cat create_warehouse.tsql
+cat create_warehouse_structure.tsql
+cat create_warehouse_procedures.tsql
 
-cat create_vital_records.tsql
+cat create_vital_records_structure.tsql
+cat create_vital_records_procedures.tsql
 
 #
 #	Include the testing framework?
