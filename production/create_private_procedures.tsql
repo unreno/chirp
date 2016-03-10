@@ -49,4 +49,84 @@ GO
 --	SELECT dbo.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
 --			state_file_number from vital_records.birth;
 
+/*
 
+
+This rocks, but includes NULL values. Still investigating. (cross and outer apply)
+
+select chirp_id, concept, value
+from vital_records.birth b
+join private.identifiers i on i.source_id = b.state_file_number
+cross apply ( values 
+	('sfn', b.state_file_number),
+	('sex', b.sex ),
+	('dob', Cast(cast(b.date_of_birth as date) as varchar(50)))) x ( concept, value )
+
+
+This rocks as well. And does not include NULLs, although I don't know why.
+In practice, will need to wrap this in an insert, add more conditions
+and run for each different datatype in the observation table as the target
+value column will be different.  This just super rocks.
+
+USE chirp;
+SELECT chirp_id, provider_id, location_id, started_at, value_type,
+	concept, s_value
+FROM (
+	SELECT i.chirp_id, b.date_of_birth AS started_at, 
+			'123' AS provider_id,
+			'456' AS location_id,
+			'S' as value_type,
+		CONVERT(VARCHAR(50), b.state_file_number) AS [birth:sfn], 
+		CONVERT(VARCHAR(50), b.sex) AS sex,
+		CONVERT(VARCHAR(50), b.date_of_birth) AS dob,
+		CONVERT(VARCHAR(50), CONVERT(DATE,b.date_of_birth)) AS dob2
+	FROM vital_records.birth b
+	JOIN private.identifiers i 
+		ON i.source_id = b.state_file_number
+		AND i.source_column = 'state_file_number'
+		AND i.source_table = 'birth'
+		AND i.source_schema = 'vital_records'
+) arbitraryrequiredandignoredname
+UNPIVOT (
+	s_value FOR concept IN ( [birth:sfn], sex, dob, dob2 )
+) AS anotherarbitraryrequiredname
+
+
+
+Wowsers!  Proof of concept anyway
+
+USE chirp;
+
+INSERT INTO observations
+	(chirp_id, provider_id, location_id, started_at, value_type, concept, s_value) 
+SELECT chirp_id, provider_id, location_id, started_at, value_type, concept, s_value
+FROM (
+  SELECT i.chirp_id, b.date_of_birth AS started_at, 
+      '123' AS provider_id,
+      '456' AS location_id,
+      'S' as value_type,
+    CONVERT(VARCHAR(50), b.sex) AS [birth:sex],
+    CONVERT(VARCHAR(50), CONVERT(DATE,b.date_of_birth)) AS [birth:date_of_birth]
+  FROM vital_records.birth b
+  JOIN private.identifiers i
+    ON i.source_id = b.state_file_number
+    AND i.source_column = 'state_file_number'
+    AND i.source_table = 'birth'
+    AND i.source_schema = 'vital_records'
+	WHERE b.imported_to_dw = 'FALSE'
+) arbitraryrequiredandignoredname
+UNPIVOT (
+  s_value FOR concept IN ( [birth:sex], [birth:date_of_birth] )
+) AS anotherarbitraryrequiredname
+
+
+add imported_at CURRENT_TIMESTAMP
+
+
+
+	
+	
+	
+
+
+*/
