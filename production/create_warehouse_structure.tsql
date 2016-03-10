@@ -81,7 +81,10 @@ CREATE TABLE [dbo].observations (
 	units           VARCHAR(20),
 	downloaded_at   DATETIME,
 	downloaded_from VARCHAR(50),
-	imported_at     DATETIME,
+	imported_at     DATETIME
+		CONSTRAINT dbo_observations_imported_at_default 
+		DEFAULT CURRENT_TIMESTAMP NOT NULL,
+
 --	CONSTRAINT fk_encounter_id
 --		FOREIGN KEY (encounter_id) REFERENCES encounters(id),
 --	CONSTRAINT fk_provider_id
