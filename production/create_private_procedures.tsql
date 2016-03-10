@@ -8,9 +8,9 @@ GO
 --Can't use RAND() in function. This is a workaround.
 --http://blog.sqlauthority.com/2012/11/20/sql-server-using-rand-in-user-defined-functions-udf/
 GO
-CREATE VIEW rndView
+CREATE VIEW rand_view
 AS
-SELECT RAND() rndResult
+SELECT RAND() number
 GO
 
 IF OBJECT_ID ( 'create_unique_chirp_id', 'FN' ) IS NOT NULL
@@ -19,22 +19,22 @@ GO
 CREATE FUNCTION create_unique_chirp_id()
 RETURNS INT
 BEGIN
-	DECLARE @MINID INT = 1e9;
-	DECLARE @MAXID INT = POWER(2.,31)-1;
-	DECLARE @TEMPID INT = 0;
-	DECLARE @rndValue DECIMAL(18,18)
+	DECLARE @minid INT = 1e9;
+	DECLARE @maxid INT = POWER(2.,31)-1;
+	DECLARE @tempid INT = 0;
+	DECLARE @rand DECIMAL(18,18)
 
-	WHILE ((@TEMPID = 0) OR
-		EXISTS (SELECT * FROM [private].identifiers WHERE chirp_id=@TEMPID))
+	WHILE ((@tempid = 0) OR
+		EXISTS (SELECT * FROM [private].identifiers WHERE chirp_id=@tempid))
 	BEGIN
-		SELECT @rndValue = rndResult FROM rndView
+		SELECT @rand = number FROM rand_view
 		-- By using a min of 1e9, no need for leading zeroes.
-		SET @TEMPID = CAST(
-			(@MINID + (@rndValue * (@MAXID-@MINID)))
+		SET @tempid = CAST(
+			(@minid + (@rand * (@maxid-@minid)))
 			AS INTEGER);
 	END
 
-	RETURN @TEMPID
+	RETURN @tempid
 END
 GO
 

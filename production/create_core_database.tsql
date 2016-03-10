@@ -51,12 +51,12 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	DECLARE @FromDate DATE = '2011-01-01'
-	DECLARE @ToDate DATE = '2011-12-31'
+	DECLARE @from_date DATE = '2010-01-01'
+	DECLARE @to_date DATE = '2015-12-31'
 
 	SELECT @random_date = DATEADD(day, 
-		RAND(CHECKSUM(NEWID()))*(1+DATEDIFF(DAY, @FromDate, @ToDate)), 
-		@FromDate)
+		RAND(CHECKSUM(NEWID()))*(1+DATEDIFF(DAY, @from_date, @to_date)), 
+		@from_date)
 
 END
 GO

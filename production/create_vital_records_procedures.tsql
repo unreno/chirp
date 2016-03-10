@@ -15,7 +15,7 @@ BEGIN
 
 	DECLARE @count INT = 0
 	DECLARE @random_date DATE
-	DECLARE @sexes TABLE ( id int identity(1,1), sex varchar(1) )
+	DECLARE @sexes TABLE ( id INT IDENTITY(1,1), sex VARCHAR(1) )
 	INSERT INTO @sexes VALUES ('M'),('F')
 	DECLARE @sex VARCHAR(1)
 
@@ -23,7 +23,7 @@ BEGIN
 	BEGIN
 		SET @count = @count + 1;
 		EXEC create_a_random_date @random_date OUTPUT
-		SELECT @sex = sex FROM @sexes WHERE id = CAST(2*rand() as int)+1;
+		SELECT @sex = sex FROM @sexes WHERE id = CAST(2*rand() AS INT)+1;
 		INSERT INTO vital_records.birth 
 			( birthid, state_file_number, date_of_birth, sex, birth_weight_lbs, birth_weight_oz )
 			VALUES 

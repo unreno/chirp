@@ -7,7 +7,7 @@ GO
 IF OBJECT_ID('[dbo].concepts', 'U') IS NOT NULL
 	DROP TABLE [dbo].concepts;
 CREATE TABLE [dbo].concepts (
-	id int IDENTITY(1,1),
+	id INT IDENTITY(1,1),
 	code VARCHAR(255) PRIMARY KEY,
 	path VARCHAR(255),
 	description VARCHAR(MAX),
@@ -27,7 +27,7 @@ CREATE TABLE [dbo].concepts (
 IF OBJECT_ID('[dbo].providers', 'U') IS NOT NULL
 	DROP TABLE [dbo].providers;
 CREATE TABLE [dbo].providers (
-	id int IDENTITY(1,1) PRIMARY KEY,
+	id INT IDENTITY(1,1) PRIMARY KEY,
 
 
 );
@@ -41,7 +41,7 @@ CREATE TABLE [dbo].providers (
 IF OBJECT_ID('[dbo].encounters', 'U') IS NOT NULL
 	DROP TABLE [dbo].encounters;
 CREATE TABLE [dbo].encounters (
-	id int IDENTITY(1,1) PRIMARY KEY,
+	id INT IDENTITY(1,1) PRIMARY KEY,
 
 );
 */
@@ -52,7 +52,7 @@ CREATE TABLE [dbo].encounters (
 IF OBJECT_ID('[dbo].locations', 'U') IS NOT NULL
 	DROP TABLE [dbo].locations;
 CREATE TABLE [dbo].locations (
-	id int IDENTITY(1,1) PRIMARY KEY,
+	id INT IDENTITY(1,1) PRIMARY KEY,
 
 
 );
@@ -64,7 +64,7 @@ CREATE TABLE [dbo].locations (
 IF OBJECT_ID('[dbo].observations', 'U') IS NOT NULL
 	DROP TABLE [dbo].observations;
 CREATE TABLE [dbo].observations (
-	id int IDENTITY(1,1) PRIMARY KEY,
+	id INT IDENTITY(1,1) PRIMARY KEY,
 	chirp_id        INT NOT NULL,
 --	encounter_id    INT NOT NULL,
 	provider_id     INT NOT NULL,
