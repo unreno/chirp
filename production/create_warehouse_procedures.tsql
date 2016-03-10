@@ -15,14 +15,16 @@ BEGIN
 	SET NOCOUNT ON;
 
 	INSERT INTO observations
-		(chirp_id, provider_id, location_id, started_at, value_type, concept, s_value) 
-		SELECT chirp_id, provider_id, location_id, started_at, value_type, concept, s_value
+		(chirp_id, provider_id, location_id, started_at, value_type, concept, s_value, downloaded_from, downloaded_at) 
+		SELECT chirp_id, provider_id, location_id, started_at, value_type, concept, s_value, downloaded_from, downloaded_at
 		FROM (
 			SELECT i.chirp_id, b.date_of_birth AS started_at, 
 				'123' AS provider_id,
 				'456' AS location_id,
 				'S' as value_type,
-				CONVERT(VARCHAR(50), b.sex) AS [birth:sex]
+				CONVERT(VARCHAR(255), b.sex) AS [birth:sex],
+				'The State' AS downloaded_from,
+				b.imported_at AS downloaded_at
 			FROM vital_records.birth b
 			JOIN private.identifiers i
 				ON i.source_id = b.state_file_number
@@ -36,14 +38,16 @@ BEGIN
 		) AS anotherarbitraryrequiredname
 
 	INSERT INTO observations
-		(chirp_id, provider_id, location_id, started_at, value_type, concept, t_value) 
-		SELECT chirp_id, provider_id, location_id, started_at, value_type, concept, t_value
+		(chirp_id, provider_id, location_id, started_at, value_type, concept, t_value, downloaded_from, downloaded_at) 
+		SELECT chirp_id, provider_id, location_id, started_at, value_type, concept, t_value, downloaded_from, downloaded_at
 		FROM (
 			SELECT i.chirp_id, b.date_of_birth AS started_at, 
 				'123' AS provider_id,
 				'456' AS location_id,
 				'T' as value_type,
-				b.date_of_birth AS [birth:date_of_birth]
+				b.date_of_birth AS [birth:date_of_birth],
+				'The State' AS downloaded_from,
+				b.imported_at AS downloaded_at
 			FROM vital_records.birth b
 			JOIN private.identifiers i
 				ON i.source_id = b.state_file_number
@@ -57,15 +61,17 @@ BEGIN
 		) AS anotherarbitraryrequiredname
 
 	INSERT INTO observations
-		(chirp_id, provider_id, location_id, started_at, value_type, concept, n_value) 
-		SELECT chirp_id, provider_id, location_id, started_at, value_type, concept, n_value
+		(chirp_id, provider_id, location_id, started_at, value_type, concept, n_value, downloaded_from, downloaded_at) 
+		SELECT chirp_id, provider_id, location_id, started_at, value_type, concept, n_value, downloaded_from, downloaded_at
 		FROM (
 			SELECT i.chirp_id, b.date_of_birth AS started_at, 
 				'123' AS provider_id,
 				'456' AS location_id,
 				'N' as value_type,
 				b.birth_weight_lbs AS [birth:birth_weight_lbs],
-				b.birth_weight_oz AS [birth:birth_weight_oz]
+				b.birth_weight_oz AS [birth:birth_weight_oz],
+				'The State' AS downloaded_from,
+				b.imported_at AS downloaded_at
 			FROM vital_records.birth b
 			JOIN private.identifiers i
 				ON i.source_id = b.state_file_number

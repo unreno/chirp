@@ -22,7 +22,7 @@ USE chirp
 INSERT INTO [private].[identifiers] 
 	( chirp_id, source_schema, source_table, source_column, source_id ) 
 	SELECT dbo.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
-	state_file_number from vital_records.birth;
+	state_file_number from vital_records.birth b where b.imported_to_dw = 'FALSE';
 
 
 
