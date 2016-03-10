@@ -24,8 +24,15 @@ BEGIN
 		SET @count = @count + 1;
 		EXEC create_a_random_date @random_date OUTPUT
 		SELECT @sex = sex FROM @sexes WHERE id = CAST(2*rand() as int)+1;
-		INSERT INTO vital_records.birth ( birthid, state_file_number, date_of_birth, sex )
-			VALUES ( @count, CAST(RAND()*1e9 AS INT), @random_date, @sex );
+		INSERT INTO vital_records.birth 
+			( birthid, state_file_number, date_of_birth, sex, birth_weight_lbs, birth_weight_oz )
+			VALUES 
+			( @count, CAST(RAND()*1e9 AS INT), @random_date, @sex,
+				CAST(RAND()*5 AS INT)+5,
+				CAST(RAND()*16 AS INT) 
+			);
+		--	weight 5 - 10 lbs
+		--  oz 0-15 ozs
 	END
 
 --	SET @count = 0;
