@@ -28,31 +28,32 @@ GO
 --Warning! The maximum key length is 900 bytes. The index 'unique_source_identifiers' has maximum length of 1020 bytes. For some combination of large values, the insert/update operation will fail.
 
 
+--Can't use RAND() in function. This is a workaround.
+--http://blog.sqlauthority.com/2012/11/20/sql-server-using-rand-in-user-defined-functions-udf/
+GO
+CREATE VIEW rndView
+AS
+SELECT RAND() rndResult
+GO
 
-IF OBJECT_ID ( 'create_unique_chirp_id', 'P' ) IS NOT NULL
+IF OBJECT_ID ( 'create_unique_chirp_id', 'FN' ) IS NOT NULL
 	DROP PROCEDURE create_unique_chirp_id;
 GO
-CREATE PROCEDURE create_unique_chirp_id
-AS
+CREATE FUNCTION create_unique_chirp_id()
+RETURNS INT
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
-
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
 	DECLARE @MINID INT = 1e9;
 	DECLARE @MAXID INT = POWER(2.,31)-1;
 	DECLARE @TEMPID INT = 0;
-	DECLARE @MSG VARCHAR(MAX);
+	DECLARE @rndValue DECIMAL(18,18)
 
 	WHILE ((@TEMPID = 0) OR
 		EXISTS (SELECT * FROM [private].identifiers WHERE chirp_id=@TEMPID))
 	BEGIN
+		SELECT @rndValue = rndResult FROM rndView
 		-- By using a min of 1e9, no need for leading zeroes.
 		SET @TEMPID = CAST(
-			(@MINID + (RAND() * (@MAXID-@MINID)))
+			(@MINID + (@rndValue * (@MAXID-@MINID)))
 			AS INTEGER);
 	END
 
@@ -64,27 +65,11 @@ GO
 
 
 
---DECLARE @chirpid INT;
---EXEC @chirpid = create_unique_chirp_id;
+--This works
 --
 --INSERT INTO [private].[identifiers] 
 --	( chirp_id, source_schema, source_table, source_column, source_id ) 
---	VALUES ( @chirpid, 'Renown', 'ABC', 'XYZ', 'MYEMRNUMBER' );
---
---EXEC @chirpid = create_unique_chirp_id;
---INSERT INTO [private].[identifiers] 
---	( chirp_id, source_schema, source_table, source_column, source_id ) 
---	VALUES ( @chirpid, 'vital_records', 'birth', 'state_file_number', 'MYNUMBER' );
---
---EXEC @chirpid = create_unique_chirp_id;
---INSERT INTO [private].[identifiers] 
---	( chirp_id, source_schema, source_table, source_column, source_id ) 
---	VALUES ( @chirpid, 'vital_records', 'birth', 'local_file_number', 'MYNUMBER' );
-
-
-
-
-
-
+--	SELECT dbo.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
+--			state_file_number from vital_records.birth;
 
 
