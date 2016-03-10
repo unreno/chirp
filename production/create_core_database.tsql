@@ -39,7 +39,29 @@ GO
 
 
 
-USE chirp;
+
+--http://stackoverflow.com/questions/9645348/how-to-insert-1000-random-dates-between-a-given-range
+IF OBJECT_ID ( 'create_a_random_date', 'P' ) IS NOT NULL
+	DROP PROCEDURE create_a_random_date;
+GO
+CREATE PROCEDURE create_a_random_date(@random_date DATE OUTPUT)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	DECLARE @FromDate DATE = '2011-01-01'
+	DECLARE @ToDate DATE = '2011-12-31'
+
+	SELECT @random_date = DATEADD(day, 
+		RAND(CHECKSUM(NEWID()))*(1+DATEDIFF(DAY, @FromDate, @ToDate)), 
+		@FromDate)
+
+END
+GO
+
+
 
 
 IF OBJECT_ID ( 'add_imported_at_column_to_table', 'P' ) IS NOT NULL
@@ -119,7 +141,6 @@ GO
 
 
 
-USE chirp;
 
 
 IF OBJECT_ID ( 'add_imported_to_dw_column_to_table', 'P' ) IS NOT NULL
