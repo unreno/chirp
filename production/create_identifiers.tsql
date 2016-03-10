@@ -37,7 +37,7 @@ SELECT RAND() rndResult
 GO
 
 IF OBJECT_ID ( 'create_unique_chirp_id', 'FN' ) IS NOT NULL
-	DROP PROCEDURE create_unique_chirp_id;
+	DROP FUNCTION create_unique_chirp_id;
 GO
 CREATE FUNCTION create_unique_chirp_id()
 RETURNS INT
