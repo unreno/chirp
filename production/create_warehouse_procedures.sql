@@ -146,8 +146,7 @@ BEGIN
 	OPEN tables
 	WHILE(1=1)BEGIN
 		FETCH tables INTO @table;
-		IF(@@FETCH_STATUS <> 0)
-			BREAK
+		IF(@@FETCH_STATUS <> 0) BREAK
 		PRINT @table
 		--	EXEC import_into_data_warehouse_by_table(@schema,@table)
 		SET @proc = 'import_into_data_warehouse_by_table_' + @table
@@ -187,8 +186,7 @@ BEGIN
 --	OPEN schemas
 --	WHILE(1=1)BEGIN
 --		FETCH schemas INTO @schema;
---		IF(@@FETCH_STATUS <> 0)
---			BREAK
+--		IF(@@FETCH_STATUS <> 0) BREAK
 --		PRINT @schema
 --		EXEC import_into_data_warehouse_by_schema @schema
 

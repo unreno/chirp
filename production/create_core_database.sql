@@ -161,16 +161,12 @@ BEGIN
 	OPEN tables;
 	WHILE(1=1)BEGIN
 		FETCH tables INTO @table;
-		IF(@@FETCH_STATUS <> 0)
-			BREAK
-
+		IF(@@FETCH_STATUS <> 0) BREAK
 		PRINT @table
 		EXEC add_imported_at_column_to_table @schema, @table
-
 	END
 	CLOSE tables;
 	DEALLOCATE tables;
-
 END
 GO
 
