@@ -30,8 +30,12 @@ UNPIVOT this birth data into the observations table
 
 
 
+USE chirp
 EXEC import_into_data_warehouse
 
+
+
+USE chirp
 SELECT COUNT(*) from vital_records.birth
 SELECT COUNT(*) from vital_records.birth
 	WHERE imported_to_dw = 'FALSE'

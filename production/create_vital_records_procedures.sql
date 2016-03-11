@@ -19,7 +19,7 @@ BEGIN
 	INSERT INTO @sexes VALUES ('M'),('F')
 	DECLARE @sex VARCHAR(1)
 
-	WHILE @count < 100
+	WHILE @count < 1000
 	BEGIN
 		SET @count = @count + 1;
 		EXEC create_a_random_date @random_date OUTPUT
