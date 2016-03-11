@@ -16,7 +16,8 @@ GO
 USE chirp;
 
 --Wanted to see these Database Diagrams and this seemed to work.
-ALTER AUTHORIZATION ON DATABASE::chirp TO [sa];
+--This changes the database owner to [sa]. I'd prefer to keep it.
+--ALTER AUTHORIZATION ON DATABASE::chirp TO [sa];
 
 IF OBJECT_ID('debug_log', 'U') IS NOT NULL
 	DROP TABLE dbo.debug_log;
