@@ -6,9 +6,9 @@ GO
 IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='private')
 	EXEC('CREATE SCHEMA private')
 GO
-IF OBJECT_ID('[private].identifiers', 'U') IS NOT NULL
-	DROP TABLE [private].identifiers;
-CREATE TABLE [private].identifiers (
+IF OBJECT_ID('private.identifiers', 'U') IS NOT NULL
+	DROP TABLE private.identifiers;
+CREATE TABLE private.identifiers (
 	id int IDENTITY(1,1) PRIMARY KEY,
 	chirp_id      INT NOT NULL,
 	source_schema VARCHAR(50) NOT NULL,

@@ -4,9 +4,9 @@ USE chirp
 GO
 
 
-IF OBJECT_ID('[dbo].concepts', 'U') IS NOT NULL
-	DROP TABLE [dbo].concepts;
-CREATE TABLE [dbo].concepts (
+IF OBJECT_ID('dbo.concepts', 'U') IS NOT NULL
+	DROP TABLE dbo.concepts;
+CREATE TABLE dbo.concepts (
 	id INT IDENTITY(1,1),
 	code VARCHAR(255) PRIMARY KEY,
 	path VARCHAR(255),
@@ -24,9 +24,9 @@ CREATE TABLE [dbo].concepts (
 
 
 
-IF OBJECT_ID('[dbo].providers', 'U') IS NOT NULL
-	DROP TABLE [dbo].providers;
-CREATE TABLE [dbo].providers (
+IF OBJECT_ID('dbo.providers', 'U') IS NOT NULL
+	DROP TABLE dbo.providers;
+CREATE TABLE dbo.providers (
 	id INT IDENTITY(1,1) PRIMARY KEY,
 
 
@@ -38,9 +38,9 @@ CREATE TABLE [dbo].providers (
 
 --Not sure what purpose this table can serve.
 
-IF OBJECT_ID('[dbo].encounters', 'U') IS NOT NULL
-	DROP TABLE [dbo].encounters;
-CREATE TABLE [dbo].encounters (
+IF OBJECT_ID('dbo.encounters', 'U') IS NOT NULL
+	DROP TABLE dbo.encounters;
+CREATE TABLE dbo.encounters (
 	id INT IDENTITY(1,1) PRIMARY KEY,
 
 );
@@ -49,9 +49,9 @@ CREATE TABLE [dbo].encounters (
 
 
 
-IF OBJECT_ID('[dbo].locations', 'U') IS NOT NULL
-	DROP TABLE [dbo].locations;
-CREATE TABLE [dbo].locations (
+IF OBJECT_ID('dbo.locations', 'U') IS NOT NULL
+	DROP TABLE dbo.locations;
+CREATE TABLE dbo.locations (
 	id INT IDENTITY(1,1) PRIMARY KEY,
 
 
@@ -61,9 +61,9 @@ CREATE TABLE [dbo].locations (
 
 
 --Can't declare foreign key constraints until those tables exist.
-IF OBJECT_ID('[dbo].observations', 'U') IS NOT NULL
-	DROP TABLE [dbo].observations;
-CREATE TABLE [dbo].observations (
+IF OBJECT_ID('dbo.observations', 'U') IS NOT NULL
+	DROP TABLE dbo.observations;
+CREATE TABLE dbo.observations (
 	id INT IDENTITY(1,1) PRIMARY KEY,
 	chirp_id        INT NOT NULL,
 --	encounter_id    INT NOT NULL,
@@ -102,7 +102,7 @@ CREATE TABLE [dbo].observations (
 --There are no primary or candidate keys in the referenced table 'private.identifiers' 
 --	that match the referencing column list in the foreign key 'fk_chirp_id'.
 --
---ALTER TABLE [dbo].observations ADD
+--ALTER TABLE dbo.observations ADD
 --	CONSTRAINT fk_chirp_id
 --		FOREIGN KEY (chirp_id) 
 --		REFERENCES private.identifiers(chirp_id)
@@ -110,36 +110,36 @@ CREATE TABLE [dbo].observations (
 --Thought this would work, but no. 
 --Subqueries are not allowed in this context. Only scalar expressions are allowed.
 --
---ALTER TABLE [dbo].observations 
+--ALTER TABLE dbo.observations 
 --	ADD CONSTRAINT valid_chirp_id 
 --	CHECK (chirp_id in (SELECT DISTINCT chirp_id FROM private.identifiers))
 --
 
 
 -- These could have been included in the CREATE
-ALTER TABLE [dbo].observations ADD CONSTRAINT ck_value_type CHECK (
+ALTER TABLE dbo.observations ADD CONSTRAINT ck_value_type CHECK (
 	value_type IN ('N','T','S')
 --	value_type IN ('N','D','T','S','L')
 );
-ALTER TABLE [dbo].observations ADD CONSTRAINT ck_n_value CHECK (
+ALTER TABLE dbo.observations ADD CONSTRAINT ck_n_value CHECK (
 	( value_type <> 'N' AND n_value IS NULL ) OR
 	( value_type = 'N' AND n_value IS NOT NULL )
 );
---ALTER TABLE [dbo].observations ADD CONSTRAINT ck_d_value CHECK (
+--ALTER TABLE dbo.observations ADD CONSTRAINT ck_d_value CHECK (
 --	( value_type <> 'D' AND d_value IS NULL ) OR
 --	( value_type = 'D' AND d_value IS NOT NULL )
 --);
-ALTER TABLE [dbo].observations ADD CONSTRAINT ck_t_value CHECK (
+ALTER TABLE dbo.observations ADD CONSTRAINT ck_t_value CHECK (
 	( value_type <> 'T' AND t_value IS NULL ) OR
 	( value_type = 'T' AND t_value IS NOT NULL )
 );
 -- The s_value can contain data when not Short Text type.
-ALTER TABLE [dbo].observations ADD CONSTRAINT ck_s_value CHECK (
+ALTER TABLE dbo.observations ADD CONSTRAINT ck_s_value CHECK (
 	( value_type <> 'S' ) OR
 	( value_type = 'S' AND s_value IS NOT NULL )
 );
 -- Can the l_value contain data when not Long Text type?
---ALTER TABLE [dbo].observations ADD CONSTRAINT ck_l_value CHECK (
+--ALTER TABLE dbo.observations ADD CONSTRAINT ck_l_value CHECK (
 --	( value_type <> 'L' AND l_value IS NULL ) OR
 --	( value_type = 'L' AND l_value IS NOT NULL )
 --);

@@ -16,7 +16,7 @@ BEGIN
 	DECLARE @rand DECIMAL(18,18)
 
 	WHILE ((@tempid = 0) OR
-		EXISTS (SELECT * FROM [private].identifiers WHERE chirp_id=@tempid))
+		EXISTS (SELECT * FROM private.identifiers WHERE chirp_id=@tempid))
 	BEGIN
 		SELECT @rand = number FROM rand_view
 		-- By using a min of 1e9, no need for leading zeroes.

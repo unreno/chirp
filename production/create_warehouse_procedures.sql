@@ -137,7 +137,7 @@ BEGIN
 	DECLARE tables CURSOR FOR SELECT t.name 
 		FROM sys.tables AS t
 		INNER JOIN sys.schemas AS s
-		ON t.[schema_id] = s.[schema_id]
+		ON t.schema_id = s.schema_id
 		WHERE s.name = @schema;
 
 	OPEN tables
