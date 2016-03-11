@@ -11,7 +11,7 @@ EXEC create_random_vital_records
 EXEC create_random_vital_records
 EXEC create_random_vital_records
 EXEC create_random_vital_records
-
+SELECT COUNT(*) FROM vital_records.birth
 
 
 Create some chirp ids for this random data
@@ -19,11 +19,12 @@ Create some chirp ids for this random data
 
 
 USE chirp
-INSERT INTO [private].[identifiers] 
+INSERT INTO private.identifiers
 	( chirp_id, source_schema, source_table, source_column, source_id ) 
 	SELECT dbo.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
 	state_file_number from vital_records.birth b where b.imported_to_dw = 'FALSE';
-
+SELECT COUNT(*) FROM private.identifiers
+SELECT COUNT(*) from dbo.observations
 
 
 UNPIVOT this birth data into the observations table
@@ -32,7 +33,6 @@ UNPIVOT this birth data into the observations table
 
 USE chirp
 EXEC import_into_data_warehouse
-
 
 
 USE chirp

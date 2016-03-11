@@ -6,6 +6,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
+USE master;
 IF db_id('chirp') IS NOT NULL
 	DROP DATABASE chirp;
 
@@ -39,7 +40,7 @@ GO
 IF OBJECT_ID ( 'dbo.rand_view', 'V' ) IS NOT NULL
 	DROP VIEW dbo.rand_view;
 GO
-CREATE VIEW dbo.rand_view AS SELECT RAND() number
+CREATE VIEW dbo.rand_view AS SELECT RAND() AS number
 GO
 
 
