@@ -5,7 +5,7 @@
 #	just catting them.
 
 
-cat create_core_database.tsql
+cat create_core_database.sql
 
 cat create_private_structure.tsql
 cat create_private_procedures.tsql
