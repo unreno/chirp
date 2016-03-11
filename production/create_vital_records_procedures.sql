@@ -14,20 +14,22 @@ BEGIN
 	SET NOCOUNT ON;
 
 	DECLARE @count INT = 0
-	DECLARE @random_date DATE
-	DECLARE @sexes TABLE ( id INT IDENTITY(1,1), sex VARCHAR(1) )
-	INSERT INTO @sexes VALUES ('M'),('F')
-	DECLARE @sex VARCHAR(1)
+--	DECLARE @random_date DATE
+--	DECLARE @sexes TABLE ( id INT IDENTITY(1,1), sex VARCHAR(1) )
+--	INSERT INTO @sexes VALUES ('M'),('F')
+--	DECLARE @sex VARCHAR(1)
 
 	WHILE @count < 1000
 	BEGIN
 		SET @count = @count + 1;
-		EXEC create_a_random_date @random_date OUTPUT
-		SELECT @sex = sex FROM @sexes WHERE id = CAST(2*rand() AS INT)+1;
+--		EXEC create_a_random_date @random_date OUTPUT
+--		SELECT @sex = sex FROM @sexes WHERE id = CAST(2*rand() AS INT)+1;
 		INSERT INTO vital_records.birth 
 			( birthid, state_file_number, date_of_birth, sex, birth_weight_lbs, birth_weight_oz )
 			VALUES 
-			( @count, CAST(RAND()*1e9 AS INT), @random_date, @sex,
+			( @count, CAST(RAND()*1e9 AS INT), 
+				dbo.random_date(default,default), 
+				dbo.random_sex(),
 				CAST(RAND()*5 AS INT)+5,
 				CAST(RAND()*16 AS INT) 
 			);

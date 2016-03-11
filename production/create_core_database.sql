@@ -36,33 +36,67 @@ END
 GO
 
 
+IF OBJECT_ID ( 'random_sex', 'FN' ) IS NOT NULL
+	DROP FUNCTION random_sex;
+GO
+CREATE FUNCTION random_sex()
+RETURNS VARCHAR(1)
+BEGIN
+	--some languages are so complicated!
+	--['M','F'][random(2)]
+	DECLARE @sexes TABLE ( id INT IDENTITY(1,1), sex VARCHAR(1) )
+	INSERT INTO @sexes VALUES ('M'),('F')
+  DECLARE @rand DECIMAL(18,18)
+  SELECT @rand = number FROM rand_view	
+	DECLARE @sex VARCHAR(1)
+	SELECT @sex = sex FROM @sexes WHERE id = CAST(2*@rand AS INT)+1;
+	RETURN @sex
+END
+GO
 
+
+IF OBJECT_ID ( 'random_date', 'FN' ) IS NOT NULL
+	DROP FUNCTION random_date;
+GO
+CREATE FUNCTION random_date(
+	@from_date DATE = '2010-01-01', 
+	@to_date   DATE = '2015-12-31' )
+RETURNS DATE
+BEGIN
+	DECLARE @rand DECIMAL(18,18)
+	SELECT @rand = number FROM rand_view
+	RETURN DATEADD(day, 
+		@rand*(1+DATEDIFF(DAY, @from_date, @to_date)), 
+		@from_date)
+END
+GO
+--NEED to pass 2 params. (default,default) uses the defaults. Duh!
 
 
 
 --http://stackoverflow.com/questions/9645348/how-to-insert-1000-random-dates-between-a-given-range
-IF OBJECT_ID ( 'create_a_random_date', 'P' ) IS NOT NULL
-	DROP PROCEDURE create_a_random_date;
-GO
-CREATE PROCEDURE create_a_random_date(
-	@random_date DATE OUTPUT,
-	@from_date DATE = '2010-01-01', 
-	@to_date   DATE = '2015-12-31' )
-AS
-BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
-
---	DECLARE @from_date DATE = '2010-01-01'
---	DECLARE @to_date DATE = '2015-12-31'
-
-	SELECT @random_date = DATEADD(day, 
-		RAND(CHECKSUM(NEWID()))*(1+DATEDIFF(DAY, @from_date, @to_date)), 
-		@from_date)
-
-END
-GO
+--IF OBJECT_ID ( 'create_a_random_date', 'P' ) IS NOT NULL
+--	DROP PROCEDURE create_a_random_date;
+--GO
+--CREATE PROCEDURE create_a_random_date(
+--	@random_date DATE OUTPUT,
+--	@from_date DATE = '2010-01-01', 
+--	@to_date   DATE = '2015-12-31' )
+--AS
+--BEGIN
+--	-- SET NOCOUNT ON added to prevent extra result sets from
+--	-- interfering with SELECT statements.
+--	SET NOCOUNT ON;
+--
+----	DECLARE @from_date DATE = '2010-01-01'
+----	DECLARE @to_date DATE = '2015-12-31'
+--
+--	SELECT @random_date = DATEADD(day, 
+--		RAND(CHECKSUM(NEWID()))*(1+DATEDIFF(DAY, @from_date, @to_date)), 
+--		@from_date)
+--
+--END
+--GO
 
 
 
