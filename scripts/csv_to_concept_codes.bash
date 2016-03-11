@@ -71,6 +71,7 @@ while [ $# -ne 0 ] ; do
 	shift
 done
 
+#	No need for this now as changed code above.
 #echo
 #echo "UPDATE dbo.concepts"
 #echo "SET code = STUFF(code, 1, CharIndex(':',code), '')"
