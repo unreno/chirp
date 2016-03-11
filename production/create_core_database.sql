@@ -40,7 +40,7 @@ IF OBJECT_ID ( 'random_sex', 'FN' ) IS NOT NULL
 	DROP FUNCTION random_sex;
 GO
 CREATE FUNCTION random_sex()
-RETURNS VARCHAR(1)
+	RETURNS VARCHAR(1)
 BEGIN
 	--some languages are so complicated!
 	--['M','F'][random(2)]
@@ -61,7 +61,7 @@ GO
 CREATE FUNCTION random_date_in(
 	@from_date DATE = '2010-01-01', 
 	@to_date   DATE = '2015-12-31' )
-RETURNS DATE
+	RETURNS DATE
 BEGIN
 	DECLARE @rand DECIMAL(18,18)
 	SELECT @rand = number FROM rand_view
@@ -78,7 +78,7 @@ IF OBJECT_ID ( 'random_date', 'FN' ) IS NOT NULL
 	DROP FUNCTION random_date;
 GO
 CREATE FUNCTION random_date()
-RETURNS DATE
+	RETURNS DATE
 BEGIN
 	RETURN dbo.random_date_in(default,default);
 END
@@ -181,11 +181,6 @@ BEGIN
 	DEALLOCATE tables;
 END
 GO
-
-
-
-
-
 
 
 IF OBJECT_ID ( 'add_imported_to_dw_column_to_table', 'P' ) IS NOT NULL

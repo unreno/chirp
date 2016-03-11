@@ -91,6 +91,7 @@ BEGIN
 
 
 --	The UNPIVOT seems really unnecessary if only doing 1 column.
+--	Particularly when it is unique (contains units)
 
 	INSERT INTO observations
 		(chirp_id, provider_id, location_id, started_at, value_type, 
