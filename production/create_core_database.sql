@@ -55,10 +55,10 @@ END
 GO
 
 
-IF OBJECT_ID ( 'random_date', 'FN' ) IS NOT NULL
-	DROP FUNCTION random_date;
+IF OBJECT_ID ( 'random_date_in', 'FN' ) IS NOT NULL
+	DROP FUNCTION random_date_in;
 GO
-CREATE FUNCTION random_date(
+CREATE FUNCTION random_date_in(
 	@from_date DATE = '2010-01-01', 
 	@to_date   DATE = '2015-12-31' )
 RETURNS DATE
@@ -71,6 +71,18 @@ BEGIN
 END
 GO
 --NEED to pass 2 params. (default,default) uses the defaults. Duh!
+
+--Create a different function that takes no params
+--and have it call the other function with params
+IF OBJECT_ID ( 'random_date', 'FN' ) IS NOT NULL
+	DROP FUNCTION random_date;
+GO
+CREATE FUNCTION random_date()
+RETURNS DATE
+BEGIN
+	RETURN dbo.random_date_in(default,default);
+END
+GO
 
 
 

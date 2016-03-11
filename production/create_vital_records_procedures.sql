@@ -28,7 +28,7 @@ BEGIN
 			( birthid, state_file_number, date_of_birth, sex, birth_weight_lbs, birth_weight_oz )
 			VALUES 
 			( @count, CAST(RAND()*1e9 AS INT), 
-				dbo.random_date(default,default), 
+				dbo.random_date(),
 				dbo.random_sex(),
 				CAST(RAND()*5 AS INT)+5,
 				CAST(RAND()*16 AS INT) 
