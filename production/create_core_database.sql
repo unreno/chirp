@@ -44,15 +44,18 @@ GO
 IF OBJECT_ID ( 'create_a_random_date', 'P' ) IS NOT NULL
 	DROP PROCEDURE create_a_random_date;
 GO
-CREATE PROCEDURE create_a_random_date(@random_date DATE OUTPUT)
+CREATE PROCEDURE create_a_random_date(
+	@random_date DATE OUTPUT,
+	@from_date DATE = '2010-01-01', 
+	@to_date   DATE = '2015-12-31' )
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	DECLARE @from_date DATE = '2010-01-01'
-	DECLARE @to_date DATE = '2015-12-31'
+--	DECLARE @from_date DATE = '2010-01-01'
+--	DECLARE @to_date DATE = '2015-12-31'
 
 	SELECT @random_date = DATEADD(day, 
 		RAND(CHECKSUM(NEWID()))*(1+DATEDIFF(DAY, @from_date, @to_date)), 
