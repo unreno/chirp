@@ -96,6 +96,26 @@ CREATE TABLE [dbo].observations (
 );
 
 
+--This would have been nice, but the referenced column
+--	must be unique and this is not the case.
+--
+--There are no primary or candidate keys in the referenced table 'private.identifiers' 
+--	that match the referencing column list in the foreign key 'fk_chirp_id'.
+--
+--ALTER TABLE [dbo].observations ADD
+--	CONSTRAINT fk_chirp_id
+--		FOREIGN KEY (chirp_id) 
+--		REFERENCES private.identifiers(chirp_id)
+--
+--Thought this would work, but no. 
+--Subqueries are not allowed in this context. Only scalar expressions are allowed.
+--
+--ALTER TABLE [dbo].observations 
+--	ADD CONSTRAINT valid_chirp_id 
+--	CHECK (chirp_id in (SELECT DISTINCT chirp_id FROM private.identifiers))
+--
+
+
 -- These could have been included in the CREATE
 ALTER TABLE [dbo].observations ADD CONSTRAINT ck_value_type CHECK (
 	value_type IN ('N','T','S')
