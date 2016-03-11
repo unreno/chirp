@@ -18,28 +18,35 @@ USE chirp;
 ALTER AUTHORIZATION ON DATABASE::chirp TO [sa];
 
 IF OBJECT_ID('debug_log', 'U') IS NOT NULL
-	DROP TABLE debug_log;
-CREATE TABLE debug_log ( message text, logged_at DATETIME DEFAULT CURRENT_TIMESTAMP );
+	DROP TABLE dbo.debug_log;
+CREATE TABLE dbo.debug_log ( message text, logged_at DATETIME DEFAULT CURRENT_TIMESTAMP );
 GO
-IF OBJECT_ID ( 'log', 'P' ) IS NOT NULL
-	DROP PROCEDURE log;
+IF OBJECT_ID ( 'dbo.log', 'P' ) IS NOT NULL
+	DROP PROCEDURE dbo.log;
 GO
-CREATE PROCEDURE log(@msg TEXT)
+CREATE PROCEDURE dbo.log(@msg TEXT)
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
-	INSERT INTO debug_log ( message )
+	INSERT INTO dbo.debug_log ( message )
 	VALUES ( @msg );
 END
 GO
 
 
-IF OBJECT_ID ( 'random_sex', 'FN' ) IS NOT NULL
-	DROP FUNCTION random_sex;
+--Can't use RAND() in function. This is a workaround.
+--http://blog.sqlauthority.com/2012/11/20/sql-server-using-rand-in-user-defined-functions-udf/
+IF OBJECT_ID ( 'dbo.rand_view', 'V' ) IS NOT NULL
+	DROP VIEW dbo.rand_view;
 GO
-CREATE FUNCTION random_sex()
+CREATE VIEW dbo.rand_view AS SELECT RAND() number
+GO
+
+
+IF OBJECT_ID ( 'dbo.random_sex', 'FN' ) IS NOT NULL
+	DROP FUNCTION dbo.random_sex;
+GO
+CREATE FUNCTION dbo.random_sex()
 	RETURNS VARCHAR(1)
 BEGIN
 	--some languages are so complicated!
@@ -47,7 +54,7 @@ BEGIN
 	DECLARE @sexes TABLE ( id INT IDENTITY(1,1), sex VARCHAR(1) )
 	INSERT INTO @sexes VALUES ('M'),('F')
   DECLARE @rand DECIMAL(18,18)
-  SELECT @rand = number FROM rand_view	
+  SELECT @rand = number FROM dbo.rand_view
 	DECLARE @sex VARCHAR(1)
 	SELECT @sex = sex FROM @sexes WHERE id = CAST(2*@rand AS INT)+1;
 	RETURN @sex
@@ -55,16 +62,16 @@ END
 GO
 
 
-IF OBJECT_ID ( 'random_date_in', 'FN' ) IS NOT NULL
-	DROP FUNCTION random_date_in;
+IF OBJECT_ID ( 'dbo.random_date_in', 'FN' ) IS NOT NULL
+	DROP FUNCTION dbo.random_date_in;
 GO
-CREATE FUNCTION random_date_in(
+CREATE FUNCTION dbo.random_date_in(
 	@from_date DATE = '2010-01-01', 
 	@to_date   DATE = '2015-12-31' )
 	RETURNS DATE
 BEGIN
 	DECLARE @rand DECIMAL(18,18)
-	SELECT @rand = number FROM rand_view
+	SELECT @rand = number FROM dbo.rand_view
 	RETURN DATEADD(day, 
 		@rand*(1+DATEDIFF(DAY, @from_date, @to_date)), 
 		@from_date)
@@ -74,10 +81,10 @@ GO
 
 --Create a different function that takes no params
 --and have it call the other function with params
-IF OBJECT_ID ( 'random_date', 'FN' ) IS NOT NULL
-	DROP FUNCTION random_date;
+IF OBJECT_ID ( 'dbo.random_date', 'FN' ) IS NOT NULL
+	DROP FUNCTION dbo.random_date;
 GO
-CREATE FUNCTION random_date()
+CREATE FUNCTION dbo.random_date()
 	RETURNS DATE
 BEGIN
 	RETURN dbo.random_date_in(default,default);
@@ -87,17 +94,15 @@ GO
 
 
 --http://stackoverflow.com/questions/9645348/how-to-insert-1000-random-dates-between-a-given-range
---IF OBJECT_ID ( 'create_a_random_date', 'P' ) IS NOT NULL
---	DROP PROCEDURE create_a_random_date;
+--IF OBJECT_ID ( 'dbo.create_a_random_date', 'P' ) IS NOT NULL
+--	DROP PROCEDURE dbo.create_a_random_date;
 --GO
---CREATE PROCEDURE create_a_random_date(
+--CREATE PROCEDURE dbo.create_a_random_date(
 --	@random_date DATE OUTPUT,
 --	@from_date DATE = '2010-01-01', 
 --	@to_date   DATE = '2015-12-31' )
 --AS
 --BEGIN
---	-- SET NOCOUNT ON added to prevent extra result sets from
---	-- interfering with SELECT statements.
 --	SET NOCOUNT ON;
 --
 ----	DECLARE @from_date DATE = '2010-01-01'
@@ -113,14 +118,12 @@ GO
 
 
 
-IF OBJECT_ID ( 'add_imported_at_column_to_table', 'P' ) IS NOT NULL
-	DROP PROCEDURE add_imported_at_column_to_table;
+IF OBJECT_ID ( 'dbo.add_imported_at_column_to_table', 'P' ) IS NOT NULL
+	DROP PROCEDURE dbo.add_imported_at_column_to_table;
 GO
-CREATE PROCEDURE add_imported_at_column_to_table(@schema VARCHAR(255),@table VARCHAR(255))
+CREATE PROCEDURE dbo.add_imported_at_column_to_table(@schema VARCHAR(255),@table VARCHAR(255))
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
 	DECLARE @cmd VARCHAR(255);
@@ -152,14 +155,12 @@ END
 GO
 
 
-IF OBJECT_ID ( 'add_imported_at_column_to_tables_by_schema', 'P' ) IS NOT NULL
-	DROP PROCEDURE add_imported_at_column_to_tables_by_schema;
+IF OBJECT_ID ( 'dbo.add_imported_at_column_to_tables_by_schema', 'P' ) IS NOT NULL
+	DROP PROCEDURE dbo.add_imported_at_column_to_tables_by_schema;
 GO
-CREATE PROCEDURE add_imported_at_column_to_tables_by_schema(@schema VARCHAR(255))
+CREATE PROCEDURE dbo.add_imported_at_column_to_tables_by_schema(@schema VARCHAR(255))
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
 	DECLARE @table VARCHAR(255);
@@ -175,7 +176,7 @@ BEGIN
 		FETCH tables INTO @table;
 		IF(@@FETCH_STATUS <> 0) BREAK
 		PRINT @table
-		EXEC add_imported_at_column_to_table @schema, @table
+		EXEC dbo.add_imported_at_column_to_table @schema, @table
 	END
 	CLOSE tables;
 	DEALLOCATE tables;
@@ -183,14 +184,12 @@ END
 GO
 
 
-IF OBJECT_ID ( 'add_imported_to_dw_column_to_table', 'P' ) IS NOT NULL
-	DROP PROCEDURE add_imported_to_dw_column_to_table;
+IF OBJECT_ID ( 'dbo.add_imported_to_dw_column_to_table', 'P' ) IS NOT NULL
+	DROP PROCEDURE dbo.add_imported_to_dw_column_to_table;
 GO
-CREATE PROCEDURE add_imported_to_dw_column_to_table(@schema VARCHAR(255),@table VARCHAR(255))
+CREATE PROCEDURE dbo.add_imported_to_dw_column_to_table(@schema VARCHAR(255),@table VARCHAR(255))
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
 	DECLARE @cmd VARCHAR(255);
@@ -222,14 +221,12 @@ END
 GO
 
 
-IF OBJECT_ID ( 'add_imported_to_dw_column_to_tables_by_schema', 'P' ) IS NOT NULL
-	DROP PROCEDURE add_imported_to_dw_column_to_tables_by_schema;
+IF OBJECT_ID ( 'dbo.add_imported_to_dw_column_to_tables_by_schema', 'P' ) IS NOT NULL
+	DROP PROCEDURE dbo.add_imported_to_dw_column_to_tables_by_schema;
 GO
-CREATE PROCEDURE add_imported_to_dw_column_to_tables_by_schema(@schema VARCHAR(255))
+CREATE PROCEDURE dbo.add_imported_to_dw_column_to_tables_by_schema(@schema VARCHAR(255))
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
 	DECLARE @table VARCHAR(255);
@@ -246,7 +243,7 @@ BEGIN
 		IF(@@FETCH_STATUS <> 0)
 			BREAK
 		PRINT @table
-		EXEC add_imported_to_dw_column_to_table @schema, @table
+		EXEC dbo.add_imported_to_dw_column_to_table @schema, @table
 	END
 	CLOSE tables;
 	DEALLOCATE tables;

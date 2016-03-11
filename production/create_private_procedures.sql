@@ -4,17 +4,10 @@ USE chirp
 GO
 
 
-
---Can't use RAND() in function. This is a workaround.
---http://blog.sqlauthority.com/2012/11/20/sql-server-using-rand-in-user-defined-functions-udf/
+IF OBJECT_ID ( 'dbo.create_unique_chirp_id', 'FN' ) IS NOT NULL
+	DROP FUNCTION dbo.create_unique_chirp_id;
 GO
-CREATE VIEW rand_view AS SELECT RAND() number
-GO
-
-IF OBJECT_ID ( 'create_unique_chirp_id', 'FN' ) IS NOT NULL
-	DROP FUNCTION create_unique_chirp_id;
-GO
-CREATE FUNCTION create_unique_chirp_id()
+CREATE FUNCTION dbo.create_unique_chirp_id()
 	RETURNS INT
 BEGIN
 	DECLARE @minid INT = 1e9;

@@ -4,17 +4,15 @@ USE chirp
 GO
 
 
-IF OBJECT_ID ( 'import_into_data_warehouse_by_table_birth', 'P' ) IS NOT NULL
-	DROP PROCEDURE import_into_data_warehouse_by_table_birth;
+IF OBJECT_ID ( 'dbo.import_into_data_warehouse_by_table_birth', 'P' ) IS NOT NULL
+	DROP PROCEDURE dbo.import_into_data_warehouse_by_table_birth;
 GO
-CREATE PROCEDURE import_into_data_warehouse_by_table_birth
+CREATE PROCEDURE dbo.import_into_data_warehouse_by_table_birth
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	INSERT INTO observations
+	INSERT INTO dbo.observations
 		(chirp_id, provider_id, location_id, started_at, value_type, 
 			concept, s_value, downloaded_from, downloaded_at) 
 		SELECT chirp_id, provider_id, location_id, started_at, value_type, 
@@ -39,7 +37,7 @@ BEGIN
 			s_value FOR concept IN ( [DEM:Sex] )
 		) AS anotherarbitraryrequiredname
 
-	INSERT INTO observations
+	INSERT INTO dbo.observations
 		(chirp_id, provider_id, location_id, started_at, value_type, 
 			concept, t_value, downloaded_from, downloaded_at) 
 		SELECT chirp_id, provider_id, location_id, started_at, value_type, 
@@ -64,7 +62,7 @@ BEGIN
 			t_value FOR concept IN ( [DEM:DOB] )
 		) AS anotherarbitraryrequiredname
 
---	INSERT INTO observations
+--	INSERT INTO dbo.observations
 --		(chirp_id, provider_id, location_id, started_at, value_type, 
 --			concept, n_value, downloaded_from, downloaded_at) 
 --		SELECT chirp_id, provider_id, location_id, started_at, value_type, 
@@ -93,7 +91,7 @@ BEGIN
 --	The UNPIVOT seems really unnecessary if only doing 1 column.
 --	Particularly when it is unique (contains units)
 
-	INSERT INTO observations
+	INSERT INTO dbo.observations
 		(chirp_id, provider_id, location_id, started_at, value_type, 
 			concept, n_value, units, downloaded_from, downloaded_at) 
 		SELECT i.chirp_id, 
@@ -125,14 +123,12 @@ GO
 
 
 
-IF OBJECT_ID ( 'import_into_data_warehouse_by_schema', 'P' ) IS NOT NULL
-	DROP PROCEDURE import_into_data_warehouse_by_schema;
+IF OBJECT_ID ( 'dbo.import_into_data_warehouse_by_schema', 'P' ) IS NOT NULL
+	DROP PROCEDURE dbo.import_into_data_warehouse_by_schema;
 GO
-CREATE PROCEDURE import_into_data_warehouse_by_schema( @schema VARCHAR(50) )
+CREATE PROCEDURE dbo.import_into_data_warehouse_by_schema( @schema VARCHAR(50) )
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
 	DECLARE @table VARCHAR(50)
@@ -149,8 +145,8 @@ BEGIN
 		FETCH tables INTO @table;
 		IF(@@FETCH_STATUS <> 0) BREAK
 		PRINT @table
-		--	EXEC import_into_data_warehouse_by_table(@schema,@table)
-		SET @proc = 'import_into_data_warehouse_by_table_' + @table
+		--	EXEC dbo.import_into_data_warehouse_by_table(@schema,@table)
+		SET @proc = 'dbo.import_into_data_warehouse_by_table_' + @table
 
 		IF OBJECT_ID ( @proc, 'P' ) IS NOT NULL
 		BEGIN
@@ -164,17 +160,15 @@ BEGIN
 	CLOSE tables;
 	DEALLOCATE tables;
 
-END	--	import_into_data_warehouse_by_schema
+END	--	dbo.import_into_data_warehouse_by_schema
 GO
 
-IF OBJECT_ID ( 'import_into_data_warehouse', 'P' ) IS NOT NULL
-	DROP PROCEDURE import_into_data_warehouse;
+IF OBJECT_ID ( 'dbo.import_into_data_warehouse', 'P' ) IS NOT NULL
+	DROP PROCEDURE dbo.import_into_data_warehouse;
 GO
-CREATE PROCEDURE import_into_data_warehouse
+CREATE PROCEDURE dbo.import_into_data_warehouse
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
 --	DECLARE @schemas TABLE ( name VARCHAR(50) )
@@ -189,16 +183,16 @@ BEGIN
 --		FETCH schemas INTO @schema;
 --		IF(@@FETCH_STATUS <> 0) BREAK
 --		PRINT @schema
---		EXEC import_into_data_warehouse_by_schema @schema
+--		EXEC dbo.import_into_data_warehouse_by_schema @schema
 
 		--Until there are more than a dozen, this above is a bit excessive!
-		EXEC import_into_data_warehouse_by_schema 'vital_records'
+		EXEC dbo.import_into_data_warehouse_by_schema 'vital_records'
 
 --	END
 --	CLOSE schemas;
 --	DEALLOCATE schemas;
 
-END	--	import_into_data_warehouse
+END	--	dbo.import_into_data_warehouse
 GO
 
 

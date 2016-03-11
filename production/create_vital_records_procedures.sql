@@ -1,10 +1,10 @@
 USE chirp
 GO
 
-IF OBJECT_ID ( 'create_random_vital_records', 'P' ) IS NOT NULL
-	DROP PROCEDURE create_random_vital_records;
+IF OBJECT_ID ( 'dbo.create_random_vital_records', 'P' ) IS NOT NULL
+	DROP PROCEDURE dbo.create_random_vital_records;
 GO
-CREATE PROCEDURE create_random_vital_records
+CREATE PROCEDURE dbo.create_random_vital_records
 AS
 BEGIN
 	SET NOCOUNT ON;
