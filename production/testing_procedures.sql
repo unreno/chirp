@@ -5,9 +5,110 @@ GO
 
 
 
+CREATE PROCEDURE testChirp.[test that will only create 1 observation records for vr:birth dob]
+AS
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE @actual INT;
+	DECLARE @expected INT = 0;
+	EXEC tSQLt.FakeTable 'vital_records.birth';
+	
+	INSERT INTO vital_records.birth 
+		( birthid, state_file_number, date_of_birth, imported_to_dw )
+		VALUES 
+			( 1, CAST(RAND()*1e9 AS INT), dbo.random_date(), 'FALSE' );
+	SELECT @actual = COUNT(*) FROM vital_records.birth;
+	SET @expected = 1;
+	EXEC tSQLt.AssertEquals @expected, @actual;
+
+	EXEC tSQLt.FakeTable 'private.identifiers';
+	INSERT INTO private.identifiers
+		( chirp_id, source_schema, source_table, source_column, source_id ) 
+		SELECT dbo.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
+			state_file_number from vital_records.birth b where b.imported_to_dw = 'FALSE';
+	SELECT @actual = COUNT(*) FROM private.identifiers;
+	EXEC tSQLt.AssertEquals @expected, @actual;
+
+	EXEC tSQLt.FakeTable 'dbo.observations';
+	EXEC import_into_data_warehouse
+
+	SELECT @actual = COUNT(*) FROM dbo.observations;
+	SET @expected = 1;	--	DOB
+	EXEC tSQLt.AssertEquals @expected, @actual;
+END
+GO
+
+CREATE PROCEDURE testChirp.[test that will only create 1 observation records for vr:birth weight]
+AS
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE @actual INT;
+	DECLARE @expected INT = 0;
+	EXEC tSQLt.FakeTable 'vital_records.birth';
+	
+	INSERT INTO vital_records.birth 
+		( birthid, state_file_number, date_of_birth, birth_weight_lbs, birth_weight_oz, imported_to_dw )
+		VALUES 
+			( 1, CAST(RAND()*1e9 AS INT), dbo.random_date(), CAST(RAND()*5 AS INT)+5,
+				CAST(RAND()*16 AS INT), 'FALSE' );
+	SELECT @actual = COUNT(*) FROM vital_records.birth;
+	SET @expected = 1;
+	EXEC tSQLt.AssertEquals @expected, @actual;
+
+	EXEC tSQLt.FakeTable 'private.identifiers';
+	INSERT INTO private.identifiers
+		( chirp_id, source_schema, source_table, source_column, source_id ) 
+		SELECT dbo.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
+			state_file_number from vital_records.birth b where b.imported_to_dw = 'FALSE';
+	SELECT @actual = COUNT(*) FROM private.identifiers;
+	EXEC tSQLt.AssertEquals @expected, @actual;
+
+	EXEC tSQLt.FakeTable 'dbo.observations';
+	EXEC import_into_data_warehouse
+
+	SELECT @actual = COUNT(*) FROM dbo.observations;
+	SET @expected = 2;	--	DOB, Weight
+	EXEC tSQLt.AssertEquals @expected, @actual;
+END
+GO
+
+CREATE PROCEDURE testChirp.[test that will only create 1 observation records for vr:birth sex]
+AS
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE @actual INT;
+	DECLARE @expected INT = 0;
+	EXEC tSQLt.FakeTable 'vital_records.birth';
+
+	INSERT INTO vital_records.birth 
+		( birthid, state_file_number, date_of_birth, sex, imported_to_dw )
+		VALUES 
+			( 1, CAST(RAND()*1e9 AS INT), dbo.random_date(), dbo.random_sex(),'FALSE' );
+	SELECT @actual = COUNT(*) FROM vital_records.birth;
+	SET @expected = 1;
+	EXEC tSQLt.AssertEquals @expected, @actual;
+
+	EXEC tSQLt.FakeTable 'private.identifiers';
+	INSERT INTO private.identifiers
+		( chirp_id, source_schema, source_table, source_column, source_id ) 
+		SELECT dbo.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
+			state_file_number from vital_records.birth b where b.imported_to_dw = 'FALSE';
+	SELECT @actual = COUNT(*) FROM private.identifiers;
+	EXEC tSQLt.AssertEquals @expected, @actual;
+
+	EXEC tSQLt.FakeTable 'dbo.observations';
+	EXEC import_into_data_warehouse
+
+	SELECT @actual = COUNT(*) FROM dbo.observations;
+	SET @expected = 2;	--	DOB, Sex
+	EXEC tSQLt.AssertEquals @expected, @actual;
+END
+GO
+
 CREATE PROCEDURE testChirp.[test that will CURRENTLY create 3 observation records]
 AS
 BEGIN
+	SET NOCOUNT ON;
 	DECLARE @actual INT;
 	EXEC tSQLt.FakeTable 'vital_records.birth';
 	SELECT @actual = COUNT(*) FROM vital_records.birth;
@@ -44,6 +145,7 @@ GO
 CREATE PROCEDURE testChirp.[test that can create a single identifier record]
 AS
 BEGIN
+	SET NOCOUNT ON;
 	DECLARE @actual INT;
 	EXEC tSQLt.FakeTable 'vital_records.birth';
 	SELECT @actual = COUNT(*) FROM vital_records.birth;
@@ -73,6 +175,7 @@ GO
 CREATE PROCEDURE testChirp.[test that can create a single vital records birth record]
 AS
 BEGIN
+	SET NOCOUNT ON;
 	DECLARE @actual INT;
 	EXEC tSQLt.FakeTable 'vital_records', 'birth';
 	SELECT @actual = COUNT(*) FROM vital_records.birth;
@@ -90,6 +193,8 @@ GO
 CREATE PROCEDURE testChirp.[test that fake observation table is created empty]
 AS
 BEGIN
+	SET NOCOUNT ON;
+
 	DECLARE @actual INT;
 	EXEC tSQLt.FakeTable 'dbo', 'observations';
 	SELECT @actual = COUNT(*) FROM dbo.observations;

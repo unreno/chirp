@@ -111,6 +111,8 @@ BEGIN
 			AND i.source_table = 'birth'
 			AND i.source_schema = 'vital_records'
 		WHERE b.imported_to_dw = 'FALSE'
+			AND b.birth_weight_lbs IS NOT NULL
+			AND b.birth_weight_oz IS NOT NULL
 
 
 
@@ -144,17 +146,16 @@ BEGIN
 	WHILE(1=1)BEGIN
 		FETCH tables INTO @table;
 		IF(@@FETCH_STATUS <> 0) BREAK
-		PRINT @table
 		--	EXEC dbo.import_into_data_warehouse_by_table(@schema,@table)
 		SET @proc = 'dbo.import_into_data_warehouse_by_table_' + @table
 
 		IF OBJECT_ID ( @proc, 'P' ) IS NOT NULL
 		BEGIN
-			PRINT 'Importing select fields'
+			PRINT 'Importing select fields from ' + @table
 			EXEC @proc
 		END
 		ELSE
-			PRINT 'Ignoring table'
+			PRINT 'Ignoring table ' + @table
 
 	END
 	CLOSE tables;
