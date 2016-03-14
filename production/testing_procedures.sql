@@ -11,12 +11,12 @@ BEGIN
 	SET NOCOUNT ON;
 	DECLARE @actual INT;
 	DECLARE @expected INT = 0;
-	EXEC tSQLt.FakeTable 'vital_records.birth';
+	EXEC tSQLt.FakeTable 'vital_records.birth', @Defaults = 'TRUE';
 	
 	INSERT INTO vital_records.birth 
-		( birthid, state_file_number, date_of_birth, imported_to_dw )
+		( birthid, state_file_number, date_of_birth )
 		VALUES 
-			( 1, CAST(RAND()*1e9 AS INT), dbo.random_date(), 'FALSE' );
+			( 1, CAST(RAND()*1e9 AS INT), dbo.random_date() );
 	SELECT @actual = COUNT(*) FROM vital_records.birth;
 	SET @expected = 1;
 	EXEC tSQLt.AssertEquals @expected, @actual;
@@ -44,13 +44,13 @@ BEGIN
 	SET NOCOUNT ON;
 	DECLARE @actual INT;
 	DECLARE @expected INT = 0;
-	EXEC tSQLt.FakeTable 'vital_records.birth';
+	EXEC tSQLt.FakeTable 'vital_records.birth', @Defaults = 'TRUE';
 	
 	INSERT INTO vital_records.birth 
-		( birthid, state_file_number, date_of_birth, birth_weight_lbs, birth_weight_oz, imported_to_dw )
+		( birthid, state_file_number, date_of_birth, birth_weight_lbs, birth_weight_oz )
 		VALUES 
-			( 1, CAST(RAND()*1e9 AS INT), dbo.random_date(), CAST(RAND()*5 AS INT)+5,
-				CAST(RAND()*16 AS INT), 'FALSE' );
+			( 1, CAST(RAND()*1e9 AS INT), dbo.random_date(), 
+				CAST(RAND()*5 AS INT)+5, CAST(RAND()*16 AS INT) );
 	SELECT @actual = COUNT(*) FROM vital_records.birth;
 	SET @expected = 1;
 	EXEC tSQLt.AssertEquals @expected, @actual;
@@ -78,12 +78,12 @@ BEGIN
 	SET NOCOUNT ON;
 	DECLARE @actual INT;
 	DECLARE @expected INT = 0;
-	EXEC tSQLt.FakeTable 'vital_records.birth';
+	EXEC tSQLt.FakeTable 'vital_records.birth', @Defaults = 'TRUE';
 
 	INSERT INTO vital_records.birth 
-		( birthid, state_file_number, date_of_birth, sex, imported_to_dw )
+		( birthid, state_file_number, date_of_birth, sex )
 		VALUES 
-			( 1, CAST(RAND()*1e9 AS INT), dbo.random_date(), dbo.random_sex(),'FALSE' );
+			( 1, CAST(RAND()*1e9 AS INT), dbo.random_date(), dbo.random_sex() );
 	SELECT @actual = COUNT(*) FROM vital_records.birth;
 	SET @expected = 1;
 	EXEC tSQLt.AssertEquals @expected, @actual;
@@ -110,7 +110,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 	DECLARE @actual INT;
-	EXEC tSQLt.FakeTable 'vital_records.birth';
+	EXEC tSQLt.FakeTable 'vital_records.birth', @Defaults = 'TRUE';
 	SELECT @actual = COUNT(*) FROM vital_records.birth;
 	DECLARE @expected INT = 0;
 	EXEC tSQLt.AssertEquals @expected, @actual;
@@ -119,10 +119,6 @@ BEGIN
 	SELECT @actual = COUNT(*) FROM vital_records.birth;
 	SET @expected = 1;
 	EXEC tSQLt.AssertEquals @expected, @actual;
-
-	--ApplyContraint doesn't work with 'DEFAULT' constraint
-	--	EXEC tSQLt.ApplyConstraint 'vital_records.birth', 'vital_records_birth_imported_to_dw_default';
-	UPDATE vital_records.birth SET imported_to_dw = 'FALSE';
 
 	EXEC tSQLt.FakeTable 'private.identifiers';
 	INSERT INTO private.identifiers
@@ -147,7 +143,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 	DECLARE @actual INT;
-	EXEC tSQLt.FakeTable 'vital_records.birth';
+	EXEC tSQLt.FakeTable 'vital_records.birth', @Defaults = 'TRUE';
 	SELECT @actual = COUNT(*) FROM vital_records.birth;
 	DECLARE @expected INT = 0;
 	EXEC tSQLt.AssertEquals @expected, @actual;
@@ -156,10 +152,6 @@ BEGIN
 	SELECT @actual = COUNT(*) FROM vital_records.birth;
 	SET @expected = 1;
 	EXEC tSQLt.AssertEquals @expected, @actual;
-
-	--ApplyContraint doesn't work with 'DEFAULT' constraint
-	--	EXEC tSQLt.ApplyConstraint 'vital_records.birth', 'vital_records_birth_imported_to_dw_default';
-	UPDATE vital_records.birth SET imported_to_dw = 'FALSE';
 
 	EXEC tSQLt.FakeTable 'private.identifiers';
 	INSERT INTO private.identifiers
@@ -177,7 +169,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 	DECLARE @actual INT;
-	EXEC tSQLt.FakeTable 'vital_records', 'birth';
+	EXEC tSQLt.FakeTable 'vital_records', 'birth', @Defaults = 'TRUE';
 	SELECT @actual = COUNT(*) FROM vital_records.birth;
 	DECLARE @expected INT = 0;
 	EXEC tSQLt.AssertEquals @expected, @actual;
