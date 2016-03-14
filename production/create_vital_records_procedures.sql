@@ -4,14 +4,14 @@ GO
 IF OBJECT_ID ( 'dbo.create_random_vital_records', 'P' ) IS NOT NULL
 	DROP PROCEDURE dbo.create_random_vital_records;
 GO
-CREATE PROCEDURE dbo.create_random_vital_records
+CREATE PROCEDURE dbo.create_random_vital_records( @total INT = 1000 )
 AS
 BEGIN
 	SET NOCOUNT ON;
 
 	DECLARE @count INT = 0
 
-	WHILE @count < 1000
+	WHILE @count < @total
 	BEGIN
 		SET @count = @count + 1;
 		INSERT INTO vital_records.birth 
