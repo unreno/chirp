@@ -12,6 +12,7 @@ BEGIN {
 
 	gsub("\"","",$1)
 	gsub("\"\"","\"",$5);
+	gsub("'","''",$5);
 
 	print "INSERT INTO [dbo].[concepts] VALUES ("
 	print "\t\x27ICD10DX:"$1"\x27,"

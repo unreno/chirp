@@ -9,6 +9,7 @@ BEGIN{
 	FS="\t"
 }
 {
+	gsub("'","''",$2);
 	print "INSERT INTO [dbo].[concepts] VALUES ("
 	print "\t\x27ICD9DX:"$1"\x27,"
 	print "\t\x27/ICD9DX/"$1"\x27,"
