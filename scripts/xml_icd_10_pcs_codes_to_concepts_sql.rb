@@ -56,9 +56,11 @@ doc.xpath('//pcsTable').each do |pcstable|
 						p7path = p6path + "/#{l.text}"
 						#puts p7code
 						#puts p7path
+						#puts p7path.slice(0..255)
+						#	path is VARCHAR(255). Need to trim and don't forget the /ICD10PCS prefix!
 						puts "INSERT INTO [dbo].[concepts] VALUES ("
 						puts "\t\x27ICD10PCS:#{p7code}\x27,"
-						puts "\t\x27/ICD10PCS#{p7path}\x27,"
+						puts "\t\x27/ICD10PCS#{p7path.slice(0..245)}\x27,"
 						puts "\t\x27#{p7path}\x27);"
 					end
 				end
