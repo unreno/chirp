@@ -95,6 +95,23 @@ CREATE TABLE dbo.observations (
 		FOREIGN KEY (concept) REFERENCES concepts(code)
 );
 
+/*
+
+ALTER TABLE dbo.observations NOCHECK CONSTRAINT fk_concept_code;
+-- remove old and add new records
+ALTER TABLE dbo.observations CHECK CONSTRAINT fk_concept_code;
+
+--OR?
+
+ALTER TABLE dbo.observations DROP fk_concept_code
+	FOREIGN KEY (concept) REFERENCES concepts(code)
+);
+-- remove old and add new records
+ALTER TABLE dbo.observations ADD fk_concept_code
+	FOREIGN KEY (concept) REFERENCES concepts(code)
+);
+
+*/
 
 --This would have been nice, but the referenced column
 --	must be unique and this is not the case.
