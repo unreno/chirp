@@ -52,7 +52,8 @@ done
 #      5 DEM (manually added for testing)
 #  86549 subtotal
 #
-# 104998 total concepts
+#   2026 ICD10 PCS
+# 107024 total concepts
 #
 
 #tail -n +2 ../all_lmrp/hcpc_code_lookup.csv | sort -r -k1,1 -k2,2n \
@@ -68,6 +69,8 @@ done
 #tail -n +2 ../all_lmrp/icd10_code_lookup.csv | sort -r -k1,1 -k2,2n \
 #	| awk -F, '( $1 != prev ){ print; prev=$1 }' | sort -k1,1 \
 #	| awk -f ../scripts/csv_icd10_codes_to_concepts_sql.awk
+#
+#../scripts/xml_icd_10_pcs_codes_to_concepts_sql.rb
 
 echo
 echo
