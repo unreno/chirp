@@ -20,6 +20,9 @@ BEGIN TRANSACTION
 		'TEST:1',
 		'/TEST/1',
 		'Just testing');
+
+	PRINT 'The second INSERT failed. This line won''t be run.'
+
 ;
 GO
 SELECT COUNT(*) FROM concepts;
@@ -38,6 +41,9 @@ BEGIN TRANSACTION [Tran1]
 			'TEST:1',
 			'/TEST/1',
 			'Just testing');
+
+		PRINT 'The second INSERT failed. This line won''t be run.'
+
 		COMMIT TRANSACTION [Tran1]
 	END TRY
 	BEGIN CATCH
