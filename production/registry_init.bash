@@ -41,5 +41,19 @@ for concept in DOB Sex Height Weight Race; do
 
 done
 
+#tail -n +2 ../all_lmrp/hcpc_code_lookup.csv | sort -r -k1,1 -k2,2n \
+#	| awk -F, '( $1 != prev ){ print; prev=$1 }' | sort -k1,1 \
+#	| awk -f ../scripts/csv_hcpc_codes_to_concepts_sql.awk
+#
+#awk -f ../scripts/csv_icd_9_dx_codes_to_concepts_sql.awk \
+#	../ICD-9-CM-v32-master-descriptions/CMS32_DESC_LONG_DX.txt
+#
+#awk -f ../scripts/csv_icd_9_dx_codes_to_concepts_sql.awk \
+#	../ICD-9-CM-v32-master-descriptions/CMS32_DESC_LONG_SG.txt 
+#
+#tail -n +2 ../all_lmrp/icd10_code_lookup.csv | sort -r -k1,1 -k2,2n \
+#	| awk -F, '( $1 != prev ){ print; prev=$1 }' | sort -k1,1 \
+#	| awk -f ../scripts/csv_icd10_codes_to_concepts_sql.awk
+
 echo
 echo
