@@ -1,5 +1,5 @@
 #
-#	awk -f scripts/csv_icd_9_dx_codes_to_concepts_sql.awk ICD-9-CM-v32-master-descriptions/CMS32_DESC_LONG_DX.txt
+#	awk -f scripts/tsv_icd_9_dx_codes_to_concepts_sql.awk ICD-9-CM-v32-master-descriptions/CMS32_DESC_LONG_DX.txt
 #
 #	code VARCHAR(255) PRIMARY KEY,
 #	path VARCHAR(255),
