@@ -72,6 +72,9 @@ done
 #
 #../scripts/xml_icd_10_pcs_codes_to_concepts_sql.rb
 #
+#awk -f ../scripts/tsv_ndc_package_codes_to_concepts_sql.awk \
+#	../ndc/package.txt
+#
 
 echo
 echo
