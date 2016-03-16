@@ -53,7 +53,12 @@ done
 #  86549 subtotal
 #
 #   2026 ICD10 PCS
-# 107024 total concepts
+# 107024 subtotal
+#
+# 192355 NDC
+# -   18 NDC duplicates extras
+# -    2 NDC triplicate extras
+# 299359 TOTAL concepts
 #
 
 #tail -n +2 ../all_lmrp/hcpc_code_lookup.csv | sort -r -k1,1 -k2,2n \
@@ -74,6 +79,10 @@ done
 #
 #awk -f ../scripts/tsv_ndc_package_codes_to_concepts_sql.awk \
 #	../ndc/package.txt
+#
+#	Be advised that SQL Server won't run a script larger than 1MB.
+#	Even with Intellisense turned off.
+#	The NDC codes is over 25MB by itself.
 #
 
 echo
