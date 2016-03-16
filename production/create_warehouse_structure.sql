@@ -103,13 +103,11 @@ ALTER TABLE dbo.observations CHECK CONSTRAINT fk_concept_code;
 
 --OR?
 
-ALTER TABLE dbo.observations DROP fk_concept_code
-	FOREIGN KEY (concept) REFERENCES concepts(code)
-);
+ALTER TABLE dbo.observations DROP CONSTRAINT fk_concept_code;
 -- remove old and add new records
-ALTER TABLE dbo.observations ADD fk_concept_code
-	FOREIGN KEY (concept) REFERENCES concepts(code)
-);
+ALTER TABLE dbo.observations ADD CONSTRAINT fk_concept_code
+	FOREIGN KEY (concept) REFERENCES concepts(code);
+
 
 */
 
