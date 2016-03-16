@@ -10,6 +10,9 @@
 #	fail to load which is as good a result as I would get if 
 #	I spent time trying to figure out how to not insert them.
 #
+#	http://www.fda.gov/Drugs/InformationOnDrugs/ucm142438.htm
+#	http://www.accessdata.fda.gov/cder/ndc.zip
+#
 BEGIN{
 	FS="\t"
 }
