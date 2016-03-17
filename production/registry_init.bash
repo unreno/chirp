@@ -35,7 +35,7 @@ cat testing_procedures.sql
 #	No more bulk importing of all this as most won't actually be used this way.
 #../scripts/csv_to_concept_codes.bash ../scripts/vital_records/*csv
 
-for concept in DOB Sex Height Weight Race; do
+for concept in DOB Sex Height Weight Race Language Zipcode; do
 	echo "INSERT INTO dbo.concepts VALUES ("
 	echo -e "\t'DEM:$concept',"
 	echo -e "\t'/Demographics/$concept',"
@@ -58,7 +58,10 @@ done
 # 192355 NDC
 # -   18 NDC duplicates extras
 # -    2 NDC triplicate extras
-# 299359 TOTAL concepts
+# 299359 subTOTAL concepts
+#
+#	     2 2 more DEM codes, Language and Zipcode
+# 299361 TOTAL concepts
 #
 
 #tail -n +2 ../all_lmrp/hcpc_code_lookup.csv | LC_ALL='C' sort -r -k1,1 -k2,2n \
@@ -84,6 +87,9 @@ done
 #	Be advised that SQL Server won't run a script larger than 1MB.
 #	Even with Intellisense turned off.
 #	The NDC codes is over 25MB by itself.
+#
+#
+#	I have created a giant csv file that is importable via a SSIS package
 #
 
 echo
