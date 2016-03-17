@@ -61,7 +61,7 @@ done
 # 299359 TOTAL concepts
 #
 
-#tail -n +2 ../all_lmrp/hcpc_code_lookup.csv | sort -r -k1,1 -k2,2n \
+#tail -n +2 ../all_lmrp/hcpc_code_lookup.csv | LC_ALL='C' sort -r -k1,1 -k2,2n \
 #	| awk -F, '( $1 != prev ){ print; prev=$1 }' | sort -k1,1 \
 #	| awk -f ../scripts/csv_hcpc_codes_to_concepts_sql.awk
 #
@@ -77,8 +77,9 @@ done
 #
 #../scripts/xml_icd_10_pcs_codes_to_concepts_sql.rb
 #
-#awk -f ../scripts/tsv_ndc_package_codes_to_concepts_sql.awk \
-#	../ndc/package.txt
+#tail -n +2 ../ndc/package.txt | sort -t$'\t' -k3,3  \
+#	| awk -F"\t" '( $3 != prev ){ print; prev=$3 }' \
+#	| awk -f ../scripts/tsv_ndc_package_codes_to_concepts_sql.awk ndc/package.txt
 #
 #	Be advised that SQL Server won't run a script larger than 1MB.
 #	Even with Intellisense turned off.

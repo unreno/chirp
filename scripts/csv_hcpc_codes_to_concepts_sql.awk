@@ -1,5 +1,5 @@
 #
-#	tail -n +2 all_lmrp/hcpc_code_lookup.csv | sort -r -k1,1 -k2,2n | awk -F, '( $1 != prev ){ print; prev=$1 }'  | sort -k1,1 | awk -f scripts/csv_hcpc_codes_to_concepts_sql.awk
+#	tail -n +2 all_lmrp/hcpc_code_lookup.csv | LC_ALL='C' sort -r -k1,1 -k2,2n | awk -F, '( $1 != prev ){ print; prev=$1 }'  | sort -k1,1 | awk -f scripts/csv_hcpc_codes_to_concepts_sql.awk
 #
 #	code VARCHAR(255) PRIMARY KEY,
 #	path VARCHAR(255),
