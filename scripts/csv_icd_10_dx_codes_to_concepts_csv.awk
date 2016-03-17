@@ -10,5 +10,7 @@ BEGIN {
 }
 {
 	gsub("\"","",$1)
-	print "ICD10DX:"$1",/ICD10DX/"$1",\""substr($5,2,length($5)-2)"\""
+#	print "ICD10DX:"$1",/ICD10DX/"$1",\""substr($5,2,length($5)-2)"\""
+#	$5 is wrapped in double quotes so why remove them and then add them?
+	print "ICD10DX:"$1",/ICD10DX/"$1","$5
 }

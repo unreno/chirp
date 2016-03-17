@@ -10,5 +10,7 @@ BEGIN {
 }
 {
 	gsub("\"","",$1)
-	print "HCPC:"$1",/HCPC/"$1",\""substr($5,2,length($5)-2)"\""
+#	print "HCPC:"$1",/HCPC/"$1",\""substr($5,2,length($5)-2)"\""
+#	$5 is wrapped in double quotes so why remove them and then add them?
+	print "HCPC:"$1",/HCPC/"$1","$5
 }
