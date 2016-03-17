@@ -73,7 +73,7 @@ done
 #
 #tail -n +2 ../all_lmrp/icd10_code_lookup.csv | sort -r -k1,1 -k2,2n \
 #	| awk -F, '( $1 != prev ){ print; prev=$1 }' | sort -k1,1 \
-#	| awk -f ../scripts/csv_icd10_codes_to_concepts_sql.awk
+#	| awk -f ../scripts/csv_icd_10_dx_codes_to_concepts_sql.awk
 #
 #../scripts/xml_icd_10_pcs_codes_to_concepts_sql.rb
 #

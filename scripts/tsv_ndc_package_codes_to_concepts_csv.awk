@@ -1,7 +1,5 @@
 #
-#	tail -n +2 ndc/package.txt | sort -t$'\t' -k3,3  \
-#		| awk -F"\t" '( $3 != prev ){ print; prev=$3 }' \
-#		| awk -f scripts/tsv_ndc_package_codes_to_concepts_csv.awk ndc/package.txt
+#	tail -n +2 ndc/package.txt | sort -t$'\t' -k3,3  | awk -F"\t" '( $3 != prev ){ print; prev=$3 }' | awk -f scripts/tsv_ndc_package_codes_to_concepts_csv.awk
 #
 #	code VARCHAR(255) PRIMARY KEY,
 #	path VARCHAR(255),
