@@ -1,3 +1,4 @@
+Field Name,Order,Null?,Type,Max,Scale,Nbr,Date
 INJURY_ZIPID,166,YES,int,,0,10,
 MANNER_DEATH,152,YES,varch,60,,,
 MANNER_DEATHID,153,YES,int,,0,10,

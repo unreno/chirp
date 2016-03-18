@@ -1,3 +1,4 @@
+Field Name,Order,Null?,Type,Max,Scale,Nbr,Date
 MODIFY_DATE,6,YES,datet,,,,3
 MODIFY_USERID,7,YES,int,,0,10,
 ISACTIVE,5,YES,varch,1,,,

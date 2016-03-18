@@ -1,3 +1,4 @@
+Field Name,Order,Null?,Type,Max,Scale,Nbr,Date
 DEATH_CERT_NUMID,1,YES,int,,0,10,
 ITEM,2,YES,varch,15,,,
 ITEM_DESC,3,YES,varch,150,,,

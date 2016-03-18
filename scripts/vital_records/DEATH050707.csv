@@ -1,3 +1,4 @@
+Field Name,Order,Null?,Type,Max,Scale,Nbr,Date
 Col005,5,YES,varch,8000,,,
 Col004,4,YES,varch,8000,,,
 Col003,3,YES,varch,8000,,,

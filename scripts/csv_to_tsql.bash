@@ -26,7 +26,7 @@ while [ $# -ne 0 ] ; do
 
 	echo "CREATE TABLE [$schema].$base ("
 
-	sort -t, -k2,2n $1 | awk -F, '{
+	tail -n +2 $1 | sort -t, -k2,2n | awk -F, '{
 		if( buffer )
 			printf "%s,\n", buffer
 		type=$4

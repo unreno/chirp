@@ -1,3 +1,4 @@
+Field Name,Order,Null?,Type,Max,Scale,Nbr,Date
 FH_TRADE_NAME,33,YES,varch,200,,,
 FH_EST_NUM,23,YES,varch,20,,,
 HOSPICE_YN,19,YES,varch,1,,,

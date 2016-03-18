@@ -1,3 +1,4 @@
+Field Name,Order,Null?,Type,Max,Scale,Nbr,Date
 DEATH_ALERTID,1,YES,int,,0,10,
 MODIFY_DATE,4,YES,datet,,,,3
 MODIFY_USERID,5,YES,int,,0,10,

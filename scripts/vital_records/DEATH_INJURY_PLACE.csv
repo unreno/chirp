@@ -1,3 +1,4 @@
+Field Name,Order,Null?,Type,Max,Scale,Nbr,Date
 SUPERMICAR_CODE,8,YES,varch,1,,,
 DEATH_INJURY_PLACEID,1,NO,int,,0,10,
 PLACETYPE_CODE,2,YES,varch,5,,,

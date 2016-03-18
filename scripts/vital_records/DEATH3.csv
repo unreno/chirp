@@ -1,3 +1,4 @@
+Field Name,Order,Null?,Type,Max,Scale,Nbr,Date
 UD_AXIS11,138,YES,varch,10,,,
 FUN_CONTACT_ID,128,YES,varch,20,,,
 UD_AXIS10,137,YES,varch,10,,,
