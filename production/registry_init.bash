@@ -92,5 +92,11 @@ done
 #	I have created a giant csv file that is importable via a SSIS package
 #
 
+
+#	awk '{print "INSERT INTO dbo.names VALUES (\x27"$1"\x27, \x27last\x27)"}' ../scripts/1000_most_common_last_name_in_US
+#	\x27f is a valid character so need to add ""
+#	awk '{print "INSERT INTO dbo.names VALUES (\x27"$1"\x27, \x27""female\x27)"}' ../scripts/1000_most_common_female_name_in_US
+#	awk '{print "INSERT INTO dbo.names VALUES (\x27"$1"\x27, \x27male\x27)"}' ../scripts/1000_most_common_male_name_in_US
+
 echo
 echo

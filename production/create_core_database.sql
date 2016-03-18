@@ -21,7 +21,7 @@ USE chirp;
 --This changes the database owner to [sa]. I'd prefer to keep it.
 --ALTER AUTHORIZATION ON DATABASE::chirp TO [sa];
 
-IF OBJECT_ID('debug_log', 'U') IS NOT NULL
+IF OBJECT_ID('dbo.debug_log', 'U') IS NOT NULL
 	DROP TABLE dbo.debug_log;
 CREATE TABLE dbo.debug_log ( message text, logged_at DATETIME DEFAULT CURRENT_TIMESTAMP );
 GO
@@ -36,6 +36,72 @@ BEGIN
 	VALUES ( @msg );
 END
 GO
+
+
+
+
+IF OBJECT_ID('dbo.names', 'U') IS NOT NULL
+	DROP TABLE dbo.names;
+CREATE TABLE dbo.names ( name VARCHAR(255), type VARCHAR(255) );
+
+IF OBJECT_ID ( 'dbo.newidd_view', 'V' ) IS NOT NULL
+	DROP VIEW dbo.newid_view;
+GO
+CREATE VIEW dbo.newid_view AS SELECT NEWID() AS number
+GO
+--uniqueidentifier
+
+
+IF OBJECT_ID ( 'dbo.random_name', 'FN' ) IS NOT NULL
+	DROP FUNCTION dbo.random_name;
+GO
+CREATE FUNCTION dbo.random_name( @type VARCHAR(255) )
+	RETURNS VARCHAR(255)
+BEGIN
+--	DECLARE @name VARCHAR(255)
+--	SELECT TOP 1 @name = name FROM dbo.names 
+--		WHERE type = @type 
+--		ORDER BY ( SELECT number FROM dbo.newid_view )
+--	RETURN @name
+	RETURN ( SELECT TOP 1 name FROM dbo.names 
+		WHERE type = @type 
+		ORDER BY ( SELECT number FROM dbo.newid_view ) )
+END
+GO
+
+IF OBJECT_ID ( 'dbo.random_female_name', 'FN' ) IS NOT NULL
+	DROP FUNCTION dbo.random_female_name;
+GO
+CREATE FUNCTION dbo.random_female_name()
+	RETURNS VARCHAR(255)
+BEGIN
+	RETURN dbo.random_name('female')
+END
+GO
+
+IF OBJECT_ID ( 'dbo.random_male_name', 'FN' ) IS NOT NULL
+	DROP FUNCTION dbo.random_male_name;
+GO
+CREATE FUNCTION dbo.random_male_name()
+	RETURNS VARCHAR(255)
+BEGIN
+	RETURN dbo.random_name('male')
+END
+GO
+
+IF OBJECT_ID ( 'dbo.random_last_name', 'FN' ) IS NOT NULL
+	DROP FUNCTION dbo.random_last_name;
+GO
+CREATE FUNCTION dbo.random_last_name()
+	RETURNS VARCHAR(255)
+BEGIN
+	RETURN dbo.random_name('last')
+END
+GO
+
+
+
+
 
 
 --Can't use RAND() in function. This is a workaround.
