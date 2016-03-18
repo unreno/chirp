@@ -16,6 +16,9 @@ cat create_warehouse_procedures.sql
 cat create_vital_records_structure.sql
 cat create_vital_records_procedures.sql
 
+cat create_health_lab_structure.sql
+cat create_health_lab_procedures.sql
+
 
 #
 #	Include the testing framework?
