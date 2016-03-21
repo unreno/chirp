@@ -48,6 +48,9 @@ SELECT COUNT(*) from dbo.observations
 
 EXEC dev.create_newborn_screening_for_each_birth_record
 
-#	LINK THEM
+EXEC dev.link_newborn_screening_to_births
+
+
+
 
 
