@@ -5,19 +5,23 @@
 #	just catting them.
 
 
-cat create_core_database.sql
+#	Put this here so can programmatically select dev or prod
+echo "USE chirp"
+echo "GO"
 
-cat create_private_structure.sql
-cat create_private_procedures.sql
+cat core_database.sql
 
-cat create_warehouse_structure.sql
-cat create_warehouse_procedures.sql
+cat private_structure.sql
+cat private_procedures.sql
 
-cat create_vital_records_structure.sql
-cat create_vital_records_procedures.sql
+cat warehouse_structure.sql
+cat warehouse_procedures.sql
 
-cat create_health_lab_structure.sql
-cat create_health_lab_procedures.sql
+cat vital_records_structure.sql
+cat vital_records_procedures.sql
+
+cat health_lab_structure.sql
+cat health_lab_procedures.sql
 
 
 #
