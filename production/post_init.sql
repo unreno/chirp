@@ -1,7 +1,48 @@
 
 Once imported ...
 
-Create some random birth data (100 records each call)
+
+
+
+C:\Users\gwendt\Desktop\all_concept_codes.csv
+
+--BULK INSERT requires a format file? for column selection
+--Using a view works just as well.
+CREATE VIEW cc AS SELECT code, path, description FROM dbo.concepts;
+
+--UNIX line feeds don't work well in MS so need dynamic sql 
+--However, ALL the double quotes in the description are preserved
+--This would require a series of UPDATEs, STUFFs and/or REPLACEs.
+--Still faster that dealing with SSIS.
+DECLARE @bulk_cmd VARCHAR(1000);
+SET @bulk_cmd = 'BULK INSERT cc
+FROM ''C:\Users\gwendt\Desktop\all_concept_codes.csv''
+WITH (
+	FIELDTERMINATOR = '','',
+	ROWTERMINATOR = '''+CHAR(10)+''',
+	ERRORFILE = ''C:\Users\gwendt\Desktop\all_concept_codes_ERRORS.csv'',
+	TABLOCK
+)';
+EXEC(@bulk_cmd);
+
+-- some of these records actually end in a quote ->blah blah blah "something quoted"<-
+-- so replace the double double quotes LAST
+
+UPDATE dbo.concepts
+	SET description = STUFF(description, LEN(description), 1,'')
+	WHERE description LIKE '%"';
+UPDATE dbo.concepts
+	SET description = STUFF(description, 1,1,'')
+	WHERE description LIKE '"%';
+UPDATE dbo.concepts
+	SET path = STUFF(path, 1,1,'')
+	WHERE path LIKE '"%';
+UPDATE dbo.concepts
+	SET description = REPLACE(description, '""', '"')
+	WHERE description LIKE '%""%';
+
+
+Create some random birth data (1000 records each call)
 
 
 
