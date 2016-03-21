@@ -270,11 +270,12 @@ BEGIN
 	DECLARE @cid INT;
 	DECLARE @nid INT;
 	DECLARE @nlname VARCHAR(255);
+	DECLARE @nfname VARCHAR(255);
 	DECLARE @nsex VARCHAR(1);
 	DECLARE @ndob DATE;
 
 	--	Only those record without a matching private.identifier record.
-	DECLARE unlinked_newborn_screening CURSOR FOR SELECT n.id,name_last,date_of_birth,sex
+	DECLARE unlinked_newborn_screening CURSOR FOR SELECT n.id,name_first,name_last,date_of_birth,sex
 		FROM health_lab.newborn_screening n
 		LEFT JOIN private.identifiers i
 		ON    i.source_id     = n.id 
@@ -285,7 +286,7 @@ BEGIN
 
 	OPEN unlinked_newborn_screening;
 	WHILE(1=1)BEGIN
-		FETCH NEXT FROM unlinked_newborn_screening INTO @nid, @nlname, @ndob, @nsex
+		FETCH NEXT FROM unlinked_newborn_screening INTO @nid, @nfname, @nlname, @ndob, @nsex
 		IF(@@FETCH_STATUS <> 0) BREAK
 
 		SET @cid = NULL;	--	this will remember the last loop?
@@ -296,6 +297,7 @@ BEGIN
 				AND i.source_table  = 'birth' 
 				AND i.source_schema = 'vital_records' 
 			WHERE b.name_last = @nlname
+				AND b.name_first = @nfname
 				AND b.date_of_birth = @ndob
 				AND b.sex = @nsex;
 
@@ -310,6 +312,7 @@ BEGIN
 					AND i.source_table  = 'birth' 
 					AND i.source_schema = 'vital_records' 
 				WHERE b.name_last = @nlname
+					AND b.name_first = @nfname
 					AND b.date_of_birth = @ndob
 					AND b.sex = @nsex;
 			IF ( @cid IS NOT NULL )	-- definitely shouldn't be after counting first
@@ -319,6 +322,7 @@ BEGIN
 		END ELSE IF( @count >= 2 ) BEGIN
 			PRINT 'Found multiple matches!?'
 			PRINT @nid
+			PRINT @nfname
 			PRINT @nlname
 			PRINT @ndob
 			PRINT @nsex
