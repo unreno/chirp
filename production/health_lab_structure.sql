@@ -1,5 +1,3 @@
-USE chirp
-GO
 
 IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='health_lab')
 	EXEC('CREATE SCHEMA health_lab')

@@ -1,8 +1,3 @@
-USE chirp
--- Sadly, TSQL scripts don't seem to crash
--- IF chirp doesn't exist, this script continues after the GO statement.
-GO
-
 
 IF OBJECT_ID ( 'dbo.import_into_data_warehouse_by_table_birth', 'P' ) IS NOT NULL
 	DROP PROCEDURE dbo.import_into_data_warehouse_by_table_birth;

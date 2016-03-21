@@ -1,7 +1,3 @@
-USE chirp
--- Sadly, TSQL scripts don't seem to crash
--- IF chirp doesn't exist, this script continues after the GO statement.
-GO
 
 IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='private')
 	EXEC('CREATE SCHEMA private')

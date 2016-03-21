@@ -1,5 +1,3 @@
-USE chirp
-GO
 
 IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='vital_records')
 	EXEC('CREATE SCHEMA vital_records')

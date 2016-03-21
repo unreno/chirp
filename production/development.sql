@@ -1,0 +1,240 @@
+
+IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='dev')
+	EXEC('CREATE SCHEMA dev')
+GO
+
+
+IF OBJECT_ID('dev.debug_log', 'U') IS NOT NULL
+	DROP TABLE dev.debug_log;
+CREATE TABLE dev.debug_log ( message text, logged_at DATETIME DEFAULT CURRENT_TIMESTAMP );
+GO
+IF OBJECT_ID ( 'dev.log', 'P' ) IS NOT NULL
+	DROP PROCEDURE dev.log;
+GO
+CREATE PROCEDURE dev.log(@msg TEXT)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	INSERT INTO dev.debug_log ( message )
+	VALUES ( @msg );
+END
+GO
+
+
+IF OBJECT_ID('dev.names', 'U') IS NOT NULL
+	DROP TABLE dev.names;
+CREATE TABLE dev.names ( name VARCHAR(255), type VARCHAR(255) );
+
+IF OBJECT_ID ( 'dev.newidd_view', 'V' ) IS NOT NULL
+	DROP VIEW dev.newid_view;
+GO
+CREATE VIEW dev.newid_view AS SELECT NEWID() AS number
+GO
+--uniqueidentifier
+
+
+IF OBJECT_ID ( 'dev.random_name', 'FN' ) IS NOT NULL
+	DROP FUNCTION dev.random_name;
+GO
+CREATE FUNCTION dev.random_name( @type VARCHAR(255) )
+	RETURNS VARCHAR(255)
+BEGIN
+--	DECLARE @name VARCHAR(255)
+--	SELECT TOP 1 @name = name FROM dev.names 
+--		WHERE type = @type 
+--		ORDER BY ( SELECT number FROM dev.newid_view )
+--	RETURN @name
+	RETURN ( SELECT TOP 1 name FROM dev.names 
+		WHERE type = @type 
+		ORDER BY ( SELECT number FROM dev.newid_view ) )
+END
+GO
+
+IF OBJECT_ID ( 'dev.random_female_name', 'FN' ) IS NOT NULL
+	DROP FUNCTION dev.random_female_name;
+GO
+CREATE FUNCTION dev.random_female_name()
+	RETURNS VARCHAR(255)
+BEGIN
+	RETURN dev.random_name('female')
+END
+GO
+
+IF OBJECT_ID ( 'dev.random_male_name', 'FN' ) IS NOT NULL
+	DROP FUNCTION dev.random_male_name;
+GO
+CREATE FUNCTION dev.random_male_name()
+	RETURNS VARCHAR(255)
+BEGIN
+	RETURN dev.random_name('male')
+END
+GO
+
+IF OBJECT_ID ( 'dev.random_last_name', 'FN' ) IS NOT NULL
+	DROP FUNCTION dev.random_last_name;
+GO
+CREATE FUNCTION dev.random_last_name()
+	RETURNS VARCHAR(255)
+BEGIN
+	RETURN dev.random_name('last')
+END
+GO
+
+
+
+
+
+
+--Can't use RAND() in function. This is a workaround.
+--http://blog.sqlauthority.com/2012/11/20/sql-server-using-rand-in-user-defined-functions-udf/
+IF OBJECT_ID ( 'dev.rand_view', 'V' ) IS NOT NULL
+	DROP VIEW dev.rand_view;
+GO
+CREATE VIEW dev.rand_view AS SELECT RAND() AS number
+GO
+
+
+IF OBJECT_ID ( 'dev.random_sex', 'FN' ) IS NOT NULL
+	DROP FUNCTION dev.random_sex;
+GO
+CREATE FUNCTION dev.random_sex()
+	RETURNS VARCHAR(1)
+BEGIN
+	--some languages are so complicated!
+	--['M','F'][random(2)]
+	DECLARE @sexes TABLE ( id INT, sex VARCHAR(1) )
+	INSERT INTO @sexes VALUES (1,'M'),(2,'F')
+  DECLARE @rand DECIMAL(18,18)
+  SELECT @rand = number FROM dev.rand_view
+	DECLARE @sex VARCHAR(1)
+	SELECT @sex = sex FROM @sexes WHERE id = CAST(2*@rand AS INT)+1;
+	RETURN @sex
+END
+GO
+
+
+IF OBJECT_ID ( 'dev.random_date_in', 'FN' ) IS NOT NULL
+	DROP FUNCTION dev.random_date_in;
+GO
+CREATE FUNCTION dev.random_date_in(
+	@from_date DATE = '2010-01-01', 
+	@to_date   DATE = '2015-12-31' )
+	RETURNS DATE
+BEGIN
+	DECLARE @rand DECIMAL(18,18)
+	SELECT @rand = number FROM dev.rand_view
+	RETURN DATEADD(day, 
+		@rand*(1+DATEDIFF(DAY, @from_date, @to_date)), 
+		@from_date)
+END
+GO
+--NEED to pass 2 params. (default,default) uses the defaults. Duh!
+
+--Create a different function that takes no params
+--and have it call the other function with params
+IF OBJECT_ID ( 'dev.random_date', 'FN' ) IS NOT NULL
+	DROP FUNCTION dev.random_date;
+GO
+CREATE FUNCTION dev.random_date()
+	RETURNS DATE
+BEGIN
+	RETURN dev.random_date_in(default,default);
+END
+GO
+
+
+
+--http://stackoverflow.com/questions/9645348/how-to-insert-1000-random-dates-between-a-given-range
+--IF OBJECT_ID ( 'dev.create_a_random_date', 'P' ) IS NOT NULL
+--	DROP PROCEDURE dev.create_a_random_date;
+--GO
+--CREATE PROCEDURE dev.create_a_random_date(
+--	@random_date DATE OUTPUT,
+--	@from_date DATE = '2010-01-01', 
+--	@to_date   DATE = '2015-12-31' )
+--AS
+--BEGIN
+--	SET NOCOUNT ON;
+--
+----	DECLARE @from_date DATE = '2010-01-01'
+----	DECLARE @to_date DATE = '2015-12-31'
+--
+--	SELECT @random_date = DATEADD(day, 
+--		RAND(CHECKSUM(NEWID()))*(1+DATEDIFF(DAY, @from_date, @to_date)), 
+--		@from_date)
+--
+--END
+--GO
+
+
+IF OBJECT_ID ( 'dev.create_newborn_screening_for_each_birth_record', 'P' ) IS NOT NULL
+	DROP PROCEDURE dev.create_newborn_screening_for_each_birth_record;
+GO
+CREATE PROCEDURE dev.create_newborn_screening_for_each_birth_record
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	INSERT INTO health_lab.newborn_screening
+		( name_first, name_last, date_of_birth, sex )
+		SELECT name_first, name_last, date_of_birth, sex
+		FROM vital_records.birth
+
+END
+GO
+
+IF OBJECT_ID ( 'dev.create_random_vital_records', 'P' ) IS NOT NULL
+	DROP PROCEDURE dev.create_random_vital_records;
+GO
+CREATE PROCEDURE dev.create_random_vital_records( @total INT = 1000 )
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @count INT = 0
+
+	WHILE @count < @total
+	BEGIN
+		SET @count = @count + 1;
+		DECLARE @sex VARCHAR(1) = dev.random_sex()
+		DECLARE @name_first VARCHAR(255)
+		IF @sex = 'M'
+			SET @name_first = dev.random_male_name()
+		ELSE
+			SET @name_first = dev.random_female_name()
+		INSERT INTO vital_records.birth 
+			( birthid, state_file_number, date_of_birth, sex, 
+				name_first, name_last,
+				birth_weight_lbs, birth_weight_oz )
+			VALUES 
+			( @count, CAST(RAND()*1e9 AS INT), 
+				dev.random_date(), @sex,
+				@name_first, dev.random_last_name(),
+				CAST(RAND()*5 AS INT)+5,
+				CAST(RAND()*16 AS INT) 
+			);
+	END
+
+--	SET @count = 0;
+--	WHILE @count < 100
+--	BEGIN
+--		SET @count = @count + 1;
+--		INSERT INTO vital_records.death ( deathid, state_file_number )
+--			VALUES ( @count, CAST(RAND()*1e9 AS INT) );
+--	END
+
+	-- Multiple matching renown records will only be linked to the first birth record.
+
+--	INSERT INTO birth ( number, dob, last_name, sex )
+--		VALUES ( CAST(RAND()*1e18 AS BIGINT), '1971-12-5', 'Wendt', 'M' );
+--	INSERT INTO renowns ( number, dob, last_name, sex )
+--		VALUES ( CAST(RAND()*1e18 AS BIGINT), '1971-12-5', 'Wendt', 'm' );
+--	INSERT INTO renowns ( number, dob, last_name, sex )
+--		VALUES ( CAST(RAND()*1e18 AS BIGINT), '1971-12-4', 'Wendt', 'm' );
+--	INSERT INTO renowns ( number, dob, last_name, sex )
+--		VALUES ( CAST(RAND()*1e18 AS BIGINT), '1971-12-5', 'Wend', 'm' );
+--	INSERT INTO renowns ( number, dob, last_name, sex )
+--		VALUES ( CAST(RAND()*1e18 AS BIGINT), '1971-12-5', 'Wendt', 'f' );
+
+END
+GO

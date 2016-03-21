@@ -4,9 +4,17 @@
 #	and as this will really only be used once,
 #	just catting them.
 
+DB_NAME='chirp_dev'
 
 #	Put this here so can programmatically select dev or prod
-echo "USE chirp"
+echo "USE master;"
+echo "IF db_id('$DB_NAME') IS NOT NULL"
+echo "	DROP DATABASE $DB_NAME;"
+#-- "WITH TRUSTWORTHY ON" required for use of tSQLt Testing Framework.
+#--CREATE DATABASE $DB_NAME WITH TRUSTWORTHY ON;
+echo "CREATE DATABASE $DB_NAME;"
+echo "GO"
+echo "USE $DB_NAME"
 echo "GO"
 
 cat core_database.sql
@@ -23,6 +31,7 @@ cat vital_records_procedures.sql
 cat health_lab_structure.sql
 cat health_lab_procedures.sql
 
+cat development.sql
 
 #
 #	Include the testing framework?
@@ -31,12 +40,12 @@ cat health_lab_procedures.sql
 #
 #	It's probably NOT a good idea to install this when we are actually in production.
 #
-echo "EXEC sp_configure 'clr enabled', 1;"
-echo "RECONFIGURE;"
-cat ../tSQLt_V1.0.5873.27393/tSQLt.class.sql
-echo "EXEC sp_configure 'clr enabled', 0;"
-echo "RECONFIGURE;"
-cat testing_procedures.sql
+#echo "EXEC sp_configure 'clr enabled', 1;"
+#echo "RECONFIGURE;"
+#cat ../tSQLt_V1.0.5873.27393/tSQLt.class.sql
+#echo "EXEC sp_configure 'clr enabled', 0;"
+#echo "RECONFIGURE;"
+#cat testing_procedures.sql
 
 
 #	No more bulk importing of all this as most won't actually be used this way.
