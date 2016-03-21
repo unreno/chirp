@@ -39,11 +39,6 @@ GO
 CREATE FUNCTION dev.random_name( @type VARCHAR(255) )
 	RETURNS VARCHAR(255)
 BEGIN
---	DECLARE @name VARCHAR(255)
---	SELECT TOP 1 @name = name FROM dev.names 
---		WHERE type = @type 
---		ORDER BY ( SELECT number FROM dev.newid_view )
---	RETURN @name
 	RETURN ( SELECT TOP 1 name FROM dev.names 
 		WHERE type = @type 
 		ORDER BY ( SELECT number FROM dev.newid_view ) )
@@ -104,8 +99,8 @@ BEGIN
 	--['M','F'][random(2)]
 	DECLARE @sexes TABLE ( id INT, sex VARCHAR(1) )
 	INSERT INTO @sexes VALUES (1,'M'),(2,'F')
-  DECLARE @rand DECIMAL(18,18)
-  SELECT @rand = number FROM dev.rand_view
+	DECLARE @rand DECIMAL(18,18)
+	SELECT @rand = number FROM dev.rand_view
 	DECLARE @sex VARCHAR(1)
 	SELECT @sex = sex FROM @sexes WHERE id = CAST(2*@rand AS INT)+1;
 	RETURN @sex
