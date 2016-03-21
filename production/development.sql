@@ -25,7 +25,7 @@ IF OBJECT_ID('dev.names', 'U') IS NOT NULL
 	DROP TABLE dev.names;
 CREATE TABLE dev.names ( name VARCHAR(255), type VARCHAR(255) );
 
-IF OBJECT_ID ( 'dev.newidd_view', 'V' ) IS NOT NULL
+IF OBJECT_ID ( 'dev.newid_view', 'V' ) IS NOT NULL
 	DROP VIEW dev.newid_view;
 GO
 CREATE VIEW dev.newid_view AS SELECT NEWID() AS number
@@ -266,6 +266,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+	DECLARE @count INT;
 	DECLARE @cid INT;
 	DECLARE @nid INT;
 	DECLARE @nlname VARCHAR(255);
@@ -288,19 +289,41 @@ BEGIN
 		IF(@@FETCH_STATUS <> 0) BREAK
 
 		SET @cid = NULL;	--	this will remember the last loop?
-		SELECT @cid = chirp_id
+		SELECT @count = COUNT(chirp_id)
 			FROM private.identifiers i JOIN vital_records.birth b
 			ON    i.source_id     = b.state_file_number
 				AND i.source_column = 'state_file_number' 
 				AND i.source_table  = 'birth' 
 				AND i.source_schema = 'vital_records' 
-			WHERE b.last_name = @nlname
-				AND b.dob = @ndob
+			WHERE b.name_last = @nlname
+				AND b.date_of_birth = @ndob
 				AND b.sex = @nsex;
-		-- Currently, this seems to be case insensitive.  M = m
-		IF ( @cid IS NOT NULL )
-			INSERT INTO private.identifiers ( chirp_id, source_schema, source_table, source_column, source_id )
-				VALUES ( @cid, 'health_lab', 'newborn_screening', 'id', @nid );
+
+--	What if there are multiple matches?
+-- @cid would be assigned the LAST chirp_id
+
+		IF( @count = 1 ) BEGIN
+			SELECT @cid = chirp_id
+				FROM private.identifiers i JOIN vital_records.birth b
+				ON    i.source_id     = b.state_file_number
+					AND i.source_column = 'state_file_number' 
+					AND i.source_table  = 'birth' 
+					AND i.source_schema = 'vital_records' 
+				WHERE b.name_last = @nlname
+					AND b.date_of_birth = @ndob
+					AND b.sex = @nsex;
+			IF ( @cid IS NOT NULL )	-- definitely shouldn't be after counting first
+				INSERT INTO private.identifiers 
+					( chirp_id, source_schema, source_table, source_column, source_id )
+					VALUES ( @cid, 'health_lab', 'newborn_screening', 'id', @nid );
+		END ELSE IF( @count >= 2 ) BEGIN
+			PRINT 'Found multiple matches!?'
+			PRINT @nid
+			PRINT @nlname
+			PRINT @ndob
+			PRINT @nsex
+		END
+
 	END
 
 	CLOSE unlinked_newborn_screening;
