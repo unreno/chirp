@@ -51,7 +51,7 @@ cat development.sql
 #	No more bulk importing of all this as most won't actually be used this way.
 #../scripts/csv_to_concept_codes.bash ../scripts/vital_records/*csv
 
-for concept in DOB Sex Height Weight Race Language Zipcode; do
+for concept in DOB Sex Height Weight Race Language Zipcode Other; do
 	echo "INSERT INTO dbo.concepts VALUES ("
 	echo -e "\t'DEM:$concept',"
 	echo -e "\t'/Demographics/$concept',"

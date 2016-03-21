@@ -46,9 +46,19 @@ SELECT COUNT(*) from dbo.observations
 
 
 
+SELECT COUNT(*) from private.identifiers
 EXEC dev.create_newborn_screening_for_each_birth_record
-
+SELECT COUNT(*) from health_lab.newborn_screening
+SELECT COUNT(*) from health_lab.newborn_screening
+	WHERE imported_to_dw = 'FALSE'
 EXEC dev.link_newborn_screening_to_births
+SELECT COUNT(*) from health_lab.newborn_screening
+SELECT COUNT(*) from health_lab.newborn_screening
+	WHERE imported_to_dw = 'FALSE'
+SELECT COUNT(*) from private.identifiers
+EXEC import_into_data_warehouse
+SELECT COUNT(*) from private.identifiers
+SELECT COUNT(*) from dbo.observations
 
 
 
