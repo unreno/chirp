@@ -43,3 +43,11 @@ SELECT COUNT(*) from private.identifiers
 SELECT COUNT(*) from dbo.observations
 
 
+
+
+
+EXEC dev.create_newborn_screening_for_each_birth_record
+
+#	LINK THEM
+
+

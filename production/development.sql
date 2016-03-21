@@ -176,8 +176,16 @@ BEGIN
 	SET NOCOUNT ON;
 
 	INSERT INTO health_lab.newborn_screening
-		( name_first, name_last, date_of_birth, sex )
-		SELECT name_first, name_last, date_of_birth, sex
+		( name_first, name_last, date_of_birth, sex, blahblah, yadayada )
+		SELECT name_first, name_last, date_of_birth, sex,
+
+
+
+			dev.random_male_name(),
+			dev.random_female_name()
+
+
+
 		FROM vital_records.birth
 
 END
