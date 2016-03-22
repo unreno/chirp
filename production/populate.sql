@@ -1,6 +1,6 @@
 
 BEGIN TRY
-	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT dbo.names
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT dev.names
 	FROM ''C:\Users\gwendt\Desktop\1000_most_common_female_name_in_US.csv''
 	WITH (
 		FIELDTERMINATOR = '','',
@@ -13,7 +13,7 @@ END TRY BEGIN CATCH
 END CATCH
 
 BEGIN TRY
-	SET @bulk_cmd = 'BULK INSERT dbo.names
+	SET @bulk_cmd = 'BULK INSERT dev.names
 	FROM ''C:\Users\gwendt\Desktop\1000_most_common_male_name_in_US.csv''
 	WITH (
 		FIELDTERMINATOR = '','',
@@ -26,7 +26,7 @@ END TRY BEGIN CATCH
 END CATCH
 
 BEGIN TRY
-	SET @bulk_cmd = 'BULK INSERT dbo.names
+	SET @bulk_cmd = 'BULK INSERT dev.names
 	FROM ''C:\Users\gwendt\Desktop\1000_most_common_last_name_in_US.csv''
 	WITH (
 		FIELDTERMINATOR = '','',
@@ -52,7 +52,8 @@ GO
 --This would require a series of UPDATEs, STUFFs and/or REPLACEs.
 --Still faster that dealing with SSIS.
 BEGIN TRY
-	SET @bulk_cmd = 'BULK INSERT cc
+	--A GO call apparently undeclare variables, so redeclare here
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT cc
 	FROM ''C:\Users\gwendt\Desktop\all_concept_codes.csv''
 	WITH (
 		FIELDTERMINATOR = '','',
