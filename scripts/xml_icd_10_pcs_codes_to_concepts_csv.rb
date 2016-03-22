@@ -59,8 +59,9 @@ doc.xpath('//pcsTable').each do |pcstable|
 						#puts p7path
 						#puts p7path.slice(0..255)
 						#	path is VARCHAR(255). Need to trim and don't forget the /ICD10PCS prefix!
+						#	OR THE double quotes which Microsoft will include if there!
 						puts ["ICD10PCS:#{p7code}",
-							"/ICD10PCS#{p7path.slice(0..245)}",
+							"/ICD10PCS#{p7path.slice(0..243)}",
 							"#{p7path}"].to_csv
 					end
 				end
