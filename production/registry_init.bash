@@ -109,10 +109,50 @@ done
 #
 
 
-awk '{print "INSERT INTO dev.names VALUES (\x27"$1"\x27, \x27last\x27)"}' ../scripts/1000_most_common_last_name_in_US
+#awk '{print "INSERT INTO dev.names VALUES (\x27"$1"\x27, \x27last\x27)"}' ../scripts/1000_most_common_last_name_in_US
 #	\x27f is a valid character so need to add ""
-awk '{print "INSERT INTO dev.names VALUES (\x27"$1"\x27, \x27""female\x27)"}' ../scripts/1000_most_common_female_name_in_US
-awk '{print "INSERT INTO dev.names VALUES (\x27"$1"\x27, \x27male\x27)"}' ../scripts/1000_most_common_male_name_in_US
+#awk '{print "INSERT INTO dev.names VALUES (\x27"$1"\x27, \x27""female\x27)"}' ../scripts/1000_most_common_female_name_in_US
+#awk '{print "INSERT INTO dev.names VALUES (\x27"$1"\x27, \x27male\x27)"}' ../scripts/1000_most_common_male_name_in_US
+
+
+BEGIN TRY
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT dbo.names
+	FROM ''C:\Users\gwendt\Desktop\1000_most_common_female_name_in_US.csv''
+	WITH (
+		FIELDTERMINATOR = '','',
+		ROWTERMINATOR = '''+CHAR(10)+''',
+		TABLOCK
+	)';
+	EXEC(@bulk_cmd);
+END TRY BEGIN CATCH
+	PRINT ERROR_MESSAGE()
+END CATCH
+
+BEGIN TRY
+	SET @bulk_cmd = 'BULK INSERT dbo.names
+	FROM ''C:\Users\gwendt\Desktop\1000_most_common_male_name_in_US.csv''
+	WITH (
+		FIELDTERMINATOR = '','',
+		ROWTERMINATOR = '''+CHAR(10)+''',
+		TABLOCK
+	)';
+	EXEC(@bulk_cmd);
+END TRY BEGIN CATCH
+	PRINT ERROR_MESSAGE()
+END CATCH
+
+BEGIN TRY
+	SET @bulk_cmd = 'BULK INSERT dbo.names
+	FROM ''C:\Users\gwendt\Desktop\1000_most_common_last_name_in_US.csv''
+	WITH (
+		FIELDTERMINATOR = '','',
+		ROWTERMINATOR = '''+CHAR(10)+''',
+		TABLOCK
+	)';
+	EXEC(@bulk_cmd);
+END TRY BEGIN CATCH
+	PRINT ERROR_MESSAGE()
+END CATCH
 
 echo
 echo
