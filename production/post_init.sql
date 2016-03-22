@@ -14,8 +14,7 @@ CREATE VIEW cc AS SELECT code, path, description FROM dbo.concepts;
 --However, ALL the double quotes in the description are preserved
 --This would require a series of UPDATEs, STUFFs and/or REPLACEs.
 --Still faster that dealing with SSIS.
-DECLARE @bulk_cmd VARCHAR(1000);
-SET @bulk_cmd = 'BULK INSERT cc
+DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT cc
 FROM ''C:\Users\gwendt\Desktop\all_concept_codes.csv''
 WITH (
 	FIELDTERMINATOR = '','',
@@ -28,18 +27,23 @@ EXEC(@bulk_cmd);
 -- some of these records actually end in a quote ->blah blah blah "something quoted"<-
 -- so replace the double double quotes LAST
 
-UPDATE dbo.concepts
-	SET description = STUFF(description, LEN(description), 1,'')
-	WHERE description LIKE '%"';
-UPDATE dbo.concepts
-	SET description = STUFF(description, 1,1,'')
-	WHERE description LIKE '"%';
+--UPDATE dbo.concepts
+--	SET description = STUFF(description, LEN(description), 1,'')
+--	WHERE description LIKE '%"';
+--UPDATE dbo.concepts
+--	SET description = STUFF(description, 1,1,'')
+--	WHERE description LIKE '"%';
 UPDATE dbo.concepts
 	SET path = STUFF(path, 1,1,'')
 	WHERE path LIKE '"%';
 UPDATE dbo.concepts
+	SET description = SUBSTRING ( description, 2, LEN(description)-2 )
+	WHERE description LIKE '"%"';
+UPDATE dbo.concepts
 	SET description = REPLACE(description, '""', '"')
 	WHERE description LIKE '%""%';
+
+
 
 
 Create some random birth data (1000 records each call)
