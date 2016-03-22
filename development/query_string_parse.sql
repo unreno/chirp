@@ -1,4 +1,6 @@
 
+--There is no error checking here so the query string 
+--needs to be perfect to work.
 -------------------------------1---a-------------b----------c
 DECLARE @query VARCHAR(250) = 'http://example.com/over/there?name=ferret&color=brown&size=7&'
 PRINT @query
