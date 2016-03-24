@@ -28,6 +28,7 @@ BEGIN
 
 	SELECT @cname = @schema + '_' + @table + '_imported_at_default';
 
+/*
 	--Remove constraint if exists
 	SELECT @cmd = 'IF OBJECT_ID(''[' + @schema + '].[' + @cname + ']'') IS NOT NULL ' +
 		'ALTER TABLE ' + @schema + '.[' + @table +'] DROP CONSTRAINT ' + @cname + ';'
@@ -40,6 +41,7 @@ BEGIN
 		'ALTER TABLE ' + @schema + '.[' + @table + '] DROP COLUMN imported_at;'
 	PRINT @cmd
 	EXEC (@cmd);	--	Parenthese required here!
+*/
 
 	--Add column with constraint
 	SELECT @cmd = 'ALTER TABLE [' + @schema + '].[' + @table + 
@@ -94,6 +96,7 @@ BEGIN
 
 	SELECT @cname = @schema + '_' + @table + '_imported_to_dw_default';
 
+/*
 	--Remove constraint if exists
 	SELECT @cmd = 'IF OBJECT_ID(''[' + @schema + '].[' + @cname + ']'') IS NOT NULL ' +
 		'ALTER TABLE ' + @schema + '.[' + @table +'] DROP CONSTRAINT ' + @cname + ';'
@@ -106,7 +109,7 @@ BEGIN
 		'ALTER TABLE ' + @schema + '.[' + @table + '] DROP COLUMN imported_to_dw;'
 	PRINT @cmd
 	EXEC (@cmd);	--	Parenthese required here!
-
+*/
 	--Add column with constraint
 	SELECT @cmd = 'ALTER TABLE [' + @schema + '].[' + @table + 
 		'] ADD imported_to_dw BIT CONSTRAINT '
