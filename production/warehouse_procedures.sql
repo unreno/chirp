@@ -151,6 +151,8 @@ BEGIN
 --	The UNPIVOT seems really unnecessary if only doing 1 column.
 --	Particularly when it is unique (contains units)
 
+-- ORDER MATTERS! SELECT ORDER MUST BE THE SAME AS INSERT ORDER!
+
 	INSERT INTO dbo.observations
 		(chirp_id, provider_id, location_id, started_at, value_type,
 			concept, n_value, units, downloaded_from, downloaded_at)
@@ -159,9 +161,9 @@ BEGIN
 			'123' AS provider_id,
 			'456' AS location_id,
 			b.date_of_birth AS started_at,
-			'DEM:Weight' AS concept,
 
 			'N' AS value_type,
+			'DEM:Weight' AS concept,
 			(CAST(b.birth_weight_lbs AS FLOAT) + (CAST(b.birth_weight_oz AS FLOAT)/16)) AS n_value,
 --	If we drop the specific value types
 --			'S' AS value_type,
