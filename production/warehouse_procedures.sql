@@ -8,12 +8,12 @@ BEGIN
 	SET NOCOUNT ON;
 
 	INSERT INTO dbo.observations
-		(chirp_id, provider_id, location_id, started_at, value_type, 
-			concept, s_value, downloaded_from, downloaded_at) 
-		SELECT chirp_id, provider_id, location_id, started_at, value_type, 
+		(chirp_id, provider_id, location_id, started_at, value_type,
+			concept, s_value, downloaded_from, downloaded_at)
+		SELECT chirp_id, provider_id, location_id, started_at, value_type,
 			concept, s_value, downloaded_from, downloaded_at
 		FROM (
-			SELECT i.chirp_id, n.date_of_birth AS started_at, 
+			SELECT i.chirp_id, n.date_of_birth AS started_at,
 				'789' AS provider_id,
 				'123' AS location_id,
 				'S' AS value_type,
@@ -27,7 +27,7 @@ BEGIN
 				n.imported_at AS downloaded_at
 			FROM health_lab.newborn_screening n
 			JOIN private.identifiers i
-				ON    i.source_id     = n.id 
+				ON    i.source_id     = n.id
 					AND i.source_column = 'id'
 					AND i.source_table  = 'newborn_screening'
 					AND i.source_schema = 'health_lab'
@@ -45,12 +45,12 @@ BEGIN
 		SET imported_to_dw = 'TRUE'
 		FROM health_lab.newborn_screening n
 		JOIN private.identifiers i
-			ON  i.source_id     = n.id 
+			ON  i.source_id     = n.id
 			AND i.source_column = 'id'
 			AND i.source_table  = 'newborn_screening'
 			AND i.source_schema = 'health_lab'
 		WHERE imported_to_dw = 'FALSE'
-			AND i.id IS NOT NULL    
+			AND i.id IS NOT NULL
 
 END	--	CREATE PROCEDURE dbo.import_into_data_warehouse_by_table_health_lab_newborn_screening
 GO
@@ -65,12 +65,12 @@ BEGIN
 	SET NOCOUNT ON;
 
 	INSERT INTO dbo.observations
-		(chirp_id, provider_id, location_id, started_at, value_type, 
-			concept, s_value, downloaded_from, downloaded_at) 
-		SELECT chirp_id, provider_id, location_id, started_at, value_type, 
+		(chirp_id, provider_id, location_id, started_at, value_type,
+			concept, s_value, downloaded_from, downloaded_at)
+		SELECT chirp_id, provider_id, location_id, started_at, value_type,
 			concept, s_value, downloaded_from, downloaded_at
 		FROM (
-			SELECT i.chirp_id, b.date_of_birth AS started_at, 
+			SELECT i.chirp_id, b.date_of_birth AS started_at,
 				'123' AS provider_id,
 				'456' AS location_id,
 				'S' AS value_type,
@@ -90,16 +90,23 @@ BEGIN
 		) AS anotherarbitraryrequiredname
 
 	INSERT INTO dbo.observations
-		(chirp_id, provider_id, location_id, started_at, value_type, 
-			concept, t_value, downloaded_from, downloaded_at) 
-		SELECT chirp_id, provider_id, location_id, started_at, value_type, 
+		(chirp_id, provider_id, location_id, started_at, value_type,
+			concept, t_value, downloaded_from, downloaded_at)
+--			concept, s_value, downloaded_from, downloaded_at)
+		SELECT chirp_id, provider_id, location_id, started_at, value_type,
 			concept, t_value, downloaded_from, downloaded_at
+--			concept, s_value, downloaded_from, downloaded_at
 		FROM (
-			SELECT i.chirp_id, b.date_of_birth AS started_at, 
+			SELECT i.chirp_id, b.date_of_birth AS started_at,
 				'123' AS provider_id,
 				'456' AS location_id,
+
 				'T' AS value_type,
 				b.date_of_birth AS [DEM:DOB],
+--	If we drop the specific value types
+--				'S' AS value_type,
+--				CAST(b.date_of_birth AS VARCHAR(255)) AS [DEM:DOB],
+
 				'The State' AS downloaded_from,
 				b.imported_at AS downloaded_at
 			FROM vital_records.birth b
@@ -112,15 +119,16 @@ BEGIN
 		) arbitraryrequiredandignoredname
 		UNPIVOT (
 			t_value FOR concept IN ( [DEM:DOB] )
+--			s_value FOR concept IN ( [DEM:DOB] )
 		) AS anotherarbitraryrequiredname
 
 --	INSERT INTO dbo.observations
---		(chirp_id, provider_id, location_id, started_at, value_type, 
---			concept, n_value, downloaded_from, downloaded_at) 
---		SELECT chirp_id, provider_id, location_id, started_at, value_type, 
+--		(chirp_id, provider_id, location_id, started_at, value_type,
+--			concept, n_value, downloaded_from, downloaded_at)
+--		SELECT chirp_id, provider_id, location_id, started_at, value_type,
 --			concept, n_value, downloaded_from, downloaded_at
 --		FROM (
---			SELECT i.chirp_id, b.date_of_birth AS started_at, 
+--			SELECT i.chirp_id, b.date_of_birth AS started_at,
 --				'123' AS provider_id,
 --				'456' AS location_id,
 --				'N' AS value_type,
@@ -144,15 +152,22 @@ BEGIN
 --	Particularly when it is unique (contains units)
 
 	INSERT INTO dbo.observations
-		(chirp_id, provider_id, location_id, started_at, value_type, 
-			concept, n_value, units, downloaded_from, downloaded_at) 
-		SELECT i.chirp_id, 
+		(chirp_id, provider_id, location_id, started_at, value_type,
+			concept, n_value, units, downloaded_from, downloaded_at)
+--			concept, s_value, units, downloaded_from, downloaded_at)
+		SELECT i.chirp_id,
 			'123' AS provider_id,
 			'456' AS location_id,
-			b.date_of_birth AS started_at, 
-			'N' AS value_type,
+			b.date_of_birth AS started_at,
 			'DEM:Weight' AS concept,
+
+			'N' AS value_type,
 			(CAST(b.birth_weight_lbs AS FLOAT) + (CAST(b.birth_weight_oz AS FLOAT)/16)) AS n_value,
+--	If we drop the specific value types
+--			'S' AS value_type,
+--			CAST((CAST(b.birth_weight_lbs AS FLOAT) + (CAST(b.birth_weight_oz AS FLOAT)/16)) AS VARCHAR(255)) AS s_value,
+
+
 			'lbs' AS units,
 			'The State' AS downloaded_from,
 			b.imported_at AS downloaded_at
@@ -179,7 +194,7 @@ BEGIN
 			AND i.source_table  = 'birth'
 			AND i.source_schema = 'vital_records'
 		WHERE imported_to_dw = 'FALSE'
-			AND i.id IS NOT NULL    
+			AND i.id IS NOT NULL
 
 END -- CREATE PROCEDURE dbo.import_into_data_warehouse_by_table_vital_records_birth
 GO
@@ -196,7 +211,7 @@ BEGIN
 	DECLARE @table VARCHAR(250)
 	DECLARE @proc VARCHAR(250)
 
-	DECLARE tables CURSOR FOR SELECT t.name 
+	DECLARE tables CURSOR FOR SELECT t.name
 		FROM sys.tables AS t
 		INNER JOIN sys.schemas AS s
 		ON t.schema_id = s.schema_id
