@@ -8,15 +8,19 @@ BEGIN
 	SET NOCOUNT ON;
 
 	INSERT INTO dbo.observations
-		(chirp_id, provider_id, location_id, started_at, value_type,
-			concept, s_value, downloaded_from, downloaded_at)
-		SELECT chirp_id, provider_id, location_id, started_at, value_type,
-			concept, s_value, downloaded_from, downloaded_at
+--		(chirp_id, provider_id, location_id, started_at, value_type,
+--			concept, s_value, downloaded_from, downloaded_at)
+		(chirp_id, provider_id, started_at,
+			concept, value, downloaded_from, downloaded_at)
+--		SELECT chirp_id, provider_id, location_id, started_at, value_type,
+--			concept, s_value, downloaded_from, downloaded_at
+		SELECT chirp_id, provider_id, started_at,
+			concept, value, downloaded_from, downloaded_at
 		FROM (
 			SELECT i.chirp_id, n.date_of_birth AS started_at,
 				'789' AS provider_id,
-				'123' AS location_id,
-				'S' AS value_type,
+--				'123' AS location_id,
+--				'S' AS value_type,
 
 
 				'DEM:Other' AS concept,
@@ -36,7 +40,8 @@ BEGIN
 		UNPIVOT (
 
 
-			s_value FOR ignoreconcept IN ( yadayada, blahblah )
+--			s_value FOR ignoreconcept IN ( yadayada, blahblah )
+			value FOR ignoreconcept IN ( yadayada, blahblah )
 
 
 		) AS anotherarbitraryrequiredname
@@ -65,15 +70,19 @@ BEGIN
 	SET NOCOUNT ON;
 
 	INSERT INTO dbo.observations
-		(chirp_id, provider_id, location_id, started_at, value_type,
-			concept, s_value, downloaded_from, downloaded_at)
-		SELECT chirp_id, provider_id, location_id, started_at, value_type,
-			concept, s_value, downloaded_from, downloaded_at
+--		(chirp_id, provider_id, location_id, started_at, value_type,
+--			concept, s_value, downloaded_from, downloaded_at)
+		(chirp_id, provider_id, started_at,
+			concept, value, downloaded_from, downloaded_at)
+--		SELECT chirp_id, provider_id, location_id, started_at, value_type,
+--			concept, s_value, downloaded_from, downloaded_at
+		SELECT chirp_id, provider_id, started_at,
+			concept, value, downloaded_from, downloaded_at
 		FROM (
 			SELECT i.chirp_id, b.date_of_birth AS started_at,
 				'123' AS provider_id,
-				'456' AS location_id,
-				'S' AS value_type,
+--				'456' AS location_id,
+--				'S' AS value_type,
 				CONVERT(VARCHAR(255), b.sex) AS [DEM:Sex],
 				'The State' AS downloaded_from,
 				b.imported_at AS downloaded_at
@@ -86,26 +95,28 @@ BEGIN
 			WHERE b.imported_to_dw = 'FALSE'
 		) arbitraryrequiredandignoredname
 		UNPIVOT (
-			s_value FOR concept IN ( [DEM:Sex] )
+--			s_value FOR concept IN ( [DEM:Sex] )
+			value FOR concept IN ( [DEM:Sex] )
 		) AS anotherarbitraryrequiredname
 
 	INSERT INTO dbo.observations
-		(chirp_id, provider_id, location_id, started_at, value_type,
-			concept, t_value, downloaded_from, downloaded_at)
---			concept, s_value, downloaded_from, downloaded_at)
-		SELECT chirp_id, provider_id, location_id, started_at, value_type,
-			concept, t_value, downloaded_from, downloaded_at
---			concept, s_value, downloaded_from, downloaded_at
+--		(chirp_id, provider_id, location_id, started_at, value_type,
+--			concept, t_value, downloaded_from, downloaded_at)
+		(chirp_id, provider_id, started_at,
+			concept, value, downloaded_from, downloaded_at)
+--		SELECT chirp_id, provider_id, location_id, started_at, value_type,
+--			concept, t_value, downloaded_from, downloaded_at
+		SELECT chirp_id, provider_id, started_at,
+			concept, value, downloaded_from, downloaded_at
 		FROM (
 			SELECT i.chirp_id, b.date_of_birth AS started_at,
 				'123' AS provider_id,
-				'456' AS location_id,
+--				'456' AS location_id,
 
-				'T' AS value_type,
-				b.date_of_birth AS [DEM:DOB],
+--				'T' AS value_type,
+--				b.date_of_birth AS [DEM:DOB],
 --	If we drop the specific value types
---				'S' AS value_type,
---				CAST(b.date_of_birth AS VARCHAR(255)) AS [DEM:DOB],
+				CAST(b.date_of_birth AS VARCHAR(255)) AS [DEM:DOB],
 
 				'The State' AS downloaded_from,
 				b.imported_at AS downloaded_at
@@ -118,8 +129,8 @@ BEGIN
 			WHERE b.imported_to_dw = 'FALSE'
 		) arbitraryrequiredandignoredname
 		UNPIVOT (
-			t_value FOR concept IN ( [DEM:DOB] )
---			s_value FOR concept IN ( [DEM:DOB] )
+--			t_value FOR concept IN ( [DEM:DOB] )
+			value FOR concept IN ( [DEM:DOB] )
 		) AS anotherarbitraryrequiredname
 
 --	INSERT INTO dbo.observations
@@ -154,20 +165,20 @@ BEGIN
 -- ORDER MATTERS! SELECT ORDER MUST BE THE SAME AS INSERT ORDER!
 
 	INSERT INTO dbo.observations
-		(chirp_id, provider_id, location_id, started_at, value_type,
-			concept, n_value, units, downloaded_from, downloaded_at)
---			concept, s_value, units, downloaded_from, downloaded_at)
+--		(chirp_id, provider_id, location_id, started_at, value_type,
+--			concept, n_value, units, downloaded_from, downloaded_at)
+		(chirp_id, provider_id, started_at,
+			concept, value, units, downloaded_from, downloaded_at)
 		SELECT i.chirp_id,
 			'123' AS provider_id,
-			'456' AS location_id,
+--			'456' AS location_id,
 			b.date_of_birth AS started_at,
 
-			'N' AS value_type,
+--			'N' AS value_type,
 			'DEM:Weight' AS concept,
-			(CAST(b.birth_weight_lbs AS FLOAT) + (CAST(b.birth_weight_oz AS FLOAT)/16)) AS n_value,
+--			(CAST(b.birth_weight_lbs AS FLOAT) + (CAST(b.birth_weight_oz AS FLOAT)/16)) AS n_value,
 --	If we drop the specific value types
---			'S' AS value_type,
---			CAST((CAST(b.birth_weight_lbs AS FLOAT) + (CAST(b.birth_weight_oz AS FLOAT)/16)) AS VARCHAR(255)) AS s_value,
+			CAST((CAST(b.birth_weight_lbs AS FLOAT) + (CAST(b.birth_weight_oz AS FLOAT)/16)) AS VARCHAR(255)) AS value,
 
 
 			'lbs' AS units,

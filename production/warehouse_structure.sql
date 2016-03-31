@@ -43,7 +43,7 @@ CREATE TABLE dbo.encounters (
 
 
 
-
+/*
 IF OBJECT_ID('dbo.locations', 'U') IS NOT NULL
 	DROP TABLE dbo.locations;
 CREATE TABLE dbo.locations (
@@ -51,6 +51,7 @@ CREATE TABLE dbo.locations (
 
 
 );
+*/
 
 
 
@@ -63,16 +64,17 @@ CREATE TABLE dbo.observations (
 	chirp_id        INT NOT NULL,
 --	encounter_id    INT NOT NULL,
 	provider_id     INT NOT NULL,
-	location_id     INT NOT NULL,
+--	location_id     INT NOT NULL,
 	concept         VARCHAR(255) NOT NULL,
 	started_at      DATETIME NOT NULL,
 	ended_at        DATETIME,
-	value_type      VARCHAR(1) NOT NULL,
-	n_value         DECIMAL(18,5),
-	s_value         VARCHAR(255),
+--	value_type      VARCHAR(1) NOT NULL,
+--	n_value         DECIMAL(18,5),
+--	s_value         VARCHAR(255),
 --	l_value         VARCHAR(MAX),
 --	d_value         DATE,
-	t_value         DATETIME,
+--	t_value         DATETIME,
+	value           VARCHAR(255),
 	units           VARCHAR(20),
 	downloaded_at   DATETIME,
 	downloaded_from VARCHAR(50),
@@ -125,7 +127,7 @@ ALTER TABLE dbo.observations ADD CONSTRAINT fk_concept_code
 --	CHECK (chirp_id in (SELECT DISTINCT chirp_id FROM private.identifiers))
 --
 
-
+/*
 -- These could have been included in the CREATE
 ALTER TABLE dbo.observations ADD CONSTRAINT ck_value_type CHECK (
 	value_type IN ('N','T','S')
@@ -153,3 +155,6 @@ ALTER TABLE dbo.observations ADD CONSTRAINT ck_s_value CHECK (
 --	( value_type <> 'L' AND l_value IS NULL ) OR
 --	( value_type = 'L' AND l_value IS NOT NULL )
 --);
+*/
+
+
