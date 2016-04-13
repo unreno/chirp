@@ -24,7 +24,7 @@ BEGIN
 
 
 				'DEM:Other' AS concept,
-				yadayada, blahblah,
+				testresults1, testresults2, testresults3, testresults4, testresults5
 
 
 				'Health Lab' AS downloaded_from,
@@ -40,8 +40,8 @@ BEGIN
 		UNPIVOT (
 
 
---			s_value FOR ignoreconcept IN ( yadayada, blahblah )
-			value FOR ignoreconcept IN ( yadayada, blahblah )
+--			s_value FOR ignoreconcept IN ( testresults1, testresults2 )
+			value FOR ignoreconcept IN ( testresults1, testresults2, testresults3, testresults4, testresults5 )
 
 
 		) AS anotherarbitraryrequiredname

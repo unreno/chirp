@@ -11,8 +11,11 @@ CREATE TABLE health_lab.newborn_screening (
 	name_last VARCHAR(250),
 	date_of_birth DATETIME,
 	sex VARCHAR(1),
-	blahblah VARCHAR(250),
-	yadayada VARCHAR(250),
+	testresults1 VARCHAR(250),
+	testresults2 VARCHAR(250),
+	testresults3 VARCHAR(250),
+	testresults4 VARCHAR(250),
+	testresults5 VARCHAR(250),
 
 
 

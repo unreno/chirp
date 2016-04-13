@@ -33,6 +33,36 @@ GO
 --uniqueidentifier
 
 
+
+
+IF OBJECT_ID ( 'dev.random_newid', 'FN' ) IS NOT NULL
+	DROP FUNCTION dev.random_newid;
+GO
+CREATE FUNCTION dev.random_newid()
+	RETURNS uniqueidentifier
+BEGIN
+	RETURN ( SELECT number FROM dev.newid_view )
+END
+GO
+
+IF OBJECT_ID ( 'dev.random_varchar', 'FN' ) IS NOT NULL
+	DROP FUNCTION dev.random_varchar;
+GO
+CREATE FUNCTION dev.random_varchar()
+	RETURNS VARCHAR(255)
+BEGIN
+	RETURN ( CAST( dev.random_newid() AS VARCHAR(255) ) )
+END
+GO
+
+
+
+
+
+
+
+
+
 IF OBJECT_ID ( 'dev.random_name', 'FN' ) IS NOT NULL
 	DROP FUNCTION dev.random_name;
 GO
@@ -41,7 +71,8 @@ CREATE FUNCTION dev.random_name( @type VARCHAR(255) )
 BEGIN
 	RETURN ( SELECT TOP 1 name FROM dev.names 
 		WHERE type = @type 
-		ORDER BY ( SELECT number FROM dev.newid_view ) )
+		ORDER BY ( dev.random_newid() ) )
+--		ORDER BY ( SELECT number FROM dev.newid_view ) )
 END
 GO
 
@@ -139,27 +170,8 @@ GO
 
 
 
---http://stackoverflow.com/questions/9645348/how-to-insert-1000-random-dates-between-a-given-range
---IF OBJECT_ID ( 'dev.create_a_random_date', 'P' ) IS NOT NULL
---	DROP PROCEDURE dev.create_a_random_date;
---GO
---CREATE PROCEDURE dev.create_a_random_date(
---	@random_date DATE OUTPUT,
---	@from_date DATE = '2010-01-01', 
---	@to_date   DATE = '2015-12-31' )
---AS
---BEGIN
---	SET NOCOUNT ON;
---
-----	DECLARE @from_date DATE = '2010-01-01'
-----	DECLARE @to_date DATE = '2015-12-31'
---
---	SELECT @random_date = DATEADD(day, 
---		RAND(CHECKSUM(NEWID()))*(1+DATEDIFF(DAY, @from_date, @to_date)), 
---		@from_date)
---
---END
---GO
+
+
 
 
 IF OBJECT_ID ( 'dev.create_newborn_screening_for_each_birth_record', 'P' ) IS NOT NULL
@@ -171,18 +183,15 @@ BEGIN
 	SET NOCOUNT ON;
 
 	INSERT INTO health_lab.newborn_screening
-		( name_first, name_last, date_of_birth, sex, blahblah, yadayada )
+		( name_first, name_last, date_of_birth, sex, 
+			testresults1, testresults2, testresults3, testresults4, testresults5 )
 		SELECT name_first, name_last, date_of_birth, sex,
-
-
-
-			dev.random_male_name(),
-			dev.random_female_name()
-
-
-
+			dev.random_varchar(),
+			dev.random_varchar(),
+			dev.random_varchar(),
+			dev.random_varchar(),
+			dev.random_varchar()
 		FROM vital_records.birth
-
 END
 GO
 
