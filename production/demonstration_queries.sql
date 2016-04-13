@@ -21,10 +21,15 @@ EXEC dbo.import_into_data_warehouse
 
 
 
+SELECT COUNT(*) FROM dbo.observations
+WHERE concept = 'DEM:DOB'
+AND CAST(value AS DATE) BETWEEN '2013-06-01' AND '2013-06-30';
+
 SELECT chirp_id, CAST(value AS DATE) FROM dbo.observations
 WHERE concept = 'DEM:DOB'
 AND CAST(value AS DATE) BETWEEN '2013-06-01' AND '2013-06-30'
 ORDER BY CAST(value AS DATE) DESC;
+
 
 
 
@@ -57,8 +62,6 @@ JOIN (
 ) w ON h.chirp_id = w.chirp_id  AND h.started_at = w.started_at
 WHERE h.concept = 'DEM:Height'
 ORDER BY ( w.value * 703. / SQUARE(h.value) ) DESC;
-
-
 
 
 
