@@ -32,6 +32,9 @@ cat vital_records_procedures.sql
 cat health_lab_structure.sql
 cat health_lab_procedures.sql
 
+cat fakedoc1_structure.sql
+cat fakedoc1_procedures.sql
+
 cat development.sql
 
 #
