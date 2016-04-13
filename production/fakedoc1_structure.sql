@@ -3,17 +3,18 @@ IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='fakedoc1')
 	EXEC('CREATE SCHEMA fakedoc1')
 GO
 
-IF OBJECT_ID('fakedoc1.emr', 'U') IS NOT NULL
-	DROP TABLE fakedoc1.emr;
-CREATE TABLE fakedoc1.emr (
+IF OBJECT_ID('fakedoc1.emrs', 'U') IS NOT NULL
+	DROP TABLE fakedoc1.emrs;
+CREATE TABLE fakedoc1.emrs (
 	id INT IDENTITY(1,1) PRIMARY KEY,
-	record_number INT,
+	record_number VARCHAR(255),
 	name_first VARCHAR(250),
 	name_last VARCHAR(250),
 	date_of_birth DATETIME,
 	sex VARCHAR(1),
 	code VARCHAR(250),
-	value VARCHAR(250)
+	value VARCHAR(250),
+	service_at DATETIME
 );
 GO
 

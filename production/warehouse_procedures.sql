@@ -1,4 +1,57 @@
 
+
+IF OBJECT_ID ( 'dbo.import_into_data_warehouse_by_table_fakedoc1_emrs', 'P' ) IS NOT NULL
+	DROP PROCEDURE dbo.import_into_data_warehouse_by_table_fakedoc1_emrs;
+GO
+CREATE PROCEDURE dbo.import_into_data_warehouse_by_table_fakedoc1_emrs
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	INSERT INTO dbo.observations
+		(chirp_id, provider_id, started_at,
+			concept, value, downloaded_from, downloaded_at)
+--		SELECT chirp_id, provider_id, started_at,
+--			concept, value, downloaded_from, downloaded_at
+--		FROM (
+--	Don't think that I need the AS's
+--	Don't need to UNPIVOT as is already UNPIVOTed
+			SELECT i.chirp_id, 
+				8675309 AS provider_id,
+				n.service_at AS started_at,
+				code AS concept,
+				value AS value,
+				'Fake Doctor 1' AS downloaded_from,
+				n.imported_at AS downloaded_at
+			FROM fakedoc1.emrs n
+			JOIN private.identifiers i
+				ON    i.source_id     = n.record_number
+					AND i.source_column = 'record_number'
+					AND i.source_table  = 'emrs'
+					AND i.source_schema = 'fakedoc1'
+			WHERE n.imported_to_dw = 'FALSE'
+--		) arbitraryrequiredandignoredname
+--		UNPIVOT (
+--			value FOR concept IN ( [DEM:Weight], [DEM:Height] )
+--		) AS anotherarbitraryrequiredname
+
+	UPDATE n
+		SET imported_to_dw = 'TRUE'
+		FROM fakedoc1.emrs n
+		JOIN private.identifiers i
+			ON  i.source_id     = n.record_number
+			AND i.source_column = 'record_number'
+			AND i.source_table  = 'emrs'
+			AND i.source_schema = 'fakedoc1'
+		WHERE imported_to_dw = 'FALSE'
+			AND i.id IS NOT NULL
+
+END	--	CREATE PROCEDURE dbo.import_into_data_warehouse_by_table_fakedoc1_emrs
+GO
+
+
+
+
 IF OBJECT_ID ( 'dbo.import_into_data_warehouse_by_table_health_lab_newborn_screening', 'P' ) IS NOT NULL
 	DROP PROCEDURE dbo.import_into_data_warehouse_by_table_health_lab_newborn_screening;
 GO
@@ -24,7 +77,7 @@ BEGIN
 
 
 				'DEM:Other' AS concept,
-				testresults1, testresults2, testresults3, testresults4, testresults5
+				testresults1, testresults2, testresults3, testresults4, testresults5,
 
 
 				'Health Lab' AS downloaded_from,
@@ -277,6 +330,7 @@ BEGIN
 		--Until there are more than a dozen, this above is a bit excessive!
 		EXEC dbo.import_into_data_warehouse_by_schema 'vital_records'
 		EXEC dbo.import_into_data_warehouse_by_schema 'health_lab'
+		EXEC dbo.import_into_data_warehouse_by_schema 'fakedoc1'
 
 --	END
 --	CLOSE schemas;
