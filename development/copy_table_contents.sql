@@ -18,6 +18,11 @@ GO
 
 --and then copy the table. 
 --(not sure if this copies indexes, constraints, triggers, etc.)
+--
+-- I highly doubt that this copies anything other than the data.
+--
+--Could also be selective about the fields as well as the records.
+--
 SELECT * INTO chirpcopy.dev.names FROM chirp.dev.names
 
 
