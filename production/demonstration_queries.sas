@@ -1,6 +1,4 @@
 
-
-
 LIBNAME mydb ODBC DATASRC=myodbc;
 DATA june_obs;
 	SET mydb.observations;
@@ -11,6 +9,3 @@ RUN;
 PROC PRINT DATA=june_obs;
 RUN;
 
-
-
-:colorscheme morning
