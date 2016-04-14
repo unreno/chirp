@@ -25,4 +25,8 @@ GO
 
 SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'observations'
 
+--as is
+
+EXEC sp_help 'dbo.observations'
+
 
