@@ -21,3 +21,8 @@ GO
 -- EXEC dbo.describe 'dbo.observations'
 
 
+--The following is also quite informative.
+
+SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'observations'
+
+
