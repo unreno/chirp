@@ -1,5 +1,5 @@
 
-EXEC dev.create_random_vital_records 1
+EXEC dev.create_random_vital_records 100
 
 INSERT INTO private.identifiers
 	( chirp_id, source_schema, source_table, source_column, source_id ) 
@@ -42,6 +42,8 @@ ORDER BY CAST(value AS DATE) DESC;
 DECLARE @c INT;
 
 SELECT TOP 1 @c = chirp_id FROM private.identifiers ORDER BY NEWID();
+
+SELECT * FROM private.identifiers WHERE chirp_id = @c;
 
 SELECT * FROM dbo.observations WHERE chirp_id = @c;
 
