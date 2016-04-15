@@ -12,8 +12,9 @@ CREATE TABLE fakedoc1.emrs (
 	name_last VARCHAR(250),
 	date_of_birth DATETIME,
 	sex VARCHAR(1),
-	code VARCHAR(250),
-	value VARCHAR(250),
+	code VARCHAR(255),
+	value VARCHAR(255),
+	units VARCHAR(255),
 	service_at DATETIME
 );
 GO

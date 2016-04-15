@@ -1,5 +1,5 @@
 
-EXEC dev.create_random_vital_records
+EXEC dev.create_random_vital_records 100
 
 INSERT INTO private.identifiers
 	( chirp_id, source_schema, source_table, source_column, source_id ) 

@@ -10,7 +10,7 @@ BEGIN
 
 	INSERT INTO dbo.observations
 		(chirp_id, provider_id, started_at,
-			concept, value, downloaded_from, downloaded_at)
+			concept, value, units, downloaded_from, downloaded_at)
 --		SELECT chirp_id, provider_id, started_at,
 --			concept, value, downloaded_from, downloaded_at
 --		FROM (
@@ -21,6 +21,7 @@ BEGIN
 				n.service_at AS started_at,
 				code AS concept,
 				value AS value,
+				units AS units,
 				'Fake Doctor 1' AS downloaded_from,
 				n.imported_at AS downloaded_at
 			FROM fakedoc1.emrs n
@@ -99,6 +100,16 @@ BEGIN
 
 		) AS anotherarbitraryrequiredname
 
+--	CROSS APPLY 
+--	WHERE value IS NOT NULL
+
+
+
+
+
+
+
+
 	UPDATE n
 		SET imported_to_dw = 'TRUE'
 		FROM health_lab.newborn_screening n
@@ -136,7 +147,12 @@ BEGIN
 				'123' AS provider_id,
 --				'456' AS location_id,
 --				'S' AS value_type,
-				CONVERT(VARCHAR(255), b.sex) AS [DEM:Sex],
+--				CONVERT(VARCHAR(255), b.sex) AS [DEM:Sex],	--Why CONVERT and not CAST?
+--	CONVERT is SQL Server, CAST is ANSI, so I choose CAST
+				CAST(b.sex AS VARCHAR(255)) AS [DEM:Sex],
+				CAST(b.apgar_1 AS VARCHAR(255)) AS [APGAR1],
+				CAST(b.apgar_5 AS VARCHAR(255)) AS [APGAR5],
+				CAST(b.apgar_10 AS VARCHAR(255)) AS [APGAR10],
 				'The State' AS downloaded_from,
 				b.imported_at AS downloaded_at
 			FROM vital_records.birth b
@@ -149,7 +165,7 @@ BEGIN
 		) arbitraryrequiredandignoredname
 		UNPIVOT (
 --			s_value FOR concept IN ( [DEM:Sex] )
-			value FOR concept IN ( [DEM:Sex] )
+			value FOR concept IN ( [DEM:Sex], [APGAR1], [APGAR5], [APGAR10] )
 		) AS anotherarbitraryrequiredname
 
 	INSERT INTO dbo.observations

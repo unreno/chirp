@@ -7,7 +7,7 @@
 
 -- 10,000 takes about 5 minutes with all of the uniqueness checking.
 SELECT COUNT(*) FROM vital_records.birth
-EXEC dev.create_random_vital_records 1000
+EXEC dev.create_random_vital_records 10
 SELECT COUNT(*) FROM vital_records.birth
 
 

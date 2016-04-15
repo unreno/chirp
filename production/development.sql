@@ -194,6 +194,19 @@ END
 GO
 
 
+IF OBJECT_ID ( 'dev.random_apgar', 'FN' ) IS NOT NULL
+  DROP FUNCTION dev.random_apgar;
+GO
+CREATE FUNCTION dev.random_apgar()	-- inches
+  RETURNS INTEGER
+BEGIN
+	DECLARE @rand DECIMAL(18,18)
+	SELECT @rand = number FROM dev.rand_view
+  RETURN (SELECT 10*@rand)
+END
+GO
+
+
 IF OBJECT_ID ( 'dev.unique_vital_record_state_file_number', 'FN' ) IS NOT NULL
 	DROP FUNCTION dev.unique_vital_record_state_file_number;
 GO
@@ -232,14 +245,18 @@ BEGIN
 		ELSE
 			SET @name_first = dev.random_female_name()
 		INSERT INTO vital_records.birth 
-			( birthid, state_file_number, date_of_birth, sex, 
+			( birthid, state_file_number, 
+				date_of_birth, sex, 
 				name_first, name_last,
+				apgar_1, apgar_5, apgar_10,
 				birth_weight_lbs, birth_weight_oz )
 			VALUES 
---			( @count, CAST(RAND()*1e9 AS INT), 
 			( @count, dev.unique_vital_record_state_file_number(),
 				dev.random_date(), @sex,
 				@name_first, dev.random_last_name(),
+				dev.random_apgar(),	--VARCHAR(2)
+				dev.random_apgar(),	--VARCHAR(2)
+				dev.random_apgar(),	--VARCHAR(2)
 				CAST(RAND()*5 AS INT)+5,
 				CAST(RAND()*16 AS INT) 
 			);
@@ -309,7 +326,7 @@ BEGIN
 	DECLARE @ndob DATE;
 
 	--	Only those record without a matching private.identifier record.
-	DECLARE unlinked_newborn_screening CURSOR FOR SELECT n.id,name_first,name_last,date_of_birth,sex
+	DECLARE unlinked CURSOR FOR SELECT n.id,name_first,name_last,date_of_birth,sex
 		FROM health_lab.newborn_screening n
 		LEFT JOIN private.identifiers i
 		ON    i.source_id     = n.id 
@@ -318,9 +335,9 @@ BEGIN
 			AND i.source_schema = 'health_lab'
 		WHERE i.id IS NULL;	-- NULL meaning there isn't one!
 
-	OPEN unlinked_newborn_screening;
+	OPEN unlinked;
 	WHILE(1=1)BEGIN
-		FETCH NEXT FROM unlinked_newborn_screening INTO @nid, @nfname, @nlname, @ndob, @nsex
+		FETCH NEXT FROM unlinked INTO @nid, @nfname, @nlname, @ndob, @nsex
 		IF(@@FETCH_STATUS <> 0) BREAK
 
 		SET @cid = NULL;	--	this will remember the last loop?
@@ -364,114 +381,11 @@ BEGIN
 
 	END
 
-	CLOSE unlinked_newborn_screening;
-	DEALLOCATE unlinked_newborn_screening;
+	CLOSE unlinked;
+	DEALLOCATE unlinked;
 END
 GO
 
-
-
-
-
-
-/*
---Creating a parameterized unique field function seems challenging
-IF OBJECT_ID ( 'dev.unique_id_procedure', 'P' ) IS NOT NULL
-	DROP PROCEDURE dev.unique_id_procedure;
-GO
--- apparently can't do this
---	@minid INT = 1e9,
---	@maxid INT = POWER(2.,31)-1,
--- INSERT EXEC not allowed in function
--- Invalid use of a side-effecting operator 'INSERT EXEC' within a function.
-CREATE PROCEDURE dev.unique_id_procedure(
-	@minid INT = 1000000000,
-	@maxid INT = 2000000000,
-	@table VARCHAR(255) = 'private.identifiers',
-	@field VARCHAR(255) = 'chirp_id',
-	@unique_id INT OUTPUT )
-AS
-BEGIN
-	DECLARE @tempid INT = 0;
-	DECLARE @rand DECIMAL(18,18);
-	DECLARE @count INT;
-	DECLARE @CountResults TABLE (CountReturned INT);
-
-	WHILE(1=1)BEGIN
-
-		SELECT @rand = number FROM dev.rand_view
-		-- By using a min of 1e9, no need for leading zeroes.
-		SET @tempid = CAST(
-			(@minid + (@rand * (@maxid-@minid)))
-			AS INTEGER);
-
-		INSERT @CountResults EXEC('SELECT COUNT(*) FROM ' + @table + ' WHERE ' + @field + ' = ' + @tempid)
-		SELECT @count = CountReturned FROM @CountResults
-		DELETE FROM @CountResults
-
-		IF( @tempid <> 0 AND @count = 0 ) BREAK;
-	END
-
-	SET @unique_id = @tempid
-END
-GO
-*/
-
-/*
-Only functions and some extended stored procedures can be executed from within a function.
-IF OBJECT_ID ( 'dev.unique_id', 'FN' ) IS NOT NULL
-	DROP FUNCTION dev.unique_id;
-GO
--- apparently can't do this
---	@minid INT = 1e9,
---	@maxid INT = POWER(2.,31)-1,
--- INSERT EXEC not allowed in function
--- Invalid use of a side-effecting operator 'INSERT EXEC' within a function.
-CREATE FUNCTION dev.unique_id(
-	@minid INT = 1000000000,
-	@maxid INT = 2000000000,
-	@table VARCHAR(255) = 'private.identifiers',
-	@field VARCHAR(255) = 'chirp_id' )
-	RETURNS INT
-BEGIN
-	DECLARE @tempid INT = 0;
-	EXEC dev.unique_id_procedure default, default, default, default, @tempid OUTPUT
-	RETURN @tempid
-END
-GO
-*/
-
-
-
-
-
-
-/*
-IF OBJECT_ID ( 'dev.unique_fakedoc1_record_number', 'FN' ) IS NOT NULL
-	DROP FUNCTION dev.unique_fakedoc1_record_number;
-GO
-CREATE FUNCTION dev.unique_fakedoc1_record_number()
-	RETURNS INT
-BEGIN
-	DECLARE @minid INT = 1e9;
-	DECLARE @maxid INT = POWER(2.,31)-1;
-	DECLARE @tempid INT = 0;
-	DECLARE @rand DECIMAL(18,18)
-
-	WHILE ((@tempid = 0) OR
-		EXISTS (SELECT * FROM fakedoc1.emrs WHERE record_number=@tempid))
-	BEGIN
-		SELECT @rand = number FROM dev.rand_view
-		-- By using a min of 1e9, no need for leading zeroes.
-		SET @tempid = CAST(
-			(@minid + (@rand * (@maxid-@minid)))
-			AS INTEGER);
-	END
-
-	RETURN @tempid
-END
-GO
-*/
 
 IF OBJECT_ID ( 'dev.unique_fakedoc1_record_number', 'FN' ) IS NOT NULL
 	DROP FUNCTION dev.unique_fakedoc1_record_number;
@@ -500,41 +414,94 @@ BEGIN
 	--This creates 2 for each birth record
 
 	INSERT INTO fakedoc1.emrs
-		( record_number, name_first, name_last, date_of_birth, sex, code, value, service_at )
+		( record_number, name_first, name_last, date_of_birth, sex, code, value, units, service_at )
 		SELECT
-			record_number, name_first, name_last, date_of_birth, sex, code, value, service_at
+			record_number, name_first, name_last, date_of_birth, sex, code, value, units, service_at
 		FROM (
 			SELECT 
 				dev.unique_fakedoc1_record_number() as record_number,
 				name_first, name_last, date_of_birth, sex,
-				CAST(dev.random_weight() AS VARCHAR(255)) AS [DEM:Weight],
-				CAST(dev.random_height() AS VARCHAR(255)) AS [DEM:Height],
+--				CAST(dev.random_weight() AS VARCHAR(255)) AS [DEM:Weight],
+--				CAST(dev.random_height() AS VARCHAR(255)) AS [DEM:Height],
+--				'lbs' AS [DEM:WeightUNITS],
+--				'inches' AS [DEM:HeightUNITS],
 				dev.random_date() AS service_at
 			FROM vital_records.birth
-		) ignored1
-		UNPIVOT (
-			value FOR code IN ( [DEM:Height], [DEM:Weight] )
-		) AS ignored2
+			CROSS APPLY ( VALUES
+				('DEM:Weight', CAST(dev.random_weight() AS VARCHAR(255)), 'lbs'),
+				('DEM:Height', CAST(dev.random_height() AS VARCHAR(255)), 'inches')
+			) ignoredalias ( code, value, units )
+--		) ignored1
+--		UNPIVOT (
+--			value FOR code IN ( [DEM:Height], [DEM:Weight] )
+--		) AS ignored2
+--		UNPIVOT (
+--			units FOR codeunit IN ( [DEM:HeightUNITS], [DEM:WeightUNITS] )
+--		) AS ignored3
+--		--WHERE LEFT(code,5) = LEFT(codeunit,5)
+
+--	As are creating, won't ever be blank
+
+--	SELECT s.Product, d.Supplier, d.City
+--	FROM dbo.Suppliers s
+--	CROSS APPLY (VALUES
+--		(Supplier1, City1)
+--		,(Supplier2, City2)
+--		,(Supplier3, City3)
+--	) d (Supplier, City)
+
+--	A MySQL similarity to CROSS APPLY and UNPIVOT
+--SELECT chirp_id,
+--	c.col,
+--	case c.col
+--		when 'a' then source_name
+--		when 'b' then source_id
+--		when 'c' then created_at
+--	end as data
+--FROM identifiers CROSS JOIN (   
+--	select 'a' as col
+--  union all select 'b'
+--  union all select 'c'
+--) c;
+
+
+
+-- is order enough to match?
+--I think there will need to be a condition based on the fiel;d nsames so they will nedd to be chosen wisely.
+--WHERE RIGHT(Suppliers,1) =  RIGHT(Cities,1)
+
+--Can I unpivot units? TESTING
+
 
 	--This creates 2 for each emr record
 	--Should be 6 emrs in total for each birth record now!
 
 	INSERT INTO fakedoc1.emrs
-		( record_number, name_first, name_last, date_of_birth, sex, code, value, service_at )
+		( record_number, name_first, name_last, date_of_birth, sex, code, value, units, service_at )
 		SELECT
-			record_number, name_first, name_last, date_of_birth, sex, code, value, service_at
+			record_number, name_first, name_last, date_of_birth, sex, code, value, units, service_at
 		FROM (
 			SELECT 
 				record_number,
 				name_first, name_last, date_of_birth, sex,
-				CAST(dev.random_weight() AS VARCHAR(255)) AS [DEM:Weight],
-				CAST(dev.random_height() AS VARCHAR(255)) AS [DEM:Height],
+--				CAST(dev.random_weight() AS VARCHAR(255)) AS [DEM:Weight],
+--				CAST(dev.random_height() AS VARCHAR(255)) AS [DEM:Height],
+--				'lbs' AS [DEM:WeightUNITS],
+--				'inches' AS [DEM:HeightUNITS],
 				dev.random_date() AS service_at
 			FROM fakedoc1.emrs
-		) ignored1
-		UNPIVOT (
-			value FOR code IN ( [DEM:Height], [DEM:Weight] )
-		) AS ignored2
+			CROSS APPLY ( VALUES
+				('DEM:Weight', CAST(dev.random_weight() AS VARCHAR(255)), 'lbs'),
+				('DEM:Height', CAST(dev.random_height() AS VARCHAR(255)), 'inches')
+			) ignoredalias ( code, value, units )
+--		) ignored1
+--		UNPIVOT (
+--			value FOR code IN ( [DEM:Height], [DEM:Weight] )
+--		) AS ignored2
+--		UNPIVOT (
+--			units FOR codeunit IN ( [DEM:HeightUNITS], [DEM:WeightUNITS] )
+--		) AS ignored3
+--		--WHERE LEFT(code,5) = LEFT(codeunit,5)
 
 
 -- SELECT TOP 10 PERCENT *
@@ -563,7 +530,7 @@ BEGIN
 	DECLARE @ndob DATE;
 
 	--	Only those record without a matching private.identifier record.
-	DECLARE unlinked_fakedoc1_emrs CURSOR FOR SELECT n.record_number,name_first,name_last,date_of_birth,sex
+	DECLARE unlinked CURSOR FOR SELECT n.record_number,name_first,name_last,date_of_birth,sex
 		FROM fakedoc1.emrs n
 		LEFT JOIN private.identifiers i
 		ON    i.source_id     = n.record_number 
@@ -572,9 +539,9 @@ BEGIN
 			AND i.source_schema = 'fakedoc1'
 		WHERE i.id IS NULL;	-- NULL meaning there isn't one!
 
-	OPEN unlinked_fakedoc1_emrs;
+	OPEN unlinked;
 	WHILE(1=1)BEGIN
-		FETCH NEXT FROM unlinked_fakedoc1_emrs INTO @nrecord, @nfname, @nlname, @ndob, @nsex
+		FETCH NEXT FROM unlinked INTO @nrecord, @nfname, @nlname, @ndob, @nsex
 		IF(@@FETCH_STATUS <> 0) BREAK
 
 		SET @cid = NULL;	--	this will remember the last loop?
@@ -626,8 +593,8 @@ BEGIN
 
 	END
 
-	CLOSE unlinked_fakedoc1_emrs;
-	DEALLOCATE unlinked_fakedoc1_emrs;
+	CLOSE unlinked;
+	DEALLOCATE unlinked;
 END
 GO
 
