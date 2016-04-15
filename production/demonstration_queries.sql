@@ -1,5 +1,5 @@
 
-EXEC dev.create_random_vital_records 100
+EXEC dev.create_random_vital_records 1
 
 INSERT INTO private.identifiers
 	( chirp_id, source_schema, source_table, source_column, source_id ) 
@@ -16,6 +16,9 @@ EXEC dev.link_FAKE_fakedoc1_emrs_to_births
 
 EXEC dbo.import_into_data_warehouse
 
+SELECT * FROM fakedoc1.emrs
+
+SELECT * FROM dbo.observations
 
 
 
