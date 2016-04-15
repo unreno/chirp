@@ -88,8 +88,11 @@ CREATE TABLE dbo.observations (
 --		FOREIGN KEY (provider_id) REFERENCES providers(id),
 --	CONSTRAINT fk_location_id
 --		FOREIGN KEY (location_id) REFERENCES locations(id),
-	CONSTRAINT fk_concept_code
-		FOREIGN KEY (concept) REFERENCES concepts(code)
+
+--Temporarily skip concept codes
+--	CONSTRAINT fk_concept_code
+--		FOREIGN KEY (concept) REFERENCES concepts(code)
+
 );
 
 /*
