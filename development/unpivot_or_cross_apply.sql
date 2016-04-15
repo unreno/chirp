@@ -78,4 +78,42 @@ CROSS APPLY ( VALUES
 
 
 
+--Yes, double unpivots can be done.
+--You'll need to be sneaky about 'column' names so can use a WHERE 
+--clause to choose otherwise, the UNPIVOT is for all of them.
+DECLARE @t TABLE( id INT, a VARCHAR(255), b VARCHAR(255), ax VARCHAR(255), bz VARCHAR(255) )
+INSERT INTO @t VALUES (1,'apple','banana', 'red','yellow'), (2,'orange',NULL,'orange','black')
+
+SELECT id, fruit, color FROM @t
+UNPIVOT (
+	fruit FOR ignore1 IN ( a, b )
+) f
+UNPIVOT (
+	color FOR ignore2 IN ( ax, bz )
+) c
+WHERE LEFT(ignore1,1) = LEFT(ignore2,1)
+
+
+
+--		SELECT
+--			record_number, name_first, name_last, date_of_birth, sex, code, value, units, service_at
+--		FROM (
+--			SELECT 
+--				dev.unique_fakedoc1_record_number() AS record_number,
+--				name_first, name_last, date_of_birth, sex,
+--				CAST(dev.random_weight() AS VARCHAR(255)) AS [DEM:Weight],
+--				CAST(dev.random_height() AS VARCHAR(255)) AS [DEM:Height],
+--				CAST('lbs' AS VARCHAR(255)) AS [DEM:WeightUNITS],
+--				CAST('inches' AS VARCHAR(255)) AS [DEM:HeightUNITS],
+--        dev.random_date() AS service_at
+--      FROM vital_records.birth
+--    ) ignored1
+--    UNPIVOT (
+--      value FOR code IN ( [DEM:Height], [DEM:Weight] )
+--    ) AS ignored2
+--    UNPIVOT (
+--      units FOR codeunit IN ( [DEM:HeightUNITS], [DEM:WeightUNITS] )
+--    ) AS ignored3
+--    WHERE LEFT(code,5) = LEFT(codeunit,5) -- match DEM:H to DEM:H and DEM:W to DEM:W
+
 
