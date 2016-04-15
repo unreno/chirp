@@ -416,21 +416,37 @@ BEGIN
 	INSERT INTO fakedoc1.emrs
 		( record_number, name_first, name_last, date_of_birth, sex, code, value, units, service_at )
 		SELECT
-			record_number, name_first, name_last, date_of_birth, sex, code, value, units, service_at
+			record_number, name_first, name_last, date_of_birth, sex, i.code, i.value, i.units, service_at
 		FROM (
 			SELECT 
-				dev.unique_fakedoc1_record_number() as record_number,
+DISTINCT	--Adding distinct (and moving CROSS APPLY outside) seems to quell the multiple random numbers? Rather surprised.
+				dev.unique_fakedoc1_record_number() AS record_number,
 				name_first, name_last, date_of_birth, sex,
 --				CAST(dev.random_weight() AS VARCHAR(255)) AS [DEM:Weight],
 --				CAST(dev.random_height() AS VARCHAR(255)) AS [DEM:Height],
---				'lbs' AS [DEM:WeightUNITS],
---				'inches' AS [DEM:HeightUNITS],
+--				CAST('lbs' AS VARCHAR(255)) AS [DEM:WeightUNITS],
+--				CAST('inches' AS VARCHAR(255)) AS [DEM:HeightUNITS],
+
+
+--Doing it this way generates a random date for each CAV. Bummer.
+--It also creates a new record number for each. REAL BUMMER.
+--				i.code,i.value,i.units,
 				dev.random_date() AS service_at
 			FROM vital_records.birth
+--			CROSS APPLY ( VALUES
+--				('DEM:Weight', CAST(dev.random_weight() AS VARCHAR(255)), 'lbs'),
+--				('DEM:Height', CAST(dev.random_height() AS VARCHAR(255)), 'inches')
+--			) i ( code, value, units )
+		) ignored1
 			CROSS APPLY ( VALUES
 				('DEM:Weight', CAST(dev.random_weight() AS VARCHAR(255)), 'lbs'),
 				('DEM:Height', CAST(dev.random_height() AS VARCHAR(255)), 'inches')
-			) ignoredalias ( code, value, units )
+			) i ( code, value, units )
+
+
+--	Doing it this way generates 1 date and number for each pair.
+--				dev.random_date() AS service_at
+--			FROM vital_records.birth
 --		) ignored1
 --		UNPIVOT (
 --			value FOR code IN ( [DEM:Height], [DEM:Weight] )
@@ -438,7 +454,11 @@ BEGIN
 --		UNPIVOT (
 --			units FOR codeunit IN ( [DEM:HeightUNITS], [DEM:WeightUNITS] )
 --		) AS ignored3
---		--WHERE LEFT(code,5) = LEFT(codeunit,5)
+--		WHERE LEFT(code,5) = LEFT(codeunit,5)
+--		--Without this WHERE condition the second unpivot does both units for each code!
+
+
+
 
 --	As are creating, won't ever be blank
 
@@ -479,29 +499,36 @@ BEGIN
 	INSERT INTO fakedoc1.emrs
 		( record_number, name_first, name_last, date_of_birth, sex, code, value, units, service_at )
 		SELECT
-			record_number, name_first, name_last, date_of_birth, sex, code, value, units, service_at
+			record_number, name_first, name_last, date_of_birth, sex, i.code, i.value, i.units, service_at
 		FROM (
 			SELECT 
+DISTINCT
 				record_number,
 				name_first, name_last, date_of_birth, sex,
 --				CAST(dev.random_weight() AS VARCHAR(255)) AS [DEM:Weight],
 --				CAST(dev.random_height() AS VARCHAR(255)) AS [DEM:Height],
---				'lbs' AS [DEM:WeightUNITS],
---				'inches' AS [DEM:HeightUNITS],
+--				CAST('lbs' AS VARCHAR(255)) AS [DEM:WeightUNITS],
+--				CAST('inches' AS VARCHAR(255)) AS [DEM:HeightUNITS],
+--i.code,i.value,i.units,
 				dev.random_date() AS service_at
 			FROM fakedoc1.emrs
+--			CROSS APPLY ( VALUES
+--				('DEM:Weight', CAST(dev.random_weight() AS VARCHAR(255)), 'lbs'),
+--				('DEM:Height', CAST(dev.random_height() AS VARCHAR(255)), 'inches')
+--			) i ( code, value, units )
+		) ignored1
 			CROSS APPLY ( VALUES
 				('DEM:Weight', CAST(dev.random_weight() AS VARCHAR(255)), 'lbs'),
 				('DEM:Height', CAST(dev.random_height() AS VARCHAR(255)), 'inches')
-			) ignoredalias ( code, value, units )
---		) ignored1
+			) i ( code, value, units )
+
 --		UNPIVOT (
 --			value FOR code IN ( [DEM:Height], [DEM:Weight] )
 --		) AS ignored2
 --		UNPIVOT (
 --			units FOR codeunit IN ( [DEM:HeightUNITS], [DEM:WeightUNITS] )
 --		) AS ignored3
---		--WHERE LEFT(code,5) = LEFT(codeunit,5)
+--		WHERE LEFT(code,5) = LEFT(codeunit,5)
 
 
 -- SELECT TOP 10 PERCENT *
