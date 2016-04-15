@@ -418,80 +418,18 @@ BEGIN
 		SELECT
 			record_number, name_first, name_last, date_of_birth, sex, i.code, i.value, i.units, service_at
 		FROM (
-			SELECT 
-DISTINCT	--Adding distinct (and moving CROSS APPLY outside) seems to quell the multiple random numbers? Rather surprised.
+			--Adding distinct (and moving CROSS APPLY outside) seems to quell 
+			--the multiple random numbers? Rather surprised.
+			SELECT DISTINCT	
 				dev.unique_fakedoc1_record_number() AS record_number,
 				name_first, name_last, date_of_birth, sex,
---				CAST(dev.random_weight() AS VARCHAR(255)) AS [DEM:Weight],
---				CAST(dev.random_height() AS VARCHAR(255)) AS [DEM:Height],
---				CAST('lbs' AS VARCHAR(255)) AS [DEM:WeightUNITS],
---				CAST('inches' AS VARCHAR(255)) AS [DEM:HeightUNITS],
-
-
---Doing it this way generates a random date for each CAV. Bummer.
---It also creates a new record number for each. REAL BUMMER.
---				i.code,i.value,i.units,
 				dev.random_date() AS service_at
 			FROM vital_records.birth
---			CROSS APPLY ( VALUES
---				('DEM:Weight', CAST(dev.random_weight() AS VARCHAR(255)), 'lbs'),
---				('DEM:Height', CAST(dev.random_height() AS VARCHAR(255)), 'inches')
---			) i ( code, value, units )
 		) ignored1
-			CROSS APPLY ( VALUES
-				('DEM:Weight', CAST(dev.random_weight() AS VARCHAR(255)), 'lbs'),
-				('DEM:Height', CAST(dev.random_height() AS VARCHAR(255)), 'inches')
-			) i ( code, value, units )
-
-
---	Doing it this way generates 1 date and number for each pair.
---				dev.random_date() AS service_at
---			FROM vital_records.birth
---		) ignored1
---		UNPIVOT (
---			value FOR code IN ( [DEM:Height], [DEM:Weight] )
---		) AS ignored2
---		UNPIVOT (
---			units FOR codeunit IN ( [DEM:HeightUNITS], [DEM:WeightUNITS] )
---		) AS ignored3
---		WHERE LEFT(code,5) = LEFT(codeunit,5)
---		--Without this WHERE condition the second unpivot does both units for each code!
-
-
-
-
---	As are creating, won't ever be blank
-
---	SELECT s.Product, d.Supplier, d.City
---	FROM dbo.Suppliers s
---	CROSS APPLY (VALUES
---		(Supplier1, City1)
---		,(Supplier2, City2)
---		,(Supplier3, City3)
---	) d (Supplier, City)
-
---	A MySQL similarity to CROSS APPLY and UNPIVOT
---SELECT chirp_id,
---	c.col,
---	case c.col
---		when 'a' then source_name
---		when 'b' then source_id
---		when 'c' then created_at
---	end as data
---FROM identifiers CROSS JOIN (   
---	select 'a' as col
---  union all select 'b'
---  union all select 'c'
---) c;
-
-
-
--- is order enough to match?
---I think there will need to be a condition based on the fiel;d nsames so they will nedd to be chosen wisely.
---WHERE RIGHT(Suppliers,1) =  RIGHT(Cities,1)
-
---Can I unpivot units? TESTING
-
+		CROSS APPLY ( VALUES
+			('DEM:Weight', CAST(dev.random_weight() AS VARCHAR(255)), 'lbs'),
+			('DEM:Height', CAST(dev.random_height() AS VARCHAR(255)), 'inches')
+		) i ( code, value, units )
 
 	--This creates 2 for each emr record
 	--Should be 6 emrs in total for each birth record now!
@@ -501,34 +439,16 @@ DISTINCT	--Adding distinct (and moving CROSS APPLY outside) seems to quell the m
 		SELECT
 			record_number, name_first, name_last, date_of_birth, sex, i.code, i.value, i.units, service_at
 		FROM (
-			SELECT 
-DISTINCT
+			SELECT DISTINCT
 				record_number,
 				name_first, name_last, date_of_birth, sex,
---				CAST(dev.random_weight() AS VARCHAR(255)) AS [DEM:Weight],
---				CAST(dev.random_height() AS VARCHAR(255)) AS [DEM:Height],
---				CAST('lbs' AS VARCHAR(255)) AS [DEM:WeightUNITS],
---				CAST('inches' AS VARCHAR(255)) AS [DEM:HeightUNITS],
---i.code,i.value,i.units,
 				dev.random_date() AS service_at
 			FROM fakedoc1.emrs
---			CROSS APPLY ( VALUES
---				('DEM:Weight', CAST(dev.random_weight() AS VARCHAR(255)), 'lbs'),
---				('DEM:Height', CAST(dev.random_height() AS VARCHAR(255)), 'inches')
---			) i ( code, value, units )
 		) ignored1
-			CROSS APPLY ( VALUES
-				('DEM:Weight', CAST(dev.random_weight() AS VARCHAR(255)), 'lbs'),
-				('DEM:Height', CAST(dev.random_height() AS VARCHAR(255)), 'inches')
-			) i ( code, value, units )
-
---		UNPIVOT (
---			value FOR code IN ( [DEM:Height], [DEM:Weight] )
---		) AS ignored2
---		UNPIVOT (
---			units FOR codeunit IN ( [DEM:HeightUNITS], [DEM:WeightUNITS] )
---		) AS ignored3
---		WHERE LEFT(code,5) = LEFT(codeunit,5)
+		CROSS APPLY ( VALUES
+			('DEM:Weight', CAST(dev.random_weight() AS VARCHAR(255)), 'lbs'),
+			('DEM:Height', CAST(dev.random_height() AS VARCHAR(255)), 'inches')
+		) i ( code, value, units )
 
 
 -- SELECT TOP 10 PERCENT *
