@@ -45,7 +45,7 @@ SELECT TOP 1 @c = chirp_id FROM private.identifiers ORDER BY NEWID();
 
 SELECT * FROM private.identifiers WHERE chirp_id = @c;
 
-SELECT * FROM dbo.observations WHERE chirp_id = @c;
+SELECT * FROM dbo.observations WHERE chirp_id = @c ORDER BY started_at;
 
 SELECT h.chirp_id, h.value AS height, w.value AS weight ,
   ( w.value * 703. / SQUARE(h.value) ) AS bmi
