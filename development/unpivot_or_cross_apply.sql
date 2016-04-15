@@ -73,4 +73,9 @@ CROSS APPLY ( VALUES
   ( a ), ( b ) ) v (fruit)
 
 
+--Adding DISTINCT to the internal SELECT and keeping the CROSS APPLY out does what I was looking for.
+
+
+
+
 
