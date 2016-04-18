@@ -274,11 +274,11 @@ BEGIN
 
 		IF OBJECT_ID ( @proc, 'P' ) IS NOT NULL
 		BEGIN
-			PRINT 'Importing select fields from ' + @schema + '.' + @table
+--			PRINT 'Importing select fields from ' + @schema + '.' + @table
 			EXEC @proc
 		END
 		ELSE
-			PRINT 'Ignoring table ' + @schema + '.' + @table
+--			PRINT 'Ignoring table ' + @schema + '.' + @table
 
 	END
 	CLOSE tables;
