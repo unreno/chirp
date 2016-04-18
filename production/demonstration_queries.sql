@@ -1,24 +1,67 @@
 
-EXEC dev.create_random_vital_records 100
+DELETE FROM private.identifiers
+DELETE FROM dbo.observations
+DELETE FROM fakedoc1.emrs
+DELETE FROM vital_records.birth
+DELETE FROM vital_records.birth
+DELETE FROM health_lab.newborn_screening
+
+EXEC dev.create_random_vital_records 1
+SELECT * FROM vital_records.birth
+SELECT state_file_number, name_first, name_last, date_of_birth
+sex, birth_weight_lbs, birth_weight_oz,
+apgar_1, apgar_5, apgar_10
+FROM vital_records.birth
 
 INSERT INTO private.identifiers
 	( chirp_id, source_schema, source_table, source_column, source_id ) 
 	SELECT private.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
-	state_file_number from vital_records.birth b where b.imported_to_dw = 'FALSE';
+	state_file_number FROM vital_records.birth b WHERE b.imported_to_dw = 'FALSE';
+SELECT * FROM private.identifiers
 
 EXEC dev.create_FAKE_newborn_screening_for_each_birth_record
+SELECT * FROM health_lab.newborn_screening
 
 EXEC dev.link_FAKE_newborn_screening_to_births
+SELECT * FROM private.identifiers
 
 EXEC dev.create_FAKE_fakedoc1_emrs
-
-EXEC dev.link_FAKE_fakedoc1_emrs_to_births
-
-EXEC dbo.import_into_data_warehouse
-
 SELECT * FROM fakedoc1.emrs
 
+EXEC dev.link_FAKE_fakedoc1_emrs_to_births
+SELECT * FROM private.identifiers
+
+EXEC dbo.import_into_data_warehouse
 SELECT * FROM dbo.observations
+ORDER BY started_at
+
+
+
+
+DELETE FROM private.identifiers
+DELETE FROM dbo.observations
+DELETE FROM fakedoc1.emrs
+DELETE FROM vital_records.birth
+DELETE FROM vital_records.birth
+DELETE FROM health_lab.newborn_screening
+
+EXEC dev.create_random_vital_records 1000
+INSERT INTO private.identifiers
+	( chirp_id, source_schema, source_table, source_column, source_id ) 
+	SELECT private.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
+	state_file_number FROM vital_records.birth b WHERE b.imported_to_dw = 'FALSE';
+EXEC dev.create_FAKE_newborn_screening_for_each_birth_record
+EXEC dev.link_FAKE_newborn_screening_to_births
+EXEC dev.create_FAKE_fakedoc1_emrs
+EXEC dev.link_FAKE_fakedoc1_emrs_to_births
+EXEC dbo.import_into_data_warehouse
+SELECT * FROM private.identifiers
+SELECT * FROM dbo.observations
+
+
+
+
+
 
 
 
