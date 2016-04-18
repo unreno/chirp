@@ -74,7 +74,7 @@ BEGIN
 	WHILE(1=1)BEGIN
 		FETCH tables INTO @table;
 		IF(@@FETCH_STATUS <> 0) BREAK
-		PRINT @table
+--		PRINT @table
 		EXEC dbo.add_imported_at_column_to_table @schema, @table
 	END
 	CLOSE tables;
@@ -114,7 +114,7 @@ BEGIN
 	SELECT @cmd = 'ALTER TABLE [' + @schema + '].[' + @table + 
 		'] ADD imported_to_dw BIT CONSTRAINT '
 		+ @cname + ' DEFAULT ''FALSE'' NOT NULL ;';
-	PRINT @cmd
+--	PRINT @cmd
 	EXEC (@cmd);	--	Parenthese required here!
 
 END
@@ -142,7 +142,7 @@ BEGIN
 		FETCH tables INTO @table;
 		IF(@@FETCH_STATUS <> 0)
 			BREAK
-		PRINT @table
+--		PRINT @table
 		EXEC dbo.add_imported_to_dw_column_to_table @schema, @table
 	END
 	CLOSE tables;
