@@ -117,6 +117,11 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+
+--	Will the birth2 table include the unique identifer? (state_file_number in my demo)
+--	If so, separate instead of join? Faster? Cleaner? Clearer?
+
+
 	INSERT INTO dbo.observations
 		(chirp_id, provider_id, started_at,
 			concept, value, units, downloaded_from, downloaded_at)
@@ -128,20 +133,24 @@ BEGIN
 				'The State' AS downloaded_from,
 				date_of_birth, birth_weight_lbs, birth_weight_oz,
 				sex, apgar_1, apgar_5, apgar_10,
-				imported_at AS downloaded_at
+				b2.infant_living,
+				b.imported_at AS downloaded_at
 			FROM vital_records.birth b
+			LEFT JOIN vital_records.birth2 b2 	--need left join as in real life, all may not have?
+				ON b.birth2id = b2.birth2id
 			JOIN private.identifiers i
 				ON i.source_id = b.state_file_number
 				AND i.source_column = 'state_file_number'
 				AND i.source_table = 'birth'
 				AND i.source_schema = 'vital_records'
-			WHERE imported_to_dw = 'FALSE'
+			WHERE b.imported_to_dw = 'FALSE'
 		) unimported_birth_record_data
 		CROSS APPLY ( VALUES
 			( 'DEM:DOB', CAST(CAST(date_of_birth AS DATE) AS VARCHAR(255)), NULL ),
 			( 'DEM:Weight', CAST(
 				dbo.weight_from_lbs_and_oz( birth_weight_lbs, birth_weight_oz ) AS VARCHAR(255)), 'lbs'),
 			( 'DEM:Sex', sex, NULL ),
+			( 'InfantLiving', infant_living, NULL ),
 			(  'APGAR1', apgar_1, NULL ),
 			(  'APGAR5', apgar_5, NULL ),
 			( 'APGAR10', apgar_10, NULL )
@@ -233,15 +242,28 @@ BEGIN
 --			AND b.birth_weight_lbs IS NOT NULL
 --			AND b.birth_weight_oz IS NOT NULL
 
-	UPDATE n
+	UPDATE b
 		SET imported_to_dw = 'TRUE'
-		FROM vital_records.birth n
+		FROM vital_records.birth b
 		JOIN private.identifiers i
-			ON  i.source_id     = n.state_file_number
+			ON  i.source_id     = b.state_file_number
 			AND i.source_column = 'state_file_number'
 			AND i.source_table  = 'birth'
 			AND i.source_schema = 'vital_records'
 		WHERE imported_to_dw = 'FALSE'
+			AND i.id IS NOT NULL
+
+	UPDATE b2
+		SET imported_to_dw = 'TRUE'
+		FROM vital_records.birth2 b2
+		JOIN vital_records.birth b
+			ON b.birth2id = b2.birth2id
+		JOIN private.identifiers i
+			ON  i.source_id     = b.state_file_number
+			AND i.source_column = 'state_file_number'
+			AND i.source_table  = 'birth'
+			AND i.source_schema = 'vital_records'
+		WHERE b.imported_to_dw = 'FALSE'
 			AND i.id IS NOT NULL
 
 END -- CREATE PROCEDURE dbo.import_into_data_warehouse_by_table_vital_records_birth
@@ -277,7 +299,7 @@ BEGIN
 --			PRINT 'Importing select fields from ' + @schema + '.' + @table
 			EXEC @proc
 		END
-		ELSE
+--		ELSE
 --			PRINT 'Ignoring table ' + @schema + '.' + @table
 
 	END

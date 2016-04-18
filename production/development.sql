@@ -197,12 +197,26 @@ GO
 IF OBJECT_ID ( 'dev.random_apgar', 'FN' ) IS NOT NULL
   DROP FUNCTION dev.random_apgar;
 GO
-CREATE FUNCTION dev.random_apgar()	-- inches
+CREATE FUNCTION dev.random_apgar()
   RETURNS INTEGER
 BEGIN
 	DECLARE @rand DECIMAL(18,18)
 	SELECT @rand = number FROM dev.rand_view
   RETURN (SELECT 10*@rand)
+END
+GO
+
+
+IF OBJECT_ID ( 'dev.random_infant_living', 'FN' ) IS NOT NULL
+  DROP FUNCTION dev.random_infant_living;
+GO
+CREATE FUNCTION dev.random_infant_living()
+  RETURNS INTEGER
+BEGIN
+	DECLARE @rand DECIMAL(18,18)
+	SELECT @rand = number FROM dev.rand_view
+	-- 0 = FALSE (5%), 1 = TRUE (95%)
+  RETURN (SELECT CASE WHEN @rand > 0.95 THEN 0 ELSE 1 END)
 END
 GO
 
@@ -244,14 +258,23 @@ BEGIN
 			SET @name_first = dev.random_male_name()
 		ELSE
 			SET @name_first = dev.random_female_name()
+
+		--OUTPUT INSERTED.birth2id
+		INSERT INTO vital_records.birth2
+			( birth2id, infant_living )
+			VALUES(
+				@count,
+				dev.random_infant_living()
+			);
+
 		INSERT INTO vital_records.birth 
-			( birthid, state_file_number, 
+			( birthid, birth2id, state_file_number, 
 				date_of_birth, sex, 
 				name_first, name_last,
 				apgar_1, apgar_5, apgar_10,
 				birth_weight_lbs, birth_weight_oz )
 			VALUES 
-			( @count, dev.unique_vital_record_state_file_number(),
+			( @count, @count, dev.unique_vital_record_state_file_number(),
 				dev.random_date(), @sex,
 				@name_first, dev.random_last_name(),
 				dev.random_apgar(),	--VARCHAR(2)
