@@ -47,7 +47,7 @@ BEGIN
 	SELECT @cmd = 'ALTER TABLE [' + @schema + '].[' + @table + 
 		'] ADD imported_at DATETIME CONSTRAINT '
 		+ @cname + ' DEFAULT CURRENT_TIMESTAMP NOT NULL ;';
-	PRINT @cmd
+--	PRINT @cmd
 	EXEC (@cmd);	--	Parenthese required here!
 
 END
