@@ -16,6 +16,7 @@ PROC SORT DATA=june_obs; BY chirp_id; RUN;
 PROC PRINT DATA=june_obs;
 RUN;
 
+
 LIBNAME mydb ODBC DATASRC=myodbc;
 DATA male_obs;
 	KEEP chirp_id value;
@@ -26,6 +27,7 @@ PROC SORT DATA=male_obs; BY chirp_id; RUN;
 PROC PRINT DATA=male_obs;
 RUN;
 
+
 DATA merged_males_born_in_june_2013;
 	MERGE male_obs (IN=a RENAME= (value=sex) ) june_obs (IN=b RENAME= (value=dob));
 	BY chirp_id;
@@ -34,10 +36,9 @@ RUN;
 PROC PRINT DATA=merged_males_born_in_june_2013; RUN;
 
 
-
 LIBNAME mydb ODBC DATASRC=myodbc;
 DATA height (rename=(value=height) );
-  KEEP chirp_id value started_at;
+	KEEP chirp_id value started_at;
 	SET mydb.observations;
 	WHERE (concept='DEM:Height');
 RUN;
@@ -48,9 +49,9 @@ RUN;
 
 LIBNAME mydb ODBC DATASRC=myodbc;
 DATA weight (rename=(value=weight) );
-  KEEP chirp_id value started_at;
-  SET mydb.observations;
-  WHERE (concept='DEM:Weight');
+	KEEP chirp_id value started_at;
+	SET mydb.observations;
+	WHERE (concept='DEM:Weight');
 RUN;
 PROC SORT DATA=weight; BY chirp_id started_at; RUN;
 PROC PRINT DATA=weight;
