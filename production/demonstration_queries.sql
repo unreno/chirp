@@ -67,21 +67,30 @@ SELECT * FROM dbo.observations
 
 
 
-SELECT infant_living, COUNT(*) 
-FROM vital_records.birth2 GROUP BY infant_living
-
-
-
-SELECT b2.infant_living, COUNT(*) 
-FROM private.identifiers i 
-join vital_records.birth b 
-ON i.source_schema = 'vital_records'
-AND i.source_table = 'birth'
-AND i.source_column = 'state_file_number'
-AND i.source_id = b.state_file_number
-join vital_records.birth2 b2
-ON b.birth2id = b2.birth2id
+SELECT
+	CASE WHEN (GROUPING(infant_living) = 1) THEN 'ALL'
+		ELSE ISNULL(infant_living, 'UNKNOWN')
+	END AS infant_living, COUNT(*)
+FROM vital_records.birth2
 GROUP BY infant_living
+WITH ROLLUP
+
+
+
+SELECT
+  CASE WHEN (GROUPING(infant_living) = 1) THEN 'ALL'
+    ELSE ISNULL(infant_living, 'UNKNOWN')
+  END AS infant_living, COUNT(*)
+	FROM private.identifiers i
+	JOIN vital_records.birth b
+		ON i.source_schema = 'vital_records'
+		AND i.source_table = 'birth'
+		AND i.source_column = 'state_file_number'
+		AND i.source_id = b.state_file_number
+	JOIN vital_records.birth2 b2
+		ON b.birth2id = b2.birth2id
+	GROUP BY infant_living
+	WITH ROLLUP
 
 
 
