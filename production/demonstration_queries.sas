@@ -37,29 +37,29 @@ PROC PRINT DATA=merged_males_born_in_june_2013; RUN;
 
 
 LIBNAME mydb ODBC DATASRC=myodbc;
-DATA height (rename=(value=height) );
+DATA heights (rename=(value=height) );
 	KEEP chirp_id value started_at;
 	SET mydb.observations;
 	WHERE (concept='DEM:Height');
 RUN;
-PROC SORT DATA=height; BY chirp_id started_at; RUN;
-PROC PRINT DATA=height;
+PROC SORT DATA=heights; BY chirp_id started_at; RUN;
+PROC PRINT DATA=heights;
 RUN;
 
 
 LIBNAME mydb ODBC DATASRC=myodbc;
-DATA weight (rename=(value=weight) );
+DATA weights (rename=(value=weight) );
 	KEEP chirp_id value started_at;
 	SET mydb.observations;
 	WHERE (concept='DEM:Weight');
 RUN;
-PROC SORT DATA=weight; BY chirp_id started_at; RUN;
-PROC PRINT DATA=weight;
+PROC SORT DATA=weights; BY chirp_id started_at; RUN;
+PROC PRINT DATA=weights;
 RUN;
 
 
 DATA bmi;
-	MERGE height (IN=a) weight (IN=b);
+	MERGE heights (IN=a) weights (IN=b);
 	BY chirp_id started_at;
 	IF a and b;
 	bmi=703 * weight / height**2;
