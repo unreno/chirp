@@ -128,12 +128,9 @@ CROSS APPLY ( VALUES
 
 
 --http://blogs.lessthandot.com/index.php/DataMgmt/DataDesign/sql-server-set-based-random-numbers/
-
 --Adding DISTINCT to the internal SELECT and keeping the CROSS APPLY out does what I was looking for?
 --somehow?
-
---STOP USING RAND()
-
+--STOP USING RAND()?
 --Just stop using RAND()
 --Use Abs(Checksum(NewId())) % 11
 --Mod by the number of values, then divide to make float
@@ -142,18 +139,29 @@ CROSS APPLY ( VALUES
 --NEWID is random. CHECKSUM just converts to +/- integer. ABS remove the -. (0 still possible)
 
 
+CREATE VIEW dbo.rand_view AS SELECT RAND() AS number
+GO
+CREATE FUNCTION dbo.rand_num() RETURNS float AS
+BEGIN RETURN (SELECT number FROM dbo.rand_view) END
+GO
+
 DECLARE @t TABLE( id INT, a VARCHAR(10), b VARCHAR(10) )
 INSERT INTO @t VALUES (1,'apple','banana'), (2,'orange',NULL)
 
+-- Now I don't understand why DISTINCT works in my actual script!?!!
+-- Doesn't seem to matter here. Added it to test got same results?
 
-SELECT id, fruit, r2, r4 FROM (
-SELECT id, a, b, fruit
+--SELECT id, fruit, r1, r2, r3, r4 FROM ( --SELECT id, a, b,
+SELECT id, fruit,
+	(SELECT number from rand_view) AS r1, 
 	(SELECT RAND()) AS r2, 
+	dbo.rand_num() AS r3, 
 	(SELECT ABS(CHECKSUM(NEWID()))) AS r4 
-FROM @t ) ignoredalias
+FROM @t -- ) ignoredalias
 CROSS APPLY ( VALUES ( a ), ( b ) ) v (fruit)
 
-
+DROP VIEW dbo.rand_view;
+DROP FUNCTION dbo.rand_num;
 
 
 
