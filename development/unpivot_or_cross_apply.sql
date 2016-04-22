@@ -10,16 +10,37 @@ DECLARE @t TABLE( id INT, a VARCHAR(10), b VARCHAR(10) )
 INSERT INTO @t VALUES (1,'apple','banana'), (2,'orange',NULL)
 SELECT * FROM @t
 
+--id          a          b
+------------- ---------- ----------
+--1           apple      banana
+--2           orange     NULL
+
+
 --CROSS APPLY will includes NULL values
 SELECT id, fruit FROM @t
 CROSS APPLY ( VALUES
 	( a ), ( b ) ) v (fruit)
+
+--id          fruit
+------------- ----------
+--1           apple
+--1           banana
+--2           orange
+--2           NULL
+
 
 --While UNPIVOT will ignore
 SELECT id, fruit FROM @t
 UNPIVOT (
 	fruit FOR ignore IN ( a, b )
 ) v
+
+--id          fruit
+------------- ----------
+--1           apple
+--1           banana
+--2           orange
+
 
 --Of course, if this is being wrapped in another SELECT or INSERT
 --can simply add a WHERE to check that the results aren't NULL
@@ -28,19 +49,28 @@ CROSS APPLY ( VALUES
 	( a ), ( b ) ) v (fruit)
 WHERE fruit IS NOT NULL
 
+--id          fruit
+------------- ----------
+--1           apple
+--1           banana
+--2           orange
 
 
 DECLARE @t TABLE( id INT, a VARCHAR(10), b VARCHAR(10) )
 INSERT INTO @t VALUES (1,'apple','banana'), (2,'orange',NULL)
-SELECT * FROM @t
-SELECT id, fruit FROM ( SELECT id FROM @t )
-CROSS APPLY ( VALUES
-	( a ), ( b ) ) v (fruit)
+SELECT id, fruit, RAND() AS random FROM @t
+CROSS APPLY ( VALUES ( a ), ( b ) ) v (fruit)
 
---SELECT id, fruit, RAND() AS random FROM @t
---CROSS APPLY ( VALUES
---	( a ), ( b ) ) v (fruit)
---
+--	All the same.
+--id          fruit      random
+------------- ---------- ----------------------
+--1           apple      0.729768121016823
+--1           banana     0.729768121016823
+--2           orange     0.729768121016823
+--2           NULL       0.729768121016823
+
+
+
 --SELECT id, fruit, RAND() AS random FROM @t
 --UNPIVOT (
 --	fruit FOR ignore IN ( a, b )
@@ -50,12 +80,39 @@ CROSS APPLY ( VALUES
 --(SELECT RAND()) is same for all rows.
 --(SELECT NEWID()) is same for each initial row.
 --(SELECT ABS(CHECKSUM(NEWID()))) produces an integer. Not sure of range.
-SELECT id, fruit, r2, r4
-FROM ( 
-	SELECT id, a, b, (SELECT RAND()) AS r2, (SELECT ABS(CHECKSUM(NEWID()))) AS r4 FROM @t 
+
+SELECT id, fruit, r1,r2
+FROM (
+  SELECT id, a, b, NEWID() AS r1, (SELECT NEWID()) AS r2 FROM @t
 ) x
-CROSS APPLY ( VALUES
-  ( a ), ( b ) ) v (fruit)
+CROSS APPLY ( VALUES ( a ), ( b ) ) v (fruit)
+
+--Subselect of NEWID() is paired!
+--id          fruit      r1                                   r2
+------------- ---------- ------------------------------------ ------------------------------------
+--1           apple      EB84076C-2E51-42EE-A97D-88C1F67E1C28 FA497796-F0DE-411C-BAF7-B03D2A15BCE5
+--1           banana     2AE6C4A0-72A0-4174-935C-A993A9901D6A FA497796-F0DE-411C-BAF7-B03D2A15BCE5
+--2           orange     076A6F01-91FE-4620-A9E6-725CBDEFCF55 FF9FDFB3-E143-4F77-BB56-358BAF5C24CA
+--2           NULL       ACDBFDAA-FECC-4C5F-AA98-54FAD03155D4 FF9FDFB3-E143-4F77-BB56-358BAF5C24CA
+
+
+
+
+SELECT id, fruit, r1,r2
+FROM (
+  SELECT id, a, b, RAND() AS r1, (SELECT RAND()) AS r2 FROM @t
+) x
+CROSS APPLY ( VALUES ( a ), ( b ) ) v (fruit)
+
+--Subselect or not, all RAND() the same.
+--id          fruit      r1                     r2
+------------- ---------- ---------------------- ----------------------
+--1           apple      0.837525063670529      0.850301820677928
+--1           banana     0.837525063670529      0.850301820677928
+--2           orange     0.837525063670529      0.850301820677928
+--2           NULL       0.837525063670529      0.850301820677928
+
+
 
 --(SELECT RAND()) is same for all rows.
 --(SELECT NEWID()) is same for each initial row.
@@ -67,6 +124,12 @@ UNPIVOT(
   fruit for ignore in ( a, b )
 ) v
 
+-- More of the same. RAND() all the same. Subselected NEWID() same for each id.
+--id          fruit      r2                     r4
+------------- ---------- ---------------------- -----------
+--1           apple      0.644286065228198      2051018218
+--1           banana     0.644286065228198      2051018218
+--2           orange     0.644286065228198      403671241
 
 
 
