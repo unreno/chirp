@@ -288,6 +288,9 @@ DROP FUNCTION dbo.rand_num;
 
 -- Still don't understand why!
 
+-- This is still confusing because in my code, I have a function 
+-- that returns a NEWID() but I still need to use DISTINCT?
+
 
 
 
@@ -297,7 +300,7 @@ DROP FUNCTION dbo.rand_num;
 
 --Yes, double unpivots can be done.
 --You'll need to be sneaky about 'column' names so can use a WHERE 
---clause to choose otherwise, the UNPIVOT is for all of them.
+--clause to choose, otherwise, the UNPIVOT is for all of them.
 DECLARE @t TABLE( id INT, a VARCHAR(10), b VARCHAR(10), ax VARCHAR(10), bz VARCHAR(10) )
 INSERT INTO @t VALUES (1,'apple','banana', 'red','yellow'), (2,'orange',NULL,'orange','black')
 
@@ -308,7 +311,33 @@ UNPIVOT (
 UNPIVOT (
 	color FOR ignore2 IN ( ax, bz )
 ) c
-WHERE LEFT(ignore1,1) = LEFT(ignore2,1)
+WHERE LEFT(ignore1,1) = LEFT(ignore2,1) -- joins 'a' to 'ax' and 'b' to 'bz'
+
+--id          fruit      color
+------------- ---------- ----------
+--1           apple      red
+--1           banana     yellow
+--2           orange     orange
+
+DECLARE @t TABLE( id INT, a VARCHAR(10), b VARCHAR(10), ax VARCHAR(10), bz VARCHAR(10) )
+INSERT INTO @t VALUES (1,'apple','banana', 'red','yellow'), (2,'orange',NULL,'orange','black')
+
+SELECT id, fruit, color FROM @t
+UNPIVOT (
+	fruit FOR ignore1 IN ( a, b )
+) f
+UNPIVOT (
+	color FOR ignore2 IN ( ax, bz )
+) c
+
+--id          fruit      color
+------------- ---------- ----------
+--1           apple      red
+--1           apple      yellow
+--1           banana     red
+--1           banana     yellow
+--2           orange     orange
+--2           orange     black
 
 
 
