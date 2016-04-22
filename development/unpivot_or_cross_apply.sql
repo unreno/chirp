@@ -72,16 +72,6 @@ UNPIVOT(
 
 
 
-
-
-
-
-
-
-
-
--- BEGIN TESTING
-
 --When used like this, however, r4 is different for all 4 rows?
 DECLARE @t TABLE( id INT, a VARCHAR(10), b VARCHAR(10) )
 INSERT INTO @t VALUES (1,'apple','banana'), (2,'orange',NULL)
@@ -148,28 +138,92 @@ GO
 DECLARE @t TABLE( id INT, a VARCHAR(10), b VARCHAR(10) )
 INSERT INTO @t VALUES (1,'apple','banana'), (2,'orange',NULL)
 
--- Now I don't understand why DISTINCT works in my actual script!?!!
--- Doesn't seem to matter here. Added it to test got same results?
+-- r1 and r2 are all the same. r3 and r4 are all different. Want them paired on id!
 
---SELECT id, fruit, r1, r2, r3, r4 FROM ( --SELECT id, a, b,
 SELECT id, fruit,
 	(SELECT number from rand_view) AS r1, 
 	(SELECT RAND()) AS r2, 
 	dbo.rand_num() AS r3, 
 	(SELECT ABS(CHECKSUM(NEWID()))) AS r4 
-FROM @t -- ) ignoredalias
+FROM @t
+CROSS APPLY ( VALUES ( a ), ( b ) ) v (fruit)
+
+DROP VIEW dbo.rand_view;
+DROP FUNCTION dbo.rand_num;
+
+--id          fruit      r1                     r2                     r3                     r4
+------------- ---------- ---------------------- ---------------------- ---------------------- -----------
+--1           apple      0.189650571486337      0.722036790690747      0.323914656862433      1232516634
+--1           banana     0.189650571486337      0.722036790690747      0.731407509563151      1736495272
+--2           orange     0.189650571486337      0.722036790690747      0.923305568771244      1672913916
+--2           NULL       0.189650571486337      0.722036790690747      0.124380062464766      1425172882
+
+
+
+
+CREATE VIEW dbo.rand_view AS SELECT RAND() AS number
+GO
+CREATE FUNCTION dbo.rand_num() RETURNS float AS
+BEGIN RETURN (SELECT number FROM dbo.rand_view) END
+GO
+
+DECLARE @t TABLE( id INT, a VARCHAR(10), b VARCHAR(10) )
+INSERT INTO @t VALUES (1,'apple','banana'), (2,'orange',NULL)
+
+SELECT id, fruit, r1, r2, r3, r4 FROM ( 
+SELECT DISTINCT id, a, b,												-- With DISTINCT r3 and r4 are paired as desired
+	(SELECT number from rand_view) AS r1, 
+	(SELECT RAND()) AS r2, 
+	dbo.rand_num() AS r3, 
+	(SELECT ABS(CHECKSUM(NEWID()))) AS r4 
+FROM @t ) ignoredalias
 CROSS APPLY ( VALUES ( a ), ( b ) ) v (fruit)
 
 DROP VIEW dbo.rand_view;
 DROP FUNCTION dbo.rand_num;
 
 
+--id          fruit      r1                     r2                     r3                     r4
+------------- ---------- ---------------------- ---------------------- ---------------------- -----------
+--1           apple      0.857527483810399      0.887139081920806      0.175043575580128      1132595891
+--1           banana     0.857527483810399      0.887139081920806      0.175043575580128      1132595891
+--2           orange     0.857527483810399      0.887139081920806      0.898746643031987      2044099435
+--2           NULL       0.857527483810399      0.887139081920806      0.898746643031987      2044099435
 
 
 
 
+CREATE VIEW dbo.rand_view AS SELECT RAND() AS number
+GO
+CREATE FUNCTION dbo.rand_num() RETURNS float AS
+BEGIN RETURN (SELECT number FROM dbo.rand_view) END
+GO
 
--- END TESTING
+DECLARE @t TABLE( id INT, a VARCHAR(10), b VARCHAR(10) )
+INSERT INTO @t VALUES (1,'apple','banana'), (2,'orange',NULL)
+
+SELECT id, fruit, r1, r2, r3, r4 FROM ( 
+	SELECT id, a, b,												--	Remove DISTINCT, r4 is paired as desired!
+		(SELECT number from rand_view) AS r1, 
+		(SELECT RAND()) AS r2, 
+		dbo.rand_num() AS r3, 
+		(SELECT ABS(CHECKSUM(NEWID()))) AS r4 
+	FROM @t 
+) ignoredalias
+CROSS APPLY ( VALUES ( a ), ( b ) ) v (fruit)
+
+DROP VIEW dbo.rand_view;
+DROP FUNCTION dbo.rand_num;
+
+--id          fruit      r1                     r2                     r3                     r4
+------------- ---------- ---------------------- ---------------------- ---------------------- -----------
+--1           apple      0.581516199762805      0.633812347473         0.887849232167113      486957500
+--1           banana     0.581516199762805      0.633812347473         0.659200537290797      486957500
+--2           orange     0.581516199762805      0.633812347473         0.892027031263694      2001019653
+--2           NULL       0.581516199762805      0.633812347473         0.635275652252329      2001019653
+
+
+-- Still don't understand why!
 
 
 
