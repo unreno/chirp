@@ -8,6 +8,7 @@ DELETE FROM health_lab.newborn_screening
 
 EXEC dev.create_random_vital_records 1
 SELECT * FROM vital_records.birth
+SELECT * FROM vital_records.birth2
 SELECT state_file_number, name_first, name_last, date_of_birth
 sex, birth_weight_lbs, birth_weight_oz,
 apgar_1, apgar_5, apgar_10, infant_living
