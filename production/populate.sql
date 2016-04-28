@@ -48,6 +48,16 @@ GO
 CREATE VIEW dbo.cc AS SELECT code, path, description FROM dbo.concepts;
 GO
 
+
+-- ll *concept_codes.csv
+-- -rwx------ 1 jakewendt  2105675 Mar 17 12:59 hcpc_concept_codes.csv
+-- -rwx------ 1 jakewendt  7869583 Mar 17 12:59 icd10dx_concept_codes.csv
+-- -rwx------ 1 jakewendt  1023195 Apr 28 13:04 icd10pcs_concept_codes.csv
+-- -rwx------ 1 jakewendt  1223532 Mar 17 12:59 icd9dx_concept_codes.csv
+-- -rwx------ 1 jakewendt   267271 Mar 17 12:59 icd9sg_concept_codes.csv
+-- -rwx------ 1 jakewendt 16960137 Mar 17 12:59 ndc_concept_codes.csv
+-- cat *concept_codes.csv > ../all_concept_codes.csv
+
 --UNIX line feeds don\'t work well in MS so need dynamic sql 
 --However, ALL the double quotes in the description are preserved
 --This would require a series of UPDATEs, STUFFs and/or REPLACEs.
@@ -69,15 +79,18 @@ IF OBJECT_ID ( 'dbo.cc', 'V' ) IS NOT NULL
 	DROP VIEW dbo.cc;	-- only needed this for the import.
 GO
 
+--
+-- FIXED
+--
 --The ICD10PCS codes weren't trimmed far enough so will end
 --up with a leading double quote. Removing it here.
-UPDATE dbo.concepts
-	SET path = STUFF(path, 1,1,'')
-	WHERE path LIKE '"%';
+--UPDATE dbo.concepts
+--	SET path = STUFF(path, 1,1,'')
+--	WHERE path LIKE '"%';
 
 
--- some of these records actually end in a quote
--- ->blah blah blah "something quoted"<-
+-- some of these records are actually wrapped in a quotes
+-- ->"blah blah blah ""something quoted"" blah blah"<-
 -- so replace the wrappers together
 
 UPDATE dbo.concepts
@@ -85,7 +98,7 @@ UPDATE dbo.concepts
 	WHERE description LIKE '"%"';
 
 -- and the double double quotes LAST
-
+-- ->blah blah blah ""something quoted"" blah blah<-
 UPDATE dbo.concepts
 	SET description = REPLACE(description, '""', '"')
 	WHERE description LIKE '%""%';
