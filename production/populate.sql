@@ -1,7 +1,8 @@
 
+--	FROM ''C:\Users\gwendt\Desktop\1000_most_common_female_name_in_US.csv''
 BEGIN TRY
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT dev.names
-	FROM ''C:\Users\gwendt\Desktop\1000_most_common_female_name_in_US.csv''
+	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\dev\1000_most_common_female_name_in_US.csv''
 	WITH (
 		FIELDTERMINATOR = '','',
 		ROWTERMINATOR = '''+CHAR(10)+''',
@@ -12,9 +13,10 @@ END TRY BEGIN CATCH
 	PRINT ERROR_MESSAGE()
 END CATCH
 
+--	FROM ''C:\Users\gwendt\Desktop\1000_most_common_male_name_in_US.csv''
 BEGIN TRY
 	SET @bulk_cmd = 'BULK INSERT dev.names
-	FROM ''C:\Users\gwendt\Desktop\1000_most_common_male_name_in_US.csv''
+	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\dev\1000_most_common_male_name_in_US.csv''
 	WITH (
 		FIELDTERMINATOR = '','',
 		ROWTERMINATOR = '''+CHAR(10)+''',
@@ -25,9 +27,10 @@ END TRY BEGIN CATCH
 	PRINT ERROR_MESSAGE()
 END CATCH
 
+--	FROM ''C:\Users\gwendt\Desktop\1000_most_common_last_name_in_US.csv''
 BEGIN TRY
 	SET @bulk_cmd = 'BULK INSERT dev.names
-	FROM ''C:\Users\gwendt\Desktop\1000_most_common_last_name_in_US.csv''
+	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\dev\1000_most_common_last_name_in_US.csv''
 	WITH (
 		FIELDTERMINATOR = '','',
 		ROWTERMINATOR = '''+CHAR(10)+''',
@@ -62,10 +65,11 @@ GO
 --However, ALL the double quotes in the description are preserved
 --This would require a series of UPDATEs, STUFFs and/or REPLACEs.
 --Still faster that dealing with SSIS.
+--	FROM ''C:\Users\gwendt\Desktop\all_concept_codes.csv''
 BEGIN TRY
 	--A GO call apparently undeclare variables, so redeclare here
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT cc
-	FROM ''C:\Users\gwendt\Desktop\all_concept_codes.csv''
+	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\all_concept_codes.csv''
 	WITH (
 		FIELDTERMINATOR = '','',
 		ROWTERMINATOR = '''+CHAR(10)+''',
