@@ -167,10 +167,10 @@ GO
 --CONSTRAINT -NAME- NOT NULL DEFAULT - DOES NOT work (arbitrarily named)
 
 
---INSERT INTO vital_records.birth (birthid,imported_to_dw) VALUES (1,'true');  -- 'true'=1
---INSERT INTO vital_records.birth (birthid,imported_to_dw) VALUES (1,'false'); -- 'false'=0
---INSERT INTO vital_records.birth (birthid,imported_to_dw) VALUES (1,'blahblahblah');
---INSERT INTO vital_records.birth (birthid) values (1);
+--INSERT INTO vital.birth (birthid,imported_to_dw) VALUES (1,'true');  -- 'true'=1
+--INSERT INTO vital.birth (birthid,imported_to_dw) VALUES (1,'false'); -- 'false'=0
+--INSERT INTO vital.birth (birthid,imported_to_dw) VALUES (1,'blahblahblah');
+--INSERT INTO vital.birth (birthid) values (1);
 --Conversion failed when converting the varchar value 'blahblahblah' to data type bit
 
 
@@ -181,7 +181,7 @@ GO
 
 /*
 
-SELECT * FROM vital_records.birth b
+SELECT * FROM vital.birth b
 	JOIN private.identifiers p 
 	ON p.source_id = b.state_file_number 
 	AND p.source_name = 'birth_sfn'
@@ -193,7 +193,7 @@ SELECT * FROM sys.columns  c
 	ON c.object_id = t.object_id
 	INNER JOIN sys.schemas s
 	ON t.schema_id = s.schema_id
-	WHERE s.name = 'vital_records' AND t.name = 'birth'
+	WHERE s.name = 'vital' AND t.name = 'birth'
 
 
 SELECT * FROM sys.columns  c
@@ -203,6 +203,6 @@ SELECT * FROM sys.columns  c
 	ON t.schema_id = s.schema_id
 	JOIN concepts cc 
 	ON cc.code = s.name + ':' + t.name + ':' + c.name 
-	WHERE s.name = 'vital_records' AND t.name = 'birth' AND cc.id IS NOT NULL
+	WHERE s.name = 'vital' AND t.name = 'birth' AND cc.id IS NOT NULL
 
 */

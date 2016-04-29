@@ -11,21 +11,21 @@ BEGIN
 	SET NOCOUNT ON;
 	DECLARE @actual INT;
 	DECLARE @expected INT = 0;
-	EXEC tSQLt.FakeTable 'vital_records.birth', @Defaults = 'TRUE';
+	EXEC tSQLt.FakeTable 'vital.birth', @Defaults = 'TRUE';
 	
-	INSERT INTO vital_records.birth 
+	INSERT INTO vital.birth 
 		( birthid, state_file_number, date_of_birth )
 		VALUES 
 			( 1, CAST(RAND()*1e9 AS INT), dbo.random_date() );
-	SELECT @actual = COUNT(*) FROM vital_records.birth;
+	SELECT @actual = COUNT(*) FROM vital.birth;
 	SET @expected = 1;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
 	EXEC tSQLt.FakeTable 'private.identifiers';
 	INSERT INTO private.identifiers
 		( chirp_id, source_schema, source_table, source_column, source_id ) 
-		SELECT private.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
-			state_file_number from vital_records.birth b where b.imported_to_dw = 'FALSE';
+		SELECT private.create_unique_chirp_id(), 'vital', 'birth', 'state_file_number', 
+			state_file_number from vital.birth b where b.imported_to_dw = 'FALSE';
 	SELECT @actual = COUNT(*) FROM private.identifiers;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
@@ -44,22 +44,22 @@ BEGIN
 	SET NOCOUNT ON;
 	DECLARE @actual INT;
 	DECLARE @expected INT = 0;
-	EXEC tSQLt.FakeTable 'vital_records.birth', @Defaults = 'TRUE';
+	EXEC tSQLt.FakeTable 'vital.birth', @Defaults = 'TRUE';
 	
-	INSERT INTO vital_records.birth 
+	INSERT INTO vital.birth 
 		( birthid, state_file_number, date_of_birth, birth_weight_lbs, birth_weight_oz )
 		VALUES 
 			( 1, CAST(RAND()*1e9 AS INT), dbo.random_date(), 
 				CAST(RAND()*5 AS INT)+5, CAST(RAND()*16 AS INT) );
-	SELECT @actual = COUNT(*) FROM vital_records.birth;
+	SELECT @actual = COUNT(*) FROM vital.birth;
 	SET @expected = 1;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
 	EXEC tSQLt.FakeTable 'private.identifiers';
 	INSERT INTO private.identifiers
 		( chirp_id, source_schema, source_table, source_column, source_id ) 
-		SELECT private.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
-			state_file_number from vital_records.birth b where b.imported_to_dw = 'FALSE';
+		SELECT private.create_unique_chirp_id(), 'vital', 'birth', 'state_file_number', 
+			state_file_number from vital.birth b where b.imported_to_dw = 'FALSE';
 	SELECT @actual = COUNT(*) FROM private.identifiers;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
@@ -78,21 +78,21 @@ BEGIN
 	SET NOCOUNT ON;
 	DECLARE @actual INT;
 	DECLARE @expected INT = 0;
-	EXEC tSQLt.FakeTable 'vital_records.birth', @Defaults = 'TRUE';
+	EXEC tSQLt.FakeTable 'vital.birth', @Defaults = 'TRUE';
 
-	INSERT INTO vital_records.birth 
+	INSERT INTO vital.birth 
 		( birthid, state_file_number, date_of_birth, sex )
 		VALUES 
 			( 1, CAST(RAND()*1e9 AS INT), dbo.random_date(), dbo.random_sex() );
-	SELECT @actual = COUNT(*) FROM vital_records.birth;
+	SELECT @actual = COUNT(*) FROM vital.birth;
 	SET @expected = 1;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
 	EXEC tSQLt.FakeTable 'private.identifiers';
 	INSERT INTO private.identifiers
 		( chirp_id, source_schema, source_table, source_column, source_id ) 
-		SELECT private.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
-			state_file_number from vital_records.birth b where b.imported_to_dw = 'FALSE';
+		SELECT private.create_unique_chirp_id(), 'vital', 'birth', 'state_file_number', 
+			state_file_number from vital.birth b where b.imported_to_dw = 'FALSE';
 	SELECT @actual = COUNT(*) FROM private.identifiers;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
@@ -110,21 +110,21 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 	DECLARE @actual INT;
-	EXEC tSQLt.FakeTable 'vital_records.birth', @Defaults = 'TRUE';
-	SELECT @actual = COUNT(*) FROM vital_records.birth;
+	EXEC tSQLt.FakeTable 'vital.birth', @Defaults = 'TRUE';
+	SELECT @actual = COUNT(*) FROM vital.birth;
 	DECLARE @expected INT = 0;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 	
-	EXEC dbo.create_random_vital_records 1
-	SELECT @actual = COUNT(*) FROM vital_records.birth;
+	EXEC dbo.create_random_vital 1
+	SELECT @actual = COUNT(*) FROM vital.birth;
 	SET @expected = 1;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
 	EXEC tSQLt.FakeTable 'private.identifiers';
 	INSERT INTO private.identifiers
 		( chirp_id, source_schema, source_table, source_column, source_id ) 
-		SELECT private.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
-			state_file_number from vital_records.birth b where b.imported_to_dw = 'FALSE';
+		SELECT private.create_unique_chirp_id(), 'vital', 'birth', 'state_file_number', 
+			state_file_number from vital.birth b where b.imported_to_dw = 'FALSE';
 	SELECT @actual = COUNT(*) FROM private.identifiers;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
@@ -143,21 +143,21 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 	DECLARE @actual INT;
-	EXEC tSQLt.FakeTable 'vital_records.birth', @Defaults = 'TRUE';
-	SELECT @actual = COUNT(*) FROM vital_records.birth;
+	EXEC tSQLt.FakeTable 'vital.birth', @Defaults = 'TRUE';
+	SELECT @actual = COUNT(*) FROM vital.birth;
 	DECLARE @expected INT = 0;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 	
-	EXEC dbo.create_random_vital_records 1
-	SELECT @actual = COUNT(*) FROM vital_records.birth;
+	EXEC dbo.create_random_vital 1
+	SELECT @actual = COUNT(*) FROM vital.birth;
 	SET @expected = 1;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
 	EXEC tSQLt.FakeTable 'private.identifiers';
 	INSERT INTO private.identifiers
 		( chirp_id, source_schema, source_table, source_column, source_id ) 
-		SELECT private.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
-			state_file_number from vital_records.birth b where b.imported_to_dw = 'FALSE';
+		SELECT private.create_unique_chirp_id(), 'vital', 'birth', 'state_file_number', 
+			state_file_number from vital.birth b where b.imported_to_dw = 'FALSE';
 	SELECT @actual = COUNT(*) FROM private.identifiers;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 END;
@@ -169,13 +169,13 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 	DECLARE @actual INT;
-	EXEC tSQLt.FakeTable 'vital_records', 'birth', @Defaults = 'TRUE';
-	SELECT @actual = COUNT(*) FROM vital_records.birth;
+	EXEC tSQLt.FakeTable 'vital', 'birth', @Defaults = 'TRUE';
+	SELECT @actual = COUNT(*) FROM vital.birth;
 	DECLARE @expected INT = 0;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 	
-	EXEC dbo.create_random_vital_records 1
-	SELECT @actual = COUNT(*) FROM vital_records.birth;
+	EXEC dbo.create_random_vital 1
+	SELECT @actual = COUNT(*) FROM vital.birth;
 	SET @expected = 1;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 END;

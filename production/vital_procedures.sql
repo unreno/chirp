@@ -1,15 +1,15 @@
 
 
 
-IF OBJECT_ID ( 'vital_records.decode_sex', 'FN' ) IS NOT NULL
-	DROP FUNCTION vital_records.decode_sex;
+IF OBJECT_ID ( 'vital.decode_sex', 'FN' ) IS NOT NULL
+	DROP FUNCTION vital.decode_sex;
 GO
-CREATE FUNCTION vital_records.decode_sex( @code INT )
+CREATE FUNCTION vital.decode_sex( @code INT )
 	RETURNS VARCHAR(255)
 BEGIN
 	-- not sure that 'TOP 1' or 'ORDER BY code' are necessary
 	-- but need to ensure that return VARCHAR and not a set.
-	RETURN ( SELECT TOP 1 sex FROM vital_records.sexes 
+	RETURN ( SELECT TOP 1 sex FROM vital.sexes 
 		WHERE code = @code 
 		ORDER BY code )
 END

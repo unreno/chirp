@@ -109,10 +109,10 @@ GO
 
 
 
-IF OBJECT_ID ( 'dbo.import_into_data_warehouse_by_table_vital_records_birth', 'P' ) IS NOT NULL
-	DROP PROCEDURE dbo.import_into_data_warehouse_by_table_vital_records_birth;
+IF OBJECT_ID ( 'dbo.import_into_data_warehouse_by_table_vital_birth', 'P' ) IS NOT NULL
+	DROP PROCEDURE dbo.import_into_data_warehouse_by_table_vital_birth;
 GO
-CREATE PROCEDURE dbo.import_into_data_warehouse_by_table_vital_records_birth
+CREATE PROCEDURE dbo.import_into_data_warehouse_by_table_vital_birth
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -135,14 +135,14 @@ BEGIN
 				sex, apgar_1, apgar_5, apgar_10,
 				b2.infant_living,
 				b.imported_at AS downloaded_at
-			FROM vital_records.birth b
-			LEFT JOIN vital_records.birth2 b2 	--need left join as in real life, all may not have?
+			FROM vital.birth b
+			LEFT JOIN vital.birth2 b2 	--need left join as in real life, all may not have?
 				ON b.birth2id = b2.birth2id
 			JOIN private.identifiers i
 				ON i.source_id = b.state_file_number
 				AND i.source_column = 'state_file_number'
 				AND i.source_table = 'birth'
-				AND i.source_schema = 'vital_records'
+				AND i.source_schema = 'vital'
 			WHERE b.imported_to_dw = 'FALSE'
 		) unimported_birth_record_data
 		CROSS APPLY ( VALUES
@@ -182,12 +182,12 @@ BEGIN
 --				CAST(b.apgar_10 AS VARCHAR(255)) AS [APGAR10],
 --				'The State' AS downloaded_from,
 --				b.imported_at AS downloaded_at
---			FROM vital_records.birth b
+--			FROM vital.birth b
 --			JOIN private.identifiers i
 --				ON i.source_id = b.state_file_number
 --				AND i.source_column = 'state_file_number'
 --				AND i.source_table = 'birth'
---				AND i.source_schema = 'vital_records'
+--				AND i.source_schema = 'vital'
 --			WHERE b.imported_to_dw = 'FALSE'
 --		) unimported_birth_record_data
 --		UNPIVOT (
@@ -205,12 +205,12 @@ BEGIN
 --				CAST(b.date_of_birth AS VARCHAR(255)) AS [DEM:DOB],
 --				'The State' AS downloaded_from,
 --				b.imported_at AS downloaded_at
---			FROM vital_records.birth b
+--			FROM vital.birth b
 --			JOIN private.identifiers i
 --				ON i.source_id = b.state_file_number
 --				AND i.source_column = 'state_file_number'
 --				AND i.source_table = 'birth'
---				AND i.source_schema = 'vital_records'
+--				AND i.source_schema = 'vital'
 --			WHERE b.imported_to_dw = 'FALSE'
 --		) arbitraryrequiredandignoredname
 --		UNPIVOT (
@@ -232,41 +232,41 @@ BEGIN
 --			'lbs' AS units,
 --			'The State' AS downloaded_from,
 --			b.imported_at AS downloaded_at
---		FROM vital_records.birth b
+--		FROM vital.birth b
 --		JOIN private.identifiers i
 --			ON i.source_id = b.state_file_number
 --			AND i.source_column = 'state_file_number'
 --			AND i.source_table = 'birth'
---			AND i.source_schema = 'vital_records'
+--			AND i.source_schema = 'vital'
 --		WHERE b.imported_to_dw = 'FALSE'
 --			AND b.birth_weight_lbs IS NOT NULL
 --			AND b.birth_weight_oz IS NOT NULL
 
 	UPDATE b
 		SET imported_to_dw = 'TRUE'
-		FROM vital_records.birth b
+		FROM vital.birth b
 		JOIN private.identifiers i
 			ON  i.source_id     = b.state_file_number
 			AND i.source_column = 'state_file_number'
 			AND i.source_table  = 'birth'
-			AND i.source_schema = 'vital_records'
+			AND i.source_schema = 'vital'
 		WHERE imported_to_dw = 'FALSE'
 			AND i.id IS NOT NULL
 
 	UPDATE b2
 		SET imported_to_dw = 'TRUE'
-		FROM vital_records.birth2 b2
-		JOIN vital_records.birth b
+		FROM vital.birth2 b2
+		JOIN vital.birth b
 			ON b.birth2id = b2.birth2id
 		JOIN private.identifiers i
 			ON  i.source_id     = b.state_file_number
 			AND i.source_column = 'state_file_number'
 			AND i.source_table  = 'birth'
-			AND i.source_schema = 'vital_records'
+			AND i.source_schema = 'vital'
 		WHERE b.imported_to_dw = 'FALSE'
 			AND i.id IS NOT NULL
 
-END -- CREATE PROCEDURE dbo.import_into_data_warehouse_by_table_vital_records_birth
+END -- CREATE PROCEDURE dbo.import_into_data_warehouse_by_table_vital_birth
 GO
 
 
@@ -318,7 +318,7 @@ BEGIN
 	SET NOCOUNT ON;
 
 --	DECLARE @schemas TABLE ( name VARCHAR(50) )
---	INSERT INTO @schemas VALUES ( 'vital_records' )	
+--	INSERT INTO @schemas VALUES ( 'vital' )	
 --
 --	DECLARE schemas CURSOR FOR SELECT s.name FROM @schemas s
 --
@@ -332,7 +332,7 @@ BEGIN
 --		EXEC dbo.import_into_data_warehouse_by_schema @schema
 
 		--Until there are more than a dozen, this above is a bit excessive!
-		EXEC dbo.import_into_data_warehouse_by_schema 'vital_records'
+		EXEC dbo.import_into_data_warehouse_by_schema 'vital'
 		EXEC dbo.import_into_data_warehouse_by_schema 'health_lab'
 		EXEC dbo.import_into_data_warehouse_by_schema 'fakedoc1'
 

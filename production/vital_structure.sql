@@ -1,11 +1,11 @@
 
-IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='vital_records')
-	EXEC('CREATE SCHEMA vital_records')
+IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='vital')
+	EXEC('CREATE SCHEMA vital')
 GO
 
-IF OBJECT_ID('vital_records.birth', 'U') IS NOT NULL
-	DROP TABLE vital_records.birth;
-CREATE TABLE vital_records.birth (
+IF OBJECT_ID('vital.birth', 'U') IS NOT NULL
+	DROP TABLE vital.birth;
+CREATE TABLE vital.birth (
 	birthid INT NOT NULL,
 	birth2id INT,
 	medicalid INT,
@@ -264,9 +264,9 @@ GO
 
 
 
-IF OBJECT_ID('vital_records.birth2', 'U') IS NOT NULL
-	DROP TABLE vital_records.birth2;
-CREATE TABLE vital_records.birth2 (
+IF OBJECT_ID('vital.birth2', 'U') IS NOT NULL
+	DROP TABLE vital.birth2;
+CREATE TABLE vital.birth2 (
 	birth2id INT NOT NULL,
 	isactive VARCHAR(1),
 	event_year INT,
@@ -531,9 +531,9 @@ CREATE TABLE vital_records.birth2 (
 GO
 
 
-IF OBJECT_ID('vital_records.death', 'U') IS NOT NULL
-	DROP TABLE vital_records.death;
-CREATE TABLE vital_records.death (
+IF OBJECT_ID('vital.death', 'U') IS NOT NULL
+	DROP TABLE vital.death;
+CREATE TABLE vital.death (
 	deathid INT NOT NULL,
 	event_year INT,
 	state_file_number VARCHAR(11),
@@ -777,9 +777,9 @@ CREATE TABLE vital_records.death (
 GO
 
 
-IF OBJECT_ID('vital_records.death050707', 'U') IS NOT NULL
-	DROP TABLE vital_records.death050707;
-CREATE TABLE vital_records.death050707 (
+IF OBJECT_ID('vital.death050707', 'U') IS NOT NULL
+	DROP TABLE vital.death050707;
+CREATE TABLE vital.death050707 (
 	col001 VARCHAR(8000),
 	col002 VARCHAR(8000),
 	col003 VARCHAR(8000),
@@ -791,9 +791,9 @@ CREATE TABLE vital_records.death050707 (
 GO
 
 
-IF OBJECT_ID('vital_records.death2', 'U') IS NOT NULL
-	DROP TABLE vital_records.death2;
-CREATE TABLE vital_records.death2 (
+IF OBJECT_ID('vital.death2', 'U') IS NOT NULL
+	DROP TABLE vital.death2;
+CREATE TABLE vital.death2 (
 	death2id INT NOT NULL,
 	event_year INT,
 	injury_date_string VARCHAR(10),
@@ -1016,9 +1016,9 @@ CREATE TABLE vital_records.death2 (
 GO
 
 
-IF OBJECT_ID('vital_records.death3', 'U') IS NOT NULL
-	DROP TABLE vital_records.death3;
-CREATE TABLE vital_records.death3 (
+IF OBJECT_ID('vital.death3', 'U') IS NOT NULL
+	DROP TABLE vital.death3;
+CREATE TABLE vital.death3 (
 	death3id INT NOT NULL,
 	event_year INT,
 	create_date DATETIME,
@@ -1225,9 +1225,9 @@ CREATE TABLE vital_records.death3 (
 GO
 
 
-IF OBJECT_ID('vital_records.death_alert', 'U') IS NOT NULL
-	DROP TABLE vital_records.death_alert;
-CREATE TABLE vital_records.death_alert (
+IF OBJECT_ID('vital.death_alert', 'U') IS NOT NULL
+	DROP TABLE vital.death_alert;
+CREATE TABLE vital.death_alert (
 	death_alertid INT,
 	alert_desc VARCHAR(150),
 	isactive VARCHAR(50),
@@ -1237,9 +1237,9 @@ CREATE TABLE vital_records.death_alert (
 GO
 
 
-IF OBJECT_ID('vital_records.death_cert_num', 'U') IS NOT NULL
-	DROP TABLE vital_records.death_cert_num;
-CREATE TABLE vital_records.death_cert_num (
+IF OBJECT_ID('vital.death_cert_num', 'U') IS NOT NULL
+	DROP TABLE vital.death_cert_num;
+CREATE TABLE vital.death_cert_num (
 	death_cert_numid INT,
 	item VARCHAR(15),
 	item_desc VARCHAR(150),
@@ -1252,9 +1252,9 @@ CREATE TABLE vital_records.death_cert_num (
 GO
 
 
-IF OBJECT_ID('vital_records.death_coroner', 'U') IS NOT NULL
-	DROP TABLE vital_records.death_coroner;
-CREATE TABLE vital_records.death_coroner (
+IF OBJECT_ID('vital.death_coroner', 'U') IS NOT NULL
+	DROP TABLE vital.death_coroner;
+CREATE TABLE vital.death_coroner (
 	death_coronerid INT NOT NULL,
 	coroner_reason VARCHAR(50),
 	coroner_code VARCHAR(4),
@@ -1265,9 +1265,9 @@ CREATE TABLE vital_records.death_coroner (
 GO
 
 
-IF OBJECT_ID('vital_records.death_hpc', 'U') IS NOT NULL
-	DROP TABLE vital_records.death_hpc;
-CREATE TABLE vital_records.death_hpc (
+IF OBJECT_ID('vital.death_hpc', 'U') IS NOT NULL
+	DROP TABLE vital.death_hpc;
+CREATE TABLE vital.death_hpc (
 	death_hpcid INT,
 	hpc_code VARCHAR(10),
 	nv_code_pre VARCHAR(3),
@@ -1313,9 +1313,9 @@ CREATE TABLE vital_records.death_hpc (
 GO
 
 
-IF OBJECT_ID('vital_records.death_inform', 'U') IS NOT NULL
-	DROP TABLE vital_records.death_inform;
-CREATE TABLE vital_records.death_inform (
+IF OBJECT_ID('vital.death_inform', 'U') IS NOT NULL
+	DROP TABLE vital.death_inform;
+CREATE TABLE vital.death_inform (
 	death_informid INT,
 	dth_inform_desc VARCHAR(50),
 	modify_date DATETIME,
@@ -1326,9 +1326,9 @@ CREATE TABLE vital_records.death_inform (
 GO
 
 
-IF OBJECT_ID('vital_records.death_injury_place', 'U') IS NOT NULL
-	DROP TABLE vital_records.death_injury_place;
-CREATE TABLE vital_records.death_injury_place (
+IF OBJECT_ID('vital.death_injury_place', 'U') IS NOT NULL
+	DROP TABLE vital.death_injury_place;
+CREATE TABLE vital.death_injury_place (
 	death_injury_placeid INT NOT NULL,
 	placetype_code VARCHAR(5),
 	placetype_name VARCHAR(30),
@@ -1341,9 +1341,9 @@ CREATE TABLE vital_records.death_injury_place (
 GO
 
 
-IF OBJECT_ID('vital_records.death_marital', 'U') IS NOT NULL
-	DROP TABLE vital_records.death_marital;
-CREATE TABLE vital_records.death_marital (
+IF OBJECT_ID('vital.death_marital', 'U') IS NOT NULL
+	DROP TABLE vital.death_marital;
+CREATE TABLE vital.death_marital (
 	maritaldthid INT,
 	marital_code VARCHAR(1),
 	marital_desc VARCHAR(25),
@@ -1355,9 +1355,9 @@ CREATE TABLE vital_records.death_marital (
 GO
 
 
-IF OBJECT_ID('vital_records.death_place', 'U') IS NOT NULL
-	DROP TABLE vital_records.death_place;
-CREATE TABLE vital_records.death_place (
+IF OBJECT_ID('vital.death_place', 'U') IS NOT NULL
+	DROP TABLE vital.death_place;
+CREATE TABLE vital.death_place (
 	death_placeid INT NOT NULL,
 	place_of_death VARCHAR(40),
 	nv_codes VARCHAR(1),
@@ -1370,9 +1370,9 @@ CREATE TABLE vital_records.death_place (
 GO
 
 
-IF OBJECT_ID('vital_records.death_reject', 'U') IS NOT NULL
-	DROP TABLE vital_records.death_reject;
-CREATE TABLE vital_records.death_reject (
+IF OBJECT_ID('vital.death_reject', 'U') IS NOT NULL
+	DROP TABLE vital.death_reject;
+CREATE TABLE vital.death_reject (
 	death_rejectid VARCHAR(2) NOT NULL,
 	reject_reason_code VARCHAR(8),
 	reject_originator VARCHAR(8),
@@ -1384,9 +1384,9 @@ CREATE TABLE vital_records.death_reject (
 GO
 
 
-IF OBJECT_ID('vital_records.death_reject_type', 'U') IS NOT NULL
-	DROP TABLE vital_records.death_reject_type;
-CREATE TABLE vital_records.death_reject_type (
+IF OBJECT_ID('vital.death_reject_type', 'U') IS NOT NULL
+	DROP TABLE vital.death_reject_type;
+CREATE TABLE vital.death_reject_type (
 	death_reject_typeid VARCHAR(2) NOT NULL,
 	reject_originator VARCHAR(8),
 	reject_assign_type VARCHAR(5),
@@ -1399,9 +1399,9 @@ CREATE TABLE vital_records.death_reject_type (
 GO
 
 
-IF OBJECT_ID('vital_records.death_status', 'U') IS NOT NULL
-	DROP TABLE vital_records.death_status;
-CREATE TABLE vital_records.death_status (
+IF OBJECT_ID('vital.death_status', 'U') IS NOT NULL
+	DROP TABLE vital.death_status;
+CREATE TABLE vital.death_status (
 	death_statusid INT,
 	dea_status_desc VARCHAR(25),
 	dea_status_sect VARCHAR(10),
@@ -1413,8 +1413,8 @@ GO
 
 
 
-EXEC dbo.add_imported_at_column_to_tables_by_schema 'vital_records';
-EXEC dbo.add_imported_to_dw_column_to_tables_by_schema 'vital_records';
+EXEC dbo.add_imported_at_column_to_tables_by_schema 'vital';
+EXEC dbo.add_imported_to_dw_column_to_tables_by_schema 'vital';
 
 
 

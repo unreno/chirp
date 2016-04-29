@@ -6,9 +6,9 @@
 
 
 -- 10,000 takes about 5 minutes with all of the uniqueness checking.
-SELECT COUNT(*) FROM vital_records.birth
-EXEC dev.create_random_vital_records 10
-SELECT COUNT(*) FROM vital_records.birth
+SELECT COUNT(*) FROM vital.birth
+EXEC dev.create_random_vital 10
+SELECT COUNT(*) FROM vital.birth
 
 
 --Create some chirp ids for this random data
@@ -19,8 +19,8 @@ SELECT COUNT(*) FROM vital_records.birth
 SELECT COUNT(*) FROM private.identifiers
 INSERT INTO private.identifiers
 	( chirp_id, source_schema, source_table, source_column, source_id ) 
-	SELECT private.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
-	state_file_number from vital_records.birth b where b.imported_to_dw = 'FALSE';
+	SELECT private.create_unique_chirp_id(), 'vital', 'birth', 'state_file_number', 
+	state_file_number from vital.birth b where b.imported_to_dw = 'FALSE';
 SELECT COUNT(*) FROM private.identifiers
 
 
@@ -32,8 +32,8 @@ SELECT COUNT(*) FROM private.identifiers
 SELECT COUNT(*) from dbo.observations
 EXEC dbo.import_into_data_warehouse
 SELECT COUNT(*) from dbo.observations
-SELECT COUNT(*) from vital_records.birth
-SELECT COUNT(*) from vital_records.birth
+SELECT COUNT(*) from vital.birth
+SELECT COUNT(*) from vital.birth
 	WHERE imported_to_dw = 'FALSE'
 SELECT COUNT(*) from private.identifiers
 SELECT COUNT(*) from dbo.observations

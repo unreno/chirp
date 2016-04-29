@@ -2,24 +2,24 @@
 DELETE FROM private.identifiers
 DELETE FROM dbo.observations
 DELETE FROM fakedoc1.emrs
-DELETE FROM vital_records.birth
-DELETE FROM vital_records.birth2
+DELETE FROM vital.birth
+DELETE FROM vital.birth2
 DELETE FROM health_lab.newborn_screening
 
-EXEC dev.create_random_vital_records 1
-SELECT * FROM vital_records.birth
-SELECT * FROM vital_records.birth2
+EXEC dev.create_random_vital 1
+SELECT * FROM vital.birth
+SELECT * FROM vital.birth2
 SELECT state_file_number, name_first, name_last, date_of_birth
 sex, birth_weight_lbs, birth_weight_oz,
 apgar_1, apgar_5, apgar_10, infant_living
-FROM vital_records.birth b
-LEFT JOIN vital_records.birth2 b2
+FROM vital.birth b
+LEFT JOIN vital.birth2 b2
 ON b.birth2id = b2.birth2id
 
 INSERT INTO private.identifiers
 	( chirp_id, source_schema, source_table, source_column, source_id ) 
-	SELECT private.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
-	state_file_number FROM vital_records.birth b WHERE b.imported_to_dw = 'FALSE';
+	SELECT private.create_unique_chirp_id(), 'vital', 'birth', 'state_file_number', 
+	state_file_number FROM vital.birth b WHERE b.imported_to_dw = 'FALSE';
 SELECT * FROM private.identifiers
 
 EXEC dev.create_FAKE_newborn_screening_for_each_birth_record
@@ -44,15 +44,15 @@ ORDER BY started_at
 DELETE FROM private.identifiers
 DELETE FROM dbo.observations
 DELETE FROM fakedoc1.emrs
-DELETE FROM vital_records.birth
-DELETE FROM vital_records.birth2
+DELETE FROM vital.birth
+DELETE FROM vital.birth2
 DELETE FROM health_lab.newborn_screening
 
-EXEC dev.create_random_vital_records 1000
+EXEC dev.create_random_vital 1000
 INSERT INTO private.identifiers
 	( chirp_id, source_schema, source_table, source_column, source_id ) 
-	SELECT private.create_unique_chirp_id(), 'vital_records', 'birth', 'state_file_number', 
-	state_file_number FROM vital_records.birth b WHERE b.imported_to_dw = 'FALSE';
+	SELECT private.create_unique_chirp_id(), 'vital', 'birth', 'state_file_number', 
+	state_file_number FROM vital.birth b WHERE b.imported_to_dw = 'FALSE';
 EXEC dev.create_FAKE_newborn_screening_for_each_birth_record
 EXEC dev.link_FAKE_newborn_screening_to_births
 EXEC dev.create_FAKE_fakedoc1_emrs
@@ -72,7 +72,7 @@ SELECT
 	CASE WHEN (GROUPING(infant_living) = 1) THEN 'ALL'
 		ELSE ISNULL(infant_living, 'UNKNOWN')
 	END AS infant_living, COUNT(*)
-FROM vital_records.birth2
+FROM vital.birth2
 GROUP BY infant_living
 WITH ROLLUP
 
@@ -83,12 +83,12 @@ SELECT
     ELSE ISNULL(infant_living, 'UNKNOWN')
   END AS infant_living, COUNT(*)
 	FROM private.identifiers i
-	JOIN vital_records.birth b
-		ON i.source_schema = 'vital_records'
+	JOIN vital.birth b
+		ON i.source_schema = 'vital'
 		AND i.source_table = 'birth'
 		AND i.source_column = 'state_file_number'
 		AND i.source_id = b.state_file_number
-	JOIN vital_records.birth2 b2
+	JOIN vital.birth2 b2
 		ON b.birth2id = b2.birth2id
 	GROUP BY infant_living
 	WITH ROLLUP

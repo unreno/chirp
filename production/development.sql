@@ -230,7 +230,7 @@ BEGIN
 	DECLARE @temp VARCHAR(11) = '';
 	WHILE(1=1)BEGIN
 		SELECT @temp = CAST( CAST(( number * 1e9 ) AS INT) AS VARCHAR(11)) FROM dev.rand_view 
-		IF(NOT EXISTS (SELECT * FROM vital_records.birth WHERE state_file_number=@temp)) BREAK
+		IF(NOT EXISTS (SELECT * FROM vital.birth WHERE state_file_number=@temp)) BREAK
 	END
 	RETURN @temp;
 END
@@ -239,10 +239,10 @@ GO
 
 
 
-IF OBJECT_ID ( 'dev.create_random_vital_records', 'P' ) IS NOT NULL
-	DROP PROCEDURE dev.create_random_vital_records;
+IF OBJECT_ID ( 'dev.create_random_vital', 'P' ) IS NOT NULL
+	DROP PROCEDURE dev.create_random_vital;
 GO
-CREATE PROCEDURE dev.create_random_vital_records( @total INT = 1000 )
+CREATE PROCEDURE dev.create_random_vital( @total INT = 1000 )
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -260,14 +260,14 @@ BEGIN
 			SET @name_first = dev.random_female_name()
 
 		--OUTPUT INSERTED.birth2id
-		INSERT INTO vital_records.birth2
+		INSERT INTO vital.birth2
 			( birth2id, infant_living )
 			VALUES(
 				@count,
 				dev.random_infant_living()
 			);
 
-		INSERT INTO vital_records.birth 
+		INSERT INTO vital.birth 
 			( birthid, birth2id, state_file_number, 
 				date_of_birth, sex, 
 				name_first, name_last,
@@ -289,7 +289,7 @@ BEGIN
 --	WHILE @count < 100
 --	BEGIN
 --		SET @count = @count + 1;
---		INSERT INTO vital_records.death ( deathid, state_file_number )
+--		INSERT INTO vital.death ( deathid, state_file_number )
 --			VALUES ( @count, CAST(RAND()*1e9 AS INT) );
 --	END
 
@@ -327,7 +327,7 @@ BEGIN
 			dev.random_varchar(),
 			dev.random_varchar(),
 			dev.random_varchar()
-		FROM vital_records.birth
+		FROM vital.birth
 END
 GO
 
@@ -365,11 +365,11 @@ BEGIN
 
 		SET @cid = NULL;	--	this will remember the last loop?
 		SELECT @count = COUNT(chirp_id)
-			FROM private.identifiers i JOIN vital_records.birth b
+			FROM private.identifiers i JOIN vital.birth b
 			ON    i.source_id     = b.state_file_number
 				AND i.source_column = 'state_file_number' 
 				AND i.source_table  = 'birth' 
-				AND i.source_schema = 'vital_records' 
+				AND i.source_schema = 'vital' 
 			WHERE b.name_last = @nlname
 				AND b.name_first = @nfname
 				AND b.date_of_birth = @ndob
@@ -380,11 +380,11 @@ BEGIN
 
 		IF( @count = 1 ) BEGIN
 			SELECT @cid = chirp_id
-				FROM private.identifiers i JOIN vital_records.birth b
+				FROM private.identifiers i JOIN vital.birth b
 				ON    i.source_id     = b.state_file_number
 					AND i.source_column = 'state_file_number' 
 					AND i.source_table  = 'birth' 
-					AND i.source_schema = 'vital_records' 
+					AND i.source_schema = 'vital' 
 				WHERE b.name_last = @nlname
 					AND b.name_first = @nfname
 					AND b.date_of_birth = @ndob
@@ -447,7 +447,7 @@ BEGIN
 				dev.unique_fakedoc1_record_number() AS record_number,
 				name_first, name_last, date_of_birth, sex,
 				dev.random_date() AS service_at
-			FROM vital_records.birth
+			FROM vital.birth
 		) ignored1
 		CROSS APPLY ( VALUES
 			('DEM:Weight', CAST(dev.random_weight() AS VARCHAR(255)), 'lbs'),
@@ -516,11 +516,11 @@ BEGIN
 
 		SET @cid = NULL;	--	this will remember the last loop?
 		SELECT @count = COUNT(chirp_id)
-			FROM private.identifiers i JOIN vital_records.birth b
+			FROM private.identifiers i JOIN vital.birth b
 			ON    i.source_id     = b.state_file_number
 				AND i.source_column = 'state_file_number' 
 				AND i.source_table  = 'birth' 
-				AND i.source_schema = 'vital_records' 
+				AND i.source_schema = 'vital' 
 			WHERE b.name_last = @nlname
 				AND b.name_first = @nfname
 				AND b.date_of_birth = @ndob
@@ -531,11 +531,11 @@ BEGIN
 
 		IF( @count = 1 ) BEGIN
 			SELECT @cid = chirp_id
-				FROM private.identifiers i JOIN vital_records.birth b
+				FROM private.identifiers i JOIN vital.birth b
 				ON    i.source_id     = b.state_file_number
 					AND i.source_column = 'state_file_number' 
 					AND i.source_table  = 'birth' 
-					AND i.source_schema = 'vital_records' 
+					AND i.source_schema = 'vital' 
 				WHERE b.name_last = @nlname
 					AND b.name_first = @nfname
 					AND b.date_of_birth = @ndob

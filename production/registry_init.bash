@@ -26,8 +26,8 @@ cat private_procedures.sql
 cat warehouse_structure.sql
 cat warehouse_procedures.sql
 
-cat vital_records_structure.sql
-cat vital_records_procedures.sql
+cat vital_structure.sql
+cat vital_procedures.sql
 
 cat health_lab_structure.sql
 cat health_lab_procedures.sql
@@ -53,7 +53,7 @@ cat development.sql
 
 
 #	No more bulk importing of all this as most won't actually be used this way.
-#../scripts/csv_to_concept_codes.bash ../scripts/vital_records/*csv
+#../scripts/csv_to_concept_codes.bash ../scripts/vital/*csv
 
 for concept in DOB Sex Height Weight Race Language Zipcode Other; do
 	echo "INSERT INTO dbo.concepts VALUES ("
