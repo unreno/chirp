@@ -29,6 +29,37 @@ cat warehouse_procedures.sql
 cat vital_structure.sql
 cat vital_procedures.sql
 
+cat vital_codes.sql
+
+#ls -1 content/vital/*csv | \
+#	awk -F/ '{print $NF}' | awk -F. '{print "CREATE TABLE vital."$1" ( code INT, value VARCHAR(255) );"}'
+
+# The contents of these csv files can contain commas
+#	and so are quoted and bulk insert won't remove these.
+#	Must manually remove single and double quote wrappers.
+ls -1 content/vital/*csv | \
+	awk -F/ '{print $NF}' | awk -F. '{
+		print "CREATE TABLE vital."$1" ( code INT, value VARCHAR(255) );\n"
+		print "BEGIN TRY"
+		print "DECLARE @bulk_cmd VARCHAR(1000) = '"'"'BULK INSERT vital."$1
+		print "	FROM '"''"'Z:\\Renown Project\\CHIRP\\Personal folders\\Jake\\chirp\\production\\content\\vital\\"$1".csv'"''"'"
+		print "	WITH ("
+		print "		FIELDTERMINATOR = '"''"','"''"',"
+		print "		ROWTERMINATOR = '"'''"'+CHAR(10)+'"'''"',"
+		print "		TABLOCK"
+		print "	)'"'"';"
+		print "	EXEC(@bulk_cmd);"
+		print "END TRY BEGIN CATCH"
+		print "	PRINT ERROR_MESSAGE()"
+		print "END CATCH\n"
+		print "UPDATE vital."$1
+		print "	SET value = SUBSTRING ( value, 2, LEN(value)-2 )"
+		print "	WHERE value LIKE '"'"'\"%\"'"'"';\n"
+		print "UPDATE vital."$1
+		print "	SET value = SUBSTRING ( value, 2, LEN(value)-2 )"
+		print "	WHERE value LIKE '"'''"'%'"'''"';\n"
+}'
+
 cat health_lab_structure.sql
 cat health_lab_procedures.sql
 
