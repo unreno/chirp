@@ -1,6 +1,37 @@
 #
 #	awk -f sas_proc_format_to_csv.awk sas_text_file
 #
+#	Its not grouped nor perfect
+#	grep -o "\S*\s\+=\s\+\S*" Format\ Birth-clean.sas
+#
+
+#	Sometimes, its easier to do things in a different order.
+#	Input file MUST be free of comments (which included old data).
+#	Input CANNOT have TABs in the data fields (several had "TABsome stuff"???)
+#	(facilities 801 and 901)
+#	Input values may be on the same line but MUST have AT LEAST 1 TAB between them.
+#	 49 ^I^I714 = "Other Storey Towns"^I^I715 = "Other Washoe Towns"^I^I^I716 = "Other White Pine Towns"^I888 = "Out of State"$
+#
+#	7,'Assisted Ventilaion >= 30 Min'
+#	1,'Normal Birth Weight (>=2,500g, <=8,000g)'
+#	2,'Low Birth Weight (>=1,500g, <2,500g)'
+#	(need the [^<>] so as not to include the above)
+#
+#	sed 's/[[:space:]]*[^<>]=[[:space:]]*/,/g' Format\ Birth-clean.sas | tr "\t" "\n" | grep -vs "^\s*$" | grep -vs ";" | grep -vs "^value " | wc -l
+#	541 !!!!
+#
+
+
+
+
+
+#	BAM!
+#
+#	sed 's/[[:space:]]*[^<>]=[[:space:]]*/,/g' Format\ Birth-clean.sas | tr "\t" "\n" | grep -vs "^\s*$" | grep -vs ";" | sed 's/[[:space:]]*$//' | tr -d "\r" | awk 'BEGIN{IGNORECASE=1}( /^value / ){ f=sprintf("vr-%s.csv",$2);gsub(/\r/,"",f);next; }{print >> f }'
+
+
+
+
 BEGIN{ IGNORECASE = 1 }	#	1 = true
 ( /value/ ){ 
 	table=$2; 
