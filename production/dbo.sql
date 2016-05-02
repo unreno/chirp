@@ -3,12 +3,14 @@ IF OBJECT_ID('dbo.concepts', 'U') IS NOT NULL
 	DROP TABLE dbo.concepts;
 CREATE TABLE dbo.concepts (
 	id INT IDENTITY(1,1),
-	code VARCHAR(255) PRIMARY KEY,
+	code VARCHAR(255),
+	CONSTRAINT concept_code PRIMARY KEY CLUSTERED (code ASC),
 	path VARCHAR(255),
-	description VARCHAR(MAX),
-	CONSTRAINT unique_code 
-		UNIQUE (code)
+	description VARCHAR(MAX)
 );
+
+--	CONSTRAINT unique_code 
+--		UNIQUE (code)	-- Is this necessary? No
 -- Examples:
 -- code: ICD10CM:M71.432, description: Calcium deposit in bursa, left wrist
 -- code: HCPC:0356T, description: INSERTION OF DRUG-ELUTING IMPLANT ....
@@ -122,9 +124,8 @@ UPDATE dbo.concepts
 IF OBJECT_ID('dbo.providers', 'U') IS NOT NULL
 	DROP TABLE dbo.providers;
 CREATE TABLE dbo.providers (
-	id INT IDENTITY(1,1) PRIMARY KEY,
-
-
+	id INT IDENTITY(1,1),
+	CONSTRAINT provider_id PRIMARY KEY CLUSTERED (id ASC)
 );
 
 
@@ -136,8 +137,8 @@ CREATE TABLE dbo.providers (
 IF OBJECT_ID('dbo.encounters', 'U') IS NOT NULL
 	DROP TABLE dbo.encounters;
 CREATE TABLE dbo.encounters (
-	id INT IDENTITY(1,1) PRIMARY KEY,
-
+	id INT IDENTITY(1,1),
+	CONSTRAINT encounter_id PRIMARY KEY CLUSTERED (id ASC)
 );
 */
 
@@ -147,9 +148,8 @@ CREATE TABLE dbo.encounters (
 IF OBJECT_ID('dbo.locations', 'U') IS NOT NULL
 	DROP TABLE dbo.locations;
 CREATE TABLE dbo.locations (
-	id INT IDENTITY(1,1) PRIMARY KEY,
-
-
+	id INT IDENTITY(1,1),
+	CONSTRAINT location_id PRIMARY KEY CLUSTERED (id ASC)
 );
 */
 
@@ -160,7 +160,9 @@ CREATE TABLE dbo.locations (
 IF OBJECT_ID('dbo.observations', 'U') IS NOT NULL
 	DROP TABLE dbo.observations;
 CREATE TABLE dbo.observations (
-	id INT IDENTITY(1,1) PRIMARY KEY,
+	id INT IDENTITY(1,1),
+	CONSTRAINT observation_id PRIMARY KEY CLUSTERED (id ASC),
+
 	chirp_id        INT NOT NULL,
 --	encounter_id    INT NOT NULL,
 	provider_id     INT NOT NULL,

@@ -6,7 +6,8 @@ GO
 IF OBJECT_ID('fakedoc1.emrs', 'U') IS NOT NULL
 	DROP TABLE fakedoc1.emrs;
 CREATE TABLE fakedoc1.emrs (
-	id INT IDENTITY(1,1) PRIMARY KEY,
+	id INT IDENTITY(1,1),
+	CONSTRAINT fakedoc1_emr_id PRIMARY KEY CLUSTERED (id ASC),
 	record_number VARCHAR(255),
 	name_first VARCHAR(250),
 	name_last VARCHAR(250),

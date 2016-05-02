@@ -6,7 +6,8 @@ GO
 IF OBJECT_ID('health_lab.newborn_screening', 'U') IS NOT NULL
 	DROP TABLE health_lab.newborn_screening;
 CREATE TABLE health_lab.newborn_screening (
-	id INT IDENTITY(1,1) PRIMARY KEY,
+	id INT IDENTITY(1,1),
+	CONSTRAINT health_lab_newborn_screening_id PRIMARY KEY CLUSTERED (id ASC),
 	name_first VARCHAR(250),
 	name_last VARCHAR(250),
 	date_of_birth DATETIME,

@@ -5,7 +5,8 @@ GO
 IF OBJECT_ID('private.identifiers', 'U') IS NOT NULL
 	DROP TABLE private.identifiers;
 CREATE TABLE private.identifiers (
-	id int IDENTITY(1,1) PRIMARY KEY,
+	id int IDENTITY(1,1),
+	CONSTRAINT private_identifiers_id PRIMARY KEY CLUSTERED (id ASC),
 	chirp_id      INT NOT NULL,
 	source_schema VARCHAR(50) NOT NULL,
 	source_table  VARCHAR(50) NOT NULL,
