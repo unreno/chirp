@@ -265,11 +265,11 @@ ALTER TABLE dbo.observations ADD CONSTRAINT ck_s_value CHECK (
 IF OBJECT_ID('dbo.codes', 'U') IS NOT NULL
 	DROP TABLE dbo.codes;
 CREATE TABLE dbo.codes (
-	source VARCHAR(50),
-	gang VARCHAR(50),
-	trait VARCHAR(50),
-	code INT,
-	value VARCHAR(255)
+	source VARCHAR(50) NOT NULL,
+	gang VARCHAR(50) NOT NULL,
+	trait VARCHAR(50) NOT NULL,
+	code INT NOT NULL,
+	value VARCHAR(255) NOT NULL
 	CONSTRAINT unique_source_gang_trait_code
 		UNIQUE ( source, gang, trait, code )
 );
