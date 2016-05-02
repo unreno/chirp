@@ -36,6 +36,10 @@ cat vital_structure.sql
 #	sed 's/[[:space:]]*[^<>]=[[:space:]]*/,/g' Format\ Birth-clean.sas | tr "\t" "\n" | grep -vs "^\s*$" | grep -vs ";" | sed 's/[[:space:]]*$//' | tr -d "\r" | awk 'BEGIN{IGNORECASE=1}( /^value / ){ f=sprintf("%s.csv",$2);gsub(/\r/,"",f);next; }{print >> f }'
 #	sed 's/[[:space:]]*[^<>]=[[:space:]]*/,/g' Format\ Death-clean.sas | tr "\t" "\n" | grep -vs "^\s*$" | grep -vs ";" | sed 's/[[:space:]]*$//' | tr -d "\r" | awk 'BEGIN{IGNORECASE=1}( /^value / ){ f=sprintf("%s.csv",$2);gsub(/\r/,"",f);next; }{print >> f }'
 
+echo "DECLARE @bulk_cmd VARCHAR(1000)"
+
+#		print "DECLARE @bulk_cmd VARCHAR(1000) = '"'"'BULK INSERT dbo.bulk_insert_codes"
+#	Can only DECLARE once. Could call GO but predeclaring works. Thought I might need to call GO.
 
 # The contents of these csv files can contain commas
 #	and so are quoted and bulk insert won't remove these.
@@ -44,11 +48,11 @@ ls -1 content/vital/{birth,death}/*csv | \
 	awk -F. '{print $1}' | awk -F/ '{
 		gang=$(NF-1)
 		trait=$NF
-		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_schema_default DEFAULT '"'"'vital'"'"' FOR schema;"
+		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_source_default DEFAULT '"'"'vital'"'"' FOR source;"
 		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_gang_default DEFAULT '"'"'"gang"'"'"' FOR gang;"
 		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_trait_default DEFAULT '"'"'"trait"'"'"' FOR trait;"
 		print "BEGIN TRY"
-		print "DECLARE @bulk_cmd VARCHAR(1000) = '"'"'BULK INSERT dbo.bulk_insert_codes"
+		print "SET @bulk_cmd = '"'"'BULK INSERT dbo.bulk_insert_codes"
 		print "	FROM '"''"'Z:\\Renown Project\\CHIRP\\Personal folders\\Jake\\chirp\\production\\content\\vital\\"gang"\\"trait".csv'"''"'"
 		print "	WITH ("
 		print "		FIELDTERMINATOR = '"''"','"''"',"
@@ -59,7 +63,7 @@ ls -1 content/vital/{birth,death}/*csv | \
 		print "END TRY BEGIN CATCH"
 		print "	PRINT ERROR_MESSAGE()"
 		print "END CATCH"
-		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_schema_default;"
+		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_source_default;"
 		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_gang_default;"
 		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_trait_default;\n"
 }'

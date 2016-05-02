@@ -570,13 +570,13 @@ GO
 IF OBJECT_ID ( 'bin.decode', 'FN' ) IS NOT NULL
 	DROP FUNCTION bin.decode;
 GO
-CREATE FUNCTION bin.decode( @schema VARCHAR(50), @gang VARCHAR(50), @trait VARCHAR(50), @code INT )
+CREATE FUNCTION bin.decode( @source VARCHAR(50), @gang VARCHAR(50), @trait VARCHAR(50), @code INT )
 	RETURNS VARCHAR(255)
 BEGIN
 	-- not sure that 'TOP 1' or 'ORDER BY code' are necessary
 	-- but need to ensure that return VARCHAR and not a set.
 	RETURN ( SELECT TOP 1 value FROM dbo.codes
-		WHERE schema = @schema 
+		WHERE source = @source 
 			AND gang = @gang 
 			AND trait = @trait 
 			AND code = @code 

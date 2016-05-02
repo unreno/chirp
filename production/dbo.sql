@@ -261,17 +261,17 @@ ALTER TABLE dbo.observations ADD CONSTRAINT ck_s_value CHECK (
 */
 
 
--- GROUP and GROUPING are reserved words
+-- SCHEMA, TABLE, GROUP and GROUPING are reserved words
 IF OBJECT_ID('dbo.codes', 'U') IS NOT NULL
 	DROP TABLE dbo.codes;
 CREATE TABLE dbo.codes (
-	schema VARCHAR(50),
+	source VARCHAR(50),
 	gang VARCHAR(50),
 	trait VARCHAR(50),
 	code INT,
 	value VARCHAR(255)
-	CONSTRAINT unique_schema_gang_trait_code
-		UNIQUE ( schema, gang, trait, code );
+	CONSTRAINT unique_source_gang_trait_code
+		UNIQUE ( source, gang, trait, code )
 );
 -- FYI The maximum key length is 900 bytes. For some combination of large values, the insert/update operation will fail.
 IF OBJECT_ID ( 'dbo.bulk_insert_codes', 'V' ) IS NOT NULL
