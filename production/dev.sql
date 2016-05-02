@@ -571,3 +571,47 @@ GO
 
 
 
+
+--	FROM ''C:\Users\gwendt\Desktop\1000_most_common_female_name_in_US.csv''
+BEGIN TRY
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT dev.names
+	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\dev\1000_most_common_female_name_in_US.csv''
+	WITH (
+		FIELDTERMINATOR = '','',
+		ROWTERMINATOR = '''+CHAR(10)+''',
+		TABLOCK
+	)';
+	EXEC(@bulk_cmd);
+END TRY BEGIN CATCH
+	PRINT ERROR_MESSAGE()
+END CATCH
+
+--	FROM ''C:\Users\gwendt\Desktop\1000_most_common_male_name_in_US.csv''
+BEGIN TRY
+	SET @bulk_cmd = 'BULK INSERT dev.names
+	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\dev\1000_most_common_male_name_in_US.csv''
+	WITH (
+		FIELDTERMINATOR = '','',
+		ROWTERMINATOR = '''+CHAR(10)+''',
+		TABLOCK
+	)';
+	EXEC(@bulk_cmd);
+END TRY BEGIN CATCH
+	PRINT ERROR_MESSAGE()
+END CATCH
+
+--	FROM ''C:\Users\gwendt\Desktop\1000_most_common_last_name_in_US.csv''
+BEGIN TRY
+	SET @bulk_cmd = 'BULK INSERT dev.names
+	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\dev\1000_most_common_last_name_in_US.csv''
+	WITH (
+		FIELDTERMINATOR = '','',
+		ROWTERMINATOR = '''+CHAR(10)+''',
+		TABLOCK
+	)';
+	EXEC(@bulk_cmd);
+END TRY BEGIN CATCH
+	PRINT ERROR_MESSAGE()
+END CATCH
+
+

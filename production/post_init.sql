@@ -30,7 +30,7 @@ SELECT COUNT(*) FROM private.identifiers
 --UNPIVOT this birth data into the observations table
 
 SELECT COUNT(*) from dbo.observations
-EXEC dbo.import_into_data_warehouse
+EXEC bin.import_into_data_warehouse
 SELECT COUNT(*) from dbo.observations
 SELECT COUNT(*) from vital.birth
 SELECT COUNT(*) from vital.birth
@@ -52,7 +52,7 @@ SELECT COUNT(*) from health_lab.newborn_screening
 SELECT COUNT(*) from health_lab.newborn_screening
 	WHERE imported_to_dw = 'FALSE'
 SELECT COUNT(*) from private.identifiers
-EXEC dbo.import_into_data_warehouse
+EXEC bin.import_into_data_warehouse
 SELECT COUNT(*) from private.identifiers
 SELECT COUNT(*) from dbo.observations
 
@@ -68,7 +68,7 @@ SELECT COUNT(*) from private.identifiers
 EXEC dev.link_FAKE_fakedoc1_emrs_to_births
 SELECT COUNT(*) from private.identifiers
 SELECT COUNT(*) from dbo.observations
-EXEC dbo.import_into_data_warehouse
+EXEC bin.import_into_data_warehouse
 SELECT COUNT(*) from dbo.observations
 
 

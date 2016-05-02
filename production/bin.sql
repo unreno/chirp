@@ -1,14 +1,228 @@
 
-
-IF OBJECT_ID ( 'dbo.import_into_data_warehouse_by_table_fakedoc1_emrs', 'P' ) IS NOT NULL
-	DROP PROCEDURE dbo.import_into_data_warehouse_by_table_fakedoc1_emrs;
+-- MS Sets these before every “CREATE TRIGGER”
+-- Not sure if calling them once will suffice.
+-- Deeded?
+SET ANSI_NULLS ON
 GO
-CREATE PROCEDURE dbo.import_into_data_warehouse_by_table_fakedoc1_emrs
+SET QUOTED_IDENTIFIER ON
+GO
+
+IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='bin')
+	EXEC('CREATE SCHEMA bin')
+GO
+
+
+--Database diagram support objects cannot be installed because this database does not have a valid owner. To continue, first use the Files page of the Database Properties dialog box or the ALTER AUTHORIZATION statement to set the database owner to a valid login, then add the database diagram support objects.
+--Wanted to see these Database Diagrams and this seemed to work.
+--This changes the database owner to [sa]. I'd prefer to keep it.
+--ALTER AUTHORIZATION ON DATABASE::chirp TO [sa];
+
+
+
+
+
+IF OBJECT_ID ( 'bin.add_imported_at_column_to_table', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.add_imported_at_column_to_table;
+GO
+CREATE PROCEDURE bin.add_imported_at_column_to_table(@schema VARCHAR(255),@table VARCHAR(255))
 AS
 BEGIN
 	SET NOCOUNT ON;
 
-	INSERT INTO dbo.observations
+	DECLARE @cmd VARCHAR(255);
+	DECLARE @cname VARCHAR(255);
+
+	SELECT @cname = @schema + '_' + @table + '_imported_at_default';
+
+/*
+	--Remove constraint if exists
+	SELECT @cmd = 'IF OBJECT_ID(''[' + @schema + '].[' + @cname + ']'') IS NOT NULL ' +
+		'ALTER TABLE ' + @schema + '.[' + @table +'] DROP CONSTRAINT ' + @cname + ';'
+	PRINT @cmd
+	EXEC (@cmd);	--	Parenthese required here!
+
+	--Remove column if exists
+	SELECT @cmd = 'IF COL_LENGTH(''[' + @schema + '].[' + @table + 
+		']'',''imported_at'') IS NOT NULL '+
+		'ALTER TABLE ' + @schema + '.[' + @table + '] DROP COLUMN imported_at;'
+	PRINT @cmd
+	EXEC (@cmd);	--	Parenthese required here!
+*/
+
+	--Add column with constraint
+	SELECT @cmd = 'ALTER TABLE [' + @schema + '].[' + @table + 
+		'] ADD imported_at DATETIME CONSTRAINT '
+		+ @cname + ' DEFAULT CURRENT_TIMESTAMP NOT NULL ;';
+--	PRINT @cmd
+	EXEC (@cmd);	--	Parenthese required here!
+
+END
+GO
+
+
+IF OBJECT_ID ( 'bin.add_imported_at_column_to_tables_by_schema', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.add_imported_at_column_to_tables_by_schema;
+GO
+CREATE PROCEDURE bin.add_imported_at_column_to_tables_by_schema(@schema VARCHAR(255))
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @table VARCHAR(255);
+
+	DECLARE tables CURSOR FOR SELECT t.name 
+		FROM sys.tables AS t
+		INNER JOIN sys.schemas AS s
+		ON t.schema_id = s.schema_id
+		WHERE s.name = @schema;
+
+	OPEN tables;
+	WHILE(1=1)BEGIN
+		FETCH tables INTO @table;
+		IF(@@FETCH_STATUS <> 0) BREAK
+--		PRINT @table
+		EXEC bin.add_imported_at_column_to_table @schema, @table
+	END
+	CLOSE tables;
+	DEALLOCATE tables;
+END
+GO
+
+
+IF OBJECT_ID ( 'bin.add_imported_to_dw_column_to_table', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.add_imported_to_dw_column_to_table;
+GO
+CREATE PROCEDURE bin.add_imported_to_dw_column_to_table(@schema VARCHAR(255),@table VARCHAR(255))
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @cmd VARCHAR(255);
+	DECLARE @cname VARCHAR(255);
+
+	SELECT @cname = @schema + '_' + @table + '_imported_to_dw_default';
+
+/*
+	--Remove constraint if exists
+	SELECT @cmd = 'IF OBJECT_ID(''[' + @schema + '].[' + @cname + ']'') IS NOT NULL ' +
+		'ALTER TABLE ' + @schema + '.[' + @table +'] DROP CONSTRAINT ' + @cname + ';'
+	PRINT @cmd
+	EXEC (@cmd);	--	Parenthese required here!
+
+	--Remove column if exists
+	SELECT @cmd = 'IF COL_LENGTH(''[' + @schema + '].[' + @table + 
+		']'',''imported_to_dw'') IS NOT NULL '+
+		'ALTER TABLE ' + @schema + '.[' + @table + '] DROP COLUMN imported_to_dw;'
+	PRINT @cmd
+	EXEC (@cmd);	--	Parenthese required here!
+*/
+	--Add column with constraint
+	SELECT @cmd = 'ALTER TABLE [' + @schema + '].[' + @table + 
+		'] ADD imported_to_dw BIT CONSTRAINT '
+		+ @cname + ' DEFAULT ''FALSE'' NOT NULL ;';
+--	PRINT @cmd
+	EXEC (@cmd);	--	Parenthese required here!
+
+END
+GO
+
+
+IF OBJECT_ID ( 'bin.add_imported_to_dw_column_to_tables_by_schema', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.add_imported_to_dw_column_to_tables_by_schema;
+GO
+CREATE PROCEDURE bin.add_imported_to_dw_column_to_tables_by_schema(@schema VARCHAR(255))
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @table VARCHAR(255);
+
+	DECLARE tables CURSOR FOR SELECT t.name 
+		FROM sys.tables AS t
+		INNER JOIN sys.schemas AS s
+		ON t.schema_id = s.schema_id
+		WHERE s.name = @schema;
+
+	OPEN tables;
+	WHILE(1=1)BEGIN
+		FETCH tables INTO @table;
+		IF(@@FETCH_STATUS <> 0)
+			BREAK
+--		PRINT @table
+		EXEC bin.add_imported_to_dw_column_to_table @schema, @table
+	END
+	CLOSE tables;
+	DEALLOCATE tables;
+
+END
+GO
+
+
+
+
+
+
+
+
+
+
+--Give the constraint a predictable name so that can be removed if needed.
+--(Otherwise name is arbitrary DF__birth__importe_____ADF4456 or similar.)
+--FYI (NOT NULL is not a "constraint", but DEFAULT is so it must be adjacent to the name.)
+--CONSTRAINT -NAME- DEFAULT 0 NOT NULL - works
+--CONSTRAINT -NAME- NOT NULL DEFAULT - DOES NOT work (arbitrarily named)
+
+
+--INSERT INTO vital.birth (birthid,imported_to_dw) VALUES (1,'true');  -- 'true'=1
+--INSERT INTO vital.birth (birthid,imported_to_dw) VALUES (1,'false'); -- 'false'=0
+--INSERT INTO vital.birth (birthid,imported_to_dw) VALUES (1,'blahblahblah');
+--INSERT INTO vital.birth (birthid) values (1);
+--Conversion failed when converting the varchar value 'blahblahblah' to data type bit
+
+
+
+
+
+
+
+/*
+
+SELECT * FROM vital.birth b
+	JOIN private.identifiers p 
+	ON p.source_id = b.state_file_number 
+	AND p.source_name = 'birth_sfn'
+	WHERE b.imported_to_dw = 'FALSE'
+
+
+SELECT * FROM sys.columns  c
+	INNER JOIN sys.tables t 
+	ON c.object_id = t.object_id
+	INNER JOIN sys.schemas s
+	ON t.schema_id = s.schema_id
+	WHERE s.name = 'vital' AND t.name = 'birth'
+
+
+SELECT * FROM sys.columns  c
+	INNER JOIN sys.tables t 
+	ON c.object_id = t.object_id
+	INNER JOIN sys.schemas s
+	ON t.schema_id = s.schema_id
+	JOIN concepts cc 
+	ON cc.code = s.name + ':' + t.name + ':' + c.name 
+	WHERE s.name = 'vital' AND t.name = 'birth' AND cc.id IS NOT NULL
+
+*/
+
+
+IF OBJECT_ID ( 'bin.import_into_data_warehouse_by_table_fakedoc1_emrs', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_into_data_warehouse_by_table_fakedoc1_emrs;
+GO
+CREATE PROCEDURE bin.import_into_data_warehouse_by_table_fakedoc1_emrs
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	INSERT INTO bin.observations
 		(chirp_id, provider_id, started_at,
 			concept, value, units, downloaded_from, downloaded_at)
 		SELECT i.chirp_id, 
@@ -38,19 +252,19 @@ BEGIN
 		WHERE imported_to_dw = 'FALSE'
 			AND i.id IS NOT NULL
 
-END	--	CREATE PROCEDURE dbo.import_into_data_warehouse_by_table_fakedoc1_emrs
+END	--	CREATE PROCEDURE bin.import_into_data_warehouse_by_table_fakedoc1_emrs
 GO
 
 
-IF OBJECT_ID ( 'dbo.import_into_data_warehouse_by_table_health_lab_newborn_screening', 'P' ) IS NOT NULL
-	DROP PROCEDURE dbo.import_into_data_warehouse_by_table_health_lab_newborn_screening;
+IF OBJECT_ID ( 'bin.import_into_data_warehouse_by_table_health_lab_newborn_screening', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_into_data_warehouse_by_table_health_lab_newborn_screening;
 GO
-CREATE PROCEDURE dbo.import_into_data_warehouse_by_table_health_lab_newborn_screening
+CREATE PROCEDURE bin.import_into_data_warehouse_by_table_health_lab_newborn_screening
 AS
 BEGIN
 	SET NOCOUNT ON;
 
-	INSERT INTO dbo.observations
+	INSERT INTO bin.observations
 		(chirp_id, provider_id, started_at,
 			concept, value, units, downloaded_from, downloaded_at)
 		SELECT chirp_id, provider_id, started_at,
@@ -89,15 +303,15 @@ BEGIN
 		WHERE imported_to_dw = 'FALSE'
 			AND i.id IS NOT NULL
 
-END	--	CREATE PROCEDURE dbo.import_into_data_warehouse_by_table_health_lab_newborn_screening
+END	--	CREATE PROCEDURE bin.import_into_data_warehouse_by_table_health_lab_newborn_screening
 GO
 
 
 
-IF OBJECT_ID ( 'dbo.weight_from_lbs_and_oz', 'FN' ) IS NOT NULL
-	DROP FUNCTION dbo.weight_from_lbs_and_oz;
+IF OBJECT_ID ( 'bin.weight_from_lbs_and_oz', 'FN' ) IS NOT NULL
+	DROP FUNCTION bin.weight_from_lbs_and_oz;
 GO
-CREATE FUNCTION dbo.weight_from_lbs_and_oz( @lbs INT, @oz INT )
+CREATE FUNCTION bin.weight_from_lbs_and_oz( @lbs INT, @oz INT )
 	RETURNS FLOAT
 BEGIN
 	DECLARE @w FLOAT;
@@ -109,10 +323,10 @@ GO
 
 
 
-IF OBJECT_ID ( 'dbo.import_into_data_warehouse_by_table_vital_birth', 'P' ) IS NOT NULL
-	DROP PROCEDURE dbo.import_into_data_warehouse_by_table_vital_birth;
+IF OBJECT_ID ( 'bin.import_into_data_warehouse_by_table_vital_birth', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_into_data_warehouse_by_table_vital_birth;
 GO
-CREATE PROCEDURE dbo.import_into_data_warehouse_by_table_vital_birth
+CREATE PROCEDURE bin.import_into_data_warehouse_by_table_vital_birth
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -122,7 +336,7 @@ BEGIN
 --	If so, separate instead of join? Faster? Cleaner? Clearer?
 
 
-	INSERT INTO dbo.observations
+	INSERT INTO bin.observations
 		(chirp_id, provider_id, started_at,
 			concept, value, units, downloaded_from, downloaded_at)
 		SELECT chirp_id, provider_id, started_at,
@@ -148,7 +362,7 @@ BEGIN
 		CROSS APPLY ( VALUES
 			( 'DEM:DOB', CAST(CAST(date_of_birth AS DATE) AS VARCHAR(255)), NULL ),
 			( 'DEM:Weight', CAST(
-				dbo.weight_from_lbs_and_oz( birth_weight_lbs, birth_weight_oz ) AS VARCHAR(255)), 'lbs'),
+				bin.weight_from_lbs_and_oz( birth_weight_lbs, birth_weight_oz ) AS VARCHAR(255)), 'lbs'),
 			( 'DEM:Sex', sex, NULL ),
 			( 'InfantLiving', infant_living, NULL ),
 			(  'APGAR1', apgar_1, NULL ),
@@ -266,14 +480,14 @@ BEGIN
 		WHERE b.imported_to_dw = 'FALSE'
 			AND i.id IS NOT NULL
 
-END -- CREATE PROCEDURE dbo.import_into_data_warehouse_by_table_vital_birth
+END -- CREATE PROCEDURE bin.import_into_data_warehouse_by_table_vital_birth
 GO
 
 
-IF OBJECT_ID ( 'dbo.import_into_data_warehouse_by_schema', 'P' ) IS NOT NULL
-	DROP PROCEDURE dbo.import_into_data_warehouse_by_schema;
+IF OBJECT_ID ( 'bin.import_into_data_warehouse_by_schema', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_into_data_warehouse_by_schema;
 GO
-CREATE PROCEDURE dbo.import_into_data_warehouse_by_schema( @schema VARCHAR(50) )
+CREATE PROCEDURE bin.import_into_data_warehouse_by_schema( @schema VARCHAR(50) )
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -292,7 +506,7 @@ BEGIN
 		FETCH tables INTO @table;
 		IF(@@FETCH_STATUS <> 0) BREAK
 
-		SET @proc = 'dbo.import_into_data_warehouse_by_table_' + @schema + '_' + @table
+		SET @proc = 'bin.import_into_data_warehouse_by_table_' + @schema + '_' + @table
 
 		IF OBJECT_ID ( @proc, 'P' ) IS NOT NULL
 		BEGIN
@@ -306,13 +520,13 @@ BEGIN
 	CLOSE tables;
 	DEALLOCATE tables;
 
-END	--	dbo.import_into_data_warehouse_by_schema
+END	--	bin.import_into_data_warehouse_by_schema
 GO
 
-IF OBJECT_ID ( 'dbo.import_into_data_warehouse', 'P' ) IS NOT NULL
-	DROP PROCEDURE dbo.import_into_data_warehouse;
+IF OBJECT_ID ( 'bin.import_into_data_warehouse', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_into_data_warehouse;
 GO
-CREATE PROCEDURE dbo.import_into_data_warehouse
+CREATE PROCEDURE bin.import_into_data_warehouse
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -329,19 +543,46 @@ BEGIN
 --		FETCH schemas INTO @schema;
 --		IF(@@FETCH_STATUS <> 0) BREAK
 --		PRINT @schema
---		EXEC dbo.import_into_data_warehouse_by_schema @schema
+--		EXEC bin.import_into_data_warehouse_by_schema @schema
 
 		--Until there are more than a dozen, this above is a bit excessive!
-		EXEC dbo.import_into_data_warehouse_by_schema 'vital'
-		EXEC dbo.import_into_data_warehouse_by_schema 'health_lab'
-		EXEC dbo.import_into_data_warehouse_by_schema 'fakedoc1'
+		EXEC bin.import_into_data_warehouse_by_schema 'vital'
+		EXEC bin.import_into_data_warehouse_by_schema 'health_lab'
+		EXEC bin.import_into_data_warehouse_by_schema 'fakedoc1'
 
 --	END
 --	CLOSE schemas;
 --	DEALLOCATE schemas;
 
-END	--	dbo.import_into_data_warehouse
+END	--	bin.import_into_data_warehouse
 GO
 
+
+
+
+
+
+
+
+
+-- syntax highlighting shows "decode" as blue. Reserved?
+
+IF OBJECT_ID ( 'bin.decode', 'FN' ) IS NOT NULL
+	DROP FUNCTION bin.decode;
+GO
+CREATE FUNCTION bin.decode( @schema VARCHAR(50), @gang VARCHAR(50), @trait VARCHAR(50), @code INT )
+	RETURNS VARCHAR(255)
+BEGIN
+	-- not sure that 'TOP 1' or 'ORDER BY code' are necessary
+	-- but need to ensure that return VARCHAR and not a set.
+	RETURN ( SELECT TOP 1 value FROM dbo.codes
+		WHERE schema = @schema 
+			AND gang = @gang 
+			AND trait = @trait 
+			AND code = @code 
+		ORDER BY code )
+--	What if no match?
+END
+GO
 
 

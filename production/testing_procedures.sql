@@ -16,7 +16,7 @@ BEGIN
 	INSERT INTO vital.birth 
 		( birthid, state_file_number, date_of_birth )
 		VALUES 
-			( 1, CAST(RAND()*1e9 AS INT), dbo.random_date() );
+			( 1, CAST(RAND()*1e9 AS INT), dev.random_date() );
 	SELECT @actual = COUNT(*) FROM vital.birth;
 	SET @expected = 1;
 	EXEC tSQLt.AssertEquals @expected, @actual;
@@ -30,7 +30,7 @@ BEGIN
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
 	EXEC tSQLt.FakeTable 'dbo.observations';
-	EXEC import_into_data_warehouse
+	EXEC bin.import_into_data_warehouse
 
 	SELECT @actual = COUNT(*) FROM dbo.observations;
 	SET @expected = 1;	--	DOB
@@ -49,7 +49,7 @@ BEGIN
 	INSERT INTO vital.birth 
 		( birthid, state_file_number, date_of_birth, birth_weight_lbs, birth_weight_oz )
 		VALUES 
-			( 1, CAST(RAND()*1e9 AS INT), dbo.random_date(), 
+			( 1, CAST(RAND()*1e9 AS INT), dev.random_date(), 
 				CAST(RAND()*5 AS INT)+5, CAST(RAND()*16 AS INT) );
 	SELECT @actual = COUNT(*) FROM vital.birth;
 	SET @expected = 1;
@@ -64,7 +64,7 @@ BEGIN
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
 	EXEC tSQLt.FakeTable 'dbo.observations';
-	EXEC import_into_data_warehouse
+	EXEC bin.import_into_data_warehouse
 
 	SELECT @actual = COUNT(*) FROM dbo.observations;
 	SET @expected = 2;	--	DOB, Weight
@@ -83,7 +83,7 @@ BEGIN
 	INSERT INTO vital.birth 
 		( birthid, state_file_number, date_of_birth, sex )
 		VALUES 
-			( 1, CAST(RAND()*1e9 AS INT), dbo.random_date(), dbo.random_sex() );
+			( 1, CAST(RAND()*1e9 AS INT), dev.random_date(), dev.random_sex() );
 	SELECT @actual = COUNT(*) FROM vital.birth;
 	SET @expected = 1;
 	EXEC tSQLt.AssertEquals @expected, @actual;
@@ -97,7 +97,7 @@ BEGIN
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
 	EXEC tSQLt.FakeTable 'dbo.observations';
-	EXEC import_into_data_warehouse
+	EXEC bin.import_into_data_warehouse
 
 	SELECT @actual = COUNT(*) FROM dbo.observations;
 	SET @expected = 2;	--	DOB, Sex
@@ -115,7 +115,7 @@ BEGIN
 	DECLARE @expected INT = 0;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 	
-	EXEC dbo.create_random_vital 1
+	EXEC dev.create_random_vital 1
 	SELECT @actual = COUNT(*) FROM vital.birth;
 	SET @expected = 1;
 	EXEC tSQLt.AssertEquals @expected, @actual;
@@ -129,7 +129,7 @@ BEGIN
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
 	EXEC tSQLt.FakeTable 'dbo.observations';
-	EXEC import_into_data_warehouse
+	EXEC bin.import_into_data_warehouse
 
 	SELECT @actual = COUNT(*) FROM dbo.observations;
 	SET @expected = 3;	--	Sex, DOB, Weight
@@ -148,7 +148,7 @@ BEGIN
 	DECLARE @expected INT = 0;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 	
-	EXEC dbo.create_random_vital 1
+	EXEC dev.create_random_vital 1
 	SELECT @actual = COUNT(*) FROM vital.birth;
 	SET @expected = 1;
 	EXEC tSQLt.AssertEquals @expected, @actual;
@@ -174,7 +174,7 @@ BEGIN
 	DECLARE @expected INT = 0;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 	
-	EXEC dbo.create_random_vital 1
+	EXEC dev.create_random_vital 1
 	SELECT @actual = COUNT(*) FROM vital.birth;
 	SET @expected = 1;
 	EXEC tSQLt.AssertEquals @expected, @actual;

@@ -65,5 +65,5 @@ CREATE TABLE health_lab.newborn_screening (
 );
 GO
 
-EXEC dbo.add_imported_at_column_to_tables_by_schema 'health_lab';
-EXEC dbo.add_imported_to_dw_column_to_tables_by_schema 'health_lab';
+EXEC bin.add_imported_at_column_to_tables_by_schema 'health_lab';
+EXEC bin.add_imported_to_dw_column_to_tables_by_schema 'health_lab';

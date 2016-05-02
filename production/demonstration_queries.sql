@@ -34,7 +34,7 @@ SELECT * FROM fakedoc1.emrs
 EXEC dev.link_FAKE_fakedoc1_emrs_to_births
 SELECT * FROM private.identifiers
 
-EXEC dbo.import_into_data_warehouse
+EXEC bin.import_into_data_warehouse
 SELECT * FROM dbo.observations
 ORDER BY started_at
 
@@ -57,7 +57,7 @@ EXEC dev.create_FAKE_newborn_screening_for_each_birth_record
 EXEC dev.link_FAKE_newborn_screening_to_births
 EXEC dev.create_FAKE_fakedoc1_emrs
 EXEC dev.link_FAKE_fakedoc1_emrs_to_births
-EXEC dbo.import_into_data_warehouse
+EXEC bin.import_into_data_warehouse
 SELECT * FROM private.identifiers
 SELECT * FROM dbo.observations
 

@@ -16,6 +16,8 @@
 #	1,'Normal Birth Weight (>=2,500g, <=8,000g)'
 #	2,'Low Birth Weight (>=1,500g, <2,500g)'
 #	(need the [^<>] so as not to include the above)
+#	Because of possible >= or <= MUST be a space before and after the = 
+#	(could probably figure it out, but at this point it is simpler to be done.)
 #
 #	sed 's/[[:space:]]*[^<>]=[[:space:]]*/,/g' Format\ Birth-clean.sas | tr "\t" "\n" | grep -vs "^\s*$" | grep -vs ";" | grep -vs "^value " | wc -l
 #	541 !!!!
@@ -27,7 +29,7 @@
 
 #	BAM!
 #
-#	sed 's/[[:space:]]*[^<>]=[[:space:]]*/,/g' Format\ Birth-clean.sas | tr "\t" "\n" | grep -vs "^\s*$" | grep -vs ";" | sed 's/[[:space:]]*$//' | tr -d "\r" | awk 'BEGIN{IGNORECASE=1}( /^value / ){ f=sprintf("vr-%s.csv",$2);gsub(/\r/,"",f);next; }{print >> f }'
+#	sed 's/[[:space:]]*[^<>]=[[:space:]]*/,/g' Format\ Birth-clean.sas | tr "\t" "\n" | grep -vs "^\s*$" | grep -vs ";" | sed 's/[[:space:]]*$//' | tr -d "\r" | awk 'BEGIN{IGNORECASE=1}( /^value / ){ f=sprintf("%s.csv",$2);gsub(/\r/,"",f);next; }{print >> f }'
 
 
 

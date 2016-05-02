@@ -18,31 +18,38 @@ echo "GO"
 echo "USE $DB_NAME"
 echo "GO"
 
-cat core_database.sql
+cat bin.sql
 
 cat private_structure.sql
 cat private_procedures.sql
 
-cat warehouse_structure.sql
-cat warehouse_procedures.sql
+cat dbo.sql
 
 cat vital_structure.sql
-cat vital_procedures.sql
 
-cat vital_codes.sql
 
-#ls -1 content/vital/*csv | \
-#	awk -F/ '{print $NF}' | awk -F. '{print "CREATE TABLE vital."$1" ( code INT, value VARCHAR(255) );"}'
+
+
+
+
+
+#	sed 's/[[:space:]]*[^<>]=[[:space:]]*/,/g' Format\ Birth-clean.sas | tr "\t" "\n" | grep -vs "^\s*$" | grep -vs ";" | sed 's/[[:space:]]*$//' | tr -d "\r" | awk 'BEGIN{IGNORECASE=1}( /^value / ){ f=sprintf("%s.csv",$2);gsub(/\r/,"",f);next; }{print >> f }'
+#	sed 's/[[:space:]]*[^<>]=[[:space:]]*/,/g' Format\ Death-clean.sas | tr "\t" "\n" | grep -vs "^\s*$" | grep -vs ";" | sed 's/[[:space:]]*$//' | tr -d "\r" | awk 'BEGIN{IGNORECASE=1}( /^value / ){ f=sprintf("%s.csv",$2);gsub(/\r/,"",f);next; }{print >> f }'
+
 
 # The contents of these csv files can contain commas
 #	and so are quoted and bulk insert won't remove these.
 #	Must manually remove single and double quote wrappers.
-ls -1 content/vital/*csv | \
-	awk -F/ '{print $NF}' | awk -F. '{
-		print "CREATE TABLE vital."$1" ( code INT, value VARCHAR(255) );\n"
+ls -1 content/vital/{birth,death}/*csv | \
+	awk -F. '{print $1}' | awk -F/ '{
+		gang=$(NF-1)
+		trait=$NF
+		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_schema_default DEFAULT '"'"'vital'"'"' FOR schema;"
+		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_gang_default DEFAULT '"'"'"gang"'"'"' FOR gang;"
+		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_trait_default DEFAULT '"'"'"trait"'"'"' FOR trait;"
 		print "BEGIN TRY"
-		print "DECLARE @bulk_cmd VARCHAR(1000) = '"'"'BULK INSERT vital."$1
-		print "	FROM '"''"'Z:\\Renown Project\\CHIRP\\Personal folders\\Jake\\chirp\\production\\content\\vital\\"$1".csv'"''"'"
+		print "DECLARE @bulk_cmd VARCHAR(1000) = '"'"'BULK INSERT dbo.bulk_insert_codes"
+		print "	FROM '"''"'Z:\\Renown Project\\CHIRP\\Personal folders\\Jake\\chirp\\production\\content\\vital\\"gang"\\"trait".csv'"''"'"
 		print "	WITH ("
 		print "		FIELDTERMINATOR = '"''"','"''"',"
 		print "		ROWTERMINATOR = '"'''"'+CHAR(10)+'"'''"',"
@@ -51,14 +58,21 @@ ls -1 content/vital/*csv | \
 		print "	EXEC(@bulk_cmd);"
 		print "END TRY BEGIN CATCH"
 		print "	PRINT ERROR_MESSAGE()"
-		print "END CATCH\n"
-		print "UPDATE vital."$1
-		print "	SET value = SUBSTRING ( value, 2, LEN(value)-2 )"
-		print "	WHERE value LIKE '"'"'\"%\"'"'"';\n"
-		print "UPDATE vital."$1
-		print "	SET value = SUBSTRING ( value, 2, LEN(value)-2 )"
-		print "	WHERE value LIKE '"'''"'%'"'''"';\n"
+		print "END CATCH"
+		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_schema_default;"
+		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_gang_default;"
+		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_trait_default;\n"
 }'
+
+
+echo "UPDATE dbo.codes"
+echo "	SET value = SUBSTRING ( value, 2, LEN(value)-2 )"
+echo "	WHERE value LIKE '\"%\"';"
+echo "UPDATE dbo.codes"
+echo "	SET value = SUBSTRING ( value, 2, LEN(value)-2 )"
+echo "	WHERE value LIKE '''%''';"
+
+
 
 cat health_lab_structure.sql
 cat health_lab_procedures.sql
@@ -66,7 +80,7 @@ cat health_lab_procedures.sql
 cat fakedoc1_structure.sql
 cat fakedoc1_procedures.sql
 
-cat development.sql
+cat dev.sql
 
 #
 #	Include the testing framework?
@@ -83,74 +97,12 @@ cat development.sql
 #cat testing_procedures.sql
 
 
-#	No more bulk importing of all this as most won't actually be used this way.
-#../scripts/csv_to_concept_codes.bash ../scripts/vital/*csv
-
 for concept in DOB Sex Height Weight Race Language Zipcode Other; do
 	echo "INSERT INTO dbo.concepts VALUES ("
 	echo -e "\t'DEM:$concept',"
 	echo -e "\t'/Demographics/$concept',"
 	echo -e "\t'Demographics:$concept');"
 done
-
-#
-#  14567 ICD9DX
-#   3882 ICD9SG
-#  18449 subtotal
-#
-#  16710 HCPC
-#  69834 ICD10DX
-#      5 DEM (manually added for testing)
-#  86549 subtotal
-#
-#   2026 ICD10 PCS
-# 107024 subtotal
-#
-# 192355 NDC
-# -   18 NDC duplicates extras
-# -    2 NDC triplicate extras
-# 299359 subTOTAL concepts
-#
-#	     2 2 more DEM codes, Language and Zipcode
-# 299361 TOTAL concepts
-#
-
-#tail -n +2 ../all_lmrp/hcpc_code_lookup.csv | LC_ALL='C' sort -r -k1,1 -k2,2n \
-#	| awk -F, '( $1 != prev ){ print; prev=$1 }' | sort -k1,1 \
-#	| awk -f ../scripts/csv_hcpc_codes_to_concepts_sql.awk
-#
-#awk -f ../scripts/tsv_icd_9_dx_codes_to_concepts_sql.awk \
-#	../ICD-9-CM-v32-master-descriptions/CMS32_DESC_LONG_DX.txt
-#
-#awk -f ../scripts/tsv_icd_9_sg_codes_to_concepts_sql.awk \
-#	../ICD-9-CM-v32-master-descriptions/CMS32_DESC_LONG_SG.txt 
-#
-#tail -n +2 ../all_lmrp/icd10_code_lookup.csv | sort -r -k1,1 -k2,2n \
-#	| awk -F, '( $1 != prev ){ print; prev=$1 }' | sort -k1,1 \
-#	| awk -f ../scripts/csv_icd_10_dx_codes_to_concepts_sql.awk
-#
-#../scripts/xml_icd_10_pcs_codes_to_concepts_sql.rb
-#
-#tail -n +2 ../ndc/package.txt | sort -t$'\t' -k3,3  \
-#	| awk -F"\t" '( $3 != prev ){ print; prev=$3 }' \
-#	| awk -f ../scripts/tsv_ndc_package_codes_to_concepts_sql.awk ndc/package.txt
-#
-#	Be advised that SQL Server won't run a script larger than 1MB.
-#	Even with Intellisense turned off.
-#	The NDC codes is over 25MB by itself.
-#
-#
-#	I have created a giant csv file that is importable via a SSIS package
-#
-
-
-#awk '{print "INSERT INTO dev.names VALUES (\x27"$1"\x27, \x27last\x27)"}' ../scripts/1000_most_common_last_name_in_US
-#	\x27f is a valid character so need to add ""
-#awk '{print "INSERT INTO dev.names VALUES (\x27"$1"\x27, \x27""female\x27)"}' ../scripts/1000_most_common_female_name_in_US
-#awk '{print "INSERT INTO dev.names VALUES (\x27"$1"\x27, \x27male\x27)"}' ../scripts/1000_most_common_male_name_in_US
-
-
-cat populate.sql
 
 echo
 echo

@@ -18,6 +18,106 @@ CREATE TABLE dbo.concepts (
 -- code: DEM:Language, description: Language
 
 
+--BULK INSERT requires a format file? for column selection
+--Using a view works just as well.
+IF OBJECT_ID ( 'dbo.cc', 'V' ) IS NOT NULL
+	DROP VIEW dbo.cc;
+GO
+CREATE VIEW dbo.cc AS SELECT code, path, description FROM dbo.concepts;
+GO
+
+
+-- ll *concept_codes.csv
+-- -rwx------ 1 jakewendt  2105675 Mar 17 12:59 hcpc_concept_codes.csv
+-- -rwx------ 1 jakewendt  7869583 Mar 17 12:59 icd10dx_concept_codes.csv
+-- -rwx------ 1 jakewendt  1023195 Apr 28 13:04 icd10pcs_concept_codes.csv
+-- -rwx------ 1 jakewendt  1223532 Mar 17 12:59 icd9dx_concept_codes.csv
+-- -rwx------ 1 jakewendt   267271 Mar 17 12:59 icd9sg_concept_codes.csv
+-- -rwx------ 1 jakewendt 16960137 Mar 17 12:59 ndc_concept_codes.csv
+-- cat *concept_codes.csv > ../all_concept_codes.csv
+
+--
+--  14567 ICD9DX
+--   3882 ICD9SG
+--  18449 subtotal
+--
+--  16710 HCPC
+--  69834 ICD10DX
+--      5 DEM (manually added for testing)
+--  86549 subtotal
+--
+--   2026 ICD10 PCS
+-- 107024 subtotal
+--
+-- 192355 NDC
+-- -   18 NDC duplicates extras
+-- -    2 NDC triplicate extras
+-- 299359 subTOTAL concepts
+--
+--	     2 2 more DEM codes, Language and Zipcode
+-- 299361 TOTAL concepts
+--
+
+--UNIX line feeds don\'t work well in MS so need dynamic sql 
+--However, ALL the double quotes in the description are preserved
+--This would require a series of UPDATEs, STUFFs and/or REPLACEs.
+--Still faster that dealing with SSIS.
+--	FROM ''C:\Users\gwendt\Desktop\all_concept_codes.csv''
+BEGIN TRY
+	--A GO call apparently undeclare variables, so redeclare here
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT cc
+	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\all_concept_codes.csv''
+	WITH (
+		FIELDTERMINATOR = '','',
+		ROWTERMINATOR = '''+CHAR(10)+''',
+		TABLOCK
+	)';
+	EXEC(@bulk_cmd);
+END TRY BEGIN CATCH
+	PRINT ERROR_MESSAGE()
+END CATCH
+IF OBJECT_ID ( 'dbo.cc', 'V' ) IS NOT NULL
+	DROP VIEW dbo.cc;	-- only needed this for the import.
+GO
+
+--
+-- FIXED
+--
+--The ICD10PCS codes weren't trimmed far enough so will end
+--up with a leading double quote. Removing it here.
+--UPDATE dbo.concepts
+--	SET path = STUFF(path, 1,1,'')
+--	WHERE path LIKE '"%';
+
+
+-- some of these records are actually wrapped in a quotes
+-- ->"blah blah blah ""something quoted"" blah blah"<-
+-- so replace the wrappers together
+
+UPDATE dbo.concepts
+	SET description = SUBSTRING ( description, 2, LEN(description)-2 )
+	WHERE description LIKE '"%"';
+
+-- and the double double quotes LAST
+-- ->blah blah blah ""something quoted"" blah blah<-
+UPDATE dbo.concepts
+	SET description = REPLACE(description, '""', '"')
+	WHERE description LIKE '%""%';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 IF OBJECT_ID('dbo.providers', 'U') IS NOT NULL
 	DROP TABLE dbo.providers;
@@ -159,5 +259,25 @@ ALTER TABLE dbo.observations ADD CONSTRAINT ck_s_value CHECK (
 --	( value_type = 'L' AND l_value IS NOT NULL )
 --);
 */
+
+
+-- GROUP and GROUPING are reserved words
+IF OBJECT_ID('dbo.codes', 'U') IS NOT NULL
+	DROP TABLE dbo.codes;
+CREATE TABLE dbo.codes (
+	schema VARCHAR(50),
+	gang VARCHAR(50),
+	trait VARCHAR(50),
+	code INT,
+	value VARCHAR(255)
+	CONSTRAINT unique_schema_gang_trait_code
+		UNIQUE ( schema, gang, trait, code );
+);
+-- FYI The maximum key length is 900 bytes. For some combination of large values, the insert/update operation will fail.
+IF OBJECT_ID ( 'dbo.bulk_insert_codes', 'V' ) IS NOT NULL
+	DROP VIEW dbo.bulk_insert_codes;
+GO
+CREATE VIEW dbo.bulk_insert_codes AS SELECT code, value FROM dbo.codes;
+GO
 
 

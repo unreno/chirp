@@ -19,5 +19,5 @@ CREATE TABLE fakedoc1.emrs (
 );
 GO
 
-EXEC dbo.add_imported_at_column_to_tables_by_schema 'fakedoc1';
-EXEC dbo.add_imported_to_dw_column_to_tables_by_schema 'fakedoc1';
+EXEC bin.add_imported_at_column_to_tables_by_schema 'fakedoc1';
+EXEC bin.add_imported_to_dw_column_to_tables_by_schema 'fakedoc1';
