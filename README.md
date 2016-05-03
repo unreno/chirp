@@ -1,56 +1,14 @@
 # CHIRP
 
-## Preparations and TSQL Code for creating a database and warehouse
+### Preparations and TSQL Code for creating the data warehouse
 
+The [Children's Health Information and Registry Program, or CHIRP](http://chirp.unr.edu), is a collaboration between northern Nevada's Child Health Institute (CHI) and the University of Nevada, Reno to improve the health of children born in Washoe County. CHIRP is developing a patient registry-based health intelligence platform that receives, stores and organizes the health information of Washoe County children. The platform will serve CHI and the pediatric community by providing comprehensive, longitudinal data for tailored patient care and research.
 
-ICD-10
-Diagnosic (CM)
+This health intelligence platform will store all of its data securely at the University of Nevada School of Medicine, Reno campus. The platform is comprised of three components:
 
-ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/2014/ICD10CM-FY2014_OrderFiles.zip
+1. An observational registry that collects medical and public health data from providers and the State of Nevada, such as birth and immunization records, newborn screenings and hospital discharge records on children born in Washoe County until their 18th birthday.
+2. A data warehouse that compiles and organizes aggregated, de-identified health data to inform public health reporting, research and interventions in Washoe County.
+3. A digital product that sends secure, encrypted alerts to a child's healthcare provider, updating them on their patient's health progress.
 
-ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Publications/ICD10CM/2016/ICD10CM_FY2016_code_descriptions.zip
-
-( code file exactly the same from 2016 and 2014.  Still HCPCS ICD10 file better. )
-
-Procedural (PCS) This is huge and not as explicitly defined.
-
-https://www.cms.gov/Medicare/Coding/ICD10/Downloads/2016-PCS-Code-Tables.zip
-
-
-ICD-9 (both diagnostic and procedural)
-
-https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/Downloads/cmsv31-master-descriptions.zip
-
-https://www.cms.gov/Medicare/Coding/ICD9ProviderDiagnosticCodes/Downloads/ICD-9-CM-v32-master-descriptions.zip
-
-( codes exactly the same here from v31 to v32 )
-
-
-CPT / HCPCS
-
-https://downloads.cms.gov/medicare-coverage-database/downloads/exports/all_lmrp.zip
-
-
-LOINC (this is even huger!) LOINC_2.54.zip
-
-http://loinc.org/downloads/files/loinc-and-relma-complete-download/loinc-and-relma-complete-download-file/download
-
-
-
-Local Coverage Determination [LCD] or Local Coverage Documents 
-
-Medicare Coverage Database [MCD] 
-
-Local Medical Review Policies [LMRPs],
-
-https://downloads.cms.gov/medicare-coverage-database/downloads/exports/all_lmrp.zip
-
-All CPT codes are HCPCS codes, but not all HCPCS codes are CPT codes.
-
-all_lmrp includes ...
-
-```
- -rw-r--r-- 1 jakewendt  25676215 Feb  1 14:10 hcpc_code_lookup.csv
- -rw-r--r-- 1 jakewendt  16776749 Feb  1 14:10 icd10_code_lookup.csv
-```
+[CHIRP Repo Wiki](https://github.com/unreno/chirp/wiki)
 
