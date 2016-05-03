@@ -222,7 +222,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	INSERT INTO bin.observations
+	INSERT INTO dbo.observations
 		(chirp_id, provider_id, started_at,
 			concept, value, units, downloaded_from, downloaded_at)
 		SELECT i.chirp_id, 
@@ -264,7 +264,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	INSERT INTO bin.observations
+	INSERT INTO dbo.observations
 		(chirp_id, provider_id, started_at,
 			concept, value, units, downloaded_from, downloaded_at)
 		SELECT chirp_id, provider_id, started_at,
@@ -336,7 +336,7 @@ BEGIN
 --	If so, separate instead of join? Faster? Cleaner? Clearer?
 
 
-	INSERT INTO bin.observations
+	INSERT INTO dbo.observations
 		(chirp_id, provider_id, started_at,
 			concept, value, units, downloaded_from, downloaded_at)
 		SELECT chirp_id, provider_id, started_at,
@@ -363,13 +363,14 @@ BEGIN
 			( 'DEM:DOB', CAST(CAST(date_of_birth AS DATE) AS VARCHAR(255)), NULL ),
 			( 'DEM:Weight', CAST(
 				bin.weight_from_lbs_and_oz( birth_weight_lbs, birth_weight_oz ) AS VARCHAR(255)), 'lbs'),
-			( 'DEM:Sex', sex, NULL ),
+			( 'DEM:Sex', bin.decode('vital','birth','sex',sex), NULL ),
 			( 'InfantLiving', infant_living, NULL ),
 			(  'APGAR1', apgar_1, NULL ),
 			(  'APGAR5', apgar_5, NULL ),
 			( 'APGAR10', apgar_10, NULL )
 		) cav ( concept, value, units )
 		WHERE cav.value IS NOT NULL
+--			( 'DEM:Sex', sex, NULL ),
 
 -- Now that I have a better understanding of CAV, merged all below.
 

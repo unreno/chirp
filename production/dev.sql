@@ -137,6 +137,21 @@ END
 GO
 
 
+IF OBJECT_ID ( 'dev.random_vital_sex_code', 'FN' ) IS NOT NULL
+	DROP FUNCTION dev.random_vital_sex_code;
+GO
+CREATE FUNCTION dev.random_vital_sex_code()
+	RETURNS VARCHAR(1)
+BEGIN
+	DECLARE @rand DECIMAL(18,18)
+	SELECT @rand = number FROM dev.rand_view
+	DECLARE @code VARCHAR(1);
+	SELECT @code = CAST(2*@rand AS INT)+1;	-- 1 or 2
+	RETURN @code
+END
+GO
+
+
 IF OBJECT_ID ( 'dev.random_date_in', 'FN' ) IS NOT NULL
 	DROP FUNCTION dev.random_date_in;
 GO
@@ -252,9 +267,9 @@ BEGIN
 	WHILE @count < @total
 	BEGIN
 		SET @count = @count + 1;
-		DECLARE @sex VARCHAR(1) = dev.random_sex()
+		DECLARE @sex VARCHAR(1) = dev.random_vital_sex_code()
 		DECLARE @name_first VARCHAR(255)
-		IF @sex = 'M'
+		IF @sex = '1'	-- 1 = Male
 			SET @name_first = dev.random_male_name()
 		ELSE
 			SET @name_first = dev.random_female_name()

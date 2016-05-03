@@ -9,8 +9,9 @@ DELETE FROM health_lab.newborn_screening
 EXEC dev.create_random_vital 1
 SELECT * FROM vital.birth
 SELECT * FROM vital.birth2
-SELECT state_file_number, name_first, name_last, date_of_birth
-sex, birth_weight_lbs, birth_weight_oz,
+SELECT state_file_number, name_first, name_last, date_of_birth,
+sex as sex_code, bin.decode('vital','birth','sex',sex) as sex,
+birth_weight_lbs, birth_weight_oz,
 apgar_1, apgar_5, apgar_10, infant_living
 FROM vital.birth b
 LEFT JOIN vital.birth2 b2
