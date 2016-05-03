@@ -22,7 +22,7 @@ cat bin.sql
 cat private.sql
 cat dbo.sql
 
-cat vital_structure.sql
+cat vital.sql
 
 
 
@@ -75,13 +75,13 @@ echo "	WHERE value LIKE '''%''';"
 
 
 
-cat health_lab_structure.sql
-cat health_lab_procedures.sql
+cat health_lab.sql
 
-cat fakedoc1_structure.sql
-cat fakedoc1_procedures.sql
+cat fakedoc1.sql
 
 cat dev.sql
+
+
 
 #
 #	Include the testing framework?
