@@ -19,10 +19,7 @@ echo "USE $DB_NAME"
 echo "GO"
 
 cat bin.sql
-
-cat private_structure.sql
-cat private_procedures.sql
-
+cat private.sql
 cat dbo.sql
 
 cat vital_structure.sql
