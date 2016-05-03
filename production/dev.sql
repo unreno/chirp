@@ -236,6 +236,24 @@ END
 GO
 
 
+IF OBJECT_ID ( 'dev.random_infant_living_code', 'FN' ) IS NOT NULL
+  DROP FUNCTION dev.random_infant_living_code;
+GO
+CREATE FUNCTION dev.random_infant_living_code()
+  RETURNS INTEGER
+BEGIN
+	DECLARE @rand DECIMAL(18,18)
+	SELECT @rand = number FROM dev.rand_view
+	-- standard2_yesno 1,'Yes' 2,'No' 9,'Unknown'
+  RETURN (SELECT CASE 
+		WHEN @rand > 0.10 THEN 1 -- ( 0.1 - 1.0 ) 90% Yes
+		WHEN @rand < 0.05 THEN 2 -- ( 0.0 - 0.05 ) 5% No
+		ELSE 9	-- ( 0.05 - 0.1 ) 5% Unknown
+	END)
+END
+GO
+
+
 IF OBJECT_ID ( 'dev.unique_vital_record_state_file_number', 'FN' ) IS NOT NULL
 	DROP FUNCTION dev.unique_vital_record_state_file_number;
 GO
@@ -279,7 +297,7 @@ BEGIN
 			( birth2id, infant_living )
 			VALUES(
 				@count,
-				dev.random_infant_living()
+				dev.random_infant_living_code() -- 1, 2, or 9
 			);
 
 		INSERT INTO vital.birth 

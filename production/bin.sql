@@ -364,13 +364,14 @@ BEGIN
 			( 'DEM:Weight', CAST(
 				bin.weight_from_lbs_and_oz( birth_weight_lbs, birth_weight_oz ) AS VARCHAR(255)), 'lbs'),
 			( 'DEM:Sex', bin.decode('vital','birth','sex',sex), NULL ),
-			( 'InfantLiving', infant_living, NULL ),
+			( 'InfantLiving', bin.decode('vital','birth','standard2_yesno',infant_living), NULL ),
 			(  'APGAR1', apgar_1, NULL ),
 			(  'APGAR5', apgar_5, NULL ),
 			( 'APGAR10', apgar_10, NULL )
 		) cav ( concept, value, units )
 		WHERE cav.value IS NOT NULL
 --			( 'DEM:Sex', sex, NULL ),
+--			( 'InfantLiving', infant_living, NULL ),
 
 -- Now that I have a better understanding of CAV, merged all below.
 
@@ -574,15 +575,13 @@ GO
 CREATE FUNCTION bin.decode( @source VARCHAR(50), @gang VARCHAR(50), @trait VARCHAR(50), @code INT )
 	RETURNS VARCHAR(255)
 BEGIN
-	-- not sure that 'TOP 1' or 'ORDER BY code' are necessary
-	-- but need to ensure that return VARCHAR and not a set.
-	RETURN ( SELECT TOP 1 value FROM dbo.codes
+	DECLARE @value VARCHAR(255);
+	SELECT @value = value FROM dbo.codes
 		WHERE source = @source 
 			AND gang = @gang 
 			AND trait = @trait 
-			AND code = @code 
-		ORDER BY code )
---	What if no match?
+			AND code = @code
+	RETURN ISNULL(@value, @code)
 END
 GO
 

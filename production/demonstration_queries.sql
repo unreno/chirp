@@ -10,9 +10,10 @@ EXEC dev.create_random_vital 1
 SELECT * FROM vital.birth
 SELECT * FROM vital.birth2
 SELECT state_file_number, name_first, name_last, date_of_birth,
-sex as sex_code, bin.decode('vital','birth','sex',sex) as sex,
+sex AS sex_code, bin.decode('vital','birth','sex',sex) AS sex,
+infant_living AS infant_living_code, bin.decode('vital','birth','standard2_yesno',infant_living) AS infant_living,
 birth_weight_lbs, birth_weight_oz,
-apgar_1, apgar_5, apgar_10, infant_living
+apgar_1, apgar_5, apgar_10
 FROM vital.birth b
 LEFT JOIN vital.birth2 b2
 ON b.birth2id = b2.birth2id
@@ -66,9 +67,6 @@ SELECT * FROM dbo.observations
 
 
 
-
-
-
 SELECT
 	CASE WHEN (GROUPING(infant_living) = 1) THEN 'ALL'
 		ELSE ISNULL(infant_living, 'UNKNOWN')
@@ -76,7 +74,6 @@ SELECT
 FROM vital.birth2
 GROUP BY infant_living
 WITH ROLLUP
-
 
 
 SELECT
@@ -93,6 +90,21 @@ SELECT
 		ON b.birth2id = b2.birth2id
 	GROUP BY infant_living
 	WITH ROLLUP
+
+
+SELECT 
+  CASE WHEN (GROUPING(value) = 1) THEN 'ALL'
+    ELSE ISNULL(value, 'what is this for?')
+  END AS infant_living , COUNT(*) AS count
+FROM dbo.observations
+WHERE concept = 'InfantLiving'
+GROUP BY value
+WITH ROLLUP
+
+
+
+
+
 
 
 
