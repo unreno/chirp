@@ -6,6 +6,19 @@ DELETE FROM vital.birth
 DELETE FROM vital.birth2
 DELETE FROM health_lab.newborn_screening
 
+
+
+
+PRINT 'DECODER TEST BEGIN'
+PRINT bin.decode('vital','birth','sex',1)
+PRINT bin.decode('vital','birth','sex',2)
+PRINT bin.decode('vital','birth','sex',9)
+PRINT bin.decode('vital','birth','sex',10)
+PRINT bin.decode('a','b','c',10)
+PRINT 'DECODER TEST END'
+
+
+
 EXEC dev.create_random_vital 1
 SELECT * FROM vital.birth
 SELECT * FROM vital.birth2
