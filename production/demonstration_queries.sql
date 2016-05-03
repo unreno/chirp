@@ -82,8 +82,8 @@ SELECT * FROM dbo.observations
 
 SELECT
 	CASE WHEN (GROUPING(infant_living) = 1) THEN 'ALL'
-		ELSE ISNULL(infant_living, 'UNKNOWN')
-	END AS infant_living, COUNT(*)
+		ELSE ISNULL(infant_living, 'Name If Null')
+	END AS infant_living, COUNT(*) AS count
 FROM vital.birth2
 GROUP BY infant_living
 WITH ROLLUP
@@ -91,8 +91,8 @@ WITH ROLLUP
 
 SELECT
   CASE WHEN (GROUPING(infant_living) = 1) THEN 'ALL'
-    ELSE ISNULL(infant_living, 'UNKNOWN')
-  END AS infant_living, COUNT(*)
+    ELSE ISNULL(infant_living, 'Name If Null')
+  END AS infant_living, COUNT(*) AS count
 	FROM private.identifiers i
 	JOIN vital.birth b
 		ON i.source_schema = 'vital'
@@ -107,12 +107,53 @@ SELECT
 
 SELECT 
   CASE WHEN (GROUPING(value) = 1) THEN 'ALL'
-    ELSE ISNULL(value, 'what is this for?')
+    ELSE value
   END AS infant_living , COUNT(*) AS count
 FROM dbo.observations
 WHERE concept = 'InfantLiving'
 GROUP BY value
 WITH ROLLUP
+
+
+
+
+
+SELECT 
+  CASE WHEN (GROUPING(value) = 1) THEN 'ALL'
+    ELSE value
+  END AS sex , COUNT(*) AS count
+FROM dbo.observations
+WHERE concept = 'DEM:Sex'
+GROUP BY value
+WITH ROLLUP
+
+
+
+-- Ordered weights of each child.
+SELECT chirp_id, value AS weight, started_at
+FROM dbo.observations
+WHERE concept = 'DEM:Weight'
+ORDER BY chirp_id, started_at ASC
+
+
+-- The most recent weight for each child (nested select) 
+-- This can return multiples as the join is not explicitly unique
+-- Created randome datetime so very unlikely to duplicate started_at now.
+-- Would be nice if could o1.id = o2.id, but can't do that.
+SELECT o1.* FROM (
+	SELECT chirp_id, concept, MAX(started_at) AS max_at
+		FROM dbo.observations
+		WHERE concept = 'DEM:Weight'
+		GROUP BY chirp_id, concept
+) o2
+JOIN dbo.observations o1 
+	ON o2.chirp_id = o1.chirp_id
+	AND o2.concept = o1.concept
+	AND o2.max_at = o1.started_at
+
+
+
+
 
 
 

@@ -128,8 +128,7 @@ BEGIN
 	--['M','F'][random(2)]
 	DECLARE @sexes TABLE ( id INT, sex VARCHAR(1) )
 	INSERT INTO @sexes VALUES (1,'M'),(2,'F')
-	DECLARE @rand DECIMAL(18,18)
-	SELECT @rand = number FROM dev.rand_view
+	DECLARE @rand DECIMAL(18,18) = (SELECT number FROM dev.rand_view)
 	DECLARE @sex VARCHAR(1)
 	SELECT @sex = sex FROM @sexes WHERE id = CAST(2*@rand AS INT)+1;
 	RETURN @sex
@@ -143,13 +142,59 @@ GO
 CREATE FUNCTION dev.random_vital_sex_code()
 	RETURNS VARCHAR(1)
 BEGIN
-	DECLARE @rand DECIMAL(18,18)
-	SELECT @rand = number FROM dev.rand_view
+	DECLARE @rand DECIMAL(18,18) = (SELECT number FROM dev.rand_view)
 	DECLARE @code VARCHAR(1);
 	SELECT @code = CAST(2*@rand AS INT)+1;	-- 1 or 2
 	RETURN @code
 END
 GO
+
+
+
+IF OBJECT_ID ( 'dev.random_datetime_in', 'FN' ) IS NOT NULL
+	DROP FUNCTION dev.random_datetime_in;
+GO
+CREATE FUNCTION dev.random_datetime_in(
+	@from_date DATETIME = '2010-01-01', 
+	@to_date   DATETIME = '2015-12-31' )
+	RETURNS DATETIME
+BEGIN
+	DECLARE @seconds INT = ( SELECT CAST((60*number)AS INT) FROM dev.rand_view )
+	DECLARE @minutes INT = ( SELECT CAST((60*number)AS INT) FROM dev.rand_view )
+	DECLARE @hours INT = ( SELECT CAST((24*number)AS INT) FROM dev.rand_view )
+	DECLARE @days_diff AS INT = CAST(@to_date - @from_date AS INT) 
+	DECLARE @rand DECIMAL(18,18) = ( SELECT number FROM dev.rand_view )
+
+	--SELECT @date_from +
+	--DATEADD(second, ABS(CHECKSUM(newid()) % 60), 0) + -- random seconds
+	--DATEADD(minute, ABS(CHECKSUM(newid()) % 60), 0) + -- random minutes
+	--DATEADD(hour, ABS(CHECKSUM(newid()) % 24), 0) + -- random hours
+	--DATEADD(day, ABS(CHECKSUM(newid()) % @days_diff), 0) -- random days
+
+	RETURN (SELECT @from_date +
+		DATEADD(second, @seconds, 0) + -- random seconds
+		DATEADD(minute, @minutes, 0) + -- random minutes
+		DATEADD(hour, @hours, 0) + -- random hours
+		DATEADD(day,  @rand * @days_diff, 0)) -- random days
+END
+GO
+IF OBJECT_ID ( 'dev.random_datetime', 'FN' ) IS NOT NULL
+	DROP FUNCTION dev.random_datetime;
+GO
+CREATE FUNCTION dev.random_datetime()
+	RETURNS DATETIME
+BEGIN
+	RETURN dev.random_datetime_in(default,default);
+END
+GO
+
+
+
+
+
+
+
+
 
 
 IF OBJECT_ID ( 'dev.random_date_in', 'FN' ) IS NOT NULL
@@ -160,8 +205,7 @@ CREATE FUNCTION dev.random_date_in(
 	@to_date   DATE = '2015-12-31' )
 	RETURNS DATE
 BEGIN
-	DECLARE @rand DECIMAL(18,18)
-	SELECT @rand = number FROM dev.rand_view
+	DECLARE @rand DECIMAL(18,18) = (SELECT number FROM dev.rand_view)
 	RETURN DATEADD(day, 
 		@rand*(1+DATEDIFF(DAY, @from_date, @to_date)), 
 		@from_date)
@@ -189,8 +233,7 @@ GO
 CREATE FUNCTION dev.random_weight() -- pounds
   RETURNS FLOAT
 BEGIN
-	DECLARE @rand DECIMAL(18,18)
-	SELECT @rand = number FROM dev.rand_view
+	DECLARE @rand DECIMAL(18,18) = (SELECT number FROM dev.rand_view)
   RETURN (SELECT @rand*20 + 5)
 END
 GO
@@ -202,8 +245,7 @@ GO
 CREATE FUNCTION dev.random_height()	-- inches
   RETURNS FLOAT
 BEGIN
-	DECLARE @rand DECIMAL(18,18)
-	SELECT @rand = number FROM dev.rand_view
+	DECLARE @rand DECIMAL(18,18) = (SELECT number FROM dev.rand_view)
   RETURN (SELECT @rand*20 + 20)
 END
 GO
@@ -215,8 +257,7 @@ GO
 CREATE FUNCTION dev.random_apgar()
   RETURNS INTEGER
 BEGIN
-	DECLARE @rand DECIMAL(18,18)
-	SELECT @rand = number FROM dev.rand_view
+	DECLARE @rand DECIMAL(18,18) = (SELECT number FROM dev.rand_view)
   RETURN (SELECT 10*@rand)
 END
 GO
@@ -228,8 +269,7 @@ GO
 CREATE FUNCTION dev.random_infant_living()
   RETURNS INTEGER
 BEGIN
-	DECLARE @rand DECIMAL(18,18)
-	SELECT @rand = number FROM dev.rand_view
+	DECLARE @rand DECIMAL(18,18) = (SELECT number FROM dev.rand_view)
 	-- 0 = FALSE (5%), 1 = TRUE (95%)
   RETURN (SELECT CASE WHEN @rand > 0.95 THEN 0 ELSE 1 END)
 END
@@ -242,8 +282,7 @@ GO
 CREATE FUNCTION dev.random_infant_living_code()
   RETURNS INTEGER
 BEGIN
-	DECLARE @rand DECIMAL(18,18)
-	SELECT @rand = number FROM dev.rand_view
+	DECLARE @rand DECIMAL(18,18) = (SELECT number FROM dev.rand_view)
 	-- standard2_yesno 1,'Yes' 2,'No' 9,'Unknown'
   RETURN (SELECT CASE 
 		WHEN @rand > 0.10 THEN 1 -- ( 0.1 - 1.0 ) 90% Yes
@@ -479,7 +518,7 @@ BEGIN
 			SELECT DISTINCT	
 				dev.unique_fakedoc1_record_number() AS record_number,
 				name_first, name_last, date_of_birth, sex,
-				dev.random_date() AS service_at
+				dev.random_datetime() AS service_at
 			FROM vital.birth
 		) ignored1
 		CROSS APPLY ( VALUES
@@ -498,7 +537,7 @@ BEGIN
 			SELECT DISTINCT
 				record_number,
 				name_first, name_last, date_of_birth, sex,
-				dev.random_date() AS service_at
+				dev.random_datetime() AS service_at
 			FROM fakedoc1.emrs
 		) ignored1
 		CROSS APPLY ( VALUES
