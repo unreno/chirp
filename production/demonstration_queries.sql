@@ -285,3 +285,51 @@ SELECT geometry::STGeomFromText( 'LINESTRING(' + @WKT + ')', 0 );
 
 
 
+
+
+DECLARE @WKT AS VARCHAR(8000);
+SET @WKT =
+  STUFF(
+    (SELECT ',((' +
+      CAST( FY - 0.3 AS VARCHAR(30) ) + ' 0,' +
+      CAST( FY - 0.3 AS VARCHAR(30) ) + ' ' +
+      CAST( Sales AS VARCHAR(30) ) + ',' +
+      CAST( FY + 0.3 AS VARCHAR(30) ) + ' ' +
+      CAST( Sales AS VARCHAR(30) ) + ',' +
+      CAST( FY + 0.3 AS VARCHAR(30) ) + ' 0,' +
+      CAST( FY - 0.3 AS VARCHAR(30) ) + ' 0))'
+    FROM #Sales
+    ORDER BY FY
+    FOR XML PATH('')), 1, 1, '');
+PRINT @WKT
+SELECT geometry::STGeomFromText( 'MULTIPOLYGON(' + @WKT + ')', 0 );
+
+-- Bar Graph ish (basically draw little boxes)
+-- SELECT geometry::STGeomFromText( 'MULTIPOLYGON(  ((2000.7 0,2000.7 0.9,2001.3 0.9,2001.3 0,2000.7 0)),((2001.7 0,2001.7 2.1,2002.3 2.1,2002.3 0,2001.7 0)),((2002.7 0,2002.7 2.7,2003.3 2.7,2003.3 0,2002.7 0)),((2003.7 0,2003.7 3.1,2004.3 3.1,2004.3 0,2003.7 0)),((2004.7 0,2004.7 2.8,2005.3 2.8,2005.3 0,2004.7 0)),((2005.7 0,2005.7 3.4,2006.3 3.4,2006.3 0,2005.7 0)),((2006.7 0,2006.7 3.5,2007.3 3.5,2007.3 0,2006.7 0)),((2007.7 0,2007.7 2.5,2008.3 2.5,2008.3 0,2007.7 0)),((2008.7 0,2008.7 2.6,2009.3 2.6,2009.3 0,2008.7 0))  )' );
+
+DECLARE @WKT AS VARCHAR(8000);
+SET @WKT = STUFF(
+	(SELECT ',((' + 
+		-- 5 points to draw a bar border (first and last are the same)
+		CAST(mob AS VARCHAR(10)) + ' ' + 
+		CAST(count AS VARCHAR(10)) + 
+		'))'
+		FROM (
+		SELECT MONTH(value) AS mob, COUNT(*) AS count
+		FROM observations
+		WHERE concept = 'DEM:DOB' 
+		GROUP BY MONTH(value)
+	) neededname
+	ORDER BY mob
+	FOR XML PATH('')), 1, 1, '');
+PRINT @WKT
+SELECT geometry::STGeomFromText( 'MULTIPOLYGON(' + @WKT + ')', 0 );
+
+
+
+
+
+
+
+
+
