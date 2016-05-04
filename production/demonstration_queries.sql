@@ -208,3 +208,80 @@ ORDER BY ( w.value * 703. / SQUARE(h.value) ) DESC;
 
 
 
+SELECT YEAR(value) AS year, MONTH(value) AS month, COUNT(*) AS count
+FROM observations
+where concept = 'DEM:DOB'
+GROUP BY YEAR(value), MONTH(value)
+ORDER BY year, month
+
+
+
+-- These BOTH need to be numbers. 2010/01 is not a number, so this doesn't work.
+DECLARE @WKT AS VARCHAR(8000);
+SET @WKT = STUFF(
+	(SELECT ',' + mob + ' ' + CAST(count AS VARCHAR(5)) FROM (
+		SELECT CAST(YEAR(value) AS VARCHAR(4)) + '/' + RIGHT('0' + CAST(MONTH(value) AS VARCHAR(2)),2) AS mob, COUNT(*) AS count
+		FROM observations
+		WHERE concept = 'DEM:DOB' 
+		GROUP BY CAST(YEAR(value) AS VARCHAR(4)) + '/' + RIGHT('0' + CAST(MONTH(value) AS VARCHAR(2)),2)
+	) neededname
+	ORDER BY mob
+	FOR XML PATH('')), 1, 1, '');
+PRINT @WKT
+SELECT geometry::STGeomFromText( 'LINESTRING(' + @WKT + ')', 0 );
+
+
+
+
+
+
+
+SELECT YEAR(value) AS yob, COUNT(*) AS count
+FROM observations
+WHERE concept = 'DEM:DOB' 
+GROUP BY YEAR(value) 
+
+SELECT MONTH(value) AS mob, COUNT(*) AS count
+FROM observations
+WHERE concept = 'DEM:DOB' 
+GROUP BY MONTH(value) 
+
+
+DECLARE @WKT AS VARCHAR(8000);
+SET @WKT = STUFF(
+	(SELECT ',' + CAST(mob AS VARCHAR(2)) + ' ' + CAST(count AS VARCHAR(5)) FROM (
+		SELECT MONTH(value) AS mob, COUNT(*) AS count
+		FROM observations
+		WHERE concept = 'DEM:DOB' 
+		GROUP BY MONTH(value)
+	) neededname
+	ORDER BY mob
+	FOR XML PATH('')), 1, 1, '');
+PRINT @WKT
+SELECT geometry::STGeomFromText( 'LINESTRING(' + @WKT + ')', 0 );
+
+
+
+DECLARE @WKT AS VARCHAR(8000);
+SET @WKT = STUFF(
+	(SELECT ',' + CAST(yob AS VARCHAR(4)) + ' ' + CAST(count AS VARCHAR(5)) FROM (
+		SELECT YEAR(value) AS yob, COUNT(*) AS count
+		FROM observations
+		WHERE concept = 'DEM:DOB' 
+		GROUP BY YEAR(value)
+	) neededname
+	ORDER BY yob
+	FOR XML PATH('')), 1, 1, '');
+PRINT @WKT
+SELECT geometry::STGeomFromText( 'LINESTRING(' + @WKT + ')', 0 );
+
+-- This is the meat X Y,X Y,X Y,X Y, ....
+--SELECT geometry::STGeomFromText( 'LINESTRING( 2001 0.9,2002 2.1,2003 2.7,2004 3.1,2005 2.8,2006 3.4,2007 3.5,2008 2.5,2009 2.6 )', 0 );
+-- This is still pretty weak. No real control over scaling or labeling.
+
+
+
+
+
+
+
