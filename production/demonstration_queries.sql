@@ -208,33 +208,6 @@ ORDER BY ( w.value * 703. / SQUARE(h.value) ) DESC;
 
 
 
-SELECT YEAR(value) AS year, MONTH(value) AS month, COUNT(*) AS count
-FROM observations
-where concept = 'DEM:DOB'
-GROUP BY YEAR(value), MONTH(value)
-ORDER BY year, month
-
-
-
--- These BOTH need to be numbers. 2010/01 is not a number, so this doesn't work.
-DECLARE @WKT AS VARCHAR(8000);
-SET @WKT = STUFF(
-	(SELECT ',' + mob + ' ' + CAST(count AS VARCHAR(5)) FROM (
-		SELECT CAST(YEAR(value) AS VARCHAR(4)) + '/' + RIGHT('0' + CAST(MONTH(value) AS VARCHAR(2)),2) AS mob, COUNT(*) AS count
-		FROM observations
-		WHERE concept = 'DEM:DOB' 
-		GROUP BY CAST(YEAR(value) AS VARCHAR(4)) + '/' + RIGHT('0' + CAST(MONTH(value) AS VARCHAR(2)),2)
-	) neededname
-	ORDER BY mob
-	FOR XML PATH('')), 1, 1, '');
-PRINT @WKT
-SELECT geometry::STGeomFromText( 'LINESTRING(' + @WKT + ')', 0 );
-
-
-
-
-
-
 
 SELECT YEAR(value) AS yob, COUNT(*) AS count
 FROM observations
@@ -246,7 +219,32 @@ FROM observations
 WHERE concept = 'DEM:DOB' 
 GROUP BY MONTH(value) 
 
+SELECT YEAR(value) AS year, MONTH(value) AS month, COUNT(*) AS count
+FROM observations
+where concept = 'DEM:DOB'
+GROUP BY YEAR(value), MONTH(value)
+ORDER BY year, month
 
+
+
+
+-- GRAPHING
+-- These BOTH need to be numbers. 2010/01 is not a number, so this doesn't work.
+DECLARE @WKT AS VARCHAR(8000);
+SET @WKT = STUFF(
+	(SELECT ',' + mob + ' ' + CAST(count AS VARCHAR(5)) FROM (
+		SELECT CAST(YEAR(value) AS VARCHAR(4)) + '/' + RIGHT('0' + CAST(MONTH(value) AS VARCHAR(2)),2) AS mob, COUNT(*) AS count
+		FROM observations
+		WHERE concept = 'DEM:DOB' 
+		GROUP BY CAST(YEAR(value) AS VARCHAR(4)) + '/' + RIGHT('0' + CAST(MONTH(value) AS VARCHAR(2)),2)
+	) subselect
+	ORDER BY mob
+	FOR XML PATH('')), 1, 1, '');
+PRINT @WKT
+SELECT geometry::STGeomFromText( 'LINESTRING(' + @WKT + ')', 0 );
+
+
+-- This works, but leaves much to be desired.
 DECLARE @WKT AS VARCHAR(8000);
 SET @WKT = STUFF(
 	(SELECT ',' + CAST(mob AS VARCHAR(2)) + ' ' + CAST(count AS VARCHAR(5)) FROM (
@@ -254,14 +252,13 @@ SET @WKT = STUFF(
 		FROM observations
 		WHERE concept = 'DEM:DOB' 
 		GROUP BY MONTH(value)
-	) neededname
+	) subselect
 	ORDER BY mob
 	FOR XML PATH('')), 1, 1, '');
 PRINT @WKT
 SELECT geometry::STGeomFromText( 'LINESTRING(' + @WKT + ')', 0 );
 
-
-
+-- This works too, but leaves much to be desired.
 DECLARE @WKT AS VARCHAR(8000);
 SET @WKT = STUFF(
 	(SELECT ',' + CAST(yob AS VARCHAR(4)) + ' ' + CAST(count AS VARCHAR(5)) FROM (
@@ -269,7 +266,7 @@ SET @WKT = STUFF(
 		FROM observations
 		WHERE concept = 'DEM:DOB' 
 		GROUP BY YEAR(value)
-	) neededname
+	) subselect
 	ORDER BY yob
 	FOR XML PATH('')), 1, 1, '');
 PRINT @WKT
@@ -280,6 +277,7 @@ SELECT geometry::STGeomFromText( 'LINESTRING(' + @WKT + ')', 0 );
 -- This is still pretty weak. No real control over scaling or labeling.
 -- The 1:1 ratio of the graph really makes this awful.
 
+-- This bar graph also works, but still kinda sucks.
 DECLARE @WKT AS VARCHAR(8000);
 SET @WKT = STUFF(
 	(SELECT ',((' + 
@@ -294,7 +292,7 @@ SET @WKT = STUFF(
 		FROM observations
 		WHERE concept = 'DEM:DOB' 
 		GROUP BY MONTH(value)
-	) neededname
+	) subselect
 	ORDER BY mob
 	FOR XML PATH('')), 1, 1, '');
 PRINT @WKT
