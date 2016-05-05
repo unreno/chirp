@@ -363,6 +363,21 @@ WITH ROLLUP
 ORDER BY CAST(value AS INT)
 
 
+
+
+
+-- Wait! If this is already calculated, why am I?
+--
+--   value bwt_grp
+--     1 = 'Normal Birth Weight (>=2,500g, <=8,000g)'
+--     2 = 'Low Birth Weight (>=1,500g, <2,500g)'
+--     3 = 'Very Low Birth Weight (<1.500g)'
+--     9 = 'Unknown'
+--
+-- 1500 = 3 5/16
+-- 2500 = 5.5
+
+
 --	Weight Group Metric
 
 SELECT 
@@ -371,9 +386,9 @@ SELECT
 	END AS WeightGroup, COUNT(*) AS count
 FROM (
 	SELECT CASE
-		WHEN CAST(value AS FLOAT) > 5.5 THEN 'HIGH'
-		WHEN CAST(value AS FLOAT) < (3 + 5./16) THEN 'LOW'	-- NEED that decimal point.
-		ELSE 'MEDIUM'
+		WHEN CAST(value AS FLOAT) > 5.5 THEN 'Normal'
+		WHEN CAST(value AS FLOAT) < (3 + 5./16) THEN 'Very Low'	-- NEED that decimal point.
+		ELSE 'Low'
 	END AS WeightGroup
 	FROM dbo.observations
 	WHERE concept = 'DEM:Weight'
@@ -387,15 +402,20 @@ SELECT
 	WeightGroup, COUNT(*) AS count, ( COUNT(*) * 100. / SUM(COUNT(*)) OVER()) AS [percent]
 FROM (
 	SELECT CASE
-		WHEN CAST(value AS FLOAT) > 5.5 THEN 'HIGH'
-		WHEN CAST(value AS FLOAT) < (3 + 5./16) THEN 'LOW'	-- NEED that decimal point.
-		ELSE 'MEDIUM'
+		WHEN CAST(value AS FLOAT) > 5.5 THEN 'Normal'
+		WHEN CAST(value AS FLOAT) < (3 + 5./16) THEN 'Very Low'	-- NEED that decimal point.
+		ELSE 'Low'
 	END AS WeightGroup
 	FROM dbo.observations
 	WHERE concept = 'DEM:Weight'
 	AND downloaded_from = 'The State'
 ) temp
 GROUP BY WeightGroup
+
+
+
+
+
 
 
 -- Birth Weight Distribution Numbers
@@ -411,7 +431,6 @@ FROM (
 	AND downloaded_from = 'The State'
 ) temp
 GROUP BY ounces
-
 
 
 -- Birth Weight Distribution Graph
@@ -436,6 +455,10 @@ SET @WKT = STUFF(
 	FOR XML PATH('')), 1, 1, '');
 PRINT @WKT
 SELECT geometry::STGeomFromText( 'MULTIPOLYGON(' + @WKT + ')', 0 );
+
+
+
+
 
 
 
@@ -486,4 +509,25 @@ SET @WKT = STUFF(
 	FOR XML PATH('')), 1, 1, '');
 PRINT @WKT
 SELECT geometry::STGeomFromText( 'MULTIPOLYGON(' + @WKT + ')', 0 );
+
+
+
+
+
+-- I am expecting that the data will be coming in a format very different than
+-- previously expected. Many of these fields aren't in the PDF sent earlier.
+
+--/*Used for the following variables: acn1 acn2 acn3 acn4 acn5 acn1_mf acn2_mf acn3_mf acn4_mf acn5_mf*/
+--  value abnormal
+--    0 = 'None'
+--    1 = 'Anemia (<39/Hgb <13)'
+--    2 = 'Birth Injury'
+--    3 = 'Fetal Alcohol Syndrome'
+--    4 = 'Hyaline Membrane Disease/Rds'
+--    5 = 'Meconium Aspiration Syndrome'
+--    6 = 'Assisted Ventilation < 30 Min'
+--    7 = 'Assisted Ventilaion >= 30 Min'
+--    8 = 'Seizures'
+--    9 = 'Other'
+--    99 = 'Unknown'
 
