@@ -258,7 +258,8 @@ CREATE FUNCTION dev.random_apgar()
   RETURNS INTEGER
 BEGIN
 	DECLARE @rand DECIMAL(18,18) = (SELECT number FROM dev.rand_view)
-  RETURN (SELECT 10*@rand)
+--  RETURN (SELECT 10*@rand) -- => 0..9
+  RETURN (SELECT 11*@rand) -- => 0..10
 END
 GO
 
@@ -344,6 +345,7 @@ BEGIN
 				date_of_birth, sex, 
 				name_first, name_last,
 				apgar_1, apgar_5, apgar_10,
+				gestation_weeks,
 				birth_weight_lbs, birth_weight_oz )
 			VALUES 
 			( @count, @count, dev.unique_vital_record_state_file_number(),
@@ -352,6 +354,7 @@ BEGIN
 				dev.random_apgar(),	--VARCHAR(2)
 				dev.random_apgar(),	--VARCHAR(2)
 				dev.random_apgar(),	--VARCHAR(2)
+				CAST(RAND()*10 AS INT)+40,
 				CAST(RAND()*5 AS INT)+5,
 				CAST(RAND()*16 AS INT) 
 			);
