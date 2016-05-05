@@ -105,6 +105,7 @@ SELECT
 	WITH ROLLUP
 
 
+
 SELECT 
   CASE WHEN (GROUPING(value) = 1) THEN 'ALL'
     ELSE ISNULL(value, 'Name If Null')
@@ -113,6 +114,11 @@ FROM dbo.observations
 WHERE concept = 'InfantLiving'
 GROUP BY value
 WITH ROLLUP
+
+SELECT value, COUNT(*) AS count, ( COUNT(*) * 100. / SUM(COUNT(*)) OVER()) AS [percent]
+FROM dbo.observations
+WHERE concept = 'InfantLiving'
+GROUP BY value
 
 
 
@@ -375,6 +381,22 @@ FROM (
 ) temp
 GROUP BY WeightGroup
 WITH ROLLUP
+
+
+SELECT 
+	WeightGroup, COUNT(*) AS count, ( COUNT(*) * 100. / SUM(COUNT(*)) OVER()) AS [percent]
+FROM (
+	SELECT CASE
+		WHEN CAST(value AS FLOAT) > 5.5 THEN 'HIGH'
+		WHEN CAST(value AS FLOAT) < (3 + 5./16) THEN 'LOW'	-- NEED that decimal point.
+		ELSE 'MEDIUM'
+	END AS WeightGroup
+	FROM dbo.observations
+	WHERE concept = 'DEM:Weight'
+	AND downloaded_from = 'The State'
+) temp
+GROUP BY WeightGroup
+
 
 -- Birth Weight Distribution Numbers
 
