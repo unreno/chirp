@@ -354,7 +354,7 @@ BEGIN
 				dev.random_apgar(),	--VARCHAR(2)
 				dev.random_apgar(),	--VARCHAR(2)
 				dev.random_apgar(),	--VARCHAR(2)
-				CAST(RAND()*10 AS INT)+40,
+				CAST(RAND()*10 AS INT)+35,
 				CAST(RAND()*5 AS INT)+5,
 				CAST(RAND()*16 AS INT) 
 			);
