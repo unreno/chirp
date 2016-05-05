@@ -107,7 +107,7 @@ SELECT
 
 SELECT 
   CASE WHEN (GROUPING(value) = 1) THEN 'ALL'
-    ELSE value
+    ELSE ISNULL(value, 'Name If Null')
   END AS infant_living , COUNT(*) AS count
 FROM dbo.observations
 WHERE concept = 'InfantLiving'
@@ -120,7 +120,7 @@ WITH ROLLUP
 
 SELECT 
   CASE WHEN (GROUPING(value) = 1) THEN 'ALL'
-    ELSE value
+    ELSE ISNULL(value, 'Name If Null')
   END AS sex , COUNT(*) AS count
 FROM dbo.observations
 WHERE concept = 'DEM:Sex'
@@ -287,7 +287,7 @@ SET @WKT = STUFF(
 		CAST(mob + 0.3 AS VARCHAR(10)) + ' ' + CAST(count AS VARCHAR(10)) + ',' +
 		CAST(mob + 0.3 AS VARCHAR(10)) + ' 0,' +
 		CAST(mob - 0.3 AS VARCHAR(10)) + ' 0))'
-		FROM (
+	FROM (
 		SELECT MONTH(value) AS mob, COUNT(*) AS count
 		FROM observations
 		WHERE concept = 'DEM:DOB' 
@@ -303,4 +303,165 @@ SELECT geometry::STGeomFromText( 'MULTIPOLYGON(' + @WKT + ')', 0 );
 
 
 
+
+
+-- GestationWeeks metric
+
+SELECT 
+  CASE WHEN (GROUPING(value) = 1) THEN 'ALL'
+    ELSE ISNULL(value, 'Name If Null')
+  END AS weeks, COUNT(*) AS count
+FROM dbo.observations
+WHERE concept = 'GestationWeeks'
+GROUP BY value
+WITH ROLLUP
+ORDER BY CAST(value AS INT)
+
+
+-- APGAR 1 minute metric
+
+SELECT 
+  CASE WHEN (GROUPING(value) = 1) THEN 'ALL'
+    ELSE ISNULL(value, 'Name If Null')
+  END AS apgar1, COUNT(*) AS count
+FROM dbo.observations
+WHERE concept = 'APGAR1'
+GROUP BY value
+WITH ROLLUP
+ORDER BY CAST(value AS INT)
+
+
+-- APGAR 5 minute metric
+
+SELECT 
+  CASE WHEN (GROUPING(value) = 1) THEN 'ALL'
+    ELSE ISNULL(value, 'Name If Null')
+  END AS apgar5, COUNT(*) AS count
+FROM dbo.observations
+WHERE concept = 'APGAR5'
+GROUP BY value
+WITH ROLLUP
+ORDER BY CAST(value AS INT)
+
+
+-- APGAR 10 minute metric
+
+SELECT 
+  CASE WHEN (GROUPING(value) = 1) THEN 'ALL'
+    ELSE ISNULL(value, 'Name If Null')
+  END AS apgar10, COUNT(*) AS count
+FROM dbo.observations
+WHERE concept = 'APGAR10'
+GROUP BY value
+WITH ROLLUP
+ORDER BY CAST(value AS INT)
+
+
+--	Weight Group Metric
+
+SELECT 
+	CASE WHEN (GROUPING(WeightGroup) = 1) THEN 'ALL'
+		ELSE ISNULL(WeightGroup, 'Name If Null')
+	END AS WeightGroup, COUNT(*) AS count
+FROM (
+	SELECT CASE
+		WHEN CAST(value AS FLOAT) > 5.5 THEN 'HIGH'
+		WHEN CAST(value AS FLOAT) < (3 + 5./16) THEN 'LOW'	-- NEED that decimal point.
+		ELSE 'MEDIUM'
+	END AS WeightGroup
+	FROM dbo.observations
+	WHERE concept = 'DEM:Weight'
+	AND downloaded_from = 'The State'
+) temp
+GROUP BY WeightGroup
+WITH ROLLUP
+
+-- Birth Weight Distribution Numbers
+
+SELECT 
+	CASE WHEN (GROUPING(ounces) = 1) THEN 'ALL'
+		ELSE ISNULL(ounces, 0)
+	END AS ounces, COUNT(*) AS count
+FROM (
+	SELECT CAST(CAST(value AS FLOAT) * 16 AS INTEGER) AS ounces
+	FROM dbo.observations
+	WHERE concept = 'DEM:Weight'
+	AND downloaded_from = 'The State'
+) temp
+GROUP BY ounces
+
+
+
+-- Birth Weight Distribution Graph
+
+DECLARE @WKT AS VARCHAR(8000);
+SET @WKT = STUFF(
+	(SELECT ',((' + 
+		-- 5 points to draw a bar border (first and last are the same)
+		CAST(ounces - 0.3 AS VARCHAR(10)) + ' 0,' +
+		CAST(ounces - 0.3 AS VARCHAR(10)) + ' ' + CAST(count AS VARCHAR(10)) + ',' +
+		CAST(ounces + 0.3 AS VARCHAR(10)) + ' ' + CAST(count AS VARCHAR(10)) + ',' +
+		CAST(ounces + 0.3 AS VARCHAR(10)) + ' 0,' +
+		CAST(ounces - 0.3 AS VARCHAR(10)) + ' 0))'
+	FROM (
+		SELECT CAST(CAST(value AS FLOAT) * 16 AS INTEGER) AS ounces, COUNT(*) AS count
+		FROM dbo.observations
+		WHERE concept = 'DEM:Weight'
+		AND downloaded_from = 'The State'
+		GROUP BY CAST(CAST(value AS FLOAT) * 16 AS INTEGER)
+	) subselect
+	ORDER BY ounces
+	FOR XML PATH('')), 1, 1, '');
+PRINT @WKT
+SELECT geometry::STGeomFromText( 'MULTIPOLYGON(' + @WKT + ')', 0 );
+
+
+
+
+
+-- BAD APGAR 10 Distribution Graph
+
+DECLARE @WKT AS VARCHAR(8000);
+SET @WKT = STUFF(
+	(SELECT ',((' + 
+		-- 5 points to draw a bar border (first and last are the same)
+		CAST(apgar - 0.3 AS VARCHAR(10)) + ' 0,' +
+		CAST(apgar - 0.3 AS VARCHAR(10)) + ' ' + CAST(count AS VARCHAR(10)) + ',' +
+		CAST(apgar + 0.3 AS VARCHAR(10)) + ' ' + CAST(count AS VARCHAR(10)) + ',' +
+		CAST(apgar + 0.3 AS VARCHAR(10)) + ' 0,' +
+		CAST(apgar - 0.3 AS VARCHAR(10)) + ' 0))'
+	FROM (
+		SELECT CAST(value AS INTEGER) AS apgar, COUNT(*) AS count
+		FROM dbo.observations
+		WHERE concept = 'APGAR10'
+		GROUP BY value
+	) subselect
+	ORDER BY apgar
+	FOR XML PATH('')), 1, 1, '');
+PRINT @WKT
+SELECT geometry::STGeomFromText( 'MULTIPOLYGON(' + @WKT + ')', 0 );
+
+
+
+-- BAD Gestation Graph
+
+DECLARE @WKT AS VARCHAR(8000);
+SET @WKT = STUFF(
+	(SELECT ',((' + 
+		-- 5 points to draw a bar border (first and last are the same)
+		CAST(gest - 0.3 AS VARCHAR(10)) + ' 0,' +
+		CAST(gest - 0.3 AS VARCHAR(10)) + ' ' + CAST(count AS VARCHAR(10)) + ',' +
+		CAST(gest + 0.3 AS VARCHAR(10)) + ' ' + CAST(count AS VARCHAR(10)) + ',' +
+		CAST(gest + 0.3 AS VARCHAR(10)) + ' 0,' +
+		CAST(gest - 0.3 AS VARCHAR(10)) + ' 0))'
+	FROM (
+		SELECT CAST(value AS INTEGER) as gest, COUNT(*) AS count
+		FROM dbo.observations
+		WHERE concept = 'GestationWeeks'
+		GROUP BY value
+	) subselect
+	ORDER BY gest
+	FOR XML PATH('')), 1, 1, '');
+PRINT @WKT
+SELECT geometry::STGeomFromText( 'MULTIPOLYGON(' + @WKT + ')', 0 );
 
