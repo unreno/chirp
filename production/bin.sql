@@ -224,14 +224,15 @@ BEGIN
 
 	INSERT INTO dbo.observations
 		(chirp_id, provider_id, started_at,
-			concept, value, units, downloaded_from, downloaded_at)
+			concept, value, units, source_schema, source_table, downloaded_at)
 		SELECT i.chirp_id, 
 			8675309 AS provider_id,
 			n.service_at AS started_at,
 			code AS concept,
 			value AS value,
 			units AS units,
-			'Fake Doctor 1' AS downloaded_from,
+			'fakedoc1' AS source_schema,
+			'emrs' AS source_table,
 			n.imported_at AS downloaded_at
 		FROM fakedoc1.emrs n
 		JOIN private.identifiers i
@@ -266,14 +267,15 @@ BEGIN
 
 	INSERT INTO dbo.observations
 		(chirp_id, provider_id, started_at,
-			concept, value, units, downloaded_from, downloaded_at)
+			concept, value, units, source_schema, source_table, downloaded_at)
 		SELECT chirp_id, provider_id, started_at,
-			cav.concept, cav.value, cav.units, downloaded_from, downloaded_at
+			cav.concept, cav.value, cav.units, source_schema, source_table, downloaded_at
 		FROM (
 			SELECT i.chirp_id, n.date_of_birth AS started_at,
 				'789' AS provider_id,
 				testresults1, testresults2, testresults3, testresults4, testresults5,
-				'Health Lab' AS downloaded_from,
+				'health_lab' AS source_schema,
+				'newborn_screening' AS source_table,
 				n.imported_at AS downloaded_at
 			FROM health_lab.newborn_screening n
 			JOIN private.identifiers i
@@ -338,13 +340,14 @@ BEGIN
 
 	INSERT INTO dbo.observations
 		(chirp_id, provider_id, started_at,
-			concept, value, units, downloaded_from, downloaded_at)
+			concept, value, units, source_schema, source_table, downloaded_at)
 		SELECT chirp_id, provider_id, started_at,
-			cav.concept, cav.value, cav.units, downloaded_from, downloaded_at
+			cav.concept, cav.value, cav.units, source_schema, source_table, downloaded_at
 		FROM (
 			SELECT i.chirp_id, date_of_birth AS started_at,
 				'123' AS provider_id,
-				'The State' AS downloaded_from,
+				'vital' AS source_schema,
+				'birth' AS source_table,
 				date_of_birth, birth_weight_lbs, birth_weight_oz,
 				sex, apgar_1, apgar_5, apgar_10,
 				gestation_weeks,
@@ -388,9 +391,9 @@ BEGIN
 
 --	INSERT INTO dbo.observations
 --		(chirp_id, provider_id, started_at,
---			concept, value, downloaded_from, downloaded_at)
+--			concept, value, source_schema, source_table, downloaded_at)
 --		SELECT chirp_id, provider_id, started_at,
---			concept, value, downloaded_from, downloaded_at
+--			concept, value, source_schema, source_table, downloaded_at
 --		FROM (
 --			SELECT i.chirp_id, b.date_of_birth AS started_at,
 --				'123' AS provider_id,
@@ -398,7 +401,8 @@ BEGIN
 --				CAST(b.apgar_1 AS VARCHAR(255)) AS [APGAR1],
 --				CAST(b.apgar_5 AS VARCHAR(255)) AS [APGAR5],
 --				CAST(b.apgar_10 AS VARCHAR(255)) AS [APGAR10],
---				'The State' AS downloaded_from,
+--				'vital' AS source_schema,
+--				'birth' AS source_table,
 --				b.imported_at AS downloaded_at
 --			FROM vital.birth b
 --			JOIN private.identifiers i
@@ -414,14 +418,15 @@ BEGIN
 --
 --	INSERT INTO dbo.observations
 --		(chirp_id, provider_id, started_at,
---			concept, value, downloaded_from, downloaded_at)
+--			concept, value, source_schema, source_table, downloaded_at)
 --		SELECT chirp_id, provider_id, started_at,
---			concept, value, downloaded_from, downloaded_at
+--			concept, value, source_schema, source_table, downloaded_at
 --		FROM (
 --			SELECT i.chirp_id, b.date_of_birth AS started_at,
 --				'123' AS provider_id,
 --				CAST(b.date_of_birth AS VARCHAR(255)) AS [DEM:DOB],
---				'The State' AS downloaded_from,
+--				'vital' AS source_schema,
+--				'birth' AS source_table,
 --				b.imported_at AS downloaded_at
 --			FROM vital.birth b
 --			JOIN private.identifiers i
@@ -439,7 +444,7 @@ BEGIN
 
 --	INSERT INTO dbo.observations
 --		(chirp_id, provider_id, started_at,
---			concept, value, units, downloaded_from, downloaded_at)
+--			concept, value, units, source_schema, source_table, downloaded_at)
 --		SELECT i.chirp_id,
 --			'123' AS provider_id,
 --			b.date_of_birth AS started_at,
@@ -448,7 +453,8 @@ BEGIN
 --				(CAST(b.birth_weight_lbs AS FLOAT) + (CAST(b.birth_weight_oz AS FLOAT)/16)) AS VARCHAR(255)
 --			) AS value,
 --			'lbs' AS units,
---			'The State' AS downloaded_from,
+--			'vital' AS source_schema,
+--			'birth' AS source_table,
 --			b.imported_at AS downloaded_at
 --		FROM vital.birth b
 --		JOIN private.identifiers i

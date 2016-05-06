@@ -179,7 +179,8 @@ CREATE TABLE dbo.observations (
 	value           VARCHAR(255),
 	units           VARCHAR(20),
 	downloaded_at   DATETIME,
-	downloaded_from VARCHAR(50),
+	source_schema   VARCHAR(50) NOT NULL,
+	source_table    VARCHAR(50) NOT NULL,
 	imported_at     DATETIME
 		CONSTRAINT dbo_observations_imported_at_default 
 		DEFAULT CURRENT_TIMESTAMP NOT NULL,

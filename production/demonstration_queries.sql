@@ -80,6 +80,9 @@ SELECT * FROM dbo.observations
 
 
 
+SELECT COUNT(DISTINCT chirp_id) FROM dbo.observations
+
+
 SELECT
 	CASE WHEN (GROUPING(infant_living) = 1) THEN 'ALL'
 		ELSE ISNULL(infant_living, 'Name If Null')
@@ -392,7 +395,8 @@ FROM (
 	END AS WeightGroup
 	FROM dbo.observations
 	WHERE concept = 'DEM:Weight'
-	AND downloaded_from = 'The State'
+		AND source_schema = 'vital'
+		AND source_table = 'birth'
 ) temp
 GROUP BY WeightGroup
 WITH ROLLUP
@@ -408,7 +412,8 @@ FROM (
 	END AS WeightGroup
 	FROM dbo.observations
 	WHERE concept = 'DEM:Weight'
-	AND downloaded_from = 'The State'
+		AND source_schema = 'vital'
+		AND source_table = 'birth'
 ) temp
 GROUP BY WeightGroup
 
@@ -428,7 +433,8 @@ FROM (
 	SELECT CAST(CAST(value AS FLOAT) * 16 AS INTEGER) AS ounces
 	FROM dbo.observations
 	WHERE concept = 'DEM:Weight'
-	AND downloaded_from = 'The State'
+		AND source_schema = 'vital'
+		AND source_table = 'birth'
 ) temp
 GROUP BY ounces
 
@@ -448,7 +454,8 @@ SET @WKT = STUFF(
 		SELECT CAST(CAST(value AS FLOAT) * 16 AS INTEGER) AS ounces, COUNT(*) AS count
 		FROM dbo.observations
 		WHERE concept = 'DEM:Weight'
-		AND downloaded_from = 'The State'
+			AND source_schema = 'vital'
+			AND source_table = 'birth'
 		GROUP BY CAST(CAST(value AS FLOAT) * 16 AS INTEGER)
 	) subselect
 	ORDER BY ounces
