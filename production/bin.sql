@@ -345,7 +345,7 @@ BEGIN
 			cav.concept, cav.value, cav.units, source_schema, source_table, downloaded_at
 		FROM (
 			SELECT i.chirp_id, date_of_birth AS started_at,
-				'123' AS provider_id,
+				0 AS provider_id,
 				'vital' AS source_schema,
 				'birth' AS source_table,
 				date_of_birth, birth_weight_lbs, birth_weight_oz,
