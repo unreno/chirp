@@ -75,11 +75,11 @@ echo "	WHERE value LIKE '''%''';"
 
 
 
-cat health_lab.sql
+#cat health_lab.sql
 
-cat fakedoc1.sql
+#cat fakedoc1.sql
 
-cat dev.sql
+#cat dev.sql
 
 
 
