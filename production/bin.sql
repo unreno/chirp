@@ -369,9 +369,9 @@ BEGIN
 				bin.weight_from_lbs_and_oz( birth_weight_lbs, birth_weight_oz ) AS VARCHAR(255)), 'lbs'),
 			( 'DEM:Sex', bin.decode('vital','birth','sex',sex), NULL ),
 			( 'InfantLiving', bin.decode('vital','birth','standard2_yesno',infant_living), NULL ),
-			(  'GestationWeeks', CAST(gestation_weeks AS VARCHAR(255)), NULL ),
-			(  'APGAR1', CAST(apgar_1 AS VARCHAR(255)), NULL ),
-			(  'APGAR5', CAST(apgar_5 AS VARCHAR(255)), NULL ),
+			( 'GestationWeeks', CAST(gestation_weeks AS VARCHAR(255)), NULL ),
+			( 'APGAR1', CAST(apgar_1 AS VARCHAR(255)), NULL ),
+			( 'APGAR5', CAST(apgar_5 AS VARCHAR(255)), NULL ),
 			( 'APGAR10', CAST(apgar_10 AS VARCHAR(255)), NULL )
 		) cav ( concept, value, units )
 		WHERE cav.value IS NOT NULL
