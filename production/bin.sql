@@ -634,3 +634,13 @@ BEGIN
 	EXEC bin.group_by_each_where @schema, @table, @exclude, default
 END
 GO
+
+
+-- This does work, but not helpful
+--DECLARE @exclude bin.NamesTableType;
+--INSERT INTO @exclude VALUES ('id'),('chirp_id'),('provider_id'),('concept'),('started_at'),('downloaded_at');
+--EXEC bin.group_by_each_where 'dbo','observations',@exclude,'concept = ''InfantLiving'''
+-- So does this! 'default' uses a blank table. Also not helpful. Nice to know though.
+--EXEC bin.group_by_each_where 'dbo','observations',default,'concept = ''InfantLiving'''
+
+
