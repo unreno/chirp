@@ -594,3 +594,35 @@ END
 GO
 
 
+
+IF OBJECT_ID ( 'bin.group_by_each', 'P' ) IS NOT NULL BEGIN
+	DROP PROCEDURE bin.group_by_each;
+	DROP TYPE bin.NamesTableType;	-- Can't be dropped if being referenced.
+END
+GO
+CREATE TYPE bin.NamesTableType AS TABLE ( name varchar(255) )
+GO
+CREATE PROCEDURE bin.group_by_each( @schema VARCHAR(255), @table VARCHAR(255),
+	@exclude bin.NamesTableType READONLY )
+AS
+BEGIN
+	SET NOCOUNT ON;
+	DECLARE @SQL NVARCHAR(MAX) = '';
+	SELECT @SQL = (
+		SELECT 'SELECT CASE WHEN (GROUPING(' + QUOTENAME(name) + ') = 1) THEN ''Total'' ELSE CAST(' + 
+			QUOTENAME(name) + ' AS VARCHAR) END AS ' + QUOTENAME(name) + ', COUNT(*) AS [count], ' +
+      '( 2 * COUNT(*) * 100. / SUM(COUNT(*)) OVER()) AS [percent] FROM ' +
+      QUOTENAME(@schema) + '.' + QUOTENAME(@table) + ' GROUP BY ' + QUOTENAME(name) + 
+			' WITH ROLLUP ORDER BY ' + QUOTENAME(name) + ';'
+		FROM   sys.columns
+		WHERE  object_id = OBJECT_ID(@schema + '.' + @table)
+		AND name NOT IN (SELECT name FROM @exclude)
+	-- concatenate result strings with FOR XML PATH
+	FOR XML PATH (''));
+	EXECUTE sp_executesql @SQL;
+END
+GO
+
+
+
+
