@@ -644,3 +644,46 @@ GO
 --EXEC bin.group_by_each_where 'dbo','observations',default,'concept = ''infant_living'''
 
 
+
+
+
+
+IF OBJECT_ID ( 'bin.distinct_value_counts_where', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.distinct_value_counts_where;
+GO
+CREATE PROCEDURE bin.distinct_value_counts_where( @schema VARCHAR(255), @table VARCHAR(255),
+	@exclude bin.NamesTableType READONLY, @condition VARCHAR(255) = '1=1' )
+AS
+BEGIN
+	SET NOCOUNT ON;
+	CREATE TABLE #out ( name VARCHAR(255), count INT );
+	DECLARE @SQL NVARCHAR(MAX) = '';
+	-- I could add the prefix WHERE to @condition if not blank, but '1=1' works.
+	SELECT @SQL = (
+		SELECT 'INSERT INTO #out(name,count) SELECT ''' + name + 
+			''' AS name, COUNT(DISTINCT ' + 
+			QUOTENAME(name) + ') AS [count] ' +
+			' FROM ' + QUOTENAME(@schema) + '.' + QUOTENAME(@table) + 
+			' WHERE ' + @condition + ';'
+		FROM   sys.columns
+		WHERE  object_id = OBJECT_ID(@schema + '.' + @table)
+		AND name NOT IN (SELECT name FROM @exclude)
+	-- concatenate result strings with FOR XML PATH
+	FOR XML PATH (''));
+	EXECUTE sp_executesql @SQL;
+	SELECT * FROM #out
+END
+GO
+IF OBJECT_ID ( 'bin.distinct_value_counts', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.distinct_value_counts;
+GO
+CREATE PROCEDURE bin.distinct_value_counts( @schema VARCHAR(255), @table VARCHAR(255),
+	@exclude bin.NamesTableType READONLY )
+AS
+BEGIN
+	SET NOCOUNT ON;
+	EXEC  bin.distinct_value_counts_where @schema, @table, @exclude, default
+END
+GO
+
+--EXEC bin.distinct_value_counts 'vital', 'birth', default
