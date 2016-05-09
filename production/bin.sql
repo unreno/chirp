@@ -595,13 +595,13 @@ GO
 
 
 
---IF OBJECT_ID ( 'bin.group_by_each_where', 'P' ) IS NOT NULL BEGIN
-	DROP PROCEDURE bin.group_by_each_where;
-	DROP PROCEDURE bin.group_by_each;
-	DROP TYPE bin.NamesTableType;	-- Can't be dropped if being referenced.
---END
-GO
+--	DROP TYPE bin.NamesTableType;	-- Can't be dropped if being referenced.
 CREATE TYPE bin.NamesTableType AS TABLE ( name varchar(255) )
+GO
+
+
+IF OBJECT_ID ( 'bin.group_by_each_where', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.group_by_each_where;
 GO
 
 CREATE PROCEDURE bin.group_by_each_where( @schema VARCHAR(255), @table VARCHAR(255),
@@ -627,10 +627,15 @@ BEGIN
 END
 GO
 
+IF OBJECT_ID ( 'bin.group_by_each', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.group_by_each;
+GO
+
 CREATE PROCEDURE bin.group_by_each( @schema VARCHAR(255), @table VARCHAR(255),
 	@exclude bin.NamesTableType READONLY )
 AS
 BEGIN
+	SET NOCOUNT ON;
 	EXEC bin.group_by_each_where @schema, @table, @exclude, default
 END
 GO
@@ -651,6 +656,7 @@ GO
 IF OBJECT_ID ( 'bin.distinct_value_counts_where', 'P' ) IS NOT NULL
 	DROP PROCEDURE bin.distinct_value_counts_where;
 GO
+
 CREATE PROCEDURE bin.distinct_value_counts_where( @schema VARCHAR(255), @table VARCHAR(255),
 	@exclude bin.NamesTableType READONLY, @condition VARCHAR(255) = '1=1' )
 AS
@@ -674,9 +680,11 @@ BEGIN
 	SELECT * FROM #out
 END
 GO
+
 IF OBJECT_ID ( 'bin.distinct_value_counts', 'P' ) IS NOT NULL
 	DROP PROCEDURE bin.distinct_value_counts;
 GO
+
 CREATE PROCEDURE bin.distinct_value_counts( @schema VARCHAR(255), @table VARCHAR(255),
 	@exclude bin.NamesTableType READONLY )
 AS
