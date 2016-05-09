@@ -368,15 +368,15 @@ BEGIN
 			( 'DEM:Weight', CAST(
 				bin.weight_from_lbs_and_oz( birth_weight_lbs, birth_weight_oz ) AS VARCHAR(255)), 'lbs'),
 			( 'DEM:Sex', bin.decode('vital','birth','sex',sex), NULL ),
-			( 'InfantLiving', bin.decode('vital','birth','standard2_yesno',infant_living), NULL ),
-			( 'GestationWeeks', CAST(gestation_weeks AS VARCHAR(255)), NULL ),
+			( 'infant_living', bin.decode('vital','birth','standard2_yesno',infant_living), NULL ),
+			( 'gestation_weeks', CAST(gestation_weeks AS VARCHAR(255)), NULL ),
 			( 'APGAR1', CAST(apgar_1 AS VARCHAR(255)), NULL ),
 			( 'APGAR5', CAST(apgar_5 AS VARCHAR(255)), NULL ),
 			( 'APGAR10', CAST(apgar_10 AS VARCHAR(255)), NULL )
 		) cav ( concept, value, units )
 		WHERE cav.value IS NOT NULL
 --			( 'DEM:Sex', sex, NULL ),
---			( 'InfantLiving', infant_living, NULL ),
+--			( 'infant_living', infant_living, NULL ),
 
 -- Now that I have a better understanding of CAV, merged all below.
 
@@ -639,8 +639,8 @@ GO
 -- This does work, but not helpful
 --DECLARE @exclude bin.NamesTableType;
 --INSERT INTO @exclude VALUES ('id'),('chirp_id'),('provider_id'),('concept'),('started_at'),('downloaded_at');
---EXEC bin.group_by_each_where 'dbo','observations',@exclude,'concept = ''InfantLiving'''
+--EXEC bin.group_by_each_where 'dbo','observations',@exclude,'concept = ''infant_living'''
 -- So does this! 'default' uses a blank table. Also not helpful. Nice to know though.
---EXEC bin.group_by_each_where 'dbo','observations',default,'concept = ''InfantLiving'''
+--EXEC bin.group_by_each_where 'dbo','observations',default,'concept = ''infant_living'''
 
 

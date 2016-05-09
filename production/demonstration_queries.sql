@@ -114,13 +114,13 @@ SELECT
     ELSE ISNULL(value, 'Name If Null')
   END AS infant_living , COUNT(*) AS count
 FROM dbo.observations
-WHERE concept = 'InfantLiving'
+WHERE concept = 'infant_living'
 GROUP BY value
 WITH ROLLUP
 
 SELECT value, COUNT(*) AS count, ( COUNT(*) * 100. / SUM(COUNT(*)) OVER()) AS [percent]
 FROM dbo.observations
-WHERE concept = 'InfantLiving'
+WHERE concept = 'infant_living'
 GROUP BY value
 
 
@@ -314,14 +314,14 @@ SELECT geometry::STGeomFromText( 'MULTIPOLYGON(' + @WKT + ')', 0 );
 
 
 
--- GestationWeeks metric
+-- gestation_weeks metric
 
 SELECT 
   CASE WHEN (GROUPING(value) = 1) THEN 'ALL'
     ELSE ISNULL(value, 'Name If Null')
   END AS weeks, COUNT(*) AS count
 FROM dbo.observations
-WHERE concept = 'GestationWeeks'
+WHERE concept = 'gestation_weeks'
 GROUP BY value
 WITH ROLLUP
 ORDER BY CAST(value AS INT)
@@ -509,7 +509,7 @@ SET @WKT = STUFF(
 	FROM (
 		SELECT CAST(value AS INTEGER) as gest, COUNT(*) AS count
 		FROM dbo.observations
-		WHERE concept = 'GestationWeeks'
+		WHERE concept = 'gestation_weeks'
 		GROUP BY value
 	) subselect
 	ORDER BY gest
