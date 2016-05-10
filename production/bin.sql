@@ -586,12 +586,15 @@ CREATE FUNCTION bin.decode( @source VARCHAR(50), @gang VARCHAR(50), @trait VARCH
 	RETURNS VARCHAR(255)
 BEGIN
 	DECLARE @value VARCHAR(255);
+	-- Don't put functions in WHERE clause. Performance issues.
+	-- Something about being called for every row. Unless you need that.
+	-- We don't need that here.
+	DECLARE @tmp VARCHAR(255) = bin.decoder(@source,@gang,@trait);
 	SELECT @value = value FROM dbo.codes
 		WHERE source = @source 
 			AND gang = @gang 
-			AND trait = bin.decoder(@source,@gang,@trait)
+			AND trait = @tmp
 			AND code = @code
---			AND trait = @trait 
 	RETURN ISNULL(@value, @code)
 END
 GO
