@@ -618,7 +618,7 @@ GO
 
 
 --	DROP TYPE bin.NamesTableType;	-- Can't be dropped if being referenced.
-CREATE TYPE bin.NamesTableType AS TABLE ( name varchar(255) )
+CREATE TYPE bin.NamesTableType AS TABLE ( name VARCHAR(255) )
 GO
 
 
