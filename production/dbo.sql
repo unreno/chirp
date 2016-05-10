@@ -299,6 +299,9 @@ CREATE TABLE dbo.decoders (
 		UNIQUE ( source, gang, trait, codeset )
 );
 
+-- These files were created from a Windows file and hence had hidden CRLFs!
+-- Had to "sed 's/^M//' birth_decoders.csv" them to correct.
+
 BEGIN TRY
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT dbo.decoders
 	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\vital\birth_decoders.csv''
