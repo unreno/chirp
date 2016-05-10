@@ -18,13 +18,14 @@ PRINT bin.decode('a','b','c',10)
 PRINT 'DECODER TEST END'
 
 
+--infant_living is going to be inf_liv in real data.
 
 EXEC dev.create_random_vital 1
 SELECT * FROM vital.birth
 SELECT * FROM vital.birth2
 SELECT state_file_number, name_first, name_last, date_of_birth,
 sex AS sex_code, bin.decode('vital','birth','sex',sex) AS sex,
-infant_living AS infant_living_code, bin.decode('vital','birth','standard2_yesno',infant_living) AS infant_living,
+infant_living AS infant_living_code, bin.decode('vital','birth','inf_liv',infant_living) AS infant_living,
 birth_weight_lbs, birth_weight_oz,
 apgar_1, apgar_5, apgar_10
 FROM vital.birth b

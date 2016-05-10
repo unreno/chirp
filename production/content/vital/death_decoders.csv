@@ -1,0 +1,9 @@
+vital,death,death_st,state
+vital,death,res_st,state
+vital,death,birth_st,state
+vital,death,death_ci,city
+vital,death,res_ci,city
+vital,death,death_co,county
+vital,death,res_co,county
+vital,death,military,standard1_yesno
+vital,death,manner_death,manner

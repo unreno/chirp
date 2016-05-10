@@ -273,7 +273,7 @@ CREATE TABLE dbo.codes (
 	trait VARCHAR(50) NOT NULL,
 	code INT NOT NULL,
 	value VARCHAR(255) NOT NULL
-	CONSTRAINT unique_source_gang_trait_code
+	CONSTRAINT codes_unique_source_gang_trait_code
 		UNIQUE ( source, gang, trait, code )
 );
 -- FYI The maximum key length is 900 bytes. For some combination of large values, the insert/update operation will fail.
@@ -283,4 +283,47 @@ GO
 CREATE VIEW dbo.bulk_insert_codes AS SELECT code, value FROM dbo.codes;
 GO
 
+
+
+
+IF OBJECT_ID('dbo.decoders', 'U') IS NOT NULL
+	DROP TABLE dbo.decoders;
+CREATE TABLE dbo.decoders (
+	source VARCHAR(50) NOT NULL,
+	gang VARCHAR(50) NOT NULL,
+	trait VARCHAR(50) NOT NULL,
+	codeset VARCHAR(50) NOT NULL
+	CONSTRAINT decoders_unique_source_gang_trait
+		UNIQUE ( source, gang, trait ),
+	CONSTRAINT decoders_unique_source_gang_trait_codeset
+		UNIQUE ( source, gang, trait, codeset )
+);
+
+BEGIN TRY
+	DECLARE @bulk_cmd = 'BULK INSERT dbo.decoders
+	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\vital\birth_decoders.csv''
+	WITH (
+		FIELDTERMINATOR = '','',
+		ROWTERMINATOR = '''+CHAR(10)+''',
+		TABLOCK
+	)';
+	EXEC(@bulk_cmd);
+END TRY BEGIN CATCH
+	PRINT ERROR_MESSAGE()
+END CATCH
+GO
+
+BEGIN TRY
+	DECLARE @bulk_cmd = 'BULK INSERT dbo.decoders
+	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\vital\death_decoders.csv''
+	WITH (
+		FIELDTERMINATOR = '','',
+		ROWTERMINATOR = '''+CHAR(10)+''',
+		TABLOCK
+	)';
+	EXEC(@bulk_cmd);
+END TRY BEGIN CATCH
+	PRINT ERROR_MESSAGE()
+END CATCH
+GO
 

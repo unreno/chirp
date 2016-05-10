@@ -368,7 +368,9 @@ BEGIN
 			( 'DEM:Weight', CAST(
 				bin.weight_from_lbs_and_oz( birth_weight_lbs, birth_weight_oz ) AS VARCHAR(255)), 'lbs'),
 			( 'DEM:Sex', bin.decode('vital','birth','sex',sex), NULL ),
-			( 'infant_living', bin.decode('vital','birth','standard2_yesno',infant_living), NULL ),
+--			( 'infant_living', bin.decode('vital','birth','standard2_yesno',infant_living), NULL ),
+-- infant_living is going to be inf_liv in real data, I think.
+			( 'infant_living', bin.decode('vital','birth','inf_liv',infant_living), NULL ),
 			( 'gestation_weeks', CAST(gestation_weeks AS VARCHAR(255)), NULL ),
 			( 'APGAR1', CAST(apgar_1 AS VARCHAR(255)), NULL ),
 			( 'APGAR5', CAST(apgar_5 AS VARCHAR(255)), NULL ),
@@ -587,11 +589,28 @@ BEGIN
 	SELECT @value = value FROM dbo.codes
 		WHERE source = @source 
 			AND gang = @gang 
-			AND trait = @trait 
+			AND trait = bin.decoder(@source,@gang,@trait)
 			AND code = @code
+--			AND trait = @trait 
 	RETURN ISNULL(@value, @code)
 END
 GO
+
+IF OBJECT_ID ( 'bin.decoder', 'FN' ) IS NOT NULL
+	DROP FUNCTION bin.decoder;
+GO
+CREATE FUNCTION bin.decoder( @source VARCHAR(50), @gang VARCHAR(50), @trait VARCHAR(50) )
+	RETURNS VARCHAR(255)
+BEGIN
+	DECLARE @codeset VARCHAR(255);
+	SELECT @codeset = codeset FROM dbo.decoders
+		WHERE source = @source 
+			AND gang = @gang 
+			AND trait = @trait 
+	RETURN ISNULL(@codeset, @codeset)
+END
+GO
+
 
 
 
