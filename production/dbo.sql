@@ -300,7 +300,7 @@ CREATE TABLE dbo.decoders (
 );
 
 BEGIN TRY
-	DECLARE @bulk_cmd = 'BULK INSERT dbo.decoders
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT dbo.decoders
 	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\vital\birth_decoders.csv''
 	WITH (
 		FIELDTERMINATOR = '','',
@@ -314,7 +314,7 @@ END CATCH
 GO
 
 BEGIN TRY
-	DECLARE @bulk_cmd = 'BULK INSERT dbo.decoders
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT dbo.decoders
 	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\vital\death_decoders.csv''
 	WITH (
 		FIELDTERMINATOR = '','',
