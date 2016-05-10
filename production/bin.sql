@@ -607,7 +607,7 @@ BEGIN
 		WHERE source = @source 
 			AND gang = @gang 
 			AND trait = @trait 
-	RETURN ISNULL(@codeset, @codeset)
+	RETURN ISNULL(@codeset, @trait)
 END
 GO
 
