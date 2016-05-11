@@ -67,7 +67,8 @@ vital,births,inf_none,standard4_yesno
 vital,births,inf_gonor,standard4_yesno
 vital,births,inf_syph,standard4_yesno
 vital,births,inf_chlam,standard4_yesno
-vital,births,inf_hepbinf_hepc,standard4_yesno
+vital,births,inf_hepb,standard4_yesno
+vital,births,inf_hepc,standard4_yesno
 vital,births,inf_hpv,standard4_yesno
 vital,births,inf_hivaids,standard4_yesno
 vital,births,inf_cmv,standard4_yesno
