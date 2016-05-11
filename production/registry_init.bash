@@ -41,7 +41,7 @@ echo "DECLARE @bulk_cmd VARCHAR(1000)"
 # The contents of these csv files can contain commas
 #	and so are quoted and bulk insert won't remove these.
 #	Must manually remove single and double quote wrappers.
-ls -1 content/vital/{birth,death}/*csv | \
+ls -1 content/vital/{births,deaths}/*csv | \
 	awk -F. '{print $1}' | awk -F/ '{
 		gang=$(NF-1)
 		trait=$NF
