@@ -10,6 +10,10 @@ IF OBJECT_ID('vital.births', 'U') IS NOT NULL
 CREATE TABLE vital.births (
 	cert_yr INT,
 	cert_num INT,
+-- This could cause issue inserting?
+-- What if we get an updated record?
+--	CONSTRAINT vital_births_cert_yr_cert_num
+--		UNIQUE ( cert_yr, cert_num ),	
 	void INT,
 	name_sur VARCHAR(50),
 	name_sux VARCHAR(50),
@@ -804,3 +808,10 @@ CREATE VIEW vital.bulk_insert_births AS SELECT
 	birth_rco
 FROM vital.births;
 GO
+
+
+
+ALTER TABLE vital.births ADD cert_year_num AS 
+  CAST(cert_yr AS VARCHAR) + '-' + CAST(cert_num AS VARCHAR);
+GO
+

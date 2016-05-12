@@ -272,7 +272,7 @@ CREATE TABLE dbo.codes (
 	gang VARCHAR(50) NOT NULL,
 	trait VARCHAR(50) NOT NULL,
 	code INT NOT NULL,
-	value VARCHAR(255) NOT NULL
+	value VARCHAR(255) NOT NULL, 	-- Isn't this comma needed?
 	CONSTRAINT codes_unique_source_gang_trait_code
 		UNIQUE ( source, gang, trait, code )
 );
@@ -292,7 +292,7 @@ CREATE TABLE dbo.decoders (
 	source VARCHAR(50) NOT NULL,
 	gang VARCHAR(50) NOT NULL,
 	trait VARCHAR(50) NOT NULL,
-	codeset VARCHAR(50) NOT NULL
+	codeset VARCHAR(50) NOT NULL, 	-- Isn't this comma needed?
 	CONSTRAINT decoders_unique_source_gang_trait
 		UNIQUE ( source, gang, trait ),
 	CONSTRAINT decoders_unique_source_gang_trait_codeset
