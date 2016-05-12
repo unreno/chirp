@@ -3,6 +3,35 @@ IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='health_lab')
 	EXEC('CREATE SCHEMA health_lab')
 GO
 
+
+--"Accession Number","Kit Number","Patient ID","Last Name","First Name","Maiden Name","Birth Date","Place of birth","Address 1","City","State","Zip Code","Phone no. 1","Phone no. 2","Location","Entry Mode","Rank","Mother's surname","Mother's first name","Mother's maiden name","Mother's date of birth","Contact facility","Contact Address 1"
+
+-- Where are the results????
+
+--Accession Number VARCHAR(15)
+--Kit Number VARCHAR(15)
+--Patient ID VARCHAR(15)
+--Last Name VARCHAR(15)
+--First Name VARCHAR(15)	-- MALE, FEMALE????
+--Maiden Name VARCHAR
+--Birth Date DATE
+--Place of birth VARCHAR
+--Address 1 VARCHAR
+--City VARCHAR
+--State VARCHAR
+--Zip Code VARCHAR
+--Phone no. 1 VARCHAR
+--Phone no. 2 VARCHAR
+--Location VARCHAR
+--Entry Mode VARCHAR
+--Rank VARCHAR
+--Mother's surname VARCHAR
+--Mother's first name VARCHAR
+--Mother's maiden name VARCHAR
+--Mother's date of birth DATE
+--Contact facility VARCHAR
+--Contact Address 1 VARCHAR
+
 IF OBJECT_ID('health_lab.newborn_screening', 'U') IS NOT NULL
 	DROP TABLE health_lab.newborn_screening;
 CREATE TABLE health_lab.newborn_screening (
