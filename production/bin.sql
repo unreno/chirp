@@ -959,24 +959,29 @@ GO
 
 
 
+
+
 -- syntax highlighting shows "decode" as blue. Reserved?
 
 IF OBJECT_ID ( 'bin.decode', 'FN' ) IS NOT NULL
 	DROP FUNCTION bin.decode;
 GO
-CREATE FUNCTION bin.decode( @source VARCHAR(50), @gang VARCHAR(50), @trait VARCHAR(50), @code INT )
+CREATE FUNCTION bin.decode( @source VARCHAR(50), @gang VARCHAR(50), @trait VARCHAR(50), @code VARCHAR(10) )
 	RETURNS VARCHAR(255)
 BEGIN
 	DECLARE @value VARCHAR(255);
-	-- Don't put functions in WHERE clause. Performance issues.
-	-- Something about being called for every row. Unless you need that.
-	-- We don't need that here.
-	DECLARE @tmp VARCHAR(255) = bin.decoder(@source,@gang,@trait);
-	SELECT @value = value FROM dbo.codes
-		WHERE source = @source 
-			AND gang = @gang 
-			AND trait = @tmp
-			AND code = @code
+	IF ISNUMERIC(@code) = 1 BEGIN
+		-- Don't put functions in WHERE clause. Performance issues.
+		-- Something about being called for every row. Unless you need that.
+		-- We don't need that here.
+		DECLARE @tmp VARCHAR(255) = bin.decoder(@source,@gang,@trait);
+		SELECT @value = value FROM dbo.codes
+			WHERE source = @source 
+				AND gang = @gang 
+				AND trait = @tmp
+				AND code = @code
+	END ELSE
+		SET @value = @code
 	RETURN ISNULL(@value,CAST(@code AS VARCHAR(255)))
 END
 GO
