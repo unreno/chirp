@@ -4,7 +4,7 @@
 #	and as this will really only be used once,
 #	just catting them.
 
-DB_NAME='chirp_dev3'
+DB_NAME='chirp_dev4'
 
 #	Put this here so can programmatically select dev or prod
 echo "USE master;"
