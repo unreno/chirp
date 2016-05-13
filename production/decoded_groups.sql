@@ -43,6 +43,13 @@ SELECT @SQL = (
 		'FROM vital.births GROUP BY ' + name + ' ORDER BY ' + name + ';'
 	FROM   sys.columns
 	WHERE  object_id = OBJECT_ID('vital.births')
+	AND name IN ( SELECT name FROM #includable )
+/*
+	AND name IN ( 
+		SELECT name FROM #all_fields WHERE name IN (
+			SELECT name FROM #includable ) )
+*/
+/*
 	AND name NOT IN ( 
 		SELECT name FROM #all_fields WHERE name NOT IN (
 			SELECT name FROM #includable ) )
@@ -54,6 +61,7 @@ SELECT @SQL = (
 		'cer_yr', 'cer_mo', 'cer_da',
 		'reg_yr', 'reg_mo', 'reg_da', 
 		'imported_to_dw', 'imported_at')
+*/
 	-- concatenate result strings with FOR XML PATH
 	FOR XML PATH ('')
 );
