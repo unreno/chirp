@@ -8,6 +8,8 @@ GO
 IF OBJECT_ID('vital.births', 'U') IS NOT NULL
 	DROP TABLE vital.births;
 CREATE TABLE vital.births (
+	id INT IDENTITY(1,1),
+	CONSTRAINT vital_births_id PRIMARY KEY CLUSTERED (id ASC),
 	cert_yr INT,
 	cert_num INT,
 -- This could cause issue inserting?
