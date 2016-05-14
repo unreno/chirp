@@ -814,6 +814,6 @@ GO
 
 
 ALTER TABLE vital.births ADD cert_year_num AS 
-  CAST(cert_yr AS VARCHAR) + '-' + CAST(cert_num AS VARCHAR);
+  CAST(cert_yr AS VARCHAR(255)) + '-' + CAST(cert_num AS VARCHAR(255));
 GO
 

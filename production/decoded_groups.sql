@@ -38,7 +38,7 @@ DECLARE @SQL NVARCHAR(MAX) = '';
 SELECT @SQL = (
 	SELECT 'INSERT INTO #Groups (name,value,group_count) ' +
 		'SELECT ''' + name + ''' AS name, ' +
-		'CAST(' + name + ' AS VARCHAR) AS value, ' +
+		'CAST(' + name + ' AS VARCHAR(255)) AS value, ' +
 		'COUNT(*) AS group_count ' +
 		'FROM vital.births GROUP BY ' + name + ' ORDER BY ' + name + ';'
 	FROM   sys.columns
