@@ -21,11 +21,11 @@ IF OBJECT_ID('tempdb..#includable', 'U') IS NOT NULL
 	DROP TABLE #includable;
 CREATE TABLE #includable ( name VARCHAR(255) )
 INSERT INTO #includable (name) 
-SELECT trait AS name FROM dbo.decoders;
+	SELECT trait AS name FROM dbo.decoders;
 INSERT INTO #includable (name) 
-SELECT DISTINCT trait AS name FROM dbo.codes;
-INSERT INTO #includable (name) 
-SELECT name FROM #dvc WHERE count < 50;
+	SELECT DISTINCT trait AS name FROM dbo.codes;
+--INSERT INTO #includable (name) 
+--	SELECT name FROM #dvc WHERE count < 50;
 
 IF OBJECT_ID('tempdb..#Groups', 'U') IS NOT NULL 
 DROP TABLE #Groups
