@@ -81,3 +81,8 @@ EXECUTE sp_executesql @SQL;
 SELECT * FROM #Groups
 ORDER BY field, value, group_count
 	
+
+-- 383 columns plus these added 4
+-- id, cert_year_num, imported_at, imported_to_dw
+
+

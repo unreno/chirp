@@ -106,11 +106,11 @@ CREATE TABLE vital.births (
 	del_wt INT,
 	wt_gain INT,
 	prv_livebth INT,
-	prv_livebthdte INT,
+	prv_livebthdte VARCHAR(15),	--badly coded dates
 	live_bthliv INT,
 	live_bthdead INT,
 	prv_term INT,
-	term_dte INT,
+	term_dte VARCHAR(15),	--badly coded dates 112003
 	tobacco INT,
 	cig_pck INT,
 	prepreg_cig INT,
