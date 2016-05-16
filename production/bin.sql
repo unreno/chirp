@@ -716,7 +716,8 @@ BEGIN
 			('prepreg_pck', bin.decode('vital','births','prepreg_pck',prepreg_pck), NULL),
 			('prepreg_wt', bin.decode('vital','births','prepreg_wt',prepreg_wt), NULL),
 			('prv_livebth', bin.decode('vital','births','prv_livebth',prv_livebth), NULL),
-			('prv_livebthdte', bin.decode('vital','births','prv_livebthdte',prv_livebthdte), NULL),
+--			('prv_livebthdte', bin.decode('vital','births','prv_livebthdte',prv_livebthdte), NULL),
+			('prv_livebthdte', CAST(prv_livebthdte AS VARCHAR(255)), NULL),
 			('prv_term', bin.decode('vital','births','prv_term',prv_term), NULL),
 			('pv_trims_cal', bin.decode('vital','births','pv_trims_cal',pv_trims_cal), NULL),
 			('reg_da', bin.decode('vital','births','reg_da',reg_da), NULL),
@@ -730,7 +731,8 @@ BEGIN
 --			('ssn_child', bin.decode('vital','births','ssn_child',ssn_child), NULL),
 --			('ssn_date', bin.decode('vital','births','ssn_date',ssn_date), NULL),
 			('ssn_request', bin.decode('vital','births','ssn_request',ssn_request), NULL),
-			('term_dte', bin.decode('vital','births','term_dte',term_dte), NULL),
+--			('term_dte', bin.decode('vital','births','term_dte',term_dte), NULL),
+			('term_dte', CAST(term_dte AS VARCHAR(255)), NULL),
 			('tobacco', bin.decode('vital','births','tobacco',tobacco), NULL),
 			('tot_visits', bin.decode('vital','births','tot_visits',tot_visits), NULL),
 			('trial_lbr', bin.decode('vital','births','trial_lbr',trial_lbr), NULL),
@@ -966,7 +968,7 @@ GO
 IF OBJECT_ID ( 'bin.decode', 'FN' ) IS NOT NULL
 	DROP FUNCTION bin.decode;
 GO
-CREATE FUNCTION bin.decode( @source VARCHAR(50), @gang VARCHAR(50), @trait VARCHAR(50), @code VARCHAR(10) )
+CREATE FUNCTION bin.decode( @source VARCHAR(50), @gang VARCHAR(50), @trait VARCHAR(50), @code VARCHAR(255) )
 	RETURNS VARCHAR(255)
 BEGIN
 	DECLARE @value VARCHAR(255);
@@ -989,7 +991,7 @@ GO
 IF OBJECT_ID ( 'bin.decoder', 'FN' ) IS NOT NULL
 	DROP FUNCTION bin.decoder;
 GO
-CREATE FUNCTION bin.decoder( @source VARCHAR(50), @gang VARCHAR(50), @trait VARCHAR(50) )
+CREATE FUNCTION bin.decoder( @source VARCHAR(50), @gang VARCHAR(50), @trait VARCHAR(255) )
 	RETURNS VARCHAR(255)
 BEGIN
 	DECLARE @codeset VARCHAR(255);
@@ -1003,104 +1005,104 @@ GO
 
 
 
-
---	DROP TYPE bin.NamesTableType;	-- Can't be dropped if being referenced.
-CREATE TYPE bin.NamesTableType AS TABLE ( name VARCHAR(255) )
-GO
-
-
-IF OBJECT_ID ( 'bin.group_by_each_where', 'P' ) IS NOT NULL
-	DROP PROCEDURE bin.group_by_each_where;
-GO
-
-CREATE PROCEDURE bin.group_by_each_where( @schema VARCHAR(255), @table VARCHAR(255),
-	@exclude bin.NamesTableType READONLY, @condition VARCHAR(255) = '1=1' )
-AS
-BEGIN
-	SET NOCOUNT ON;
-	DECLARE @SQL NVARCHAR(MAX) = '';
-	-- I could add the prefix WHERE to @condition if not blank, but '1=1' works.
-	SELECT @SQL = (
-		SELECT 'SELECT CASE WHEN (GROUPING(' + QUOTENAME(name) + ') = 1) THEN ''Total'' ELSE CAST(' + 
-			QUOTENAME(name) + ' AS VARCHAR) END AS ' + QUOTENAME(name) + ', COUNT(*) AS [count], ' +
-      '( 2 * COUNT(*) * 100. / SUM(COUNT(*)) OVER()) AS [percent] FROM ' +
-      QUOTENAME(@schema) + '.' + QUOTENAME(@table) + 
-			' WHERE ' + @condition + ' GROUP BY ' + QUOTENAME(name) + 
-			' WITH ROLLUP ORDER BY ' + QUOTENAME(name) + ';'
-		FROM   sys.columns
-		WHERE  object_id = OBJECT_ID(@schema + '.' + @table)
-		AND name NOT IN (SELECT name FROM @exclude)
-	-- concatenate result strings with FOR XML PATH
-	FOR XML PATH (''));
-	EXECUTE sp_executesql @SQL;
-END
-GO
-
-IF OBJECT_ID ( 'bin.group_by_each', 'P' ) IS NOT NULL
-	DROP PROCEDURE bin.group_by_each;
-GO
-
-CREATE PROCEDURE bin.group_by_each( @schema VARCHAR(255), @table VARCHAR(255),
-	@exclude bin.NamesTableType READONLY )
-AS
-BEGIN
-	SET NOCOUNT ON;
-	EXEC bin.group_by_each_where @schema, @table, @exclude, default
-END
-GO
-
-
--- This does work, but not helpful
---DECLARE @exclude bin.NamesTableType;
---INSERT INTO @exclude VALUES ('id'),('chirp_id'),('provider_id'),('concept'),('started_at'),('downloaded_at');
---EXEC bin.group_by_each_where 'dbo','observations',@exclude,'concept = ''infant_living'''
--- So does this! 'default' uses a blank table. Also not helpful. Nice to know though.
---EXEC bin.group_by_each_where 'dbo','observations',default,'concept = ''infant_living'''
-
-
-
-
-
-
-IF OBJECT_ID ( 'bin.distinct_value_counts_where', 'P' ) IS NOT NULL
-	DROP PROCEDURE bin.distinct_value_counts_where;
-GO
-
-CREATE PROCEDURE bin.distinct_value_counts_where( @schema VARCHAR(255), @table VARCHAR(255),
-	@exclude bin.NamesTableType READONLY, @condition VARCHAR(255) = '1=1' )
-AS
-BEGIN
-	SET NOCOUNT ON;
-	CREATE TABLE #out ( name VARCHAR(255), count INT );
-	DECLARE @SQL NVARCHAR(MAX) = '';
-	-- I could add the prefix WHERE to @condition if not blank, but '1=1' works.
-	SELECT @SQL = (
-		SELECT 'INSERT INTO #out(name,count) SELECT ''' + name + 
-			''' AS name, COUNT(DISTINCT ' + 
-			QUOTENAME(name) + ') AS [count] ' +
-			' FROM ' + QUOTENAME(@schema) + '.' + QUOTENAME(@table) + 
-			' WHERE ' + @condition + ';'
-		FROM   sys.columns
-		WHERE  object_id = OBJECT_ID(@schema + '.' + @table)
-		AND name NOT IN (SELECT name FROM @exclude)
-	-- concatenate result strings with FOR XML PATH
-	FOR XML PATH (''));
-	EXECUTE sp_executesql @SQL;
-	SELECT * FROM #out
-END
-GO
-
-IF OBJECT_ID ( 'bin.distinct_value_counts', 'P' ) IS NOT NULL
-	DROP PROCEDURE bin.distinct_value_counts;
-GO
-
-CREATE PROCEDURE bin.distinct_value_counts( @schema VARCHAR(255), @table VARCHAR(255),
-	@exclude bin.NamesTableType READONLY )
-AS
-BEGIN
-	SET NOCOUNT ON;
-	EXEC  bin.distinct_value_counts_where @schema, @table, @exclude, default
-END
-GO
-
---EXEC bin.distinct_value_counts 'vital', 'births', default
+--
+----	DROP TYPE bin.NamesTableType;	-- Can't be dropped if being referenced.
+--CREATE TYPE bin.NamesTableType AS TABLE ( name VARCHAR(255) )
+--GO
+--
+--
+--IF OBJECT_ID ( 'bin.group_by_each_where', 'P' ) IS NOT NULL
+--	DROP PROCEDURE bin.group_by_each_where;
+--GO
+--
+--CREATE PROCEDURE bin.group_by_each_where( @schema VARCHAR(255), @table VARCHAR(255),
+--	@exclude bin.NamesTableType READONLY, @condition VARCHAR(255) = '1=1' )
+--AS
+--BEGIN
+--	SET NOCOUNT ON;
+--	DECLARE @SQL NVARCHAR(MAX) = '';
+--	-- I could add the prefix WHERE to @condition if not blank, but '1=1' works.
+--	SELECT @SQL = (
+--		SELECT 'SELECT CASE WHEN (GROUPING(' + QUOTENAME(name) + ') = 1) THEN ''Total'' ELSE CAST(' + 
+--			QUOTENAME(name) + ' AS VARCHAR) END AS ' + QUOTENAME(name) + ', COUNT(*) AS [count], ' +
+--      '( 2 * COUNT(*) * 100. / SUM(COUNT(*)) OVER()) AS [percent] FROM ' +
+--      QUOTENAME(@schema) + '.' + QUOTENAME(@table) + 
+--			' WHERE ' + @condition + ' GROUP BY ' + QUOTENAME(name) + 
+--			' WITH ROLLUP ORDER BY ' + QUOTENAME(name) + ';'
+--		FROM   sys.columns
+--		WHERE  object_id = OBJECT_ID(@schema + '.' + @table)
+--		AND name NOT IN (SELECT name FROM @exclude)
+--	-- concatenate result strings with FOR XML PATH
+--	FOR XML PATH (''));
+--	EXECUTE sp_executesql @SQL;
+--END
+--GO
+--
+--IF OBJECT_ID ( 'bin.group_by_each', 'P' ) IS NOT NULL
+--	DROP PROCEDURE bin.group_by_each;
+--GO
+--
+--CREATE PROCEDURE bin.group_by_each( @schema VARCHAR(255), @table VARCHAR(255),
+--	@exclude bin.NamesTableType READONLY )
+--AS
+--BEGIN
+--	SET NOCOUNT ON;
+--	EXEC bin.group_by_each_where @schema, @table, @exclude, default
+--END
+--GO
+--
+--
+---- This does work, but not helpful
+----DECLARE @exclude bin.NamesTableType;
+----INSERT INTO @exclude VALUES ('id'),('chirp_id'),('provider_id'),('concept'),('started_at'),('downloaded_at');
+----EXEC bin.group_by_each_where 'dbo','observations',@exclude,'concept = ''infant_living'''
+---- So does this! 'default' uses a blank table. Also not helpful. Nice to know though.
+----EXEC bin.group_by_each_where 'dbo','observations',default,'concept = ''infant_living'''
+--
+--
+--
+--
+--
+--
+--IF OBJECT_ID ( 'bin.distinct_value_counts_where', 'P' ) IS NOT NULL
+--	DROP PROCEDURE bin.distinct_value_counts_where;
+--GO
+--
+--CREATE PROCEDURE bin.distinct_value_counts_where( @schema VARCHAR(255), @table VARCHAR(255),
+--	@exclude bin.NamesTableType READONLY, @condition VARCHAR(255) = '1=1' )
+--AS
+--BEGIN
+--	SET NOCOUNT ON;
+--	CREATE TABLE #out ( name VARCHAR(255), count INT );
+--	DECLARE @SQL NVARCHAR(MAX) = '';
+--	-- I could add the prefix WHERE to @condition if not blank, but '1=1' works.
+--	SELECT @SQL = (
+--		SELECT 'INSERT INTO #out(name,count) SELECT ''' + name + 
+--			''' AS name, COUNT(DISTINCT ' + 
+--			QUOTENAME(name) + ') AS [count] ' +
+--			' FROM ' + QUOTENAME(@schema) + '.' + QUOTENAME(@table) + 
+--			' WHERE ' + @condition + ';'
+--		FROM   sys.columns
+--		WHERE  object_id = OBJECT_ID(@schema + '.' + @table)
+--		AND name NOT IN (SELECT name FROM @exclude)
+--	-- concatenate result strings with FOR XML PATH
+--	FOR XML PATH (''));
+--	EXECUTE sp_executesql @SQL;
+--	SELECT * FROM #out
+--END
+--GO
+--
+--IF OBJECT_ID ( 'bin.distinct_value_counts', 'P' ) IS NOT NULL
+--	DROP PROCEDURE bin.distinct_value_counts;
+--GO
+--
+--CREATE PROCEDURE bin.distinct_value_counts( @schema VARCHAR(255), @table VARCHAR(255),
+--	@exclude bin.NamesTableType READONLY )
+--AS
+--BEGIN
+--	SET NOCOUNT ON;
+--	EXEC  bin.distinct_value_counts_where @schema, @table, @exclude, default
+--END
+--GO
+--
+----EXEC bin.distinct_value_counts 'vital', 'births', default
