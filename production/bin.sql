@@ -1,7 +1,7 @@
 
 -- MS Sets these before every “CREATE TRIGGER”
 -- Not sure if calling them once will suffice.
--- Deeded?
+-- Needed?
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
