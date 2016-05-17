@@ -50,3 +50,11 @@ first_pck 0,1,2,99.  No decoder.
 sec_cig same as above
 
 sec_pck same as above
+
+
+
+
+No obvious infant height or head circumference.
+
+
+
