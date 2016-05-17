@@ -1,0 +1,52 @@
+
+Guessing as commented out in Format Birth.sas
+Mostly not matches.
+
+vital,births,mom_occ,occ
+vital,births,mom_occup1,occup
+vital,births,mom_bus,business
+vital,births,mom_busines1,business
+vital,births,fa_occ,occ
+vital,births,fa_occup1,occup
+vital,births,fa_bus,business
+vital,births,fa_busines1,business
+vital,births,mom_occup1_ebrs,occup
+vital,births,mom_bus_ebrs,business
+vital,births,mom_busines1_ebrs,business
+vital,births,fa_occ_ebrs,occ
+vital,births,fa_occup1_ebrs,occup
+vital,births,fa_bus_ebrs,business
+vital,births,fa_busines1_ebrs,business
+
+There are also "industry" values, but no obvious placement.
+
+
+mom_race, fa_race* not clearly defined. 
+Guessing race, but mostly not matches. Concatenation?
+
+
+born_alive 1,2,3,88. No decoder
+
+bth_order 1,2,3,88. No decoder.
+
+bth_present 1,2,3. No decoder.
+
+live_bthdead 0,1,2,88,99.  No decoder.
+
+live_bthliv 0-9,88,99. No decoder.
+
+match_certnum 4, NULL. No decoder.
+
+plurality 1,2,3. No decoder.
+
+prepreg_cig age? 0-16,20, 23, 25,30,40,99. No decoder
+
+prepreg_pck 0,1,2,99. No decoder.
+
+first_cig 0-16,20,30,40,99. No decoder.
+
+first_pck 0,1,2,99.  No decoder.
+
+sec_cig same as above
+
+sec_pck same as above
