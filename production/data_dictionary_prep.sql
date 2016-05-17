@@ -12,7 +12,7 @@ INSERT INTO #exclude VALUES ('cert_num'),('fa_dob'),('mom_dob'),('bth_date'),('b
 	'ssn_child'),('inf_hospnum'),('mom_hospnum'),(
 	'fa_mname'),('fa_ssn'),('mom_ssn'),('fa_sname'),('fa_xname'),(
 	'fa_fname'),( 'cert_year_num'),('mom_address'),(
-	'cert_yr'),( 'mom_age'),( 'ssn_date'),(
+	'cert_yr'),('fa_age'),('mom_age'),( 'ssn_date'),(
 	'birth_yr'),( 'birth_mo'),( 'birth_da'),(
 	'lm_yr'),( 'lm_mo'),( 'lm_da'),(
 	'pre_begyr'),( 'pre_begmo'),( 'pre_begda'),(
