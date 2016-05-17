@@ -286,25 +286,27 @@ GO
 
 
 
-IF OBJECT_ID('dbo.decoders', 'U') IS NOT NULL
-	DROP TABLE dbo.decoders;
-CREATE TABLE dbo.decoders (
-	source VARCHAR(50) NOT NULL,
-	gang VARCHAR(50) NOT NULL,
-	trait VARCHAR(50) NOT NULL,
-	codeset VARCHAR(50) NOT NULL, 	-- Isn't this comma needed?
-	CONSTRAINT decoders_unique_source_gang_trait
-		UNIQUE ( source, gang, trait ),
-	CONSTRAINT decoders_unique_source_gang_trait_codeset
-		UNIQUE ( source, gang, trait, codeset )
+IF OBJECT_ID('dbo.dictionary', 'U') IS NOT NULL
+	DROP TABLE dbo.dictionary;
+CREATE TABLE dbo.dictionary (
+	_schema VARCHAR(50) NOT NULL,
+	_table VARCHAR(50) NOT NULL,
+	field VARCHAR(50) NOT NULL,
+	codeset VARCHAR(50) NOT NULL,
+	label VARCHAR(255),
+	definition VARCHAR(255),
+	CONSTRAINT dictionary_unique_schema_table_field
+		UNIQUE ( _schema, _table, field )
+	CONSTRAINT dictionary_unique_schema_table_field_codeset
+		UNIQUE ( _schema, _table, field, codeset )
 );
 
 -- These files were created from a Windows file and hence had hidden CRLFs!
--- Had to "sed 's/^M//' birth_decoders.csv" them to correct.
+-- Had to "sed 's/^M//' birth_dictionary.csv" them to correct.
 
 BEGIN TRY
-	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT dbo.decoders
-	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\vital\birth_decoders.csv''
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT dbo.dictionary
+	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\vital\birth_dictionary.csv''
 	WITH (
 		FIELDTERMINATOR = '','',
 		ROWTERMINATOR = '''+CHAR(10)+''',
@@ -317,8 +319,8 @@ END CATCH
 GO
 
 BEGIN TRY
-	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT dbo.decoders
-	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\vital\death_decoders.csv''
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT dbo.dictionary
+	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\vital\death_dictionary.csv''
 	WITH (
 		FIELDTERMINATOR = '','',
 		ROWTERMINATOR = '''+CHAR(10)+''',

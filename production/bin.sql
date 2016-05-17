@@ -968,7 +968,7 @@ GO
 IF OBJECT_ID ( 'bin.decode', 'FN' ) IS NOT NULL
 	DROP FUNCTION bin.decode;
 GO
-CREATE FUNCTION bin.decode( @source VARCHAR(50), @gang VARCHAR(50), @trait VARCHAR(50), @code VARCHAR(255) )
+CREATE FUNCTION bin.decode( @schema VARCHAR(50), @table VARCHAR(50), @field VARCHAR(50), @code VARCHAR(255) )
 	RETURNS VARCHAR(255)
 BEGIN
 	DECLARE @value VARCHAR(255);
@@ -976,11 +976,11 @@ BEGIN
 		-- Don't put functions in WHERE clause. Performance issues.
 		-- Something about being called for every row. Unless you need that.
 		-- We don't need that here.
-		DECLARE @tmp VARCHAR(255) = bin.decoder(@source,@gang,@trait);
+		DECLARE @tmp VARCHAR(255) = bin.codeset(@schema,@table,@field);
 		SELECT @value = value FROM dbo.codes
-			WHERE source = @source 
-				AND gang = @gang 
-				AND trait = @tmp
+			WHERE _schema = @schema 
+				AND _table = @table 
+				AND field = @tmp
 				AND code = @code
 	END ELSE
 		SET @value = @code
@@ -988,18 +988,48 @@ BEGIN
 END
 GO
 
-IF OBJECT_ID ( 'bin.decoder', 'FN' ) IS NOT NULL
-	DROP FUNCTION bin.decoder;
+IF OBJECT_ID ( 'bin.codeset', 'FN' ) IS NOT NULL
+	DROP FUNCTION bin.codeset;
 GO
-CREATE FUNCTION bin.decoder( @source VARCHAR(50), @gang VARCHAR(50), @trait VARCHAR(255) )
+CREATE FUNCTION bin.codeset( @schema VARCHAR(50), @table VARCHAR(50), @field VARCHAR(255) )
 	RETURNS VARCHAR(255)
 BEGIN
 	DECLARE @codeset VARCHAR(255);
-	SELECT @codeset = codeset FROM dbo.decoders
-		WHERE source = @source 
-			AND gang = @gang 
-			AND trait = @trait 
-	RETURN ISNULL(@codeset, @trait)
+	SELECT @codeset = codeset FROM dbo.dictionary
+		WHERE _schema = @schema 
+			AND _table = @table 
+			AND field = @field 
+	RETURN ISNULL(@codeset, @field)
+END
+GO
+
+IF OBJECT_ID ( 'bin.label', 'FN' ) IS NOT NULL
+	DROP FUNCTION bin.label;
+GO
+CREATE FUNCTION bin.label( @schema VARCHAR(50), @table VARCHAR(50), @field VARCHAR(255) )
+	RETURNS VARCHAR(255)
+BEGIN
+	DECLARE @label VARCHAR(255);
+	SELECT @label = label FROM dbo.dictionary
+		WHERE _schema = @schema 
+			AND _table = @table 
+			AND field = @field 
+	RETURN ISNULL(@label, @field)
+END
+GO
+
+IF OBJECT_ID ( 'bin.definition', 'FN' ) IS NOT NULL
+	DROP FUNCTION bin.definition;
+GO
+CREATE FUNCTION bin.definition( @schema VARCHAR(50), @table VARCHAR(50), @field VARCHAR(255) )
+	RETURNS VARCHAR(255)
+BEGIN
+	DECLARE @definition VARCHAR(255);
+	SELECT @definition = definition FROM dbo.dictionary
+		WHERE _schema = @schema 
+			AND _table = @table 
+			AND field = @field 
+	RETURN ISNULL(@definition, @field)
 END
 GO
 
