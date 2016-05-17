@@ -12,6 +12,8 @@
 -- UQ - Unique Constraint
 --  F - Foreign Key Constraint
 --  C - CHECK constraint
+-- FN - Normal function that returns something scalar
+-- TF - returns a table variable filled by a selection
 --
 -- (Many more)
 
