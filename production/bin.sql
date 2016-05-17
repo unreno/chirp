@@ -756,6 +756,8 @@ BEGIN
 --			('void', bin.decode('vital','births','void',void), NULL),
 			('wic', bin.decode('vital','births','wic',wic), NULL),
 			('wt_gain', bin.decode('vital','births','wt_gain',wt_gain), NULL),
+--			('birth_qtr',bin.quarter(bth_date),NULL),
+			('birth_qtr',DATEPART(q,bth_date),NULL),
 			('DEM:Weight', CAST(
 				bin.weight_from_lbs_and_oz( lbs, oz ) AS VARCHAR(255)), 'lbs')
 		) cav ( concept, value, units )
@@ -1180,3 +1182,21 @@ GO
 --GO
 --
 ----EXEC bin.distinct_value_counts 'vital', 'births', default
+
+
+
+--	just use DATEPART(q,bth_date)
+--IF OBJECT_ID ( 'bin.quarter', 'FN' ) IS NOT NULL
+--	DROP FUNCTION bin.quarter;
+--GO
+--CREATE FUNCTION bin.quarter( @date VARCHAR(255) )
+--	RETURNS VARCHAR(1)
+--BEGIN
+--	DECLARE @quarter VARCHAR(1);
+--	IF ISDATE(@date) = 1
+--		SET @quarter = CAST(DATEPART(q,@date) AS CHAR(1))
+--	RETURN @quarter
+--END
+--GO
+
+
