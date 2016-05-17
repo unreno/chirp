@@ -1051,6 +1051,33 @@ END
 GO
 
 
+IF OBJECT_ID ( 'bin.codes', 'TF' ) IS NOT NULL 
+  DROP FUNCTION bin.codes;
+GO
+CREATE FUNCTION bin.codes( @schema VARCHAR(50), @table VARCHAR(50), @field VARCHAR(50) )
+	RETURNS @codes TABLE ( code VARCHAR(255), value VARCHAR(255) )
+BEGIN
+	DECLARE @tmp VARCHAR(255) = bin.codeset(@schema,@table,@field);
+
+	INSERT INTO @codes    
+		SELECT code, value FROM dbo.codes
+		WHERE _schema = @schema 
+			AND _table = @table 
+			AND field = @tmp 
+
+	RETURN 
+END
+GO
+
+
+
+--	PRINT bin.decode('vital','births','race',1)
+--	PRINT bin.label('vital','births','race')
+--	PRINT bin.definition('vital','births','race')
+--	PRINT bin.codeset('vital','births','race')
+--	SELECT * FROM bin.codes('vital','births','race')
+
+
 
 --
 ----	DROP TYPE bin.NamesTableType;	-- Can't be dropped if being referenced.

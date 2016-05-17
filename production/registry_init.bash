@@ -42,14 +42,14 @@ echo "DECLARE @bulk_cmd VARCHAR(1000)"
 #	Must manually remove single and double quote wrappers.
 ls -1 content/vital/{births,deaths}/*csv | \
 	awk -F. '{print $1}' | awk -F/ '{
-		gang=$(NF-1)
-		trait=$NF
-		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_source_default DEFAULT '"'"'vital'"'"' FOR source;"
-		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_gang_default DEFAULT '"'"'"gang"'"'"' FOR gang;"
-		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_trait_default DEFAULT '"'"'"trait"'"'"' FOR trait;"
+		table=$(NF-1)
+		field=$NF
+		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_schema_default DEFAULT '"'"'vital'"'"' FOR _schema;"
+		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_table_default DEFAULT '"'"'"table"'"'"' FOR _table;"
+		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_field_default DEFAULT '"'"'"field"'"'"' FOR field;"
 		print "BEGIN TRY"
 		print "SET @bulk_cmd = '"'"'BULK INSERT dbo.bulk_insert_codes"
-		print "	FROM '"''"'Z:\\Renown Project\\CHIRP\\Personal folders\\Jake\\chirp\\production\\content\\vital\\"gang"\\"trait".csv'"''"'"
+		print "	FROM '"''"'Z:\\Renown Project\\CHIRP\\Personal folders\\Jake\\chirp\\production\\content\\vital\\"table"\\"field".csv'"''"'"
 		print "	WITH ("
 		print "		FIELDTERMINATOR = '"''"','"''"',"
 		print "		ROWTERMINATOR = '"'''"'+CHAR(10)+'"'''"',"
@@ -59,9 +59,9 @@ ls -1 content/vital/{births,deaths}/*csv | \
 		print "END TRY BEGIN CATCH"
 		print "	PRINT ERROR_MESSAGE()"
 		print "END CATCH"
-		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_source_default;"
-		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_gang_default;"
-		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_trait_default;\n"
+		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_schema_default;"
+		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_table_default;"
+		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_field_default;\n"
 }'
 
 
