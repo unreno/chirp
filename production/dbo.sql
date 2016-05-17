@@ -296,7 +296,7 @@ CREATE TABLE dbo.dictionary (
 	label VARCHAR(255),
 	definition VARCHAR(255),
 	CONSTRAINT dictionary_unique_schema_table_field
-		UNIQUE ( _schema, _table, field )
+		UNIQUE ( _schema, _table, field ),
 	CONSTRAINT dictionary_unique_schema_table_field_codeset
 		UNIQUE ( _schema, _table, field, codeset )
 );
