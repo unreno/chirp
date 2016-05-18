@@ -292,7 +292,7 @@ CREATE TABLE dbo.dictionary (
 	_schema VARCHAR(50) NOT NULL,
 	_table VARCHAR(50) NOT NULL,
 	field VARCHAR(50) NOT NULL,
-	codeset VARCHAR(50) NOT NULL,
+	codeset VARCHAR(50),	-- NOT NULL, -- adding all fields not just decoders
 	label VARCHAR(255),
 	definition VARCHAR(255),
 	CONSTRAINT dictionary_unique_schema_table_field

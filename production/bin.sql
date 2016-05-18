@@ -1033,6 +1033,7 @@ BEGIN
 		WHERE _schema = @schema 
 			AND _table = @table 
 			AND field = @field 
+	-- If label is blank, just return the given field
 	RETURN ISNULL(@label, @field)
 END
 GO
@@ -1048,7 +1049,8 @@ BEGIN
 		WHERE _schema = @schema 
 			AND _table = @table 
 			AND field = @field 
-	RETURN ISNULL(@definition, @field)
+	-- If definition is blank return label
+	RETURN ISNULL(@definition, bin.label(@schema,@table,@field))
 END
 GO
 
