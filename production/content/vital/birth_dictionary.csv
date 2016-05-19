@@ -358,7 +358,7 @@ vital,births,pre_endyr,,Prenatal Care End Year (4-digit),
 vital,births,prenatal,standard2_yesno,,
 vital,births,prepreg_cig,,,
 vital,births,prepreg_pck,,,
-vital,births,prepreg_wt,,,
+vital,births,prepreg_wt,,Pre-pregnancy Weight,Pre-pregnancy Weight (In lbs 70 - 362, 999)
 vital,births,prv_livebth,,,
 vital,births,prv_livebthdte,,,
 vital,births,prv_term,,,
