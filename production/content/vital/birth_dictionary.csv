@@ -205,7 +205,7 @@ vital,births,inf_trans,standard2_yesno,,
 vital,births,inf_tuber,standard4_yesno,,
 vital,births,last_cig,,,
 vital,births,last_pck,,,
-vital,births,lbs,,Child's Birth Weight,Child's Birth Weight (Integer lbs only)
+vital,births,lbs,,Child's Birth Weight,Child's Birth Weight (Integer lbs Only 0-13)
 vital,births,live_bthdead,,,
 vital,births,live_bthliv,,,
 vital,births,lm_da,,,
