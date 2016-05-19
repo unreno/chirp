@@ -43,6 +43,10 @@ SELECT @SQL = (
 EXECUTE sp_executesql @SQL;
 
 
+-- sadly if oz = 0, or lbs = 0, etc, SQL Server says its ''
+-- INTEGER = '' WILL INCLUDE ZEROES!!!?!?!?!?!?!?
+
+
 SELECT @SQL = (
 	SELECT 'INSERT INTO #Groups (field,value,decoded_value,group_count) ' +
 		'SELECT ''' + name + ''' AS field, ' +
