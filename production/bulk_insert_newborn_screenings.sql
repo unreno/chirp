@@ -1,11 +1,9 @@
 
 --
--- I had to convert these malformed csv files into malformed psv files
+-- I had to convert these malformed csv files into malformed tsv files
 -- to get bulk import to correctly import the contents.
--- awk -f /cygdrive/z/Renown\ Project/CHIRP/Personal\ folders/Jake/chirp/scripts/csv_prepare_for_bulk_insert.awk September\ 2015.csv > September\ 2015.csv.psv
+-- awk -f /cygdrive/z/Renown\ Project/CHIRP/Personal\ folders/Jake/chirp/scripts/csv_prepare_for_bulk_insert.awk September\ 2015.csv > September\ 2015.csv.tsv
 --
-
--- Changing from psv to tsv
 
 DECLARE @bulk_cmd VARCHAR(1000);
 
