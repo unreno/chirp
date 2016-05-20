@@ -4,7 +4,7 @@
 #	and as this will really only be used once,
 #	just catting them.
 
-DB_NAME='chirp_dev'
+DB_NAME='chirp_dev4'
 
 #	Put this here so can programmatically select dev or prod
 echo "USE master;"
@@ -68,12 +68,12 @@ ls -1 content/vital/{births,deaths}/*tsv | \
 #		print "	PRINT ERROR_MESSAGE()"
 #		print "END CATCH"
 
-echo "UPDATE dbo.codes"
-echo "	SET value = SUBSTRING ( value, 2, LEN(value)-2 )"
-echo "	WHERE value LIKE '\"%\"';"
-echo "UPDATE dbo.codes"
-echo "	SET value = SUBSTRING ( value, 2, LEN(value)-2 )"
-echo "	WHERE value LIKE '''%''';"
+#echo "UPDATE dbo.codes"
+#echo "	SET value = SUBSTRING ( value, 2, LEN(value)-2 )"
+#echo "	WHERE value LIKE '\"%\"';"
+#echo "UPDATE dbo.codes"
+#echo "	SET value = SUBSTRING ( value, 2, LEN(value)-2 )"
+#echo "	WHERE value LIKE '''%''';"
 
 
 

@@ -1,5 +1,5 @@
 BEGIN { 
-	OFS="|";
+	OFS="\t";
 #	FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)" #	legit csv
 	FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)|(\"[^,]*\")" 
 #	(\"[^,]*\") is for my malformed csv
@@ -13,7 +13,7 @@ BEGIN {
 #	If they are not removed, the first line will have an
 #	additional preceding field, which in our case doesn't
 #	really affect anything as told BULK INSERT to ignore row 1.
-#	Nevertheless, we need our malformed psv files to
+#	Nevertheless, we need our malformed tsv files to
 #	be properly malformed!
 ( NR==1 ){sub(/^\xef\xbb\xbf/,"")}
 
