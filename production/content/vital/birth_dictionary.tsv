@@ -6,8 +6,8 @@ vital	births	ac_hyaline	standard4_yesno	Hyaline Membrane Disease / Rds
 vital	births	ac_mecon	standard4_yesno	Meconium Aspiration Syndrome	
 vital	births	ac_nicu	standard4_yesno	Admitted to NICU	
 vital	births	ac_none	standard4_yesno	No Abnormal Conditions	
-vital	births	ac_oth	standard4_yesno	Other Abnoral Conditions	
-vital	births	ac_othlit		Other Abnoral Conditions Literal	
+vital	births	ac_oth	standard4_yesno	Other Abnormal Conditions	
+vital	births	ac_othlit		Other Abnormal Conditions Literal	
 vital	births	ac_seizures	standard4_yesno	Seizures	
 vital	births	ac_surf	standard4_yesno	Surfactant	
 vital	births	ac_ventless	standard4_yesno	Assisted Ventilation < 30 Min	
