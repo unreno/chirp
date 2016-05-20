@@ -557,7 +557,7 @@ BEGIN
 			('first_cig', bin.decode('vital','births','first_cig',first_cig), NULL),
 			('first_pck', bin.decode('vital','births','first_pck',first_pck), NULL),
 			('gest_days', bin.decode('vital','births','gest_days',gest_days), 'days'),
-			('gest_est', bin.decode('vital','births','gest_est',gest_est), NULL),
+			('gest_est', bin.decode('vital','births','gest_est',gest_est), 'weeks'),
 			('gest_grp', bin.decode('vital','births','gest_grp',gest_grp), NULL),
 			('gest_wks', CAST(gest_wks AS VARCHAR(255)), 'weeks'),
 --			('grams', CAST(grams AS VARCHAR(255)), 'grams'),
