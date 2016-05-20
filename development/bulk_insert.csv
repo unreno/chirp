@@ -1,0 +1,27 @@
+
+
+-- I had previously understood that BULK INSERT will not respect quoted 
+-- field delimiters, even if in a properly quoted csv file.
+-- This isn't entirely true. 
+-- Somehow, if the last column is text, it won't try to split it.
+-- For example, 2 column table integer id and text value
+-- csv file contains  1,2,3,4
+-- BULK INSERT will assign 1 to id and 2,3,4 to text.
+-- This seems to be a very special case, so don't count on it.
+
+
+-- Also, BULK INSERT is all or nothing.
+-- Using something like ERRORFILE to catch failed records is good.
+-- ERRORFILE =''C:\Users\gwendt\Desktop\testerrors.csv'',
+
+-- This file MUST NOT EXIST.
+-- Also this file + ".Error.Txt" MUST NOT EXIST
+
+
+-- Also, MAXERRORS = 1 does not seem to actually work as expected.
+
+-- Quite frankly the default of 10, if it works, is a bad idea. 
+-- It should be all or nothing.
+
+
+
