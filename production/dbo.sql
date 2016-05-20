@@ -304,31 +304,31 @@ CREATE TABLE dbo.dictionary (
 -- These files were created from a Windows file and hence had hidden CRLFs!
 -- Had to "sed 's/^M//' birth_dictionary.csv" them to correct.
 
-BEGIN TRY
+--BEGIN TRY
+--		FIELDTERMINATOR = '','',
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT dbo.dictionary
-	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\vital\birth_dictionary.csv''
+	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\vital\birth_dictionary.tsv''
 	WITH (
-		FIELDTERMINATOR = '','',
 		ROWTERMINATOR = '''+CHAR(10)+''',
 		TABLOCK
 	)';
 	EXEC(@bulk_cmd);
-END TRY BEGIN CATCH
-	PRINT ERROR_MESSAGE()
-END CATCH
+--END TRY BEGIN CATCH
+--	PRINT ERROR_MESSAGE()
+--END CATCH
 GO
 
-BEGIN TRY
+--BEGIN TRY
+--		FIELDTERMINATOR = '','',
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT dbo.dictionary
-	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\vital\death_dictionary.csv''
+	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\vital\death_dictionary.tsv''
 	WITH (
-		FIELDTERMINATOR = '','',
 		ROWTERMINATOR = '''+CHAR(10)+''',
 		TABLOCK
 	)';
 	EXEC(@bulk_cmd);
-END TRY BEGIN CATCH
-	PRINT ERROR_MESSAGE()
-END CATCH
+--END TRY BEGIN CATCH
+--	PRINT ERROR_MESSAGE()
+--END CATCH
 GO
 

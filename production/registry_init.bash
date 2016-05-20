@@ -39,31 +39,34 @@ echo "DECLARE @bulk_cmd VARCHAR(1000)"
 
 # The contents of these csv files can contain commas
 #	and so are quoted and bulk insert won't remove these.
+#	In this case, BULK INSERT works as the commas are in the last field
+#	Nevertheless, converting to TABs with tsv. Pretty on github and in vi too.
+#	TABs are BULK INSERT's default separator anyhow.
 #	Must manually remove single and double quote wrappers.
-ls -1 content/vital/{births,deaths}/*csv | \
+ls -1 content/vital/{births,deaths}/*tsv | \
 	awk -F. '{print $1}' | awk -F/ '{
 		table=$(NF-1)
 		field=$NF
 		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_schema_default DEFAULT '"'"'vital'"'"' FOR _schema;"
 		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_table_default DEFAULT '"'"'"table"'"'"' FOR _table;"
 		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_field_default DEFAULT '"'"'"field"'"'"' FOR field;"
-		print "BEGIN TRY"
 		print "SET @bulk_cmd = '"'"'BULK INSERT dbo.bulk_insert_codes"
-		print "	FROM '"''"'Z:\\Renown Project\\CHIRP\\Personal folders\\Jake\\chirp\\production\\content\\vital\\"table"\\"field".csv'"''"'"
+		print "	FROM '"''"'Z:\\Renown Project\\CHIRP\\Personal folders\\Jake\\chirp\\production\\content\\vital\\"table"\\"field".tsv'"''"'"
 		print "	WITH ("
-		print "		FIELDTERMINATOR = '"''"','"''"',"
 		print "		ROWTERMINATOR = '"'''"'+CHAR(10)+'"'''"',"
 		print "		TABLOCK"
 		print "	)'"'"';"
 		print "	EXEC(@bulk_cmd);"
-		print "END TRY BEGIN CATCH"
-		print "	PRINT ERROR_MESSAGE()"
-		print "END CATCH"
 		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_schema_default;"
 		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_table_default;"
 		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_field_default;\n"
 }'
 
+#		print "		FIELDTERMINATOR = '"''"','"''"',"
+#		print "BEGIN TRY"
+#		print "END TRY BEGIN CATCH"
+#		print "	PRINT ERROR_MESSAGE()"
+#		print "END CATCH"
 
 echo "UPDATE dbo.codes"
 echo "	SET value = SUBSTRING ( value, 2, LEN(value)-2 )"

@@ -1,0 +1,12 @@
+1	Pedestrian
+2	Pedal cyclist
+3	Motorcyclist
+4	Motor Vehicle Occupant
+5	Animal-Rider or Animal-Drawn Vehicle
+6	Train or Railway Vehicle
+7	Streetcar or Cablecar
+8	Industrial, Agriculture & Construction Vehicle
+9	Watercraft Accidents
+10	Aircraft & Spacecraft Accidents
+11	Sequelae of Accidents
+99	Other/Unknown Mode of Transportation

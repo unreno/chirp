@@ -1,0 +1,11 @@
+0	None
+1	Anemia (<39/Hgb <13)
+2	Birth Injury
+3	Fetal Alcohol Syndrome
+4	Hyaline Membrane Disease/Rds
+5	Meconium Aspiration Syndrome
+6	Assisted Ventilation < 30 Min
+7	Assisted Ventilation >= 30 Min
+8	Seizures
+9	Other
+99	Unknown

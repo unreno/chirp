@@ -1,0 +1,59 @@
+1	Salmonella infections
+2	Shigellosis and amebiasis
+3	Certain other intestinal infections
+4	Tuberculosis
+5	Whooping cough
+6	Scarlet fever and erysipelas
+7	Meningococcal infection
+8	Septicemia
+9	Syphilis
+10	Acute poliomyelitis
+11	Arthropod-borne viral encephalitis
+12	Measles
+13	Viral hepatitis
+14	HIV
+15	Malaria
+16	Other infectious and parasitic diseases
+17	Malignant neoplasms
+18	Benign neoplasms
+19	Anemias
+20	Diabetes mellitus
+21	Nutritional deficiencies
+22	Meningitis
+23	Parkinsons disease
+24	Alzheimers disease
+25	Diseases of heart
+26	Essential Hypertensive Renal Disease
+27	Cerebrovascular diseases
+28	Atherosclerosis
+29	Other diseases of circulatory system
+30	Other disorders of cirulatory system
+31	Influenza and pneumonia
+32	Other acute lower respiratory infections
+33	Chronic lower respiratory diseases
+34	Pneumoconioses and chemical effects
+35	Pneumonitis due to solids and liquids
+36	Other diseases of respiratory system
+37	Peptic ulcer
+38	Diseases of appendix
+39	Hernia
+40	Chronic liver disease and cirrhosis
+41	Cholelithiasis and other disorders of gallbladder
+42	Nephritis, nephrotic syndrome and nephrosis
+43	Infections of kidney
+44	Hyperplasia of prostate
+45	Inflammatory diseases of female pelvic organs
+46	Pregnancy, childbirth and the puerperium
+47	Perinatal period conditions
+48	Congenital malformations abnormalities
+49	Symptoms, signs, not elsewhere classified
+50	Transport accidents
+51	Nontransport accidents
+52	Intentional self-harm (suicide)
+53	Assault (homicide)
+54	Legal intervention
+55	Events of undetermined intent
+56	Operations of war and their sequelae
+57	Complications of medical/surgical care
+99	All other diseases (residual)
+999	System Missing or Undefined
