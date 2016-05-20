@@ -1016,7 +1016,7 @@ BEGIN
 		SELECT @value = value FROM dbo.codes
 			WHERE _schema = @schema 
 				AND _table = @table 
-				AND field = @tmp
+				AND codeset = @tmp
 				AND code = @code
 	END ELSE
 		SET @value = @code

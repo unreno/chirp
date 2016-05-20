@@ -270,11 +270,11 @@ IF OBJECT_ID('dbo.codes', 'U') IS NOT NULL
 CREATE TABLE dbo.codes (
 	_schema VARCHAR(50) NOT NULL,
 	_table VARCHAR(50) NOT NULL,
-	field VARCHAR(50) NOT NULL,
+	codeset VARCHAR(50) NOT NULL,
 	code INT NOT NULL,
 	value VARCHAR(255) NOT NULL, 	-- Isn't this comma needed?
-	CONSTRAINT codes_unique_schema_table_field_code
-		UNIQUE ( _schema, _table, field, code )
+	CONSTRAINT codes_unique_schema_table_codeset_code
+		UNIQUE ( _schema, _table, codeset, code )
 );
 -- FYI The maximum key length is 900 bytes. For some combination of large values, the insert/update operation will fail.
 IF OBJECT_ID ( 'dbo.bulk_insert_codes', 'V' ) IS NOT NULL
