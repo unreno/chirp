@@ -4,7 +4,7 @@
 #	and as this will really only be used once,
 #	just catting them.
 
-DB_NAME='chirp_dev4'
+DB_NAME='chirp_dev'
 
 #	Put this here so can programmatically select dev or prod
 echo "USE master;"
@@ -46,12 +46,12 @@ echo "DECLARE @bulk_cmd VARCHAR(1000)"
 ls -1 content/vital/{births,deaths}/*tsv | \
 	awk -F. '{print $1}' | awk -F/ '{
 		table=$(NF-1)
-		field=$NF
+		codeset=$NF
 		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_schema_default DEFAULT '"'"'vital'"'"' FOR _schema;"
 		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_table_default DEFAULT '"'"'"table"'"'"' FOR _table;"
-		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_field_default DEFAULT '"'"'"field"'"'"' FOR field;"
+		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_codeset_default DEFAULT '"'"'"codeset"'"'"' FOR codeset;"
 		print "SET @bulk_cmd = '"'"'BULK INSERT dbo.bulk_insert_codes"
-		print "	FROM '"''"'Z:\\Renown Project\\CHIRP\\Personal folders\\Jake\\chirp\\production\\content\\vital\\"table"\\"field".tsv'"''"'"
+		print "	FROM '"''"'Z:\\Renown Project\\CHIRP\\Personal folders\\Jake\\chirp\\production\\content\\vital\\"table"\\"codeset".tsv'"''"'"
 		print "	WITH ("
 		print "		ROWTERMINATOR = '"'''"'+CHAR(10)+'"'''"',"
 		print "		TABLOCK"
@@ -59,7 +59,7 @@ ls -1 content/vital/{births,deaths}/*tsv | \
 		print "	EXEC(@bulk_cmd);"
 		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_schema_default;"
 		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_table_default;"
-		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_field_default;\n"
+		print "ALTER TABLE dbo.codes DROP CONSTRAINT temp_codeset_default;\n"
 }'
 
 #		print "		FIELDTERMINATOR = '"''"','"''"',"
