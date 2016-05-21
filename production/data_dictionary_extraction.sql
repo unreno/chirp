@@ -55,3 +55,12 @@ WHERE d.group_count IS NULL and d.codeset IS NULL
 SELECT * FROM #dict_counts
 ORDER BY field, code
 
+
+SELECT field, 
+	ISNULL(label,'') AS label, 
+	ISNULL(definition,'') AS definition, 
+	ISNULL(codeset,'') AS codeset,
+	ISNULL(code,'') AS code, 
+	ISNULL(value,'') AS value FROM #dict_counts
+ORDER BY field, code
+
