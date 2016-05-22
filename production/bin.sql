@@ -1012,11 +1012,11 @@ BEGIN
 		-- Don't put functions in WHERE clause. Performance issues.
 		-- Something about being called for every row. Unless you need that.
 		-- We don't need that here.
-		DECLARE @tmp VARCHAR(255) = bin.codeset(@schema,@table,@field);
+		DECLARE @codeset VARCHAR(255) = bin.codeset(@schema,@table,@field);
 		SELECT @value = value FROM dbo.codes
 			WHERE _schema = @schema 
 				AND _table = @table 
-				AND codeset = @tmp
+				AND codeset = @codeset
 				AND code = @code
 	END ELSE
 		SET @value = @code
@@ -1078,13 +1078,13 @@ GO
 CREATE FUNCTION bin.codes( @schema VARCHAR(50), @table VARCHAR(50), @field VARCHAR(50) )
 	RETURNS @codes TABLE ( code VARCHAR(255), value VARCHAR(255) )
 BEGIN
-	DECLARE @tmp VARCHAR(255) = bin.codeset(@schema,@table,@field);
+	DECLARE @codeset VARCHAR(255) = bin.codeset(@schema,@table,@field);
 
 	INSERT INTO @codes    
 		SELECT code, value FROM dbo.codes
 		WHERE _schema = @schema 
 			AND _table = @table 
-			AND field = @tmp 
+			AND field = @codeset 
 
 	RETURN 
 END
