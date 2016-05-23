@@ -27,7 +27,7 @@ SELECT ISNULL(field,'') as field,
 		REPLACE( REPLACE( STUFF( ( 
 			SELECT ', ' + CAST(code AS VARCHAR) + ' = ' + value 
 			FROM dbo.codes c
-			WHERE c.codeset = d.codeset
+			WHERE c.codeset = d.codeset AND c._table = 'births'
 			FOR XML PATH('') 
 		), 1, 2, '')
 		, '&gt;', '<')
