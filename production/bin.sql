@@ -360,7 +360,7 @@ BEGIN
 				0 AS provider_id,
 				'vital' AS source_schema,
 				'births' AS source_table,
-				id AS source_id,
+				b.id AS source_id,
 				b.*,
 				imported_at AS downloaded_at
 			FROM vital.births b
@@ -774,7 +774,7 @@ BEGIN
 			('wt_gain', bin.decode('vital','births','wt_gain',wt_gain), 'lbs'),
 
 			('DEM:DOB', CAST(bth_date AS VARCHAR(255)), NULL),
-			('birth_qtr',DATEPART(q,bth_date),NULL),
+			('birth_qtr',CAST(DATEPART(q,bth_date) AS VARCHAR(255)),NULL),
 			('DEM:Weight', CAST(grams AS VARCHAR(255)), 'grams'),
 			('DEM:Weight', CAST(
 				bin.weight_from_lbs_and_oz( lbs, oz ) AS VARCHAR(255)), 'lbs')
