@@ -5,7 +5,7 @@ CREATE TABLE dbo.concepts (
 	id INT IDENTITY(1,1),
 	code VARCHAR(255),
 	CONSTRAINT concept_code PRIMARY KEY CLUSTERED (code ASC),
-	path VARCHAR(255),
+	path VARCHAR(255),	-- Remnant from I2B2. Will we have a use for this?
 	description VARCHAR(MAX)
 );
 
@@ -293,9 +293,11 @@ CREATE TABLE dbo.dictionary (
 	_schema VARCHAR(50) NOT NULL,
 	_table VARCHAR(50) NOT NULL,
 	field VARCHAR(50) NOT NULL,
-	codeset VARCHAR(50),	-- NOT NULL, -- adding all fields not just decoders
+	codeset VARCHAR(50),
+--	concept VARCHAR(255),	-- add concept?
 	label VARCHAR(255),
 	definition VARCHAR(255),
+	description VARCHAR(MAX),	-- very verbose
 	CONSTRAINT dictionary_unique_schema_table_field
 		UNIQUE ( _schema, _table, field ),
 	CONSTRAINT dictionary_unique_schema_table_field_codeset
