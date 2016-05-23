@@ -352,14 +352,15 @@ BEGIN
 
 	INSERT INTO dbo.observations
 		(chirp_id, provider_id, started_at,
-			concept, value, units, source_schema, source_table, downloaded_at)
+			concept, value, units, source_schema, source_table, source_id, downloaded_at)
 		SELECT chirp_id, provider_id, started_at,
-			cav.concept, cav.value, cav.units, source_schema, source_table, downloaded_at
+			cav.concept, cav.value, cav.units, source_schema, source_table, source_id, downloaded_at
 		FROM (
 			SELECT i.chirp_id, bth_date AS started_at,
 				0 AS provider_id,
 				'vital' AS source_schema,
 				'births' AS source_table,
+				id AS source_id,
 				b.*,
 				imported_at AS downloaded_at
 			FROM vital.births b
