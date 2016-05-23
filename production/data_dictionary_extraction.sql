@@ -18,8 +18,8 @@ LEFT JOIN dbo.codes c on d.codeset = c.codeset
 -- Still didn't work. Just replaced it with white space.
 
 
---SELECT _schema, _table, field, label, definition, codeset,
-SELECT field, label, definition, codeset,
+--SELECT _schema, _table, field, label, description, codeset,
+SELECT field, label, description, codeset,
 	CASE WHEN codeset IS NOT NULL THEN (
 		STUFF( ( 
 			SELECT ', ' + CAST(code AS VARCHAR) + ' = ' + value 
