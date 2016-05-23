@@ -193,3 +193,19 @@ SELECT field,
 
 
 
+
+
+
+/*
+
+Use cursors with dynamic SQL for loops
+
+
+
+Include blank values, non blank values and non code values so all counts add up
+Insert into where not in codes
+How is that going to be useful in a data dictionary? Screw all the counts.
+That info might be useful in a data report, however.
+
+
+*/
