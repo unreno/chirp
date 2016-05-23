@@ -126,19 +126,19 @@ UPDATE #dict_counts
 --SELECT * FROM #dict_counts ORDER BY field, code
 
 
--- Blank and Not Blank
+-- Blank and Not Blank -- THIS COMMAND IS TOO LONG!
 SELECT @SQL = (
 	SELECT 'INSERT INTO #dict_counts (field,label,definition,codeset,code,value,group_count) ' +
-		'SELECT field, label, definition, codeset, code, value, COUNT(*) as group_count FROM (' +
-			'SELECT ''' + name + ''' AS b.field, ' +
-				'd.label AS label ' +
-				'd.definition AS definition ' +
-				'd.codeset AS codeset ' +
-				'''Presence'' AS code ' +
+		'SELECT f,l,d,s,c,v,COUNT(*) as group_count FROM (' +
+			'SELECT ''' + name + ''' AS f, ' +
+				'd.label AS l, ' +
+				'd.definition AS d, ' +
+				'd.codeset AS s, ' +
+				'''Presence'' AS c, ' +
 				'CASE WHEN ''' + name + ''' IS NULL OR CAST(''' + name + ''' AS VARCHAR) = '''' ' +
-					'THEN ''Blank'' ELSE ''Not Blank'' END AS value' +
-			'FROM vital.births b LEFT JOIN dbo.dictionary d ON b.field = d.field' +
-		') GROUP BY value'
+					'THEN ''Blank'' ELSE ''Not Blank'' END AS v ' +
+			'FROM vital.births b LEFT JOIN dbo.dictionary d ON ''' + name + ''' = d.field ' +
+		') tmp GROUP BY f,l,d,s,c,v; '
 	FROM sys.columns
 	WHERE object_id = OBJECT_ID('vital.births')
 	FOR XML PATH ('')
@@ -148,25 +148,25 @@ EXECUTE sp_executesql @SQL;
 
 
 
--- Coded and Not Coded
-SELECT @SQL = (
-	SELECT 'INSERT INTO #dict_counts (field,label,definition,codeset,code,value,group_count) ' +
-		'SELECT field, label, definition, codeset, code, value, COUNT(*) as group_count FROM (' +
-			'SELECT ''' + name + ''' AS b.field, ' +
-				'd.label AS label ' +
-				'd.definition AS definition ' +
-				'd.codeset AS codeset ' +
-				'''Codeness'' AS code ' +
-				'CASE WHEN ''' + value + ''' IS IN ( ' +
-					'SELECT code FROM dbo.codes c JOIN dbo.dictionary d ON c.codeset = d.codeset ' +
-				') THEN ''Coded'' ELSE ''Not Coded'' END AS value' +
-			'FROM vital.births ' +
-		') GROUP BY value'
-	FROM sys.columns
-	WHERE object_id = OBJECT_ID('vital.births')
-	FOR XML PATH ('')
-);
-EXECUTE sp_executesql @SQL;
+---- Coded and Not Coded
+--SELECT @SQL = (
+--	SELECT 'INSERT INTO #dict_counts (field,label,definition,codeset,code,value,group_count) ' +
+--		'SELECT field, label, definition, codeset, code, value, COUNT(*) as group_count FROM ( ' +
+--			'SELECT ''' + name + ''' AS b.field, ' +
+--				'd.label AS label, ' +
+--				'd.definition AS definition, ' +
+--				'd.codeset AS codeset, ' +
+--				'''Codeness'' AS code, ' +
+--				'CASE WHEN ''' + value + ''' IS IN ( ' +
+--					'SELECT code FROM dbo.codes c JOIN dbo.dictionary d ON c.codeset = d.codeset ' +
+--				') THEN ''Coded'' ELSE ''Not Coded'' END AS value ' +
+--			'FROM vital.births ' +
+--		') GROUP BY value; '
+--	FROM sys.columns
+--	WHERE object_id = OBJECT_ID('vital.births')
+--	FOR XML PATH ('')
+--);
+--EXECUTE sp_executesql @SQL;
 
 
 
@@ -180,9 +180,10 @@ SELECT field,
 		ISNULL(label,'') AS label, 
 		ISNULL(definition,'') AS definition, 
 		ISNULL(codeset,'') AS codeset,
-		ISNULL(CAST(code AS VARCHAR(255)),'Blank') AS code, 
-		ISNULL(value,'Blank') AS value,
+		code, value
+--		ISNULL(CAST(code AS VARCHAR(255)),'Blank') AS code, 
+--		ISNULL(value,'Blank') AS value,
 		group_count
 	FROM #dict_counts
-	ORDER BY field, CAST(code AS INTEGER)
+	ORDER BY field, code		-- CAST(code AS INTEGER)
 
