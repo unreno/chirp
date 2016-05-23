@@ -151,20 +151,20 @@ vital	births	fa_occup1	occup
 vital	births	fa_pacisl	standard4_yesno	Father is Pacific Islander	
 vital	births	fa_pacisllit		Father is Pacific Islander (Literal)	
 vital	births	fa_pr	standard4_yesno	Father is Puerto Rican	
-vital	births	fa_race1	race		
-vital	births	fa_race16	race		
-vital	births	fa_race17	race		
-vital	births	fa_race18	race		
-vital	births	fa_race19	race		
-vital	births	fa_race2	race		
-vital	births	fa_race20	race		
-vital	births	fa_race22	race		
-vital	births	fa_race3	race		
-vital	births	fa_race4	race		
-vital	births	fa_race5	race		
-vital	births	fa_race6	race		
-vital	births	fa_race7	race		
-vital	births	fa_race8	race		
+vital	births	fa_race1			
+vital	births	fa_race16			
+vital	births	fa_race17			
+vital	births	fa_race18			
+vital	births	fa_race19			
+vital	births	fa_race2			
+vital	births	fa_race20			
+vital	births	fa_race22			
+vital	births	fa_race3			
+vital	births	fa_race4			
+vital	births	fa_race5			
+vital	births	fa_race6			
+vital	births	fa_race7			
+vital	births	fa_race8			
 vital	births	fa_raceoth	standard4_yesno		
 vital	births	fa_raceothlit			
 vital	births	fa_raceref	standard4_yesno		
@@ -272,18 +272,18 @@ vital	births	mom_occup1	occup
 vital	births	mom_pacisl	standard4_yesno	Mother is Pacific Islander	
 vital	births	mom_pacisllit		Mother is Pacific Islander (Literal)	
 vital	births	mom_pr	standard4_yesno	Mother is Puerto Rican	
-vital	births	mom_race1	race		
-vital	births	mom_race16	race		
-vital	births	mom_race18	race		
-vital	births	mom_race2	race		
-vital	births	mom_race20	race		
-vital	births	mom_race22	race		
-vital	births	mom_race3	race		
-vital	births	mom_race4	race		
-vital	births	mom_race5	race		
-vital	births	mom_race6	race		
-vital	births	mom_race7	race		
-vital	births	mom_race8	race		
+vital	births	mom_race1			
+vital	births	mom_race16			
+vital	births	mom_race18			
+vital	births	mom_race2			
+vital	births	mom_race20			
+vital	births	mom_race22			
+vital	births	mom_race3			
+vital	births	mom_race4			
+vital	births	mom_race5			
+vital	births	mom_race6			
+vital	births	mom_race7			
+vital	births	mom_race8			
 vital	births	mom_raceoth	standard4_yesno		
 vital	births	mom_raceothlit			
 vital	births	mom_raceref	standard4_yesno		
