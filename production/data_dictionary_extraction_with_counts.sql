@@ -127,28 +127,30 @@ UPDATE #dict_counts
 
 
 -- Blank and Not Blank -- THIS COMMAND IS TOO LONG!
-SELECT @SQL = (
-	SELECT 'INSERT INTO #dict_counts (field,label,definition,codeset,code,value,group_count) ' +
-		'SELECT f,l,d,s,c,v,COUNT(*) as group_count FROM (' +
-			'SELECT ''' + name + ''' AS f, ' +
-				'd.label AS l, ' +
-				'd.definition AS d, ' +
-				'd.codeset AS s, ' +
-				'''Presence'' AS c, ' +
-				'CASE WHEN ''' + name + ''' IS NULL OR CAST(''' + name + ''' AS VARCHAR) = '''' ' +
-					'THEN ''Blank'' ELSE ''Not Blank'' END AS v ' +
-			'FROM vital.births b LEFT JOIN dbo.dictionary d ON ''' + name + ''' = d.field ' +
-		') tmp GROUP BY f,l,d,s,c,v; '
-	FROM sys.columns
-	WHERE object_id = OBJECT_ID('vital.births')
-	FOR XML PATH ('')
-);
-EXECUTE sp_executesql @SQL;
+-- To do this, I think that I need to use a CURSOR and loop through each field.
+--SELECT @SQL = (
+--	SELECT 'INSERT INTO #dict_counts (field,label,definition,codeset,code,value,group_count) ' +
+--		'SELECT f,l,d,s,c,v,COUNT(*) as group_count FROM (' +
+--			'SELECT ''' + name + ''' AS f, ' +
+--				'd.label AS l, ' +
+--				'd.definition AS d, ' +
+--				'd.codeset AS s, ' +
+--				'''Presence'' AS c, ' +
+--				'CASE WHEN ''' + name + ''' IS NULL OR CAST(''' + name + ''' AS VARCHAR) = '''' ' +
+--					'THEN ''Blank'' ELSE ''Not Blank'' END AS v ' +
+--			'FROM vital.births b LEFT JOIN dbo.dictionary d ON ''' + name + ''' = d.field ' +
+--		') tmp GROUP BY f,l,d,s,c,v; '
+--	FROM sys.columns
+--	WHERE object_id = OBJECT_ID('vital.births')
+--	FOR XML PATH ('')
+--);
+--EXECUTE sp_executesql @SQL;
 
 
 
 
 ---- Coded and Not Coded
+---- Probably going to need to use a CURSOR here as well.
 --SELECT @SQL = (
 --	SELECT 'INSERT INTO #dict_counts (field,label,definition,codeset,code,value,group_count) ' +
 --		'SELECT field, label, definition, codeset, code, value, COUNT(*) as group_count FROM ( ' +
@@ -173,7 +175,8 @@ EXECUTE sp_executesql @SQL;
 
 
 
-
+-- Simple (field, label, definition, description, codeset, [if codeset, valid codes and values]).
+-- No groupings. No counts.
 
 
 SELECT field, 
@@ -186,4 +189,7 @@ SELECT field,
 		group_count
 	FROM #dict_counts
 	ORDER BY field, code		-- CAST(code AS INTEGER)
+
+
+
 
