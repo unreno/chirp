@@ -15,7 +15,10 @@
 
 
 CREATE TABLE #tmp(ID INT IDENTITY(1,1), Name nvarchar(100))
-DBCC CHECKIDENT( #tmp )
+DBCC CHECKIDENT( #tmp, NORESEED )
+
+-- Be sure to include the NORESEED
+-- Apparently without it, the function can do something
 
 -- By default, apparently it is null
 --Checking identity information: current identity value 'NULL', current column value 'NULL'.
@@ -24,6 +27,12 @@ DBCC CHECKIDENT( #tmp )
 -- You can reset it to anything, but not NULL, apparently.
 
 DBCC CHECKIDENT( #tmp, RESEED, 0)
+
+
+
+-- This could be useful in temp table. BULK INSERT data to set the record number in file,
+-- then move to permanent table, reset id field to 0 for next file.
+
 
 
 
