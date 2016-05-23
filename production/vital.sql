@@ -397,6 +397,7 @@ CREATE TABLE vital.births (
 	death_cert INT,
 	death_date INT,
 	birth_rco INT,
+	source_filename VARCHAR(255),
 );
 GO
 
