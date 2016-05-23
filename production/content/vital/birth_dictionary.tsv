@@ -221,7 +221,7 @@ vital	births	md_vaccumattpt	standard2_yesno	Vacuum extraction used by MD
 vital	births	mm_hyster	standard4_yesno	Maternal hysterotomy	Surgical removal of the uterus that was not planned before the admission. Includes an anticipated, but not definitively planned, hysterectomy.
 vital	births	mm_icu	standard4_yesno	Maternal ICU admission	Any admission, planned or unplanned, of the mother to a facility or unit designated as providing intensive care.
 vital	births	mm_none	standard4_yesno	Maternal morbidity (any illness)?	
-vital	births	mm_perilac	standard4_yesno	Maternal perineum laceration	3° laceration extends completely through the perineal skin, vaginal mucosa, perineal body, and anal sphincter.  4° laceration is all of the above with extension through the rectal mucosa.
+vital	births	mm_perilac	standard4_yesno	Maternal perineum laceration	3 degree laceration extends completely through the perineal skin, vaginal mucosa, perineal body, and anal sphincter.  4 degree laceration is all of the above with extension through the rectal mucosa.
 vital	births	mm_ruputerus	standard4_yesno	Maternal ruptured uterus	Tearing of the uterine wall.
 vital	births	mm_trnsfusion	standard4_yesno	Maternal transfusion	Includes infusion of whole blood or packed red blood cells associated with labor and delivery.
 vital	births	mm_unk	standard4_yesno	Maternal complication unknown	
