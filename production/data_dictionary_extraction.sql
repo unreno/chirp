@@ -1,8 +1,10 @@
 
+-- Create group_counts table
 IF OBJECT_ID('tempdb..#group_counts', 'U') IS NOT NULL
 DROP TABLE #group_counts
 CREATE TABLE #group_counts( field VARCHAR(255), value VARCHAR(255), group_count INT )
 
+-- Group by every field (very excessive)
 DECLARE @SQL NVARCHAR(MAX) = '';
 SELECT @SQL = (
 	SELECT 'INSERT INTO #group_counts (field,value,group_count) ' +
@@ -36,36 +38,67 @@ EXECUTE sp_executesql @SQL;
 
 
 
--- Blanks
-SELECT @SQL = (
-	SELECT 'INSERT INTO #group_counts (field,group_count) ' +
-		'SELECT ''' + name + ''' AS field, ' +
-		'COUNT(*) AS group_count ' +
-		'FROM vital.births WHERE ' + name + ' IS NULL OR CAST(' + name + ' AS VARCHAR) = '''';'
-	FROM sys.columns
-	WHERE object_id = OBJECT_ID('vital.births')
-	FOR XML PATH ('')
-);
-EXECUTE sp_executesql @SQL;
+---- Blanks
+--SELECT @SQL = (
+--	SELECT 'INSERT INTO #group_counts (field,group_count) ' +
+--		'SELECT ''' + name + ''' AS field, ' +
+--		'COUNT(*) AS group_count ' +
+--		'FROM vital.births WHERE ' + name + ' IS NULL OR CAST(' + name + ' AS VARCHAR) = '''';'
+--	FROM sys.columns
+--	WHERE object_id = OBJECT_ID('vital.births')
+--	FOR XML PATH ('')
+--);
+--EXECUTE sp_executesql @SQL;
+---- Blank and Not Blank
+--SELECT @SQL = (
+--	SELECT 'INSERT INTO #group_counts (field,value,group_count) ' +
+--		'SELECT field, value, COUNT(*) as group_count FROM (' +
+--			'SELECT ''' + name + ''' AS field, ' +
+--			'CASE WHEN ''' + name + ''' IS NULL OR CAST(''' + name + ''' AS VARCHAR) = '''' ' +
+--				'THEN ''Blank'' ELSE ''Not Blank'' END AS value' +
+--			'FROM vital.births ' +
+--		') GROUP BY value'
+--	FROM sys.columns
+--	WHERE object_id = OBJECT_ID('vital.births')
+--	FOR XML PATH ('')
+--);
+--EXECUTE sp_executesql @SQL;
+
+---- Coded and Not Coded
+--SELECT @SQL = (
+--	SELECT 'INSERT INTO #group_counts (field,value,group_count) ' +
+--		'SELECT field, value, COUNT(*) as group_count FROM (' +
+--			'SELECT ''' + name + ''' AS field, ' +
+--			'CASE WHEN ''' + value + ''' IS IN ( ' +
+--				'SELECT code FROM dbo.codes c JOIN dbo.dictionary d ON c.codeset = d.codeset ' +
+--			') THEN ''Coded'' ELSE ''Not Coded'' END AS value' +
+--			'FROM vital.births ' +
+--		') GROUP BY value'
+--	FROM sys.columns
+--	WHERE object_id = OBJECT_ID('vital.births')
+--	FOR XML PATH ('')
+--);
+--EXECUTE sp_executesql @SQL;
+
+
+
+
 
 IF OBJECT_ID('tempdb..#dict_counts', 'U') IS NOT NULL
 DROP TABLE #dict_counts
-CREATE TABLE #dict_counts( field VARCHAR(255), label VARCHAR(255),definition VARCHAR(255),
+CREATE TABLE #dict_counts( field VARCHAR(255), label VARCHAR(255), definition VARCHAR(255),
 	codeset VARCHAR(255), code VARCHAR(255), value VARCHAR(255), group_count INT )
---	codeset VARCHAR(255), code INT, value VARCHAR(255), group_count INT )
 
+
+-- Insert all dictionary fields joined with every coded value and count
 INSERT INTO #dict_counts
-SELECT d.field, d.label, d.definition, d.codeset, c.code, c.value, g.group_count
-FROM dbo.dictionary d
-LEFT JOIN dbo.codes c
-ON d._table = c._table AND d.codeset = c.codeset
-LEFT JOIN #group_counts g
-ON g.field = d.field AND g.value = CAST(c.code AS VARCHAR(255))
-WHERE d._table = 'births'
--- is ordering really necesary?
---ORDER BY d.field, CAST(c.code AS INT)
-
-
+	SELECT d.field, d.label, d.definition, d.codeset, c.code, c.value, g.group_count
+	FROM dbo.dictionary d
+	LEFT JOIN dbo.codes c
+	ON d._table = c._table AND d.codeset = c.codeset
+	LEFT JOIN #group_counts g
+	ON g.field = d.field AND g.value = CAST(c.code AS VARCHAR(255))
+	WHERE d._table = 'births'
 
 
 --INSERT INTO #dict_counts
@@ -77,25 +110,79 @@ WHERE d._table = 'births'
 
 
 
-
+-- Set group_count to 0 for those values that weren't actually used (NULL).
 UPDATE #dict_counts
-SET group_count = 0 
-WHERE group_count IS NULL and codeset IS NOT NULL
+	SET group_count = 0 
+	WHERE group_count IS NULL and codeset IS NOT NULL
 
+
+-- Set value for NULL counts?
 UPDATE #dict_counts
-SET group_count = g.group_count
-FROM #dict_counts d
-INNER JOIN #group_counts g ON ( g.field = d.field AND g.value IS NULL )
-WHERE d.group_count IS NULL and d.codeset IS NULL
+	SET group_count = g.group_count
+	FROM #dict_counts d
+	INNER JOIN #group_counts g ON ( g.field = d.field AND g.value IS NULL )
+	WHERE d.group_count IS NULL and d.codeset IS NULL
 
 --SELECT * FROM #dict_counts ORDER BY field, code
 
+
+-- Blank and Not Blank
+SELECT @SQL = (
+	SELECT 'INSERT INTO #dict_counts (field,label,definition,codeset,code,value,group_count) ' +
+		'SELECT field, label, definition, codeset, code, value, COUNT(*) as group_count FROM (' +
+			'SELECT ''' + name + ''' AS b.field, ' +
+				'd.label AS label ' +
+				'd.definition AS definition ' +
+				'd.codeset AS codeset ' +
+				'''Presence'' AS code ' +
+				'CASE WHEN ''' + name + ''' IS NULL OR CAST(''' + name + ''' AS VARCHAR) = '''' ' +
+					'THEN ''Blank'' ELSE ''Not Blank'' END AS value' +
+			'FROM vital.births b LEFT JOIN dbo.dictionary d ON b.field = d.field' +
+		') GROUP BY value'
+	FROM sys.columns
+	WHERE object_id = OBJECT_ID('vital.births')
+	FOR XML PATH ('')
+);
+EXECUTE sp_executesql @SQL;
+
+
+
+
+-- Coded and Not Coded
+SELECT @SQL = (
+	SELECT 'INSERT INTO #dict_counts (field,label,definition,codeset,code,value,group_count) ' +
+		'SELECT field, label, definition, codeset, code, value, COUNT(*) as group_count FROM (' +
+			'SELECT ''' + name + ''' AS b.field, ' +
+				'd.label AS label ' +
+				'd.definition AS definition ' +
+				'd.codeset AS codeset ' +
+				'''Codeness'' AS code ' +
+				'CASE WHEN ''' + value + ''' IS IN ( ' +
+					'SELECT code FROM dbo.codes c JOIN dbo.dictionary d ON c.codeset = d.codeset ' +
+				') THEN ''Coded'' ELSE ''Not Coded'' END AS value' +
+			'FROM vital.births ' +
+		') GROUP BY value'
+	FROM sys.columns
+	WHERE object_id = OBJECT_ID('vital.births')
+	FOR XML PATH ('')
+);
+EXECUTE sp_executesql @SQL;
+
+
+
+
+
+
+
+
+
 SELECT field, 
-	ISNULL(label,'') AS label, 
-	ISNULL(definition,'') AS definition, 
-	ISNULL(codeset,'') AS codeset,
-	ISNULL(CAST(code AS VARCHAR(255)),'Blank') AS code, 
-	ISNULL(value,'Blank') AS value,
-	group_count FROM #dict_counts
-ORDER BY field, CAST(code AS INTEGER)
+		ISNULL(label,'') AS label, 
+		ISNULL(definition,'') AS definition, 
+		ISNULL(codeset,'') AS codeset,
+		ISNULL(CAST(code AS VARCHAR(255)),'Blank') AS code, 
+		ISNULL(value,'Blank') AS value,
+		group_count
+	FROM #dict_counts
+	ORDER BY field, CAST(code AS INTEGER)
 
