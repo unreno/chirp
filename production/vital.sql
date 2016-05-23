@@ -409,18 +409,6 @@ EXEC bin.add_imported_to_dw_column_to_tables_by_schema 'vital';
 
 
 
---
---These constraints would REQUIRE that birth2 record exists BEFORE birth record.
---Not sure how we're gonna get them so ...
---
---ALTER TABLE birth
---	ADD CONSTRAINT fk_birth2id 
---		FOREIGN KEY (birth2id) REFERENCES birth2(birth2id);
---ALTER TABLE death
---	ADD CONSTRAINT fk_death2id 
---		FOREIGN KEY (death2id) REFERENCES death2(death2id);
-
-
 IF OBJECT_ID ( 'vital.bulk_insert_births', 'V' ) IS NOT NULL
 	DROP VIEW vital.bulk_insert_births;
 GO
