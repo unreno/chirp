@@ -296,7 +296,7 @@ CREATE TABLE dbo.dictionary (
 	codeset VARCHAR(50),
 --	concept VARCHAR(255),	-- add concept?
 	label VARCHAR(255),
-	definition VARCHAR(255),
+--	definition VARCHAR(255),
 	description VARCHAR(MAX),	-- very verbose
 	CONSTRAINT dictionary_unique_schema_table_field
 		UNIQUE ( _schema, _table, field ),

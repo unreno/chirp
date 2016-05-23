@@ -1056,19 +1056,19 @@ BEGIN
 END
 GO
 
-IF OBJECT_ID ( 'bin.definition', 'FN' ) IS NOT NULL
-	DROP FUNCTION bin.definition;
+IF OBJECT_ID ( 'bin.description', 'FN' ) IS NOT NULL
+	DROP FUNCTION bin.description;
 GO
-CREATE FUNCTION bin.definition( @schema VARCHAR(50), @table VARCHAR(50), @field VARCHAR(255) )
+CREATE FUNCTION bin.description( @schema VARCHAR(50), @table VARCHAR(50), @field VARCHAR(255) )
 	RETURNS VARCHAR(255)
 BEGIN
-	DECLARE @definition VARCHAR(255);
-	SELECT @definition = definition FROM dbo.dictionary
+	DECLARE @description VARCHAR(255);
+	SELECT @description = description FROM dbo.dictionary
 		WHERE _schema = @schema 
 			AND _table = @table 
 			AND field = @field 
-	-- If definition is blank return label
-	RETURN ISNULL(@definition, bin.label(@schema,@table,@field))
+	-- If description is blank return label
+	RETURN ISNULL(@description, bin.label(@schema,@table,@field))
 END
 GO
 
@@ -1095,7 +1095,7 @@ GO
 
 --	PRINT bin.decode('vital','births','race',1)
 --	PRINT bin.label('vital','births','race')
---	PRINT bin.definition('vital','births','race')
+--	PRINT bin.description('vital','births','race')
 --	PRINT bin.codeset('vital','births','race')
 --	SELECT * FROM bin.codes('vital','births','race')
 

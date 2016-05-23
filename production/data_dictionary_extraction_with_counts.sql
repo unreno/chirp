@@ -86,13 +86,13 @@ EXECUTE sp_executesql @SQL;
 
 IF OBJECT_ID('tempdb..#dict_counts', 'U') IS NOT NULL
 DROP TABLE #dict_counts
-CREATE TABLE #dict_counts( field VARCHAR(255), label VARCHAR(255), definition VARCHAR(255),
+CREATE TABLE #dict_counts( field VARCHAR(255), label VARCHAR(255), description VARCHAR(MAX),
 	codeset VARCHAR(255), code VARCHAR(255), value VARCHAR(255), group_count INT )
 
 
 -- Insert all dictionary fields joined with every coded value and count
 INSERT INTO #dict_counts
-	SELECT d.field, d.label, d.definition, d.codeset, c.code, c.value, g.group_count
+	SELECT d.field, d.label, d.description, d.codeset, c.code, c.value, g.group_count
 	FROM dbo.dictionary d
 	LEFT JOIN dbo.codes c
 	ON d._table = c._table AND d.codeset = c.codeset
@@ -102,7 +102,7 @@ INSERT INTO #dict_counts
 
 
 --INSERT INTO #dict_counts
---SELECT d.field, d.label, d.definition, d.codeset, 'Not Coded','Not Coded', g.group_count
+--SELECT d.field, d.label, d.description, d.codeset, 'Not Coded','Not Coded', g.group_count
 --FROM dbo.dictionary d
 --LEFT JOIN #group_counts g
 --ON g.field = d.field AND g.value = 'Not Coded'
@@ -129,11 +129,11 @@ UPDATE #dict_counts
 -- Blank and Not Blank -- THIS COMMAND IS TOO LONG!
 -- To do this, I think that I need to use a CURSOR and loop through each field.
 --SELECT @SQL = (
---	SELECT 'INSERT INTO #dict_counts (field,label,definition,codeset,code,value,group_count) ' +
+--	SELECT 'INSERT INTO #dict_counts (field,label,description,codeset,code,value,group_count) ' +
 --		'SELECT f,l,d,s,c,v,COUNT(*) as group_count FROM (' +
 --			'SELECT ''' + name + ''' AS f, ' +
 --				'd.label AS l, ' +
---				'd.definition AS d, ' +
+--				'd.description AS d, ' +
 --				'd.codeset AS s, ' +
 --				'''Presence'' AS c, ' +
 --				'CASE WHEN ''' + name + ''' IS NULL OR CAST(''' + name + ''' AS VARCHAR) = '''' ' +
@@ -152,11 +152,11 @@ UPDATE #dict_counts
 ---- Coded and Not Coded
 ---- Probably going to need to use a CURSOR here as well.
 --SELECT @SQL = (
---	SELECT 'INSERT INTO #dict_counts (field,label,definition,codeset,code,value,group_count) ' +
---		'SELECT field, label, definition, codeset, code, value, COUNT(*) as group_count FROM ( ' +
+--	SELECT 'INSERT INTO #dict_counts (field,label,description,codeset,code,value,group_count) ' +
+--		'SELECT field, label, description, codeset, code, value, COUNT(*) as group_count FROM ( ' +
 --			'SELECT ''' + name + ''' AS b.field, ' +
 --				'd.label AS label, ' +
---				'd.definition AS definition, ' +
+--				'd.description AS description, ' +
 --				'd.codeset AS codeset, ' +
 --				'''Codeness'' AS code, ' +
 --				'CASE WHEN ''' + value + ''' IS IN ( ' +
@@ -175,13 +175,13 @@ UPDATE #dict_counts
 
 
 
--- Simple (field, label, definition, description, codeset, [if codeset, valid codes and values]).
+-- Simple (field, label, description, description, codeset, [if codeset, valid codes and values]).
 -- No groupings. No counts.
 
 
 SELECT field, 
 		ISNULL(label,'') AS label, 
-		ISNULL(definition,'') AS definition, 
+		ISNULL(description,'') AS description, 
 		ISNULL(codeset,'') AS codeset,
 		code, value
 --		ISNULL(CAST(code AS VARCHAR(255)),'Blank') AS code, 
