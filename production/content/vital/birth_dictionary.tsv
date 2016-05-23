@@ -78,7 +78,7 @@ vital	births	bth_route	route	Birth Route	Vaginal/spontaneous - Delivery of the e
 vital	births	lbs		Child's Birth Weight	Child's Birth Weight (Integer lbs Only 0-13)
 vital	births	oz		Child's Birth Weight in Ounces	Child's Birth Weight (Integer Ounces Only 0-15)
 vital	births	grams		Birth Weight in Grams	Birth Weight in Grams (300-6149)
-vital	births	bthwt_unit	bthwt_unit	Grams or Pounds	Birth Weight Unit in Grams or Pounds (pointless as grams and lbs/oz fields all exist)
+vital	births	bthwt_unit	bthwt_unit	Grams or Pounds	Birth Weight Unit in Grams or Pounds (grams and lbs/oz fields all exist)
 vital	births	bwt_grp	bwt_grp	Birth Weight Group	Baby's birthweight group- normal, low, or very low weight.
 vital	births	cer_date		Certification Date	
 vital	births	cer_da		Certification Day (1-31)	
@@ -91,7 +91,7 @@ vital	births	cld_antibiotic	standard4_yesno	Antibiotics during labor and deliver
 vital	births	cld_aug	standard4_yesno	Delivery augmentation (use of pitocin)?	Stimulation of uterine contractions by drug or manipulative technique with the intent to reduce the time of delivery (i.e., after labor has begun).
 vital	births	cld_bleed	standard4_yesno	Other Excessive Bleeding?	
 vital	births	cld_cephpelv	standard4_yesno	Cephalopelvic Disproportion	
-vital	births	cld_chorio	standard4_yesno	Chorioamnionitis (maternal infection)?	Clinical diagnosis of chorioamnionitis during labor made by the delivery attendant. Usually includes more than one of the following: fever, uterine tenderness and/or irritability, leukocytosis, or fetal tachycardia. Any recorded maternal temperature at or above 38°C (100.4°F).
+vital	births	cld_chorio	standard4_yesno	Chorioamnionitis (maternal infection)?	Clinical diagnosis of chorioamnionitis during labor made by the delivery attendant. Usually includes more than one of the following: fever, uterine tenderness and/or irritability, leukocytosis, or fetal tachycardia. Any recorded maternal temperature at or above 38C (100.4F).
 vital	births	cld_cordpro	standard4_yesno	Cord Prolapse	
 vital	births	cld_dysfunc	standard4_yesno	Dysfunctional Labor	
 vital	births	cld_epi	standard4_yesno	epidermal anaesthesia??	Administration to the mother of a regional anesthetic to control the pain of labor. Delivery of the agent into a limited space with the distribution of the analgesic effect limited to the lower body.
