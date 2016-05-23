@@ -19,16 +19,21 @@ LEFT JOIN dbo.codes c on d.codeset = c.codeset
 
 
 --SELECT _schema, _table, field, label, description, codeset,
-SELECT field, label, description, codeset,
+SELECT ISNULL(field,'') as field, 
+	ISNULL(label,'') AS label, 
+	ISNULL(description,'') AS description, 
+	ISNULL(codeset,'') AS codeset,
 	CASE WHEN codeset IS NOT NULL THEN (
-		STUFF( ( 
+		REPLACE( REPLACE( STUFF( ( 
 			SELECT ', ' + CAST(code AS VARCHAR) + ' = ' + value 
 			FROM dbo.codes c
 			WHERE c.codeset = d.codeset
 			FOR XML PATH('') 
 		), 1, 2, '')
+		, '&gt;', '<')
+		, '&lt;', '<')
 	)
-	ELSE NULL END AS codes
+	ELSE '' END AS codes
 FROM dbo.dictionary d
 WHERE _table = 'births'
 
