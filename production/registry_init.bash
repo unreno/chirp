@@ -54,6 +54,7 @@ ls -1 content/vital/{births,deaths}/*tsv | \
 		print "	FROM '"''"'Z:\\Renown Project\\CHIRP\\Personal folders\\Jake\\chirp\\production\\content\\vital\\"table"\\"codeset".tsv'"''"'"
 		print "	WITH ("
 		print "		ROWTERMINATOR = '"'''"'+CHAR(10)+'"'''"',"
+		print "		FIRSTROW = 2,"
 		print "		TABLOCK"
 		print "	)'"'"';"
 		print "	EXEC(@bulk_cmd);"
