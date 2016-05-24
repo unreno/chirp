@@ -1,11 +1,14 @@
 
-
+#	Build structure, data dictionary, concepts,
 ./registry_init.bash
 
+#	Add some birth records
 cat bulk_insert_birth_records.sql
 
+#	Add some newborn screening contact info
+cat bulk_insert_newborn_screenings.sql
 
-
+#	Create an identifier for each birth record
 INSERT INTO private.identifiers ( chirp_id, source_schema, 
     source_table, source_column, source_id ) 
   SELECT private.create_unique_chirp_id(), 'vital', 'births',
@@ -14,9 +17,7 @@ INSERT INTO private.identifiers ( chirp_id, source_schema,
 
 SELECT COUNT(*) FROM private.identifiers
 
-
-
-
+#	Import all data into observations table
 EXEC bin.import_into_data_warehouse
 
 
