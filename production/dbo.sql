@@ -313,6 +313,7 @@ CREATE TABLE dbo.dictionary (
 	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\vital\birth_dictionary.tsv''
 	WITH (
 		ROWTERMINATOR = '''+CHAR(10)+''',
+		FIRSTROW = 2,
 		TABLOCK
 	)';
 	EXEC(@bulk_cmd);
@@ -327,6 +328,7 @@ GO
 	FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\vital\death_dictionary.tsv''
 	WITH (
 		ROWTERMINATOR = '''+CHAR(10)+''',
+		FIRSTROW = 2,
 		TABLOCK
 	)';
 	EXEC(@bulk_cmd);

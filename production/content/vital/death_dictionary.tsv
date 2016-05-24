@@ -1,3 +1,4 @@
+schema	table	field	codeset	label	description
 vital	deaths	age1_groups	age1_groups		
 vital	deaths	age2_groups	age2_groups		
 vital	deaths	age3_groups	age3_groups		

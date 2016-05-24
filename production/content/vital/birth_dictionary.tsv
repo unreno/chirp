@@ -1,3 +1,4 @@
+schema	table	field	codeset	label	description
 vital	births	cert_num		Birth Certificate Number	Birth Certificate Number (only unique per year)
 vital	births	cert_yr		Birth Certificate Year	The infant's birth certificate year in which the date of birth occured.
 vital	births	ssn_child		Child's Social Security Number	
