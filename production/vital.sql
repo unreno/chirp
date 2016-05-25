@@ -5,6 +5,10 @@ GO
 
 
 
+-- This could cause issue inserting?
+-- What if we get an updated record?
+--	CONSTRAINT vital_births_cert_yr_cert_num
+--		UNIQUE ( cert_yr, cert_num ),	
 IF OBJECT_ID('vital.births', 'U') IS NOT NULL
 	DROP TABLE vital.births;
 CREATE TABLE vital.births (
@@ -12,10 +16,6 @@ CREATE TABLE vital.births (
 	CONSTRAINT vital_births_id PRIMARY KEY CLUSTERED (id ASC),
 	cert_yr INT,
 	cert_num INT,
--- This could cause issue inserting?
--- What if we get an updated record?
---	CONSTRAINT vital_births_cert_yr_cert_num
---		UNIQUE ( cert_yr, cert_num ),	
 	void INT,
 	name_sur VARCHAR(50),
 	name_sux VARCHAR(50),
