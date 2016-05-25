@@ -133,7 +133,7 @@ vital	births	fa_asianoth	standard4_yesno	Father is Other Asian
 vital	births	fa_black	standard4_yesno	Father is Black	
 vital	births	fa_bst	state	Father's Birth State	
 vital	births	fa_bus	business	Father's Industry	
-vital	births	fa_busines1	business		Father's General Industry
+vital	births	fa_busines1	business	Father's General Industry	
 vital	births	fa_chinese	standard4_yesno	Father is Chinese	
 vital	births	fa_cu	standard4_yesno	Father is Cuban	
 vital	births	fa_edu	education	Father's Highest Education Level	
