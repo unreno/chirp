@@ -72,7 +72,7 @@ vital	births	apgar_10		APGAR Score at 10 minutes	A systematic measure for evalua
 vital	births	apgar_5		APGAR Score at 5 minutes	A systematic measure for evaluating the physical condition of the infant at specific intervals following birth.
 vital	births	attendant	attendant	Attendant Type	
 vital	births	birth_rco			Not used. All NULL.
-vital	births	born_alive			Number of Live Born. Most are 88.
+vital	births	born_alive		Number of Live Born	Number of Live Born. Most are 88.
 vital	births	breastfeeding	standard2_yesno	Breastfeeding Planned / Is Infant Being Breastfed	
 vital	births	bth_order		Birth Order	The order born in the delivery, live born or fetal death (1st, 2nd, 3rd, 4th, 5th, 6th, 7th, etc.).
 vital	births	bth_present		Fetal Presentation at Birth	
@@ -153,18 +153,18 @@ vital	births	fa_occup1	occup	Father's General Occupation
 vital	births	fa_pacisl	standard4_yesno	Father is Pacific Islander	
 vital	births	fa_pacisllit		Father is Pacific Islander (Literal)	
 vital	births	fa_pr	standard4_yesno	Father is Puerto Rican	
-vital	births	fa_race1	cdc_race_code		
-vital	births	fa_race16	cdc_race_code		
-vital	births	fa_race18	cdc_race_code		
-vital	births	fa_race2	cdc_race_code		
-vital	births	fa_race20	cdc_race_code		
-vital	births	fa_race22	cdc_race_code		
-vital	births	fa_race3	cdc_race_code		
-vital	births	fa_race4	cdc_race_code		
-vital	births	fa_race5	cdc_race_code		
-vital	births	fa_race6	cdc_race_code		
-vital	births	fa_race7	cdc_race_code		
-vital	births	fa_race8	cdc_race_code		
+vital	births	fa_race1	cdc_race_code	CDC Race Code	
+vital	births	fa_race16	cdc_race_code	CDC Race Code	
+vital	births	fa_race18	cdc_race_code	CDC Race Code	
+vital	births	fa_race2	cdc_race_code	CDC Race Code	
+vital	births	fa_race20	cdc_race_code	CDC Race Code	
+vital	births	fa_race22	cdc_race_code	CDC Race Code	
+vital	births	fa_race3	cdc_race_code	CDC Race Code	
+vital	births	fa_race4	cdc_race_code	CDC Race Code	
+vital	births	fa_race5	cdc_race_code	CDC Race Code	
+vital	births	fa_race6	cdc_race_code	CDC Race Code	
+vital	births	fa_race7	cdc_race_code	CDC Race Code	
+vital	births	fa_race8	cdc_race_code	CDC Race Code	
 vital	births	fa_raceoth	standard4_yesno	Father Other Race	
 vital	births	fa_raceothlit		Father Other Race Literal	
 vital	births	fa_raceref	standard4_yesno		
@@ -274,18 +274,18 @@ vital	births	mom_occup1	occup	Mother's General Occupation
 vital	births	mom_pacisl	standard4_yesno	Mother is Pacific Islander	
 vital	births	mom_pacisllit		Mother is Pacific Islander (Literal)	
 vital	births	mom_pr	standard4_yesno	Mother is Puerto Rican	
-vital	births	mom_race1	cdc_race_code		
-vital	births	mom_race16	cdc_race_code		
-vital	births	mom_race18	cdc_race_code		
-vital	births	mom_race2	cdc_race_code		
-vital	births	mom_race20	cdc_race_code		
-vital	births	mom_race22	cdc_race_code		
-vital	births	mom_race3	cdc_race_code		
-vital	births	mom_race4	cdc_race_code		
-vital	births	mom_race5	cdc_race_code		
-vital	births	mom_race6	cdc_race_code		
-vital	births	mom_race7	cdc_race_code		
-vital	births	mom_race8	cdc_race_code		
+vital	births	mom_race1	cdc_race_code	CDC Race Code	
+vital	births	mom_race16	cdc_race_code	CDC Race Code	
+vital	births	mom_race18	cdc_race_code	CDC Race Code	
+vital	births	mom_race2	cdc_race_code	CDC Race Code	
+vital	births	mom_race20	cdc_race_code	CDC Race Code	
+vital	births	mom_race22	cdc_race_code	CDC Race Code	
+vital	births	mom_race3	cdc_race_code	CDC Race Code	
+vital	births	mom_race4	cdc_race_code	CDC Race Code	
+vital	births	mom_race5	cdc_race_code	CDC Race Code	
+vital	births	mom_race6	cdc_race_code	CDC Race Code	
+vital	births	mom_race7	cdc_race_code	CDC Race Code	
+vital	births	mom_race8	cdc_race_code	CDC Race Code	
 vital	births	mom_raceoth	standard4_yesno	Mother Other Race	
 vital	births	mom_raceothlit		Mother Other Race Literal	
 vital	births	mom_raceref	standard4_yesno		
