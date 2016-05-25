@@ -152,22 +152,22 @@ vital	births	fa_occup1	occup
 vital	births	fa_pacisl	standard4_yesno	Father is Pacific Islander	
 vital	births	fa_pacisllit		Father is Pacific Islander (Literal)	
 vital	births	fa_pr	standard4_yesno	Father is Puerto Rican	
-vital	births	fa_race1			
-vital	births	fa_race16			
-vital	births	fa_race17			
-vital	births	fa_race18			
-vital	births	fa_race19			
-vital	births	fa_race2			
-vital	births	fa_race20			
-vital	births	fa_race22			
-vital	births	fa_race3			
-vital	births	fa_race4			
-vital	births	fa_race5			
-vital	births	fa_race6			
-vital	births	fa_race7			
-vital	births	fa_race8			
-vital	births	fa_raceoth	standard4_yesno		
-vital	births	fa_raceothlit			
+vital	births	fa_race1	cdc_race_code		
+vital	births	fa_race16	cdc_race_code		
+vital	births	fa_race17	cdc_race_code		
+vital	births	fa_race18	cdc_race_code		
+vital	births	fa_race19	cdc_race_code		
+vital	births	fa_race2	cdc_race_code		
+vital	births	fa_race20	cdc_race_code		
+vital	births	fa_race22	cdc_race_code		
+vital	births	fa_race3	cdc_race_code		
+vital	births	fa_race4	cdc_race_code		
+vital	births	fa_race5	cdc_race_code		
+vital	births	fa_race6	cdc_race_code		
+vital	births	fa_race7	cdc_race_code		
+vital	births	fa_race8	cdc_race_code		
+vital	births	fa_raceoth	standard4_yesno	Father Other Race	
+vital	births	fa_raceothlit		Father Other Race Literal	
 vital	births	fa_raceref	standard4_yesno		
 vital	births	fa_raceunk	standard4_yesno		
 vital	births	fa_samoan	standard4_yesno	Father is Samoan	
@@ -273,20 +273,20 @@ vital	births	mom_occup1	occup
 vital	births	mom_pacisl	standard4_yesno	Mother is Pacific Islander	
 vital	births	mom_pacisllit		Mother is Pacific Islander (Literal)	
 vital	births	mom_pr	standard4_yesno	Mother is Puerto Rican	
-vital	births	mom_race1			
-vital	births	mom_race16			
-vital	births	mom_race18			
-vital	births	mom_race2			
-vital	births	mom_race20			
-vital	births	mom_race22			
-vital	births	mom_race3			
-vital	births	mom_race4			
-vital	births	mom_race5			
-vital	births	mom_race6			
-vital	births	mom_race7			
-vital	births	mom_race8			
-vital	births	mom_raceoth	standard4_yesno		
-vital	births	mom_raceothlit			
+vital	births	mom_race1	cdc_race_code		
+vital	births	mom_race16	cdc_race_code		
+vital	births	mom_race18	cdc_race_code		
+vital	births	mom_race2	cdc_race_code		
+vital	births	mom_race20	cdc_race_code		
+vital	births	mom_race22	cdc_race_code		
+vital	births	mom_race3	cdc_race_code		
+vital	births	mom_race4	cdc_race_code		
+vital	births	mom_race5	cdc_race_code		
+vital	births	mom_race6	cdc_race_code		
+vital	births	mom_race7	cdc_race_code		
+vital	births	mom_race8	cdc_race_code		
+vital	births	mom_raceoth	standard4_yesno	Mother Other Race	
+vital	births	mom_raceothlit		Mother Other Race Literal	
 vital	births	mom_raceref	standard4_yesno		
 vital	births	mom_raceunk	standard4_yesno		
 vital	births	mom_samoan	standard4_yesno	Mother is Samoan	
