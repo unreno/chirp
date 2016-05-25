@@ -272,7 +272,8 @@ CREATE TABLE dbo.codes (
 	_schema VARCHAR(50) NOT NULL,
 	_table VARCHAR(50) NOT NULL,
 	codeset VARCHAR(50) NOT NULL,
-	code INT NOT NULL,
+--	code INT NOT NULL,
+	code VARCHAR(5) NOT NULL,	-- Some of the CDC Race Codes start with a letter
 	value VARCHAR(255) NOT NULL, 	-- Isn't this comma needed?
 	CONSTRAINT codes_unique_schema_table_codeset_code
 		UNIQUE ( _schema, _table, codeset, code )
