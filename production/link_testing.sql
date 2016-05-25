@@ -54,6 +54,8 @@ END
 GO
 
 
+-- Quick check of the misses
+
 -- Matched dob, mom's dob and a zip, but mom's surname not exact
 SELECT COUNT(DISTINCT b.cert_year_num)
 FROM vital.births b
