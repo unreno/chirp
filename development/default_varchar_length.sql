@@ -20,4 +20,9 @@ PRINT CAST(@z AS VARCHAR)
 
 
 
+-- HOWEVER, sometimes it is just 1???
+
+DECLARE @x VARCHAR = 'ASDF-QWER zxcvzxcv'
+PRINT @x
+--> A
 
