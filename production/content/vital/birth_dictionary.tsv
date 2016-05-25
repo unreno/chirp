@@ -2,12 +2,13 @@ schema	table	field	codeset	label	description
 vital	births	cert_num		Birth Certificate Number	Birth Certificate Number (only unique per year)
 vital	births	cert_yr		Birth Certificate Year	The infant's birth certificate year in which the date of birth occured.
 vital	births	ssn_child		Child's Social Security Number	
-vital	births	ssn_date			
-vital	births	ssn_request	standard2_yesno		
+vital	births	ssn_date		Social Security entered Date	
+vital	births	ssn_request	standard2_yesno	Social Security Number Requested	
 vital	births	name_fir		Child's First Name	
 vital	births	name_mid		Child's Middle Name	
 vital	births	name_sur		Child's Surname	
 vital	births	name_sux		Child's Suffix	
+vital	births	sex	sex	Child's Sex	The sex of the infant.
 vital	births	bth_date		Child's Birth Date	The infant's date of birth.
 vital	births	bth_time		Child's Birth Time	The infant's time of birth. (3-4 digit integer for hours and minutes)
 vital	births	birth_ci	city	Birth City	
@@ -16,38 +17,38 @@ vital	births	birth_st	state	Birth State	The name of the State (USA) where the bi
 vital	births	birth_da		Birth Day	Birth Day (1-31)
 vital	births	birth_mo		Birth Month	Birth Month (1-12)
 vital	births	birth_yr		Birth Year	Birth Year (4-digit)
-vital	births	ac_anemia	standard4_yesno	Anemia (<39/Hgb <13)	
-vital	births	ac_antisepis	standard4_yesno	Antisepis	Any antibacterial drug (penicillin, ampicillin, gentamicin, cefotoxine, etc.) given systemically (intravenous or intramuscular). Does not include antibiotics given to infants who are NOT suspected of having neonatal sepsis.
+vital	births	ac_anemia	standard4_yesno	Anemia (Hct<39/Hgb<13)	
+vital	births	ac_antisepis	standard4_yesno	Antibiotics fro Neonatal Sepsis	Any antibacterial drug (penicillin, ampicillin, gentamicin, cefotoxine, etc.) given systemically (intravenous or intramuscular). Does not include antibiotics given to infants who are NOT suspected of having neonatal sepsis.
 vital	births	ac_bthinjury	standard4_yesno	Birth Injury	Skeletal fracture(s), peripheral nerve injury, and/or soft tissue or solid organ hemorrhage that requires intervention. Present immediately following or soon after delivery. Includes any bony fracture or weakness or loss of sensation, but excludes fractured clavicles and transient facial nerve palsy.Includes any bony fracture or weakness or loss of sensation, but excludes fractured clavicles and transient facial nerve palsy. Soft tissue hemorrhage requiring evaluation and/or treatment, includes subgaleal (progressive extravasation within the scalp) hemorrhage, giant cephalohematoma, extensive truncal, facial and/or extremity ecchymosis accompanied by evidence of anemia and/or hypovolemia and/or hypotension. Solid organ hemorrhage includes subcapsular hematoma of the liver, fractures of the spleen, or adrenal hematoma.
 vital	births	ac_fas	standard4_yesno	Fetal Alcohol Syndrome	
 vital	births	ac_hyaline	standard4_yesno	Hyaline Membrane Disease / Rds	
 vital	births	ac_mecon	standard4_yesno	Meconium Aspiration Syndrome	
-vital	births	ac_nicu	standard4_yesno	Admitted to NICU	Admission into a facility or unit staffed and equipped to provide continuous mechanical ventilatory support for a newborn.
+vital	births	ac_nicu	standard4_yesno	NICU Admission	Admission into a facility or unit staffed and equipped to provide continuous mechanical ventilatory support for a newborn.
 vital	births	ac_none	standard4_yesno	No Abnormal Conditions	
 vital	births	ac_oth	standard4_yesno	Other Abnormal Conditions	
 vital	births	ac_othlit		Other Abnormal Conditions (Literal)	
 vital	births	ac_seizures	standard4_yesno	Seizures	Seizure - any involuntary repetitive, convulsive movement or behavior. Serious neurologic dysfunction - severe alteration of alertness.  Excludes: - Lethargy or hypotonia in the absence of other neurologic findings - Symptoms associated with CNS congenital anomalies.
-vital	births	ac_surf	standard4_yesno	Surfactant	Endotracheal instillation of a surface-active suspension for treating surfactant deficiency due to preterm birth or pulmonary injury resulting in respiratory distress. Includes both artificial and extracted natural surfactant.
-vital	births	ac_ventless	standard4_yesno	Assisted Ventilation < 30 Min	Infant given manual breaths for any duration with bag and mask or bag and endotracheal tube within the first several minutes from birth. Excludes free flow oxygen only, laryngoscopy for aspiration of meconium and nasal cannula.
-vital	births	ac_ventmore	standard4_yesno	Assisted Ventilation >= 30 Min	Infant given mechanical ventilation (breathing assistance) by any method for more than 30 minutes.  Includes conventional, high frequency and/or continuous positive pressure (CPAP). Excludes free flow oxygen only, laryngoscopy for aspiration of meconium and nasal cannula.
-vital	births	acn_anencep	standard4_yesno	Anecephalus	Partial or complete absence of the brain and skull. Also called anencephalus, acrania, or absent brain. Also includes infants with craniorachischisis (anencephaly with a contiguous spine defect).
-vital	births	acn_cdit	karotype		
+vital	births	ac_surf	standard4_yesno	Surfactant Replacement Therapy	Endotracheal instillation of a surface-active suspension for treating surfactant deficiency due to preterm birth or pulmonary injury resulting in respiratory distress. Includes both artificial and extracted natural surfactant.
+vital	births	ac_ventless	standard4_yesno	Assist Ventilation Immediately	Infant given manual breaths for any duration with bag and mask or bag and endotracheal tube within the first several minutes from birth. Excludes free flow oxygen only, laryngoscopy for aspiration of meconium and nasal cannula.
+vital	births	ac_ventmore	standard4_yesno	Assist Ventilation More than 6 Hrs	Infant given mechanical ventilation (breathing assistance) by any method for more than 6 hours.  Includes conventional, high frequency and/or continuous positive pressure (CPAP). Excludes free flow oxygen only, laryngoscopy for aspiration of meconium and nasal cannula.
+vital	births	acn_anencep	standard4_yesno	Anencephaly	Partial or complete absence of the brain and skull. Also called anencephalus, acrania, or absent brain. Also includes infants with craniorachischisis (anencephaly with a contiguous spine defect).
+vital	births	acn_cdit	karotype	Suspected Chromosomal Disorder-Karyotype	
 vital	births	acn_chromoth	standard4_yesno	Other Chromosomal Anomalies	Includes any constellation of congenital malformations resulting from or compatible with known syndromes caused by detectable defects in chromosome structure. Karyotype confirmed, Karyotype pending
 vital	births	acn_chromothlit		Other Chromosomal Anomalies (Literal)	
 vital	births	acn_circ	standard4_yesno	Other Circulatory / Respiratory Anomalies	
 vital	births	acn_cirlit		Other Circulatory / Respiratory Anomalies (Literal)	
-vital	births	acn_cleftlip	standard4_yesno	Cleft Lip	Incomplete closure of the lip. May be unilateral, bilateral, or median.
-vital	births	acn_cleftpalate	standard4_yesno	Cleft Palate	Incomplete fusion of the palatal shelves. May be limited to the soft palate or may extend into the hard palate. Cleft palate in the presence of cleft lip should be included in the category above.
+vital	births	acn_cleftlip	standard4_yesno	Cleft Lip With or Without Cleft Palate	Incomplete closure of the lip. May be unilateral, bilateral, or median.
+vital	births	acn_cleftpalate	standard4_yesno	Cleft Palate Alone	Incomplete fusion of the palatal shelves. May be limited to the soft palate or may extend into the hard palate. Cleft palate in the presence of cleft lip should be included in the category above.
 vital	births	acn_clubft	standard4_yesno	Club Foot	
-vital	births	acn_diaphhern	standard4_yesno	Diaphragmatic Hernia	Defect in the formation of the diaphragm allowing herniation of abdominal organs into the thoracic cavity.
-vital	births	acn_downs	karotype	Downs Syndrome	Trisomy 21 Karyotype confirmed,  Karyotype pending
-vital	births	acn_gastro	standard4_yesno	Other Gastronointestinal Anomalies	
+vital	births	acn_diaphhern	standard4_yesno	Congenital Diaphragmatic Hernia	Defect in the formation of the diaphragm allowing herniation of abdominal organs into the thoracic cavity.
+vital	births	acn_downs	karotype	Down Syndrome-Karyotype	Trisomy 21 Karyotype confirmed,  Karyotype pending
+vital	births	acn_gastro	standard4_yesno	Other Gastrointestinal Anomalies	
 vital	births	acn_gastrolit		Other Gastronointestinal Anomalies (Literal)	
 vital	births	acn_gastrosch	standard4_yesno	Gastroschisis	An abnormality of the anterior abdominal wall, lateral to the umbilicus, resulting in herniation of the abdominal contents directly into the amniotic cavity. Differentiated from omphalocele by the location of the defect and the absence of a protective membrane.
-vital	births	acn_hrtdis	standard4_yesno	Heart Disease	Congenital heart defects that cause cyanosis.
-vital	births	acn_hrtmal	standard4_yesno	Heart Malformation	
+vital	births	acn_hrtdis	standard4_yesno	Cyanotic Congenital Heart Disease	Congenital heart defects that cause cyanosis.
+vital	births	acn_hrtmal	standard4_yesno	Heart Malformations	
 vital	births	acn_hypos	standard4_yesno	Hypospadias	Incomplete closure of the male urethra resulting in the urethral meatus opening on the ventral surface of the penis. Includes: - First degree (on the glans ventral to the tip) - Second degree (in the coronal sulcus) - Third degree (on the penile shaft) 
-vital	births	acn_limbred	standard4_yesno	Limb Reduction	Excluding congenital amputation and dwarfing syndromes, this is a complete or partial absence of a portion of an extremity, secondary to failure to develop.
+vital	births	acn_limbred	standard4_yesno	Limb Reduction Defect	Excluding congenital amputation and dwarfing syndromes, this is a complete or partial absence of a portion of an extremity, secondary to failure to develop.
 vital	births	acn_malgen	standard4_yesno	Malformed Genitalia	
 vital	births	acn_micro	standard4_yesno	Microcephalus	
 vital	births	acn_muscle	standard4_yesno	Other Musculoskeletal / Integumental Anomalies	
@@ -55,62 +56,62 @@ vital	births	acn_musclelit		Other Musculoskeletal / Integumental Anomalies (Lite
 vital	births	acn_nervous	standard4_yesno	Other Central Nervous System Anomalies	
 vital	births	acn_nervouslit		Other Central Nervous System Anomalies (Literal)	
 vital	births	acn_none	standard4_yesno	No Anomalies	
-vital	births	acn_omphal	standard4_yesno	Omphalacele	A defect in the anterior abdominal wall, accompanied by herniation of some abdominal organs through a widened umbilical ring into the umbilical stalk. The defect is covered by a membrane (different from gastroschisis [see below]), although this sac may rupture. Also called exomphalos. Do not include umbilical hernia (completely covered by skin) in this category. Do not include Spina bifida occulta (a midline bony spinal defect without protrusion of the spinal cord or meninges). 
+vital	births	acn_omphal	standard4_yesno	Omphalocele	A defect in the anterior abdominal wall, accompanied by herniation of some abdominal organs through a widened umbilical ring into the umbilical stalk. The defect is covered by a membrane (different from gastroschisis [see below]), although this sac may rupture. Also called exomphalos. Do not include umbilical hernia (completely covered by skin) in this category. Do not include Spina bifida occulta (a midline bony spinal defect without protrusion of the spinal cord or meninges). 
 vital	births	acn_oth	standard4_yesno	Other Anomalies	
 vital	births	acn_othlit		Other Anomalies (Literal)	
-vital	births	acn_polydact	standard4_yesno	Polydactyly / Syndactyly / adactyly	
+vital	births	acn_polydact	standard4_yesno	Polydactyly / Syndactyly / Adactyly	
 vital	births	acn_rectal	standard4_yesno	Rectal Atresia / Stenosis	
 vital	births	acn_renal	standard4_yesno	Renal Agenesis	
-vital	births	acn_spina	standard4_yesno	Spina Bifida / Meningocele	Spina bifida is herniation of the meninges and/or spinal cord tissue through a bony defect of spine closure. Meningomyelocele is herniation of meninges and spinal cord tissue. Meningocele (herniation of meninges without spinal cord tissue) should also be included in this category. Both open and closed (covered with skin) lesions should be included. Do not include Spina bifida occulta (a midline bony spinal defect without protrusion of the spinal cord or meninges).
-vital	births	acn_tracheo	standard4_yesno	iTracheo - Esophageal Atresia	
+vital	births	acn_spina	standard4_yesno	Meningomyelocele / Spina Bifida	Spina bifida is herniation of the meninges and/or spinal cord tissue through a bony defect of spine closure. Meningomyelocele is herniation of meninges and spinal cord tissue. Meningocele (herniation of meninges without spinal cord tissue) should also be included in this category. Both open and closed (covered with skin) lesions should be included. Do not include Spina bifida occulta (a midline bony spinal defect without protrusion of the spinal cord or meninges).
+vital	births	acn_tracheo	standard4_yesno	Tracheo-Esophageal Fistula / Esophageal Atresia	
 vital	births	acn_urogen	standard4_yesno	Other Urogenital Anomalies	
 vital	births	acn_urogenlit		Other Urogenital Anomalies (Literal)	
 vital	births	alcohol	standard1_yesno	Alcohol Use	
-vital	births	drink_wk		Actual Drinks per Week?	
-vital	births	apgar_10		APGAR 10 Score	A systematic measure for evaluating the physical condition of the infant at specific intervals following birth.
-vital	births	apgar_5		APGAR 5 Score	A systematic measure for evaluating the physical condition of the infant at specific intervals following birth.
+vital	births	drink_wk		Number of drinks per week	
+vital	births	apgar_10		APGAR Score at 10 minutes	A systematic measure for evaluating the physical condition of the infant at specific intervals following birth.
+vital	births	apgar_5		APGAR Score at 5 minutes	A systematic measure for evaluating the physical condition of the infant at specific intervals following birth.
 vital	births	attendant	attendant	Attendant Type	
 vital	births	birth_rco			Not used. All NULL.
-vital	births	born_alive			Unclear. Most are 88.
-vital	births	breastfeeding	standard2_yesno	Breastfeeding Planned	
+vital	births	born_alive			Number of Live Born. Most are 88.
+vital	births	breastfeeding	standard2_yesno	Breastfeeding Planned / Is Infant Being Breastfed	
 vital	births	bth_order		Birth Order	The order born in the delivery, live born or fetal death (1st, 2nd, 3rd, 4th, 5th, 6th, 7th, etc.).
-vital	births	bth_present			
-vital	births	bth_route	route	Birth Route	Vaginal/spontaneous - Delivery of the entire fetus through the vagina by the natural force of labor with or without manual assistance from the delivery attendant. Vaginal/forceps - Delivery of the fetal head through the vagina by the application of obstetrical forceps to the fetal head. Vaginal/vacuum - Delivery of the fetal head through the vagina by the application of a vacuum cup or ventouse to the fetal head. Cesarean - Extraction of the fetus, placenta, and membranes through an incision in the maternal abdominal and uterine walls.
+vital	births	bth_present		Fetal Presentation at Birth	
+vital	births	bth_route	route	Final Birth Route	Vaginal/spontaneous - Delivery of the entire fetus through the vagina by the natural force of labor with or without manual assistance from the delivery attendant. Vaginal/forceps - Delivery of the fetal head through the vagina by the application of obstetrical forceps to the fetal head. Vaginal/vacuum - Delivery of the fetal head through the vagina by the application of a vacuum cup or ventouse to the fetal head. Cesarean - Extraction of the fetus, placenta, and membranes through an incision in the maternal abdominal and uterine walls.
 vital	births	lbs		Child's Birth Weight	Child's Birth Weight (Integer lbs Only 0-13)
 vital	births	oz		Child's Birth Weight in Ounces	Child's Birth Weight (Integer Ounces Only 0-15)
 vital	births	grams		Birth Weight in Grams	Birth Weight in Grams (300-6149)
 vital	births	bthwt_unit	bthwt_unit	Grams or Pounds	Birth Weight Unit in Grams or Pounds (grams and lbs/oz fields all exist)
 vital	births	bwt_grp	bwt_grp	Birth Weight Group	Baby's birthweight group- normal, low, or very low weight.
-vital	births	cer_date		Certification Date	
-vital	births	cer_da		Certification Day (1-31)	
-vital	births	cer_mo		Certification Month (1-12)	
-vital	births	cer_yr		Certification Year (4-digit)	
+vital	births	cer_date		Certified Date	
+vital	births	cer_da		Certified Day (1-31)	
+vital	births	cer_mo		Certified Month (1-12)	
+vital	births	cer_yr		Certified Year (4-digit)	
 vital	births	certifier	attendant	Certifier Type	
 vital	births	cld_abrplac	standard4_yesno	Abruption Placenta	
 vital	births	cld_anesth	standard4_yesno	Anesthetic Complications	
-vital	births	cld_antibiotic	standard4_yesno	Antibiotics during labor and delivery?	Includes antibacterial medications given systemically (intravenous or intramuscular) to the mother in the interval between the onset of labor and the actual delivery. Includes: Ampicillin Penicillin Clindamycin Erythromycin Gentamicin Cefataxine Ceftriaxone
-vital	births	cld_aug	standard4_yesno	Delivery augmentation (use of pitocin)?	Stimulation of uterine contractions by drug or manipulative technique with the intent to reduce the time of delivery (i.e., after labor has begun).
-vital	births	cld_bleed	standard4_yesno	Other Excessive Bleeding?	
+vital	births	cld_antibiotic	standard4_yesno	Antibiotics During Labor	Includes antibacterial medications given systemically (intravenous or intramuscular) to the mother in the interval between the onset of labor and the actual delivery. Includes: Ampicillin Penicillin Clindamycin Erythromycin Gentamicin Cefataxine Ceftriaxone
+vital	births	cld_aug	standard4_yesno	Augmentation of Labor	Stimulation of uterine contractions by drug (pitocin) or manipulative technique with the intent to reduce the time of delivery (i.e., after labor has begun).
+vital	births	cld_bleed	standard4_yesno	Other Excessive Bleeding	
 vital	births	cld_cephpelv	standard4_yesno	Cephalopelvic Disproportion	
-vital	births	cld_chorio	standard4_yesno	Chorioamnionitis (maternal infection)?	Clinical diagnosis of chorioamnionitis during labor made by the delivery attendant. Usually includes more than one of the following: fever, uterine tenderness and/or irritability, leukocytosis, or fetal tachycardia. Any recorded maternal temperature at or above 38C (100.4F).
+vital	births	cld_chorio	standard4_yesno	Chorioamnionitis Diagnosed During Labor	Clinical diagnosis of chorioamnionitis during labor made by the delivery attendant. Usually includes more than one of the following: fever, uterine tenderness and/or irritability, leukocytosis, or fetal tachycardia. Any recorded maternal temperature at or above 38C (100.4F).
 vital	births	cld_cordpro	standard4_yesno	Cord Prolapse	
 vital	births	cld_dysfunc	standard4_yesno	Dysfunctional Labor	
-vital	births	cld_epi	standard4_yesno	epidermal anaesthesia??	Administration to the mother of a regional anesthetic to control the pain of labor. Delivery of the agent into a limited space with the distribution of the analgesic effect limited to the lower body.
-vital	births	cld_febrile	standard4_yesno	Febrile (>100F or 38C)	
-vital	births	cld_fetalintol	standard4_yesno	Fetal intolerance?	In-utero resuscitative measures, further fetal assessment, or operative delivery. Includes any of the following: - Maternal position change - Oxygen administration to the mother - Intravenous fluids administered to the mother - Amnioinfusion - Support of maternal blood pressure - Administration of uterine relaxing agents Further fetal assessment including any of the following: scalp pH, scalp stimulation, acoustic stimulation. Operative delivery to shorten time to delivery of the fetus such as forceps, vacuum, or cesarean delivery.
-vital	births	cld_induc	standard4_yesno	Induced labor	Initiation of uterine contractions by medical and/or surgical means for the purpose of delivery before the spontaneous onset of labor (i.e., before labor has begun).
-vital	births	cld_mecon	standard4_yesno	Meconium Moderate/Heavy	Staining of the amniotic fluid caused by passage of fetal bowel contents during labor and/or at delivery that is more than enough to cause a greenish color change of an otherwise clear fluid.
+vital	births	cld_epi	standard4_yesno	Epidural or Spinal Anesthesia	Administration to the mother of a regional anesthetic to control the pain of labor. Delivery of the agent into a limited space with the distribution of the analgesic effect limited to the lower body.
+vital	births	cld_febrile	standard4_yesno	Febrile (>100F or >38C)	
+vital	births	cld_fetalintol	standard4_yesno	Fetal intolerance	In-utero resuscitative measures, further fetal assessment, or operative delivery. Includes any of the following: - Maternal position change - Oxygen administration to the mother - Intravenous fluids administered to the mother - Amnioinfusion - Support of maternal blood pressure - Administration of uterine relaxing agents Further fetal assessment including any of the following: scalp pH, scalp stimulation, acoustic stimulation. Operative delivery to shorten time to delivery of the fetus such as forceps, vacuum, or cesarean delivery.
+vital	births	cld_induc	standard4_yesno	Induction of Labor	Initiation of uterine contractions by medical and/or surgical means for the purpose of delivery before the spontaneous onset of labor (i.e., before labor has begun).
+vital	births	cld_mecon	standard4_yesno	Meconium Staining of the Amniotic Fluid	Staining of the amniotic fluid caused by passage of fetal bowel contents during labor and/or at delivery that is more than enough to cause a greenish color change of an otherwise clear fluid.
 vital	births	cld_none	standard4_yesno	No Complications of Labor	
-vital	births	cld_nonvert	standard4_yesno	None vertex (may be breech or other)?	
+vital	births	cld_nonvert	standard4_yesno	Non-vertex Presentation	
 vital	births	cld_oth	standard4_yesno	Other Complications of Labor	
 vital	births	cld_othlit		Other Complications of Labor (Literal)	
 vital	births	cld_placprev	standard4_yesno	Placenta Previa	
 vital	births	cld_seizures	standard4_yesno	Seizures During Labor	
-vital	births	cld_steroid	standard4_yesno	Use of steroids during labor?	Steroids (glucocorticoids) for fetal lung maturation received by the mother before delivery. Includes: betamethasone, dexamethasone, or hydrocortisone specifically given to accelerate fetal lung maturation in anticipation of preterm delivery. Does not include steroid medication given to the mother as an antiinflammatory treatment before or after delivery.
-vital	births	dat_concep		Conception Date	
-vital	births	death_cert			
-vital	births	death_date			
-vital	births	death_match			
+vital	births	cld_steroid	standard4_yesno	Steroids for Lung Maturity Prior to Delivery	Steroids (glucocorticoids) for fetal lung maturation received by the mother before delivery. Includes: betamethasone, dexamethasone, or hydrocortisone specifically given to accelerate fetal lung maturation in anticipation of preterm delivery. Does not include steroid medication given to the mother as an antiinflammatory treatment before or after delivery.
+vital	births	dat_concep		Date of Conception	
+vital	births	death_cert		Death Certificate Number	
+vital	births	death_date		Date of Death	
+vital	births	death_match		Death Match	
 vital	births	drug_use	standard1_yesno	Drug Use	
 vital	births	du_otc		Over The Counter Drug Use	
 vital	births	du_other		Other Drug Use	
@@ -131,32 +132,30 @@ vital	births	fa_asianlit		Father Other Asian (Literal)
 vital	births	fa_asianoth	standard4_yesno	Father is Other Asian	
 vital	births	fa_black	standard4_yesno	Father is Black	
 vital	births	fa_bst	state	Father's Birth State	
-vital	births	fa_bus	business		
-vital	births	fa_busines1	business		
+vital	births	fa_bus	business	Father's Industry	
+vital	births	fa_busines1	business		Father's General Industry
 vital	births	fa_chinese	standard4_yesno	Father is Chinese	
 vital	births	fa_cu	standard4_yesno	Father is Cuban	
 vital	births	fa_edu	education	Father's Highest Education Level	
-vital	births	fa_ethnic_nchs	ethnic_nchs		
-vital	births	fa_ethoth	standard4_yesno		
-vital	births	fa_ethothlit			
+vital	births	fa_ethnic_nchs	ethnic_nchs	Father's grouped hispanic origin list NCHS	
+vital	births	fa_ethoth	standard4_yesno	Father's Ethnic Other	
+vital	births	fa_ethothlit		Father's Ethnic Other Literal	
 vital	births	fa_filipino	standard4_yesno	Father is Filipino	
 vital	births	fa_guam	standard4_yesno	Father is Guamanian	
 vital	births	fa_hawaiian	standard4_yesno	Father is Hawaiian	
 vital	births	fa_his	standard4_yesno	Father is Hispanic	
-vital	births	fa_husb	standard2_yesno	Father is Husband	
+vital	births	fa_husb	standard2_yesno	Is Father the husband?	
 vital	births	fa_japanese	standard4_yesno	Father is Japanese	
 vital	births	fa_korean	standard4_yesno	Father is Korean	
 vital	births	fa_mex	standard4_yesno	Father is Mexican	
-vital	births	fa_occ	occ		
-vital	births	fa_occup1	occup		
+vital	births	fa_occ	occ	Father's Occupation	
+vital	births	fa_occup1	occup	Father's General Occupation	
 vital	births	fa_pacisl	standard4_yesno	Father is Pacific Islander	
 vital	births	fa_pacisllit		Father is Pacific Islander (Literal)	
 vital	births	fa_pr	standard4_yesno	Father is Puerto Rican	
 vital	births	fa_race1	cdc_race_code		
 vital	births	fa_race16	cdc_race_code		
-vital	births	fa_race17	cdc_race_code		
 vital	births	fa_race18	cdc_race_code		
-vital	births	fa_race19	cdc_race_code		
 vital	births	fa_race2	cdc_race_code		
 vital	births	fa_race20	cdc_race_code		
 vital	births	fa_race22	cdc_race_code		
@@ -169,15 +168,15 @@ vital	births	fa_race8	cdc_race_code
 vital	births	fa_raceoth	standard4_yesno	Father Other Race	
 vital	births	fa_raceothlit		Father Other Race Literal	
 vital	births	fa_raceref	standard4_yesno		
-vital	births	fa_raceunk	standard4_yesno		
+vital	births	fa_raceunk	standard4_yesno	Father's Race Unknown	
 vital	births	fa_samoan	standard4_yesno	Father is Samoan	
-vital	births	fa_signpat	standard3_yesno		
+vital	births	fa_signpat	standard3_yesno	Did Father sign paternity?	
 vital	births	fa_vietnamese	standard4_yesno	Father is Vietnamese	
 vital	births	fa_white	standard4_yesno	Father is White	
-vital	births	facility	facility	Birth Facility	The name of the facility where the delivery took place.
-vital	births	fahisp_nchs	hisp_nchs		
-vital	births	farace_ethnchs	race_ethnic		
-vital	births	farace_nchsbrg	bridge_race		
+vital	births	facility	facility	Facility of Birth	The name of the facility where the delivery took place.
+vital	births	fahisp_nchs	hisp_nchs	Father's hispanic origin code list NCHS	
+vital	births	farace_ethnchs	race_ethnic	Father's race & ethnic NCHS	
+vital	births	farace_nchsbrg	bridge_race	Father's single race & bridged race code NCHS	
 vital	births	filler10			
 vital	births	filler14			
 vital	births	filler15			
@@ -190,43 +189,43 @@ vital	births	gest_days		Total Gestation Duration in Days	Total Gestation Duratio
 vital	births	gest_est		Total Estimated Gestation Duration in Weeks	Total Estimated Gestation Duration in Weeks (20-43)
 vital	births	gest_grp	gest_grp	Gestation Duration Group	
 vital	births	gest_wks		Total Gestation Duration in Weeks	Total Gestation Duration in Weeks (20-43,99)
-vital	births	incity	standard2_yesno		
-vital	births	inf_chlam	standard4_yesno	Infant exposed to  chlamydia	A positive test for Chlamydia trachomatis.
-vital	births	inf_cmv	standard4_yesno	Infant exposed to cytomegalvirus	A diagnosis of or positive test for Cytomegalovirus. * Applicable to fetal deaths only.
-vital	births	inf_genherpes	standard4_yesno	Infant exposed to genital herpes	A diganosis or positive test for genital herpes
-vital	births	inf_gonor	standard4_yesno	Infant exposed to gonorrhea	A positive test/culture for Neisseria gonorrhoeae.
-vital	births	inf_hepb	standard4_yesno	Infant explosed to hepatitis B	A positive test for the hepatitis B virus.
+vital	births	incity	standard2_yesno	Is address in city?	
+vital	births	inf_chlam	standard4_yesno	Infant exposed to Chlamydia	A positive test for Chlamydia trachomatis.
+vital	births	inf_cmv	standard4_yesno	Infant exposed to CytoMegalVirus	A diagnosis of or positive test for Cytomegalovirus. * Applicable to fetal deaths only.
+vital	births	inf_genherpes	standard4_yesno	Infant exposed to Genital Herpes	A diagnosis or positive test for genital herpes
+vital	births	inf_gonor	standard4_yesno	Infant exposed to Gonorrhea	A positive test/culture for Neisseria gonorrhoeae.
+vital	births	inf_hepb	standard4_yesno	Infant explosed to Hepatitis B	A positive test for the hepatitis B virus.
 vital	births	inf_hepc	standard4_yesno	Infant exposed to Hepatitis C	A positive test for the hepatitis C virus.
-vital	births	inf_hivaids	standard4_yesno	Infant exposed to HIV/AIDS	A diganosis or positive test for HIV/AIDS
+vital	births	inf_hivaids	standard4_yesno	Infant exposed to HIV/AIDS	A diagnosis or positive test for HIV/AIDS
 vital	births	inf_hospnum		Infant's Hospital Number	
-vital	births	inf_hpv	standard4_yesno	Infant exposed to Human papilloma virus	A diganosis or positive test for HPV
-vital	births	inf_liv	standard2_yesno	Infant Living	
-vital	births	inf_none	standard4_yesno	Infant exposed to no infection	
-vital	births	inf_oth	standard4_yesno	Infant exposed to other infection	A diganosis or positive test for other disease
-vital	births	inf_othlit		Infant exposed to other infection (Literal)	
-vital	births	inf_rubella	standard4_yesno	Infant exposed to rubella	A diganosis or positive test for rubella
-vital	births	inf_syph	standard4_yesno	Infant exposed to syphillis	A positive test for Treponema pallidum.
-vital	births	inf_toxo	standard4_yesno	Infant exposed to toxoplasmosis	A diagnosis of or positive test for Toxoplasma gondii. * Applicable to fetal deaths only.
-vital	births	inf_trans	standard2_yesno	Infant transfused	Transfer status of the infant within 24 hours after delivery.
-vital	births	inf_tuber	standard4_yesno	Infant exposed to tuberculosis	A diganosis or positive test for tuberculosis
-vital	births	live_bthdead		Previous Live Births that died???	The total number of previous live born infants now dead.
-vital	births	live_bthliv		Previous Live Births still living???	The total number of previous live born infants now living.
+vital	births	inf_hpv	standard4_yesno	Infant exposed to Human Papilloma Virus	A diagnosis or positive test for HPV
+vital	births	inf_liv	standard2_yesno	Is Infant Living at Time of Report?	
+vital	births	inf_none	standard4_yesno	Infant exposed to No Infection	
+vital	births	inf_oth	standard4_yesno	Infant exposed to Other Infection	A diagnosis or positive test for other disease
+vital	births	inf_othlit		Infant exposed to Other Infection (Literal)	
+vital	births	inf_rubella	standard4_yesno	Infant exposed to Rubella	A diagnosis or positive test for rubella
+vital	births	inf_syph	standard4_yesno	Infant exposed to Syphillis	A positive test for Treponema pallidum.
+vital	births	inf_toxo	standard4_yesno	Infant exposed to Toxoplasmosis	A diagnosis of or positive test for Toxoplasma gondii. * Applicable to fetal deaths only.
+vital	births	inf_trans	standard2_yesno	Was Infant Transferred within 24 Hours of Delivery	Transfer status of the infant within 24 hours after delivery.
+vital	births	inf_tuber	standard4_yesno	Infant exposed to Tuberculosis	A diagnosis or positive test for tuberculosis
+vital	births	live_bthdead		Previous Live Births Now Dead	The total number of previous live born infants now dead.
+vital	births	live_bthliv		Previous Live Births Now Living	The total number of previous live born infants now living.
 vital	births	lm_date		Last Menses Date	The date the mother's last normal menstrual period began. This item is used to compute the gestational age of the infant.
 vital	births	lm_da		Last Menses Day (1-31)	
 vital	births	lm_mo		Last Menses Month (1-12)	
 vital	births	lm_yr		Last Menses Year (4-digit)	
-vital	births	married_betw	standard2_yesno		
-vital	births	match_certnum			
-vital	births	md_forcepsattpt	standard2_yesno	Forceps used by MD	
-vital	births	md_vaccumattpt	standard2_yesno	Vacuum extraction used by MD	
-vital	births	mm_hyster	standard4_yesno	Maternal hysterotomy	Surgical removal of the uterus that was not planned before the admission. Includes an anticipated, but not definitively planned, hysterectomy.
-vital	births	mm_icu	standard4_yesno	Maternal ICU admission	Any admission, planned or unplanned, of the mother to a facility or unit designated as providing intensive care.
-vital	births	mm_none	standard4_yesno	Maternal morbidity (any illness)?	
-vital	births	mm_perilac	standard4_yesno	Maternal perineum laceration	3 degree laceration extends completely through the perineal skin, vaginal mucosa, perineal body, and anal sphincter.  4 degree laceration is all of the above with extension through the rectal mucosa.
-vital	births	mm_ruputerus	standard4_yesno	Maternal ruptured uterus	Tearing of the uterine wall.
-vital	births	mm_trnsfusion	standard4_yesno	Maternal transfusion	Includes infusion of whole blood or packed red blood cells associated with labor and delivery.
-vital	births	mm_unk	standard4_yesno	Maternal complication unknown	
-vital	births	mm_unploper	standard4_yesno	Unplanned Maternal Operation	Any transfer of the mother back to a surgical area for an operative procedure that was not planned before the admission for delivery.  Excludes postpartum tubal ligations.
+vital	births	married_betw	standard2_yesno	Was Mom married between? (between what?)	
+vital	births	match_certnum		Matching Cert Number	
+vital	births	md_forcepsattpt	standard2_yesno	Forceps Attempt-Unsuccessful	
+vital	births	md_vaccumattpt	standard2_yesno	Vacuum Attempt-Unsuccessful	
+vital	births	mm_hyster	standard4_yesno	Unplanned Hysterectomy	Surgical removal of the uterus that was not planned before the admission. Includes an anticipated, but not definitively planned, hysterectomy.
+vital	births	mm_icu	standard4_yesno	Admitted to Intensive Care	Any admission, planned or unplanned, of the mother to a facility or unit designated as providing intensive care.
+vital	births	mm_none	standard4_yesno	No Complications	
+vital	births	mm_perilac	standard4_yesno	Third or Fourth Degree Perineal Laceration	3 degree laceration extends completely through the perineal skin, vaginal mucosa, perineal body, and anal sphincter.  4 degree laceration is all of the above with extension through the rectal mucosa.
+vital	births	mm_ruputerus	standard4_yesno	Ruptured Uterus	Tearing of the uterine wall.
+vital	births	mm_trnsfusion	standard4_yesno	Maternal Transfusion	Includes infusion of whole blood or packed red blood cells associated with labor and delivery.
+vital	births	mm_unk	standard4_yesno	Maternal Complication Unknown	
+vital	births	mm_unploper	standard4_yesno	Unplanned Operation Procedure Following Delivery	Any transfer of the mother back to a surgical area for an operative procedure that was not planned before the admission for delivery.  Excludes postpartum tubal ligations.
 vital	births	mom_fnam		Mother's First Name	
 vital	births	mom_mnam		Mother's Middle Name	
 vital	births	maiden_n		Mother's Maiden Name	
@@ -239,6 +238,8 @@ vital	births	mom_rco	county	Mother's Resident County
 vital	births	mom_rst	state	Mother's Resident State	
 vital	births	mom_rzip		Mother's Resident Zip	
 vital	births	mom_bst	state	Mother's Birth State	
+vital	births	mom_bthcntry_fips		Mother's Birth Country FIPS Code	
+vital	births	mom_bthstate_fips		Mother's Birth State FIPS Code	
 vital	births	mom_dob		Mother's Date of Birth	
 vital	births	mom_ssn		Mother's Social Security Number	
 vital	births	mom_age		Mother's Age	
@@ -252,15 +253,15 @@ vital	births	mom_asian	standard4_yesno	Mother is Asian
 vital	births	mom_asianlit		Mother is Other Asian (Literal)	
 vital	births	mom_asianoth	standard4_yesno	Mother is Other Asian	
 vital	births	mom_black	standard4_yesno	Mother is Black	
-vital	births	mom_bus	business		
-vital	births	mom_busines1	business		
+vital	births	mom_bus	business	Mother's Industry	
+vital	births	mom_busines1	business	Mother's General Industry	
 vital	births	mom_chinese	standard4_yesno	Mother is Chinese	
 vital	births	mom_cu	standard4_yesno	Mother is Cuban	
 vital	births	mom_edu	education	Mother's Highest Education Level	
-vital	births	mom_ethnic_nchs	ethnic_nchs		
-vital	births	mom_ethoth	standard4_yesno		
-vital	births	mom_ethothlit			
-vital	births	mom_everm	standard2_yesno		
+vital	births	mom_ethnic_nchs	ethnic_nchs	Mother's grouped hispanic origin list NCHS	
+vital	births	mom_ethoth	standard4_yesno	Mother's Ethnic Other	
+vital	births	mom_ethothlit		Mother's Ethnic Other Literal	
+vital	births	mom_everm	standard2_yesno	Was Mom ever married?	
 vital	births	mom_filipino	standard4_yesno	Mother is Filipino	
 vital	births	mom_guam	standard4_yesno	Mother is Guamanian	
 vital	births	mom_hawaiian	standard4_yesno	Mother is Hawaiian	
@@ -268,8 +269,8 @@ vital	births	mom_his	standard4_yesno	Mother is Hispanic
 vital	births	mom_japanese	standard4_yesno	Mother is Japanese	
 vital	births	mom_korean	standard4_yesno	Mother is Korean	
 vital	births	mom_mex	standard4_yesno	Mother is Mexican	
-vital	births	mom_occ	occ		
-vital	births	mom_occup1	occup		
+vital	births	mom_occ	occ	Mother's Occupation	
+vital	births	mom_occup1	occup	Mother's General Occupation	
 vital	births	mom_pacisl	standard4_yesno	Mother is Pacific Islander	
 vital	births	mom_pacisllit		Mother is Pacific Islander (Literal)	
 vital	births	mom_pr	standard4_yesno	Mother is Puerto Rican	
@@ -288,49 +289,49 @@ vital	births	mom_race8	cdc_race_code
 vital	births	mom_raceoth	standard4_yesno	Mother Other Race	
 vital	births	mom_raceothlit		Mother Other Race Literal	
 vital	births	mom_raceref	standard4_yesno		
-vital	births	mom_raceunk	standard4_yesno		
+vital	births	mom_raceunk	standard4_yesno	Mother's Race Unknown	
 vital	births	mom_samoan	standard4_yesno	Mother is Samoan	
-vital	births	mom_trans	standard2_yesno	Mother Transferred???	Transfers include hospital to hospital, birth facility to hospital, etc. Does not include home to hospital.
+vital	births	mom_trans	standard2_yesno	Was Mother Transferred For Delivery	Transfers include hospital to hospital, birth facility to hospital, etc. Does not include home to hospital.
 vital	births	mom_vietnamese	standard4_yesno	Mother is Vietnamese	
 vital	births	mom_white	standard4_yesno	Mother is White	
-vital	births	momhisp_nchs	hisp_nchs		
-vital	births	momrace_ethnchs	race_ethnic		
-vital	births	momrace_nchsbrg	bridge_race		
-vital	births	mpv_cal			
-vital	births	mpv_days_cal			
-vital	births	mres_city_fips			
-vital	births	mres_cntry_fips			
-vital	births	mres_cnty_fips			
-vital	births	mres_st_fips			
-vital	births	mrf_anemia	standard4_yesno	Anemia (Hct. <30/Hgb.<10)	
-vital	births	mrf_assistrep	standard4_yesno	Maternal assisted reproduction	Any assisted reproductive technology (ART/technical procedures (e.g., IVF, GIFT, ZIFT)) used to initiate the pregnancy.
+vital	births	momhisp_nchs	hisp_nchs	Mother's hispanic origin code list NCHS	
+vital	births	momrace_ethnchs	race_ethnic	Mother's race & ethnic NCHS	
+vital	births	momrace_nchsbrg	bridge_race	Mother's single race & bridged race code NCHS	
+vital	births	mpv_cal		MPV Day Cal (clarify)	
+vital	births	mpv_days_cal		Month Prenatal Care Began (doesn't sound right)	
+vital	births	mres_city_fips		Mother's Resident City FIPS Code	
+vital	births	mres_cntry_fips		Mother's Resident Country FIPS Code	
+vital	births	mres_cnty_fips		Mother's Resident County FIPS Code	
+vital	births	mres_st_fips		Mother's Resident State FIPS Code	
+vital	births	mrf_anemia	standard4_yesno	Anemia (Hct<30/Hgb<10)	
+vital	births	mrf_assistrep	standard4_yesno	Assisted Reproductive Technology (IVF, GIFT)	Any assisted reproductive technology (ART/technical procedures (e.g., IVF, GIFT, ZIFT)) used to initiate the pregnancy.
 vital	births	mrf_cardiac	standard4_yesno	Cardiac Disease	
 vital	births	mrf_eclampsia	standard4_yesno	Eclampsia	Hypertension with proteinuria with generalized seizures or coma. May include pathologic edema.
-vital	births	mrf_gestdiab	standard4_yesno	Diabetes	
+vital	births	mrf_gestdiab	standard4_yesno	Gestational Diabetes	
 vital	births	mrf_hemoglob	standard4_yesno	Hemoglobinopathy	
-vital	births	mrf_hydra	standard4_yesno	Hydramnios/Oligogydramnios	
-vital	births	mrf_hypergest	standard4_yesno	Hypertension, Pregnancy Associated	Gestational Diagnosis in this pregnancy (Pregnancy induced hypertension, preeclampsia).
+vital	births	mrf_hydra	standard4_yesno	Hydraminios / Oligohydramnios	
+vital	births	mrf_hypergest	standard4_yesno	Gestational Hypertension	Gestational Diagnosis in this pregnancy (Pregnancy induced hypertension, preeclampsia).
 vital	births	mrf_hypert	standard4_yesno	Hypertension	Elevation of blood pressure above normal for age, gender, and physiological condition.
-vital	births	mrf_hypertchr	standard4_yesno	Hypertension, Chronic	Prepregnancy (chronic) Diagnosis prior to the onset of this pregnancy-does not include gestational (pregnancy induced hypertension (PIH)
+vital	births	mrf_hypertchr	standard4_yesno	Chronic Hypertension	Prepregnancy (chronic) Diagnosis prior to the onset of this pregnancy-does not include gestational (pregnancy induced hypertension (PIH)
 vital	births	mrf_incompcerv	standard4_yesno	Incompetent Cervix	
-vital	births	mrf_infdrugs	standard4_yesno	Infertility Drugs???	Any fertility enhancing drugs (e.g., Clomid, Pergonal), artificial insemination or intrauterine insemination used to initiate the pregnancy
-vital	births	mrf_inftreat	standard4_yesno	Infertility Treatment???	Any assisted reproductive treatment used to initiate the pregnancy. Includes: - Drugs (such as Clomid, Pergonal) - Artificial insemination - Technical procedures (
-vital	births	mrf_lungdis	standard4_yesno	Lung Disease?	
+vital	births	mrf_infdrugs	standard4_yesno	Fertility Enhancing Drugs, Artificial/Intrauterine Insemination	Any fertility enhancing drugs (e.g., Clomid, Pergonal), artificial insemination or intrauterine insemination used to initiate the pregnancy
+vital	births	mrf_inftreat	standard4_yesno	Pregnancy Resulted From Infertility Treatment	Any assisted reproductive treatment used to initiate the pregnancy. Includes: - Drugs (such as Clomid, Pergonal) - Artificial insemination - Technical procedures (
+vital	births	mrf_lungdis	standard4_yesno	Acute or Chronic Lung Disease	
 vital	births	mrf_none	standard4_yesno	No Medical Risk Factors	
 vital	births	mrf_oth	standard4_yesno	Other Medical Risk Factors	
 vital	births	mrf_othlit		Other Medical Risk Factors (Literal)	
 vital	births	mrf_poorout	standard4_yesno	Other Previous Poor Pregnancy Outcome	History of pregnancies continuing into the 20th week of gestation and resulting in any of the listed outcomes: - Perinatal death (including fetal and neonatal deaths) - Small for gestational age - Intrauterine-growth-restricted birth
-vital	births	mrf_prediab	standard4_yesno	Pre-diabetes	
-vital	births	mrf_prev4000	standard4_yesno	Previous Infant 4,000+ Gram	
-vital	births	mrf_prevces	standard4_yesno	Previous Caesarian section	
-vital	births	mrf_prevcesnum		Previous C-section number	
-vital	births	mrf_prevpreterm	standard4_yesno	Previous Preterm or Small for Gestational Age	History of pregnancy(ies) terminating in a live birth of less than 37 completed weeks of gestation.
+vital	births	mrf_prediab	standard4_yesno	Prepregnancy Diabetes	
+vital	births	mrf_prev4000	standard4_yesno	Previous Infant 4000+ Gram	
+vital	births	mrf_prevces	standard4_yesno	Previous Cesarean Delivery	
+vital	births	mrf_prevcesnum		Number of Previous Cesareans	
+vital	births	mrf_prevpreterm	standard4_yesno	Previous Preterm Birth	History of pregnancy(ies) terminating in a live birth of less than 37 completed weeks of gestation.
 vital	births	mrf_renaldis	standard4_yesno	Renal Disease	
 vital	births	mrf_rhsensit	standard4_yesno	Rh Sensitization	
 vital	births	mrf_utbleed	standard4_yesno	Uterine Bleeding	
 vital	births	ob_amnio	standard4_yesno	Amniocentesis	
-vital	births	ob_cephfail	standard4_yesno		
-vital	births	ob_cephsucess	standard4_yesno		
+vital	births	ob_cephfail	standard4_yesno	External Cephalic-Failed	
+vital	births	ob_cephsucess	standard4_yesno	External Cephalic-Success	
 vital	births	ob_cercl	standard4_yesno	Cervical Cerclage	Circumferential banding or suture of the cervix to prevent or treat passive dilation. Includes: MacDonald's suture, Shirodkar procedure, abdominal cerclage via laparotomy
 vital	births	ob_fetalmon	standard4_yesno	Electronic Fetal Monitoring	
 vital	births	ob_none	standard4_yesno	No Obstetric Procedures	
@@ -340,10 +341,10 @@ vital	births	ob_toco	standard4_yesno	Tocolysis	Administration of any agent with 
 vital	births	ob_ultrasnd	standard4_yesno	Ultrasound	
 vital	births	ol_none	standard4_yesno	No Onset of Labor Issues	
 vital	births	ol_preciplbr	standard4_yesno	Precipitous labor	Less than 3 hours
-vital	births	ol_prerom	standard4_yesno	premature rupture of membranes	Prolonged, greater than or equal to 12 hours before the onset of labor.
-vital	births	ol_prolonglbr	standard4_yesno	prolonged labor defined as >XXX hours	Greater than or equal to 20 hours.
-vital	births	pat_complete	standard3_yesno		
-vital	births	place	place	Delivery site	The type of place where the birth occurred; Hospital, Freestanding birthing center -  No direct physical connection with an operative delivery center, Home birth -  The birth occurred at a private residence, Clinic/Doctor's office, Other.
+vital	births	ol_prerom	standard4_yesno	Premature Rupture of Membranes	Prolonged, greater than or equal to 12 hours before the onset of labor.
+vital	births	ol_prolonglbr	standard4_yesno	Prolonged Labor	Prolonged Labor greater than or equal to 20 hours.
+vital	births	pat_complete	standard3_yesno	Is paternity complete?	
+vital	births	place	place	Place of Birth	The type of place where the birth occurred; Hospital, Freestanding birthing center -  No direct physical connection with an operative delivery center, Home birth -  The birth occurred at a private residence, Clinic/Doctor's office, Other.
 vital	births	plurality		Number of Fetuses Delivered During This Pregnancy	The number of fetuses delivered live or dead at any time in the pregnancy regardless of gestational age, or if the fetuses were delivered at different dates in the pregnancy. 'Reabsorbed' fetuses (those that are not delivered: expulsed or extracted from the mother) should not be counted.
 vital	births	pre_begin		Prenatal Care Begin Date	The date a physician or other health care professional first examined and/or counseled the pregnant woman for the pregnancy.
 vital	births	pre_begda		Prenatal Care Begin Day (1-31)	
@@ -353,32 +354,31 @@ vital	births	pre_end		Prenatal Care End Date	The month, day, and year of the las
 vital	births	pre_endda		Prenatal Care End Day (1-31)	
 vital	births	pre_endmo		Prenatal Care End Month (1-12)	
 vital	births	pre_endyr		Prenatal Care End Year (4-digit)	
-vital	births	prenatal	standard2_yesno	Did mother have prenatal visits?	
+vital	births	prenatal	standard2_yesno	Did mother have prenatal care?	
 vital	births	prv_livebth		Previous Live Birth Count	
 vital	births	prv_livebthdte		Previous Live Birth Date	The date of birth of the last liveborn infant.
-vital	births	prv_term			
-vital	births	pv_trims_cal			
-vital	births	reg_date		Registration Date???	
-vital	births	reg_da		Registration Day (1-31)???	
-vital	births	reg_mo		Registration Month (1-12)???	
-vital	births	reg_yr		Registration Year (4-digit)???	
-vital	births	source_pay	source_pay	Principal source of payment	The principal source of payment at the time of delivery.
-vital	births	term_dte			
-vital	births	tobacco	standard2_yesno	Tobacco Use	
-vital	births	cig_pck	cig_pck		
-vital	births	prepreg_cig			
-vital	births	prepreg_pck			
-vital	births	first_cig			
-vital	births	first_pck			
-vital	births	sec_cig			
-vital	births	sec_pck			
-vital	births	sex	sex	Child's Sex	The sex of the infant.
-vital	births	last_cig			
-vital	births	last_pck			
-vital	births	tot_visits		Total Prenatal Visit Count	The total number of visits recorded in the record.
-vital	births	trial_lbr	standard4_yesno	Trial of Labor	Labor was allowed, augmented, or induced with plans for a vaginal delivery.
+vital	births	prv_term		Previous Termination Number	
+vital	births	pv_trims_cal		Trimester Prenatal Care Began	
+vital	births	reg_date		Registration Date	
+vital	births	reg_da		Registration Day (1-31)	
+vital	births	reg_mo		Registration Month (1-12)	
+vital	births	reg_yr		Registration Year (4-digit)	
+vital	births	source_pay	source_pay	Principal Source of Payment for this Delivery	The principal source of payment at the time of delivery.
+vital	births	term_dte		Previous Termination Month/Year	
+vital	births	tobacco	standard2_yesno	Tobacco Use?	
+vital	births	cig_pck	cig_pck	Cigarettes or Pack?	
+vital	births	prepreg_cig		Cigarettes Smoked 3 Months Before Pregnancy	
+vital	births	prepreg_pck		Packs Smoked 3 Months Before Pregnancy	
+vital	births	first_cig		Cigarettes in First 3 Months of Pregnancy	
+vital	births	first_pck		Packs in First 3 Months of Pregnancy	
+vital	births	sec_cig		Cigarettes in the Second 3 Months of Pregnancy	
+vital	births	sec_pck		Packs in the Second 3 Months of Pregnancy	
+vital	births	last_cig		Cigarettes in the Third Trimester of Pregnancy	
+vital	births	last_pck		Packs in the Third Trimester of Pregnancy	
+vital	births	tot_visits		Total Prenatal Care Visits	The total number of visits recorded in the record.
+vital	births	trial_lbr	standard4_yesno	If Cesarean, was Trial of Labor Attempted	Labor was allowed, augmented, or induced with plans for a vaginal delivery.
 vital	births	void			Not Used. All NULL.
-vital	births	wic	standard2_yesno	Enrolled in WIC	
+vital	births	wic	standard2_yesno	WIC Food Received During Pregnancy	
 vital	births	prepreg_wt		Pre-pregnancy Weight	Pre-pregnancy Weight (In lbs 70 - 362, 999)
-vital	births	del_wt		Mother's Delivery Weight?	The mother's weight at the time of delivery.
+vital	births	del_wt		Mother's Delivery Weight	The mother's weight at the time of delivery.
 vital	births	wt_gain		Mother's Weight Gain	
