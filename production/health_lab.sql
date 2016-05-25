@@ -24,9 +24,9 @@ CREATE TABLE health_lab.newborn_screenings (
 	patient_id VARCHAR(30),	--Patient ID VARCHAR(15)
 	last_name VARCHAR(50),	--Last Name VARCHAR(15)
 	first_name VARCHAR(50),	--First Name VARCHAR(15)	-- MALE, FEMALE????
-	maiden_name VARCHAR(50),	--Maiden Name VARCHAR
+	maiden_name VARCHAR(50),	--Maiden Name VARCHAR		-- All NULL in initial set
 	birth_date DATE,	--Birth Date DATE
-	place_of_birth VARCHAR(50),	--Place of birth VARCHAR
+	place_of_birth VARCHAR(50),	--Place of birth VARCHAR		-- All NULL in initial set
 	address VARCHAR(50),	--Address 1 VARCHAR
 	city VARCHAR(50),	--City VARCHAR
 	state VARCHAR(50),	--State VARCHAR
