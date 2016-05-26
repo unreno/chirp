@@ -90,6 +90,33 @@ CREATE TABLE #dict_counts( field VARCHAR(255), label VARCHAR(255), description V
 	codeset VARCHAR(255), code VARCHAR(255), value VARCHAR(255), group_count INT )
 
 
+
+
+--	Attempting to the count the uncoded is a pain.
+--	There must be a better way.
+--
+--DECLARE fields CURSOR FOR SELECT name FROM sys.columns WHERE object_id = OBJECT_ID('vital.births')
+--DECLARE @field VARCHAR(255);
+--OPEN fields;
+--WHILE(1=1)BEGIN
+--	FETCH fields INTO @field;
+--	IF(@@FETCH_STATUS <> 0) BREAK
+--	DECLARE @sql VARCHAR(MAX) = 'INSERT INTO #dict_counts ' +
+--		'SELECT d.field, d.label, d.description, d.codeset, ''' + 
+--		@field + ''' AS code, ' + @field + ' AS value, COUNT(1) AS group_count  FROM vital.births b ' +
+--		'JOIN dbo.dictionary d ON d._schema = ''vital'' ' +
+--		'AND d._table = ''births'' AND d.field = ''' + @field + ''' ' +
+--		'WHERE d.codeset IS NOT NULL AND CAST(' + @field + ' AS VARCHAR(255)) = ' +
+--		'CAST(bin.decode(''vital'',''births'',''' + @field + ''', ' + @field + ') AS VARCHAR(255)) ' +
+--		'GROUP BY ''' + @field + ''';'
+--	EXEC( @sql )
+--END
+--CLOSE fields;
+--DEALLOCATE fields;
+--GO
+
+
+
 -- Insert all dictionary fields joined with every coded value and count
 INSERT INTO #dict_counts
 	SELECT d.field, d.label, d.description, d.codeset, c.code, c.value, g.group_count
@@ -175,19 +202,24 @@ UPDATE #dict_counts
 
 
 
+
+
+
+
 -- Simple (field, label, description, description, codeset, [if codeset, valid codes and values]).
 -- No groupings. No counts.
 
+--		ISNULL(CAST(code AS VARCHAR(255)),'Blank') AS code, 
+--		ISNULL(value,'Blank') AS value,
 
 SELECT field, 
 		ISNULL(label,'') AS label, 
 		ISNULL(description,'') AS description, 
 		ISNULL(codeset,'') AS codeset,
-		code, value
---		ISNULL(CAST(code AS VARCHAR(255)),'Blank') AS code, 
---		ISNULL(value,'Blank') AS value,
+		code, value,
 		group_count
 	FROM #dict_counts
+	WHERE group_count > 0
 	ORDER BY field, code		-- CAST(code AS INTEGER)
 
 
