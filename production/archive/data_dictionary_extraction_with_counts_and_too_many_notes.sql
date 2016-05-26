@@ -16,7 +16,8 @@ SELECT @SQL = (
 	WHERE object_id = OBJECT_ID('vital.births')
 	FOR XML PATH ('')
 );
-EXECUTE sp_executesql @SQL;
+EXEC( @SQL )
+--EXECUTE sp_executesql @SQL;
 
 
 ---- This may/will include non-coded fields
@@ -126,6 +127,21 @@ INSERT INTO #dict_counts
 	LEFT JOIN #group_counts g
 	ON g.field = d.field AND g.value = CAST(c.code AS VARCHAR(255))
 	WHERE d._table = 'births'
+
+
+
+
+
+-- Insert all dictionary fields joined with every NOT coded value and count
+INSERT INTO #dict_counts
+  SELECT g.field, d.label, d.description, d.codeset, g.value AS code, 
+	bin.decode('vital','births',g.field,g.value) AS value,g.group_count
+  FROM #group_counts g
+  LEFT JOIN dbo.dictionary d 
+    ON d.field = g.field
+  WHERE d._table = 'births' 
+  AND d.codeset IS NOT NULL
+  AND g.value = bin.decode('vital','births',g.field,g.value)
 
 
 --INSERT INTO #dict_counts
