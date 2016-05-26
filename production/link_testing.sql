@@ -60,6 +60,15 @@ WHERE bth_date between '2015-04-10' AND '2015-12-31'
 --> 4015
 
 
+
+
+
+
+
+
+
+
+
 SELECT 
 	b.name_sur, s.last_name, 
 	b.mom_snam, s.mom_surname, 
@@ -398,3 +407,77 @@ WHERE mom_first_name = 'RODICA'
 -- It is unclear what the second half is. Not mom's hospnum, any ssn, date
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--SELECT COUNT(DISTINCT cert_year_num)
+SELECT b.cert_year_num, b.inf_hospnum, s.patient_id,
+  b.bth_date AS birth_dob,
+  s.birth_date AS screen_dob,
+  b.mom_dob AS birth_mom_dob,
+  s.mom_birth_date AS screen_mom_dob,
+  b.mom_fnam AS birth_mom_first,
+  s.mom_first_name AS screen_mom_first,
+  b.mom_snam AS birth_mom_last,
+  s.mom_surname AS screen_mom_last,
+  b.maiden_n AS birth_mom_maiden,
+  s.mom_maiden_name AS screen_mom_maiden,
+  b.name_sur AS birth_last,
+  s.last_name AS screen_last
+FROM vital.births b
+JOIN health_lab.newborn_screenings s ON s.patient_id LIKE '%' + b.inf_hospnum + '%'
+WHERE YEAR(b.bth_date) = 2015 and MONTH(b.bth_date) >= 7
+AND s.patient_id <> b.inf_hospnum
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT
+  b.bth_date AS birth_dob,
+  s.birth_date AS screen_dob,
+  b.mom_dob AS birth_mom_dob,
+  s.mom_birth_date AS screen_mom_dob,
+  b.mom_fnam AS birth_mom_first,
+  s.mom_first_name AS screen_mom_first,
+  b.mom_snam AS birth_mom_last,
+  s.mom_surname AS screen_mom_last,
+  b.maiden_n AS birth_mom_maiden,
+  s.mom_maiden_name AS screen_mom_maiden,
+  b.name_sur AS birth_last,
+  s.last_name AS screen_last
+FROM vital.births b
+JOIN health_lab.newborn_screenings s ON s.patient_id = b.inf_hospnum
+WHERE YEAR(b.bth_date) = 2015 and MONTH(b.bth_date) >= 7
+  AND b.mom_dob <> s.mom_birth_date
