@@ -33,16 +33,16 @@ CREATE TABLE health_lab.newborn_screenings (
 	zip_code VARCHAR(15),	--Zip Code VARCHAR
 	phone_1 VARCHAR(15),	--Phone no. 1 VARCHAR
 	phone_2 VARCHAR(15),	--Phone no. 2 VARCHAR
-	location VARCHAR(50),	--Location VARCHAR
-	entry_mode VARCHAR(50),	--Entry Mode VARCHAR
-	rank VARCHAR(50),	--Rank VARCHAR
+	location VARCHAR(50),	--Location VARCHAR		-- (2/3='Default location',1/3=NULL)
+	entry_mode VARCHAR(50),	--Entry Mode VARCHAR (2/3='Reported',1/3 NULL, 3 are 'Linking')
+	rank VARCHAR(50),	--Rank VARCHAR			-- All NULL in initial set
 	mom_surname VARCHAR(50),	--Mother's surname VARCHAR
 	mom_first_name VARCHAR(50),	--Mother's first name VARCHAR
 	mom_maiden_name VARCHAR(50),	--Mother's maiden name VARCHAR
 	mom_birth_date DATE,	--Mother's date of birth DATE
 	contact_facility VARCHAR(75),	--Contact facility VARCHAR
 	contact_address VARCHAR(50),	--Contact Address 1 VARCHAR
-	birth_weight VARCHAR(10)	-- Weight Birth (looks like grams)
+	birth_weight VARCHAR(10)	-- Weight Birth (looks like grams)	-- 2/3 NULL in initial set
 );
 GO
 
