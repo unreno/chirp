@@ -172,3 +172,64 @@ FROM health_lab.newborn_screenings;
 GO
 
 
+
+
+
+
+IF COL_LENGTH('health_lab.newborn_screenings','accession_kit_number') IS NOT NULL
+  ALTER TABLE health_lab.newborn_screenings DROP COLUMN accession_kit_number;
+ALTER TABLE health_lab.newborn_screenings ADD accession_kit_number AS
+  accession_number + '-' + kit_number;
+
+
+IF COL_LENGTH('health_lab.newborn_screenings','patient_id_pre') IS NOT NULL
+  ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_pre;
+ALTER TABLE health_lab.newborn_screenings ADD patient_id_pre AS
+  RTRIM(SUBSTRING(patient_id, 1,
+    ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))-1,-1),LEN(patient_id))
+  )) PERSISTED;
+
+IF COL_LENGTH('health_lab.newborn_screenings','patient_id_suf') IS NOT NULL
+  ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_suf;
+ALTER TABLE health_lab.newborn_screenings ADD patient_id_suf AS
+  LTRIM(SUBSTRING(patient_id,
+    ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))+1,1),1),
+    LEN(patient_id)
+  )) PERSISTED;
+
+
+IF COL_LENGTH('health_lab.newborn_screenings','patient_id_prex') IS NOT NULL
+  ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_prex;
+ALTER TABLE health_lab.newborn_screenings ADD patient_id_prex AS
+  REPLACE(REPLACE(SUBSTRING(patient_id, 1,
+    ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))-1,-1),LEN(patient_id))
+  ),' ',''),'M','') PERSISTED;
+
+IF COL_LENGTH('health_lab.newborn_screenings','patient_id_sufx') IS NOT NULL
+  ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_sufx;
+ALTER TABLE health_lab.newborn_screenings ADD patient_id_sufx AS
+  REPLACE(REPLACE(SUBSTRING(patient_id,
+    ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))+1,1),1),
+    LEN(patient_id)
+  ),' ',''),'M','') PERSISTED;
+
+
+IF COL_LENGTH('health_lab.newborn_screenings','patient_id_prexi') IS NOT NULL
+  ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_prexi;
+ALTER TABLE health_lab.newborn_screenings ADD patient_id_prexi AS
+  REPLACE(LTRIM(REPLACE(
+  REPLACE(REPLACE(SUBSTRING(patient_id, 1,
+    ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))-1,-1),LEN(patient_id))
+  ),' ',''),'M','')
+  , '0', ' ')), ' ', '0') PERSISTED;
+
+IF COL_LENGTH('health_lab.newborn_screenings','patient_id_sufxi') IS NOT NULL
+  ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_sufxi;
+ALTER TABLE health_lab.newborn_screenings ADD patient_id_sufxi AS
+  REPLACE(LTRIM(REPLACE(
+  REPLACE(REPLACE(SUBSTRING(patient_id,
+    ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))+1,1),1),
+    LEN(patient_id)
+  ),' ',''),'M','')
+  , '0', ' ')), ' ', '0') PERSISTED;
+
