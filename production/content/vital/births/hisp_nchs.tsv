@@ -1,5 +1,5 @@
 code	value
-100	Non-Hispanic
+100	Non-Hispanic Checkbox
 200	Spaniard
 201	Andalusian
 202	Austurian
@@ -10,8 +10,8 @@ code	value
 207	Valencian
 208	Canarian
 209	Spanish Basque
-210	Mexican
-211	Mexican Checkbox
+210	Mexican Checkbox
+211	Mexican
 212	Mexican American
 213	Mexicano
 214	Chicano
@@ -40,7 +40,7 @@ code	value
 239	Venezuelan
 240	South American Indian
 241	Criollo
-243	South American
+242	South American
 250	Latin American
 251	Latin
 252	Latino
