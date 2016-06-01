@@ -12,6 +12,7 @@ CREATE TABLE private.identifiers (
 	source_table  VARCHAR(50) NOT NULL,
 	source_column VARCHAR(50) NOT NULL,
 	source_id     VARCHAR(255) NOT NULL,
+	match_method  VARCHAR(255),
 	created_at    DATETIME 
 		CONSTRAINT private_identifiers_created_at_default 
 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
