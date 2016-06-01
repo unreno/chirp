@@ -1,4 +1,5 @@
 code	value
+100	White (100-199)
 101	White
 102	Arab
 103	English
@@ -34,6 +35,7 @@ code	value
 133	BOSNIAN
 134	KOSOVIAN
 199	Multiple WHITE responses
+200	Black or African American (200-299)
 201	Black
 202	African
 203	African American
@@ -58,18 +60,23 @@ code	value
 227	TOGOLESE
 228	SOMALIAN
 299	Multiple BLACK or AFRICAN AMERICAN responses
-300	American Indian Checkbox
+300	American Indian or Alaskan Native (300-399,A01-R99)
+400	Asian Indian (Asian 400-499)
 401	Asian Indian
 402	Bangladeshi
 403	Bhutanese
 404	Burmese
 405	Cambodian
+410	Chinese (Asian 400-499)
 411	Chinese
 412	Taiwanese
+420	Filipino (Asian 400-499)
 421	Filipino
 422	Hmong
 423	Indonesian
+430	Japanese (Asian 400-499)
 431	Japanese
+440	Korean (Asian 400-499)
 441	Korean
 442	Laotian
 443	Malaysian
@@ -77,7 +84,9 @@ code	value
 445	Pakistani
 446	Sri Lankan
 447	Thai
+450	Vietnamese (Asian 400-499)
 451	Vietnamese
+460	Other Asian (Asian 400-499)
 461	Amerasian
 462	Asian
 463	Asiatic
@@ -95,15 +104,17 @@ code	value
 475	MIEN
 476	TIBETAN
 499	Multiple ASIAN responses
-500	Native Hawaiian Checkbox
+500	Native Hawaiian or Other Pacific Islander (500-599)
 501	Native Hawaiian
 502	Hawaiian
 503	Part Hawaiian
+510	Native Hawaiian or Other Pacific Islander (500-599)
 511	Samoan
 512	Tahitian
 513	Tongan
 514	Polynesian
 515	Tokelauan
+520	Micronesian (500-599)
 521	Guamanian
 522	Chamorro
 531	Mariana Islander
@@ -124,6 +135,7 @@ code	value
 546	New Hebrides
 547	Pacific Islander
 599	Multiple NATIVE HAWAIIAN and OTHER PACIFIC ISLANDER responses
+600	Some Other Race (600-999)
 601	Argentinean
 602	Bolivian
 604	Central American
