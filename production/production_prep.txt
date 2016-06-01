@@ -10,9 +10,9 @@ cat bulk_insert_newborn_screenings.sql
 
 #	Create an identifier for each birth record
 INSERT INTO private.identifiers ( chirp_id, source_schema, 
-    source_table, source_column, source_id ) 
+    source_table, source_column, source_id, match_method ) 
   SELECT private.create_unique_chirp_id(), 'vital', 'births',
-    'cert_year_num', cert_year_num 
+    'cert_year_num', cert_year_num, 'Initial assignment' 
   FROM vital.births b WHERE b.imported_to_dw = 'FALSE';
 
 SELECT COUNT(*) FROM private.identifiers
