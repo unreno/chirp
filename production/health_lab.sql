@@ -7,7 +7,7 @@ GO
 -- July 2015 - December 2015
 -- "Accession Number","Kit Number","Patient ID","Last Name","First Name","Maiden Name","Birth Date","Place of birth","Address 1","City","State","Zip Code","Phone no. 1","Phone no. 2","Location","Entry Mode","Rank","Mother's surname","Mother's first name","Mother's maiden name","Mother's date of birth","Contact facility","Contact Address 1"
 
--- January 2016 - 
+-- January 2016 -
 -- "Accession Number","Kit Number","Patient ID","Last Name","First Name","Birth Date","Address 1","City","State","Zip Code","Phone no. 1","Weight  Birth","Mother's surname","Mother's first name","Mother's maiden name","Mother's date of birth","Contact facility","Contact Address 1"
 
 -- Minus a few, plus "Weight Birth"
@@ -113,7 +113,7 @@ EXEC bin.add_imported_to_dw_column_to_tables_by_schema 'health_lab';
 IF OBJECT_ID ( 'health_lab.bulk_insert_newborn_screenings_2015', 'V' ) IS NOT NULL
 	DROP VIEW health_lab.bulk_insert_newborn_screenings_2015;
 GO
-CREATE VIEW health_lab.bulk_insert_newborn_screenings_2015 AS SELECT 
+CREATE VIEW health_lab.bulk_insert_newborn_screenings_2015 AS SELECT
 	accession_number,
 	kit_number,
 	patient_id,
@@ -143,7 +143,7 @@ GO
 IF OBJECT_ID ( 'health_lab.bulk_insert_newborn_screenings_2016', 'V' ) IS NOT NULL
 	DROP VIEW health_lab.bulk_insert_newborn_screenings_2016;
 GO
-CREATE VIEW health_lab.bulk_insert_newborn_screenings_2016 AS SELECT 
+CREATE VIEW health_lab.bulk_insert_newborn_screenings_2016 AS SELECT
 	accession_number,
 	kit_number,
 	patient_id,
@@ -232,4 +232,50 @@ ALTER TABLE health_lab.newborn_screenings ADD patient_id_sufxi AS
     LEN(patient_id)
   ),' ',''),'M',''),'R',''),'D','')
   , '0', ' ')), ' ', '0') PERSISTED;
+
+
+
+IF COL_LENGTH('health_lab.newborn_screenings','_mom_surname') IS NOT NULL
+  ALTER TABLE health_lab.newborn_screenings DROP COLUMN _mom_surname;
+ALTER TABLE health_lab.newborn_screenings ADD _mom_surname AS
+  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_surname
+    , '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+
+IF COL_LENGTH('health_lab.newborn_screenings','_last_name') IS NOT NULL
+  ALTER TABLE health_lab.newborn_screenings DROP COLUMN _last_name;
+ALTER TABLE health_lab.newborn_screenings ADD _last_name AS
+  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( last_name
+    , '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+
+IF COL_LENGTH('health_lab.newborn_screenings','_mom_first_name') IS NOT NULL
+  ALTER TABLE health_lab.newborn_screenings DROP COLUMN _mom_first_name;
+ALTER TABLE health_lab.newborn_screenings ADD _mom_first_name AS
+  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_first_name
+    , '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+
+IF COL_LENGTH('health_lab.newborn_screenings','_first_name') IS NOT NULL
+  ALTER TABLE health_lab.newborn_screenings DROP COLUMN _first_name;
+ALTER TABLE health_lab.newborn_screenings ADD _first_name AS
+  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( first_name
+    , '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+
+--IF COL_LENGTH('health_lab.newborn_screenings','_address') IS NOT NULL
+--  ALTER TABLE health_lab.newborn_screenings DROP COLUMN _address;
+--ALTER TABLE health_lab.newborn_screenings ADD _address AS
+--  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( address
+--    , 'COURT','CT') , 'STREET','ST') ,'DRIVE','DR') ,'ROAD','RD') ,'CIRCLE','CIR') ,'LANE','LN') PERSISTED;
+
+IF COL_LENGTH('health_lab.newborn_screenings','_address') IS NOT NULL
+  ALTER TABLE health_lab.newborn_screenings DROP COLUMN _address;
+ALTER TABLE health_lab.newborn_screenings ADD _address AS
+  RTRIM( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
+  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
+	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
+	REPLACE( REPLACE( address
+    ,' COURT',' ') ,' CT',' ') ,' STREET',' ') ,' ST',' ')
+		,' DRIVE',' ') ,' DR',' ') ,' ROAD',' ') ,' RD',' ')
+		,' CIRCLE',' ') ,' CIR',' ') ,' LANE',' ') ,' LN',' ')
+		,' AVENUE',' ') ,' AVE',' ') ,' BOULEVARD',' ') ,' BLVD',' ')
+		,'SOUTH','S') ,'NORTH','N') ,'EAST','E') ,'WEST','W') )
+	PERSISTED;
 
