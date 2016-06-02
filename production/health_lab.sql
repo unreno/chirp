@@ -271,11 +271,12 @@ ALTER TABLE health_lab.newborn_screenings ADD _address AS
   RTRIM( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
   REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
-	REPLACE( REPLACE( address
+	REPLACE( REPLACE( REPLACE( REPLACE( address
     ,' COURT',' ') ,' CT',' ') ,' STREET',' ') ,' ST',' ')
-		,' DRIVE',' ') ,' DR',' ') ,' ROAD',' ') ,' RD',' ')
+		,' DRIVE',' ') ,' DRIV',' ') ,' DR',' ') ,' ROAD',' ') ,' RD',' ')
 		,' CIRCLE',' ') ,' CIR',' ') ,' LANE',' ') ,' LN',' ')
 		,' AVENUE',' ') ,' AVE',' ') ,' BOULEVARD',' ') ,' BLVD',' ')
+		,' MOUNT',' MT')
 		,'SOUTH','S') ,'NORTH','N') ,'EAST','E') ,'WEST','W') )
 	PERSISTED;
 

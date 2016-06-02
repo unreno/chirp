@@ -1274,11 +1274,12 @@ ALTER TABLE vital.births ADD _mom_address AS
   RTRIM( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
   REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
-	REPLACE( REPLACE( mom_address
+	REPLACE( REPLACE( REPLACE( REPLACE( mom_address
     ,' COURT',' ') ,' CT',' ') ,' STREET',' ') ,' ST',' ')
-		,' DRIVE',' ') ,' DR',' ') ,' ROAD',' ') ,' RD',' ')
+		,' DRIVE',' ') ,' DRIV',' ') ,' DR',' ') ,' ROAD',' ') ,' RD',' ')
 		,' CIRCLE',' ') ,' CIR',' ') ,' LANE',' ') ,' LN',' ')
 		,' AVENUE',' ') ,' AVE',' ') ,' BOULEVARD',' ') ,' BLVD',' ')
+		,' MOUNT',' MT')
 		,'SOUTH','S') ,'NORTH','N') ,'EAST','E') ,'WEST','W') )
 	PERSISTED;
 
