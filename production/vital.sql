@@ -1262,12 +1262,6 @@ IF COL_LENGTH('vital.births','_mom_rzip') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _mom_rzip;
 ALTER TABLE vital.births ADD _mom_rzip AS CAST( mom_rzip AS VARCHAR ) PERSISTED;
 
---IF COL_LENGTH('vital.births','_mom_address') IS NOT NULL
---	ALTER TABLE vital.births DROP COLUMN _mom_address;
---ALTER TABLE vital.births ADD _mom_address AS
---	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_address
---		, 'COURT','CT') , 'STREET','ST') ,'DRIVE','DR') ,'ROAD','RD') ,'CIRCLE','CIR') ,'LANE','LN') PERSISTED;
-
 IF COL_LENGTH('vital.births','_mom_address') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _mom_address;
 ALTER TABLE vital.births ADD _mom_address AS
@@ -1275,10 +1269,11 @@ ALTER TABLE vital.births ADD _mom_address AS
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
 	REPLACE( REPLACE( REPLACE( REPLACE( mom_address
+		,' BOULEVARD',' ') ,' BLVD',' ') -- contains RD, so before RD extraction
 		,' COURT',' ') ,' CT',' ') ,' STREET',' ') ,' ST',' ')
 		,' DRIVE',' ') ,' DRIV',' ') ,' DR',' ') ,' ROAD',' ') ,' RD',' ')
 		,' CIRCLE',' ') ,' CIR',' ') ,' LANE',' ') ,' LN',' ')
-		,' AVENUE',' ') ,' AVE',' ') ,' BOULEVARD',' ') ,' BLVD',' ')
+		,' AVENUE',' ') ,' AVE',' ')
 		,' MOUNT',' MT')
 		,'SOUTH','S') ,'NORTH','N') ,'EAST','E') ,'WEST','W') )
 	PERSISTED;

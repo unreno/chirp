@@ -259,12 +259,6 @@ ALTER TABLE health_lab.newborn_screenings ADD _first_name AS
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( first_name
 		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
 
---IF COL_LENGTH('health_lab.newborn_screenings','_address') IS NOT NULL
---	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _address;
---ALTER TABLE health_lab.newborn_screenings ADD _address AS
---	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( address
---		, 'COURT','CT') , 'STREET','ST') ,'DRIVE','DR') ,'ROAD','RD') ,'CIRCLE','CIR') ,'LANE','LN') PERSISTED;
-
 IF COL_LENGTH('health_lab.newborn_screenings','_address') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _address;
 ALTER TABLE health_lab.newborn_screenings ADD _address AS
@@ -272,10 +266,11 @@ ALTER TABLE health_lab.newborn_screenings ADD _address AS
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
 	REPLACE( REPLACE( REPLACE( REPLACE( address
+		,' BOULEVARD',' ') ,' BLVD',' ') -- contains RD, so before RD extraction
 		,' COURT',' ') ,' CT',' ') ,' STREET',' ') ,' ST',' ')
 		,' DRIVE',' ') ,' DRIV',' ') ,' DR',' ') ,' ROAD',' ') ,' RD',' ')
 		,' CIRCLE',' ') ,' CIR',' ') ,' LANE',' ') ,' LN',' ')
-		,' AVENUE',' ') ,' AVE',' ') ,' BOULEVARD',' ') ,' BLVD',' ')
+		,' AVENUE',' ') ,' AVE',' ')
 		,' MOUNT',' MT')
 		,'SOUTH','S') ,'NORTH','N') ,'EAST','E') ,'WEST','W') )
 	PERSISTED;
