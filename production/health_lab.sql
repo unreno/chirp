@@ -177,102 +177,102 @@ GO
 
 
 IF COL_LENGTH('health_lab.newborn_screenings','accession_kit_number') IS NOT NULL
-  ALTER TABLE health_lab.newborn_screenings DROP COLUMN accession_kit_number;
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN accession_kit_number;
 ALTER TABLE health_lab.newborn_screenings ADD accession_kit_number AS
-  accession_number + '-' + kit_number;
+	accession_number + '-' + kit_number;
 
 
 IF COL_LENGTH('health_lab.newborn_screenings','patient_id_pre') IS NOT NULL
-  ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_pre;
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_pre;
 ALTER TABLE health_lab.newborn_screenings ADD patient_id_pre AS
-  RTRIM(SUBSTRING(patient_id, 1,
-    ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))-1,-1),LEN(patient_id))
-  )) PERSISTED;
+	RTRIM(SUBSTRING(patient_id, 1,
+		ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))-1,-1),LEN(patient_id))
+	)) PERSISTED;
 
 IF COL_LENGTH('health_lab.newborn_screenings','patient_id_suf') IS NOT NULL
-  ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_suf;
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_suf;
 ALTER TABLE health_lab.newborn_screenings ADD patient_id_suf AS
-  LTRIM(SUBSTRING(patient_id,
-    ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))+1,1),1),
-    LEN(patient_id)
-  )) PERSISTED;
+	LTRIM(SUBSTRING(patient_id,
+		ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))+1,1),1),
+		LEN(patient_id)
+	)) PERSISTED;
 
 
 IF COL_LENGTH('health_lab.newborn_screenings','patient_id_prex') IS NOT NULL
-  ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_prex;
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_prex;
 ALTER TABLE health_lab.newborn_screenings ADD patient_id_prex AS
-  REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id, 1,
-    ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))-1,-1),LEN(patient_id))
-  ),' ',''),'M',''),'R',''),'D','') PERSISTED;
+	REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id, 1,
+		ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))-1,-1),LEN(patient_id))
+	),' ',''),'M',''),'R',''),'D','') PERSISTED;
 
 IF COL_LENGTH('health_lab.newborn_screenings','patient_id_sufx') IS NOT NULL
-  ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_sufx;
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_sufx;
 ALTER TABLE health_lab.newborn_screenings ADD patient_id_sufx AS
-  REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id,
-    ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))+1,1),1),
-    LEN(patient_id)
-  ),' ',''),'M',''),'R',''),'D','') PERSISTED;
+	REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id,
+		ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))+1,1),1),
+		LEN(patient_id)
+	),' ',''),'M',''),'R',''),'D','') PERSISTED;
 
 
 IF COL_LENGTH('health_lab.newborn_screenings','patient_id_prexi') IS NOT NULL
-  ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_prexi;
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_prexi;
 ALTER TABLE health_lab.newborn_screenings ADD patient_id_prexi AS
 	REPLACE(LTRIM(REPLACE(
-  REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id, 1,
-    ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))-1,-1),LEN(patient_id))
-  ),' ',''),'M',''),'R',''),'D','')
-  , '0', ' ')), ' ', '0') PERSISTED;
+	REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id, 1,
+		ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))-1,-1),LEN(patient_id))
+	),' ',''),'M',''),'R',''),'D','')
+	, '0', ' ')), ' ', '0') PERSISTED;
 
 IF COL_LENGTH('health_lab.newborn_screenings','patient_id_sufxi') IS NOT NULL
-  ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_sufxi;
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_sufxi;
 ALTER TABLE health_lab.newborn_screenings ADD patient_id_sufxi AS
-  REPLACE(LTRIM(REPLACE(
-  REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id,
-    ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))+1,1),1),
-    LEN(patient_id)
-  ),' ',''),'M',''),'R',''),'D','')
-  , '0', ' ')), ' ', '0') PERSISTED;
+	REPLACE(LTRIM(REPLACE(
+	REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id,
+		ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))+1,1),1),
+		LEN(patient_id)
+	),' ',''),'M',''),'R',''),'D','')
+	, '0', ' ')), ' ', '0') PERSISTED;
 
 
 
 IF COL_LENGTH('health_lab.newborn_screenings','_mom_surname') IS NOT NULL
-  ALTER TABLE health_lab.newborn_screenings DROP COLUMN _mom_surname;
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _mom_surname;
 ALTER TABLE health_lab.newborn_screenings ADD _mom_surname AS
-  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_surname
-    , '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_surname
+		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
 
 IF COL_LENGTH('health_lab.newborn_screenings','_last_name') IS NOT NULL
-  ALTER TABLE health_lab.newborn_screenings DROP COLUMN _last_name;
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _last_name;
 ALTER TABLE health_lab.newborn_screenings ADD _last_name AS
-  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( last_name
-    , '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( last_name
+		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
 
 IF COL_LENGTH('health_lab.newborn_screenings','_mom_first_name') IS NOT NULL
-  ALTER TABLE health_lab.newborn_screenings DROP COLUMN _mom_first_name;
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _mom_first_name;
 ALTER TABLE health_lab.newborn_screenings ADD _mom_first_name AS
-  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_first_name
-    , '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_first_name
+		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
 
 IF COL_LENGTH('health_lab.newborn_screenings','_first_name') IS NOT NULL
-  ALTER TABLE health_lab.newborn_screenings DROP COLUMN _first_name;
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _first_name;
 ALTER TABLE health_lab.newborn_screenings ADD _first_name AS
-  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( first_name
-    , '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( first_name
+		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
 
 --IF COL_LENGTH('health_lab.newborn_screenings','_address') IS NOT NULL
---  ALTER TABLE health_lab.newborn_screenings DROP COLUMN _address;
+--	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _address;
 --ALTER TABLE health_lab.newborn_screenings ADD _address AS
---  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( address
---    , 'COURT','CT') , 'STREET','ST') ,'DRIVE','DR') ,'ROAD','RD') ,'CIRCLE','CIR') ,'LANE','LN') PERSISTED;
+--	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( address
+--		, 'COURT','CT') , 'STREET','ST') ,'DRIVE','DR') ,'ROAD','RD') ,'CIRCLE','CIR') ,'LANE','LN') PERSISTED;
 
 IF COL_LENGTH('health_lab.newborn_screenings','_address') IS NOT NULL
-  ALTER TABLE health_lab.newborn_screenings DROP COLUMN _address;
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _address;
 ALTER TABLE health_lab.newborn_screenings ADD _address AS
-  RTRIM( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
-  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
+	RTRIM( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
+	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
 	REPLACE( REPLACE( REPLACE( REPLACE( address
-    ,' COURT',' ') ,' CT',' ') ,' STREET',' ') ,' ST',' ')
+		,' COURT',' ') ,' CT',' ') ,' STREET',' ') ,' ST',' ')
 		,' DRIVE',' ') ,' DRIV',' ') ,' DR',' ') ,' ROAD',' ') ,' RD',' ')
 		,' CIRCLE',' ') ,' CIR',' ') ,' LANE',' ') ,' LN',' ')
 		,' AVENUE',' ') ,' AVE',' ') ,' BOULEVARD',' ') ,' BLVD',' ')

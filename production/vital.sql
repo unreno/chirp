@@ -1211,71 +1211,71 @@ GO
 
 
 IF COL_LENGTH('vital.births','cert_year_num') IS NOT NULL
-  ALTER TABLE vital.births DROP COLUMN cert_year_num;
+	ALTER TABLE vital.births DROP COLUMN cert_year_num;
 ALTER TABLE vital.births ADD cert_year_num AS
-  CAST(cert_yr AS VARCHAR(255)) + '-' + CAST(cert_num AS VARCHAR(255)) PERSISTED;
+	CAST(cert_yr AS VARCHAR(255)) + '-' + CAST(cert_num AS VARCHAR(255)) PERSISTED;
 
 
 IF COL_LENGTH('vital.births','_maiden_n_mom_snam') IS NOT NULL
-  ALTER TABLE vital.births DROP COLUMN _maiden_n_mom_snam;
+	ALTER TABLE vital.births DROP COLUMN _maiden_n_mom_snam;
 ALTER TABLE vital.births ADD _maiden_n_mom_snam AS
-  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( maiden_n + mom_snam
-    , '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( maiden_n + mom_snam
+		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
 
 IF COL_LENGTH('vital.births','_maiden_n_name_sur') IS NOT NULL
-  ALTER TABLE vital.births DROP COLUMN _maiden_n_name_sur;
+	ALTER TABLE vital.births DROP COLUMN _maiden_n_name_sur;
 ALTER TABLE vital.births ADD _maiden_n_name_sur AS
-  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( maiden_n + name_sur
-    , '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( maiden_n + name_sur
+		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
 
 IF COL_LENGTH('vital.births','_name_sur') IS NOT NULL
-  ALTER TABLE vital.births DROP COLUMN _name_sur;
+	ALTER TABLE vital.births DROP COLUMN _name_sur;
 ALTER TABLE vital.births ADD _name_sur AS
-  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( name_sur
-    , '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( name_sur
+		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
 
 IF COL_LENGTH('vital.births','_maiden_n') IS NOT NULL
-  ALTER TABLE vital.births DROP COLUMN _maiden_n;
+	ALTER TABLE vital.births DROP COLUMN _maiden_n;
 ALTER TABLE vital.births ADD _maiden_n AS
-  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( maiden_n
-    , '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( maiden_n
+		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
 
 IF COL_LENGTH('vital.births','_mom_snam') IS NOT NULL
-  ALTER TABLE vital.births DROP COLUMN _mom_snam;
+	ALTER TABLE vital.births DROP COLUMN _mom_snam;
 ALTER TABLE vital.births ADD _mom_snam AS
-  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_snam
-    , '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_snam
+		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
 
 IF COL_LENGTH('vital.births','_mom_fnam') IS NOT NULL
-  ALTER TABLE vital.births DROP COLUMN _mom_fnam;
+	ALTER TABLE vital.births DROP COLUMN _mom_fnam;
 ALTER TABLE vital.births ADD _mom_fnam AS
-  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_fnam
-    , '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_fnam
+		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
 
 IF COL_LENGTH('vital.births','_name_fir') IS NOT NULL
-  ALTER TABLE vital.births DROP COLUMN _name_fir;
+	ALTER TABLE vital.births DROP COLUMN _name_fir;
 ALTER TABLE vital.births ADD _name_fir AS
-  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( name_fir
-    , '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( name_fir
+		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
 
 IF COL_LENGTH('vital.births','_mom_rzip') IS NOT NULL
-  ALTER TABLE vital.births DROP COLUMN _mom_rzip;
+	ALTER TABLE vital.births DROP COLUMN _mom_rzip;
 ALTER TABLE vital.births ADD _mom_rzip AS CAST( mom_rzip AS VARCHAR ) PERSISTED;
 
 --IF COL_LENGTH('vital.births','_mom_address') IS NOT NULL
---  ALTER TABLE vital.births DROP COLUMN _mom_address;
+--	ALTER TABLE vital.births DROP COLUMN _mom_address;
 --ALTER TABLE vital.births ADD _mom_address AS
---  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_address
---    , 'COURT','CT') , 'STREET','ST') ,'DRIVE','DR') ,'ROAD','RD') ,'CIRCLE','CIR') ,'LANE','LN') PERSISTED;
+--	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_address
+--		, 'COURT','CT') , 'STREET','ST') ,'DRIVE','DR') ,'ROAD','RD') ,'CIRCLE','CIR') ,'LANE','LN') PERSISTED;
 
 IF COL_LENGTH('vital.births','_mom_address') IS NOT NULL
-  ALTER TABLE vital.births DROP COLUMN _mom_address;
+	ALTER TABLE vital.births DROP COLUMN _mom_address;
 ALTER TABLE vital.births ADD _mom_address AS
-  RTRIM( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
-  REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
+	RTRIM( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
+	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
 	REPLACE( REPLACE( REPLACE( REPLACE( mom_address
-    ,' COURT',' ') ,' CT',' ') ,' STREET',' ') ,' ST',' ')
+		,' COURT',' ') ,' CT',' ') ,' STREET',' ') ,' ST',' ')
 		,' DRIVE',' ') ,' DRIV',' ') ,' DR',' ') ,' ROAD',' ') ,' RD',' ')
 		,' CIRCLE',' ') ,' CIR',' ') ,' LANE',' ') ,' LN',' ')
 		,' AVENUE',' ') ,' AVE',' ') ,' BOULEVARD',' ') ,' BLVD',' ')
