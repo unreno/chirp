@@ -201,36 +201,36 @@ ALTER TABLE health_lab.newborn_screenings ADD patient_id_suf AS
 IF COL_LENGTH('health_lab.newborn_screenings','patient_id_prex') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_prex;
 ALTER TABLE health_lab.newborn_screenings ADD patient_id_prex AS
-	REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id, 1,
+	REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id, 1,
 		ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))-1,-1),LEN(patient_id))
-	),' ',''),'M',''),'R',''),'D','') PERSISTED;
+	),' ',''),'M',''),'R',''),'D',''),'V','') PERSISTED;
 
 IF COL_LENGTH('health_lab.newborn_screenings','patient_id_sufx') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_sufx;
 ALTER TABLE health_lab.newborn_screenings ADD patient_id_sufx AS
-	REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id,
+	REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id,
 		ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))+1,1),1),
 		LEN(patient_id)
-	),' ',''),'M',''),'R',''),'D','') PERSISTED;
+	),' ',''),'M',''),'R',''),'D',''),'V','') PERSISTED;
 
 
 IF COL_LENGTH('health_lab.newborn_screenings','patient_id_prexi') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_prexi;
 ALTER TABLE health_lab.newborn_screenings ADD patient_id_prexi AS
 	REPLACE(LTRIM(REPLACE(
-	REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id, 1,
+	REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id, 1,
 		ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))-1,-1),LEN(patient_id))
-	),' ',''),'M',''),'R',''),'D','')
+	),' ',''),'M',''),'R',''),'D',''),'V','')
 	, '0', ' ')), ' ', '0') PERSISTED;
 
 IF COL_LENGTH('health_lab.newborn_screenings','patient_id_sufxi') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_sufxi;
 ALTER TABLE health_lab.newborn_screenings ADD patient_id_sufxi AS
 	REPLACE(LTRIM(REPLACE(
-	REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id,
+	REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id,
 		ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))+1,1),1),
 		LEN(patient_id)
-	),' ',''),'M',''),'R',''),'D','')
+	),' ',''),'M',''),'R',''),'D',''),'V','')
 	, '0', ' ')), ' ', '0') PERSISTED;
 
 
