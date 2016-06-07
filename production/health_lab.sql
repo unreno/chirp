@@ -309,3 +309,21 @@ ALTER TABLE health_lab.newborn_screenings ADD _mom_surname_suf AS
 		LEN(mom_surname)
 	),' ','') PERSISTED;
 
+
+IF COL_LENGTH('health_lab.newborn_screenings','_address_pre') IS NOT NULL
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _address_pre;
+ALTER TABLE health_lab.newborn_screenings ADD _address_pre AS
+	SUBSTRING(address, 1,
+		ISNULL(NULLIF(CHARINDEX(' ',address)-1,-1),LEN(address))
+	) PERSISTED;
+
+IF COL_LENGTH('health_lab.newborn_screenings','_address_suf') IS NOT NULL
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _address_suf;
+ALTER TABLE health_lab.newborn_screenings ADD _address_suf AS
+	SUBSTRING(address,
+		ISNULL(NULLIF(CHARINDEX(' ',address)+1,1),1),
+		LEN(address)
+	) PERSISTED;
+
+
+

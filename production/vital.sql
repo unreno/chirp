@@ -1327,3 +1327,19 @@ ALTER TABLE vital.births ADD _name_sur_suf AS
 		LEN(name_sur)
 	),' ','') PERSISTED;
 
+
+IF COL_LENGTH('vital.births','_mom_address_pre') IS NOT NULL
+	ALTER TABLE vital.births DROP COLUMN _mom_address_pre;
+ALTER TABLE vital.births ADD _mom_address_pre AS
+	SUBSTRING(mom_address, 1,
+		ISNULL(NULLIF(CHARINDEX(' ',mom_address)-1,-1),LEN(mom_address))
+	) PERSISTED;
+
+IF COL_LENGTH('vital.births','_mom_address_suf') IS NOT NULL
+	ALTER TABLE vital.births DROP COLUMN _mom_address_suf;
+ALTER TABLE vital.births ADD _mom_address_suf AS
+	SUBSTRING(mom_address,
+		ISNULL(NULLIF(CHARINDEX(' ',mom_address)+1,1),1),
+		LEN(mom_address)
+	) PERSISTED;
+
