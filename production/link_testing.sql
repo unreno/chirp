@@ -481,3 +481,36 @@ FROM vital.births b
 JOIN health_lab.newborn_screenings s ON s.patient_id = b.inf_hospnum
 WHERE YEAR(b.bth_date) = 2015 and MONTH(b.bth_date) >= 7
   AND b.mom_dob <> s.mom_birth_date
+
+
+
+
+
+-- Can I join ALL? This WILL BE HUGE! b count * s count
+
+SELECT * FROM (
+
+SELECT cert_year_num, b.inf_hospnum, s.patient_id,
+	s.accession_kit_number, b.plurality,
+	s.birth_date, b.bth_date, s.mom_birth_date, b.mom_dob,
+	s.first_name, b.name_fir, s.last_name, b.name_sur,
+	s.mom_first_name, b.mom_fnam, s.mom_surname, b.mom_snam,
+	s.mom_maiden_name, b.maiden_n,
+	s.zip_code, b.mom_rzip, s.address, b.mom_address,
+	'testing' AS match_method,
+	CASE WHEN b.bth_date = s.birth_date    THEN 1 ELSE 0 END AS birth_score,
+	CASE WHEN b.mom_dob = s.mom_birth_date THEN 1 ELSE 0 END AS mom_birth_score,
+	CASE WHEN b._mom_rzip = s.zip_code     THEN 1 ELSE 0 END AS zip_score,
+	CASE WHEN b._mom_address = s._address  THEN 1 ELSE 0 END AS address_score
+FROM vital.births b CROSS JOIN health_lab.newborn_screenings s
+WHERE YEAR(b.bth_date) = 2015   AND MONTH(b.bth_date) = 9
+  AND YEAR(s.birth_date) = 2015 AND MONTH(s.birth_date) = 9
+	AND s.zip_code IN ( '89402', '89405', '89412', '89424', '89431', '89432', '89433',
+		'89434', '89435', '89436', '89439', '89441', '89442', '89450', '89451', '89452',
+		'89501', '89502', '89503', '89504', '89505', '89506', '89507', '89508', '89509',
+		'89510', '89511', '89512', '89513', '89515', '89519', '89520', '89521', '89523',
+		'89533', '89555', '89557', '89570', '89595', '89599', '89704' ) 
+
+) AS computing_scores WHERE birth_score + mom_birth_score + zip_score + address_score >= 3
+
+
