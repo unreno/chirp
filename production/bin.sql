@@ -42,14 +42,14 @@ BEGIN
 	EXEC (@cmd);	--	Parenthese required here!
 
 	--Remove column if exists
-	SELECT @cmd = 'IF COL_LENGTH(''[' + @schema + '].[' + @table + 
+	SELECT @cmd = 'IF COL_LENGTH(''[' + @schema + '].[' + @table +
 		']'',''imported_at'') IS NOT NULL '+
 		'ALTER TABLE ' + @schema + '.[' + @table + '] DROP COLUMN imported_at;'
 	PRINT @cmd
 	EXEC (@cmd);	--	Parenthese required here!
 
 	--Add column with constraint
-	SELECT @cmd = 'ALTER TABLE [' + @schema + '].[' + @table + 
+	SELECT @cmd = 'ALTER TABLE [' + @schema + '].[' + @table +
 		'] ADD imported_at DATETIME CONSTRAINT '
 		+ @cname + ' DEFAULT CURRENT_TIMESTAMP NOT NULL ;';
 	PRINT @cmd
@@ -57,9 +57,9 @@ BEGIN
 */
 
 	--Add column with constraint if doesn't exist
-	SELECT @cmd = 'IF COL_LENGTH(''[' + @schema + '].[' + @table + 
+	SELECT @cmd = 'IF COL_LENGTH(''[' + @schema + '].[' + @table +
 		']'',''imported_at'') IS NULL '+
-		'ALTER TABLE [' + @schema + '].[' + @table + 
+		'ALTER TABLE [' + @schema + '].[' + @table +
 		'] ADD imported_at DATETIME CONSTRAINT '
 		+ @cname + ' DEFAULT CURRENT_TIMESTAMP NOT NULL ;';
 	EXEC (@cmd);	--	Parenthese required here!
@@ -78,7 +78,7 @@ BEGIN
 
 	DECLARE @table VARCHAR(255);
 
-	DECLARE tables CURSOR FOR SELECT t.name 
+	DECLARE tables CURSOR FOR SELECT t.name
 		FROM sys.tables AS t
 		INNER JOIN sys.schemas AS s
 		ON t.schema_id = s.schema_id
@@ -118,14 +118,14 @@ BEGIN
 	EXEC (@cmd);	--	Parenthese required here!
 
 	--Remove column if exists
-	SELECT @cmd = 'IF COL_LENGTH(''[' + @schema + '].[' + @table + 
+	SELECT @cmd = 'IF COL_LENGTH(''[' + @schema + '].[' + @table +
 		']'',''imported_to_dw'') IS NOT NULL '+
 		'ALTER TABLE ' + @schema + '.[' + @table + '] DROP COLUMN imported_to_dw;'
 	PRINT @cmd
 	EXEC (@cmd);	--	Parenthese required here!
 
 	--Add column with constraint
-	SELECT @cmd = 'ALTER TABLE [' + @schema + '].[' + @table + 
+	SELECT @cmd = 'ALTER TABLE [' + @schema + '].[' + @table +
 		'] ADD imported_to_dw BIT CONSTRAINT '
 		+ @cname + ' DEFAULT ''FALSE'' NOT NULL ;';
 --	PRINT @cmd
@@ -133,9 +133,9 @@ BEGIN
 */
 
 	--Add column with constraint if doesn't exist
-	SELECT @cmd = 'IF COL_LENGTH(''[' + @schema + '].[' + @table + 
+	SELECT @cmd = 'IF COL_LENGTH(''[' + @schema + '].[' + @table +
 		']'',''imported_to_dw'') IS NULL '+
-		'ALTER TABLE [' + @schema + '].[' + @table + 
+		'ALTER TABLE [' + @schema + '].[' + @table +
 		'] ADD imported_to_dw BIT CONSTRAINT '
 		+ @cname + ' DEFAULT ''FALSE'' NOT NULL ;';
 	EXEC (@cmd);	--	Parenthese required here!
@@ -154,7 +154,7 @@ BEGIN
 
 	DECLARE @table VARCHAR(255);
 
-	DECLARE tables CURSOR FOR SELECT t.name 
+	DECLARE tables CURSOR FOR SELECT t.name
 		FROM sys.tables AS t
 		INNER JOIN sys.schemas AS s
 		ON t.schema_id = s.schema_id
@@ -205,14 +205,14 @@ GO
 /*
 
 SELECT * FROM vital.births b
-	JOIN private.identifiers p 
-	ON p.source_id = b.state_file_number 
+	JOIN private.identifiers p
+	ON p.source_id = b.state_file_number
 	AND p.source_name = 'birth_sfn'
 	WHERE b.imported_to_dw = 'FALSE'
 
 
 SELECT * FROM sys.columns  c
-	INNER JOIN sys.tables t 
+	INNER JOIN sys.tables t
 	ON c.object_id = t.object_id
 	INNER JOIN sys.schemas s
 	ON t.schema_id = s.schema_id
@@ -220,12 +220,12 @@ SELECT * FROM sys.columns  c
 
 
 SELECT * FROM sys.columns  c
-	INNER JOIN sys.tables t 
+	INNER JOIN sys.tables t
 	ON c.object_id = t.object_id
 	INNER JOIN sys.schemas s
 	ON t.schema_id = s.schema_id
-	JOIN concepts cc 
-	ON cc.code = s.name + ':' + t.name + ':' + c.name 
+	JOIN concepts cc
+	ON cc.code = s.name + ':' + t.name + ':' + c.name
 	WHERE s.name = 'vital' AND t.name = 'births' AND cc.id IS NOT NULL
 
 */
@@ -242,7 +242,7 @@ SELECT * FROM sys.columns  c
 --	INSERT INTO dbo.observations
 --		(chirp_id, provider_id, started_at,
 --			concept, value, units, source_schema, source_table, downloaded_at)
---		SELECT i.chirp_id, 
+--		SELECT i.chirp_id,
 --			8675309 AS provider_id,
 --			n.service_at AS started_at,
 --			code AS concept,
@@ -965,7 +965,7 @@ BEGIN
 	SET NOCOUNT ON;
 
 --	DECLARE @schemas TABLE ( name VARCHAR(50) )
---	INSERT INTO @schemas VALUES ( 'vital' )	
+--	INSERT INTO @schemas VALUES ( 'vital' )
 --
 --	DECLARE schemas CURSOR FOR SELECT s.name FROM @schemas s
 --
@@ -1015,8 +1015,8 @@ BEGIN
 		-- We don't need that here.
 		DECLARE @codeset VARCHAR(255) = bin.codeset(@schema,@table,@field);
 		SELECT @value = value FROM dbo.codes
-			WHERE _schema = @schema 
-				AND _table = @table 
+			WHERE _schema = @schema
+				AND _table = @table
 				AND codeset = @codeset
 				AND code = @code
 	END ELSE
@@ -1033,9 +1033,9 @@ CREATE FUNCTION bin.codeset( @schema VARCHAR(50), @table VARCHAR(50), @field VAR
 BEGIN
 	DECLARE @codeset VARCHAR(255);
 	SELECT @codeset = codeset FROM dbo.dictionary
-		WHERE _schema = @schema 
-			AND _table = @table 
-			AND field = @field 
+		WHERE _schema = @schema
+			AND _table = @table
+			AND field = @field
 	RETURN ISNULL(@codeset, @field)
 END
 GO
@@ -1048,9 +1048,9 @@ CREATE FUNCTION bin.label( @schema VARCHAR(50), @table VARCHAR(50), @field VARCH
 BEGIN
 	DECLARE @label VARCHAR(255);
 	SELECT @label = label FROM dbo.dictionary
-		WHERE _schema = @schema 
-			AND _table = @table 
-			AND field = @field 
+		WHERE _schema = @schema
+			AND _table = @table
+			AND field = @field
 	-- If label is blank, just return the given field
 	RETURN ISNULL(@label, @field)
 END
@@ -1064,30 +1064,30 @@ CREATE FUNCTION bin.description( @schema VARCHAR(50), @table VARCHAR(50), @field
 BEGIN
 	DECLARE @description VARCHAR(255);
 	SELECT @description = description FROM dbo.dictionary
-		WHERE _schema = @schema 
-			AND _table = @table 
-			AND field = @field 
+		WHERE _schema = @schema
+			AND _table = @table
+			AND field = @field
 	-- If description is blank return label
 	RETURN ISNULL(@description, bin.label(@schema,@table,@field))
 END
 GO
 
 
-IF OBJECT_ID ( 'bin.codes', 'TF' ) IS NOT NULL 
-  DROP FUNCTION bin.codes;
+IF OBJECT_ID ( 'bin.codes', 'TF' ) IS NOT NULL
+	DROP FUNCTION bin.codes;
 GO
 CREATE FUNCTION bin.codes( @schema VARCHAR(50), @table VARCHAR(50), @field VARCHAR(50) )
 	RETURNS @codes TABLE ( code VARCHAR(255), value VARCHAR(255) )
 BEGIN
 	DECLARE @codeset VARCHAR(255) = bin.codeset(@schema,@table,@field);
 
-	INSERT INTO @codes    
+	INSERT INTO @codes
 		SELECT code, value FROM dbo.codes
-		WHERE _schema = @schema 
-			AND _table = @table 
-			AND field = @codeset 
+		WHERE _schema = @schema
+			AND _table = @table
+			AND field = @codeset
 
-	RETURN 
+	RETURN
 END
 GO
 
@@ -1119,11 +1119,11 @@ GO
 --	DECLARE @SQL NVARCHAR(MAX) = '';
 --	-- I could add the prefix WHERE to @condition if not blank, but '1=1' works.
 --	SELECT @SQL = (
---		SELECT 'SELECT CASE WHEN (GROUPING(' + QUOTENAME(name) + ') = 1) THEN ''Total'' ELSE CAST(' + 
+--		SELECT 'SELECT CASE WHEN (GROUPING(' + QUOTENAME(name) + ') = 1) THEN ''Total'' ELSE CAST(' +
 --			QUOTENAME(name) + ' AS VARCHAR) END AS ' + QUOTENAME(name) + ', COUNT(*) AS [count], ' +
 --      '( 2 * COUNT(*) * 100. / SUM(COUNT(*)) OVER()) AS [percent] FROM ' +
---      QUOTENAME(@schema) + '.' + QUOTENAME(@table) + 
---			' WHERE ' + @condition + ' GROUP BY ' + QUOTENAME(name) + 
+--      QUOTENAME(@schema) + '.' + QUOTENAME(@table) +
+--			' WHERE ' + @condition + ' GROUP BY ' + QUOTENAME(name) +
 --			' WITH ROLLUP ORDER BY ' + QUOTENAME(name) + ';'
 --		FROM   sys.columns
 --		WHERE  object_id = OBJECT_ID(@schema + '.' + @table)
@@ -1173,10 +1173,10 @@ GO
 --	DECLARE @SQL NVARCHAR(MAX) = '';
 --	-- I could add the prefix WHERE to @condition if not blank, but '1=1' works.
 --	SELECT @SQL = (
---		SELECT 'INSERT INTO #out(name,count) SELECT ''' + name + 
---			''' AS name, COUNT(DISTINCT ' + 
+--		SELECT 'INSERT INTO #out(name,count) SELECT ''' + name +
+--			''' AS name, COUNT(DISTINCT ' +
 --			QUOTENAME(name) + ') AS [count] ' +
---			' FROM ' + QUOTENAME(@schema) + '.' + QUOTENAME(@table) + 
+--			' FROM ' + QUOTENAME(@schema) + '.' + QUOTENAME(@table) +
 --			' WHERE ' + @condition + ';'
 --		FROM   sys.columns
 --		WHERE  object_id = OBJECT_ID(@schema + '.' + @table)
@@ -1218,5 +1218,32 @@ GO
 --	RETURN @quarter
 --END
 --GO
+
+
+
+
+
+IF OBJECT_ID ( 'bin.manually_link', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.manually_link;
+GO
+CREATE PROCEDURE bin.manually_link(
+	@schema1 VARCHAR(50), @table1 VARCHAR(50), @column1 VARCHAR(50), @value1 VARCHAR(255),
+	@schema2 VARCHAR(50), @table2 VARCHAR(50), @column2 VARCHAR(50), @value2 VARCHAR(255) )
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	INSERT INTO private.identifiers ( chirp_id, source_schema,
+		source_table, source_column, source_id, match_method )
+		SELECT i.chirp_id, @schema2, @table2, @column2, @value2,
+			"Manually : "+@schema1+" "+@table1+" "+@column1+" "+@value1
+		FROM private.identifiers i
+		WHERE i.source_schema = @schema1
+			AND i.source_table  = @table1
+			AND i.source_column = @column1
+			AND i.source_id     = @value1
+
+END	--	bin.manually_link
+GO
 
 
