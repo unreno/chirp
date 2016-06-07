@@ -262,16 +262,50 @@ ALTER TABLE health_lab.newborn_screenings ADD _first_name AS
 IF COL_LENGTH('health_lab.newborn_screenings','_address') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _address;
 ALTER TABLE health_lab.newborn_screenings ADD _address AS
-	RTRIM( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
+	RTRIM( REPLACE( REPLACE(
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
-	REPLACE( REPLACE( REPLACE( REPLACE( address
+	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE(
+	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( address
 		,' BOULEVARD',' ') ,' BLVD',' ') -- contains RD, so before RD extraction
 		,' COURT',' ') ,' CT',' ') ,' STREET',' ') ,' ST',' ')
-		,' DRIVE',' ') ,' DRIV',' ') ,' DR',' ') ,' ROAD',' ') ,' RD',' ')
+		,' DRIVE',' ') ,' DRIV',' ') ,' DRI',' ') ,' DR',' ') 
+		,' ROAD',' ') ,' RD',' ')
 		,' CIRCLE',' ') ,' CIR',' ') ,' LANE',' ') ,' LN',' ')
 		,' AVENUE',' ') ,' AVE',' ')
-		,' MOUNT',' MT')
+		,' MOUNT',' MT'), ' PARKWAY',' '),' PKWY',' ')
 		,'SOUTH','S') ,'NORTH','N') ,'EAST','E') ,'WEST','W') )
 	PERSISTED;
+
+
+
+IF COL_LENGTH('health_lab.newborn_screenings','_last_name_pre') IS NOT NULL
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _last_name_pre;
+ALTER TABLE health_lab.newborn_screenings ADD _last_name_pre AS
+	REPLACE(SUBSTRING(last_name, 1,
+		ISNULL(NULLIF(CHARINDEX('-',REPLACE(last_name,' ','-'))-1,-1),LEN(last_name))
+	),' ','') PERSISTED;
+
+IF COL_LENGTH('health_lab.newborn_screenings','_last_name_suf') IS NOT NULL
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _last_name_suf;
+ALTER TABLE health_lab.newborn_screenings ADD _last_name_suf AS
+	REPLACE(SUBSTRING(last_name,
+		ISNULL(NULLIF(CHARINDEX('-',REPLACE(last_name,' ','-'))+1,1),1),
+		LEN(last_name)
+	),' ','') PERSISTED;
+
+IF COL_LENGTH('health_lab.newborn_screenings','_mom_surname_pre') IS NOT NULL
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _mom_surname_pre;
+ALTER TABLE health_lab.newborn_screenings ADD _mom_surname_pre AS
+	REPLACE(SUBSTRING(mom_surname, 1,
+		ISNULL(NULLIF(CHARINDEX('-',REPLACE(mom_surname,' ','-'))-1,-1),LEN(mom_surname))
+	),' ','') PERSISTED;
+
+IF COL_LENGTH('health_lab.newborn_screenings','_mom_surname_suf') IS NOT NULL
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _mom_surname_suf;
+ALTER TABLE health_lab.newborn_screenings ADD _mom_surname_suf AS
+	REPLACE(SUBSTRING(mom_surname,
+		ISNULL(NULLIF(CHARINDEX('-',REPLACE(mom_surname,' ','-'))+1,1),1),
+		LEN(mom_surname)
+	),' ','') PERSISTED;
 
