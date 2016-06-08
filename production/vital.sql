@@ -1210,10 +1210,16 @@ GO
 
 
 
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births_cert_year_num', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births_cert_year_num
+		ON vital.births;
 IF COL_LENGTH('vital.births','cert_year_num') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN cert_year_num;
 ALTER TABLE vital.births ADD cert_year_num AS
 	CAST(cert_yr AS VARCHAR(255)) + '-' + CAST(cert_num AS VARCHAR(255)) PERSISTED;
+CREATE INDEX vital_births_cert_year_num
+	ON vital.births( cert_year_num );
 
 /*
 IF COL_LENGTH('vital.births','_maiden_n_mom_snam') IS NOT NULL
@@ -1229,40 +1235,80 @@ ALTER TABLE vital.births ADD _maiden_n_name_sur AS
 		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
 */
 
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births__name_sur', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births__name_sur
+		ON vital.births;
 IF COL_LENGTH('vital.births','_name_sur') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _name_sur;
 ALTER TABLE vital.births ADD _name_sur AS
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( name_sur
 		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+CREATE INDEX vital_births__name_sur
+	ON vital.births( _name_sur );
 
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births__maiden_n', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births__maiden_n
+		ON vital.births;
 IF COL_LENGTH('vital.births','_maiden_n') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _maiden_n;
 ALTER TABLE vital.births ADD _maiden_n AS
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( maiden_n
 		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+CREATE INDEX vital_births__maiden_n
+	ON vital.births( _maiden_n );
 
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births__mom_snam', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births__mom_snam
+		ON vital.births;
 IF COL_LENGTH('vital.births','_mom_snam') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _mom_snam;
 ALTER TABLE vital.births ADD _mom_snam AS
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_snam
 		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+CREATE INDEX vital_births__mom_snam
+	ON vital.births( _mom_snam );
 
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births__mom_fnam', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births__mom_fnam
+		ON vital.births;
 IF COL_LENGTH('vital.births','_mom_fnam') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _mom_fnam;
 ALTER TABLE vital.births ADD _mom_fnam AS
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_fnam
 		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+CREATE INDEX vital_births__mom_fnam
+	ON vital.births( _mom_fnam );
 
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births__name_fir', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births__name_fir
+		ON vital.births;
 IF COL_LENGTH('vital.births','_name_fir') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _name_fir;
 ALTER TABLE vital.births ADD _name_fir AS
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( name_fir
 		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+CREATE INDEX vital_births__name_fir
+	ON vital.births( _name_fir );
 
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births__mom_rzip', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births__mom_rzip
+		ON vital.births;
 IF COL_LENGTH('vital.births','_mom_rzip') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _mom_rzip;
 ALTER TABLE vital.births ADD _mom_rzip AS CAST( mom_rzip AS VARCHAR ) PERSISTED;
+CREATE INDEX vital_births__mom_rzip
+	ON vital.births( _mom_rzip );
 
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births__mom_address', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births__mom_address
+		ON vital.births;
 IF COL_LENGTH('vital.births','_mom_address') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _mom_address;
 ALTER TABLE vital.births ADD _mom_address AS
@@ -1273,22 +1319,34 @@ ALTER TABLE vital.births ADD _mom_address AS
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_address
 		,' BOULEVARD',' ') ,' BLVD',' ') -- contains RD, so before RD extraction
 		,' COURT',' ') ,' CT',' ') ,' STREET',' ') ,' ST',' ')
-		,' DRIVE',' ') ,' DRIV',' ') ,' DRI',' ') ,' DR',' ') 
+		,' DRIVE',' ') ,' DRIV',' ') ,' DRI',' ') ,' DR',' ')
 		,' ROAD',' ') ,' RD',' ')
 		,' CIRCLE',' ') ,' CIR',' ') ,' LANE',' ') ,' LN',' ')
 		,' AVENUE',' ') ,' AVE',' ')
 		,' MOUNT',' MT'),' PARKWAY',' '),' PKWY',' ')
 		,'SOUTH','S') ,'NORTH','N') ,'EAST','E') ,'WEST','W') )
 	PERSISTED;
+CREATE INDEX vital_births__mom_address
+	ON vital.births( _mom_address );
 
 
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births__maiden_n_pre', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births__maiden_n_pre
+		ON vital.births;
 IF COL_LENGTH('vital.births','_maiden_n_pre') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _maiden_n_pre;
 ALTER TABLE vital.births ADD _maiden_n_pre AS
 	REPLACE(SUBSTRING(maiden_n, 1,
 		ISNULL(NULLIF(CHARINDEX('-',REPLACE(maiden_n,' ','-'))-1,-1),LEN(maiden_n))
 	),' ','') PERSISTED;
+CREATE INDEX vital_births__maiden_n_pre
+	ON vital.births( _maiden_n_pre );
 
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births__maiden_n_suf', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births__maiden_n_suf
+		ON vital.births;
 IF COL_LENGTH('vital.births','_maiden_n_suf') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _maiden_n_suf;
 ALTER TABLE vital.births ADD _maiden_n_suf AS
@@ -1296,14 +1354,26 @@ ALTER TABLE vital.births ADD _maiden_n_suf AS
 		ISNULL(NULLIF(CHARINDEX('-',REPLACE(maiden_n,' ','-'))+1,1),1),
 		LEN(maiden_n)
 	),' ','') PERSISTED;
+CREATE INDEX vital_births__maiden_n_suf
+	ON vital.births( _maiden_n_suf );
 
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births__mom_snam_pre', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births__mom_snam_pre
+		ON vital.births;
 IF COL_LENGTH('vital.births','_mom_snam_pre') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _mom_snam_pre;
 ALTER TABLE vital.births ADD _mom_snam_pre AS
 	REPLACE(SUBSTRING(mom_snam, 1,
 		ISNULL(NULLIF(CHARINDEX('-',REPLACE(mom_snam,' ','-'))-1,-1),LEN(mom_snam))
 	),' ','') PERSISTED;
+CREATE INDEX vital_births__mom_snam_pre
+	ON vital.births( _mom_snam_pre );
 
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births__mom_snam_suf', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births__mom_snam_suf
+		ON vital.births;
 IF COL_LENGTH('vital.births','_mom_snam_suf') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _mom_snam_suf;
 ALTER TABLE vital.births ADD _mom_snam_suf AS
@@ -1311,14 +1381,26 @@ ALTER TABLE vital.births ADD _mom_snam_suf AS
 		ISNULL(NULLIF(CHARINDEX('-',REPLACE(mom_snam,' ','-'))+1,1),1),
 		LEN(mom_snam)
 	),' ','') PERSISTED;
+CREATE INDEX vital_births__mom_snam_suf
+	ON vital.births( _mom_snam_suf );
 
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births__name_sur_pre', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births__name_sur_pre
+		ON vital.births;
 IF COL_LENGTH('vital.births','_name_sur_pre') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _name_sur_pre;
 ALTER TABLE vital.births ADD _name_sur_pre AS
 	REPLACE(SUBSTRING(name_sur, 1,
 		ISNULL(NULLIF(CHARINDEX('-',REPLACE(name_sur,' ','-'))-1,-1),LEN(name_sur))
 	),' ','') PERSISTED;
+CREATE INDEX vital_births__name_sur_pre
+	ON vital.births( _name_sur_pre );
 
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births__name_sur_suf', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births__name_sur_suf
+		ON vital.births;
 IF COL_LENGTH('vital.births','_name_sur_suf') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _name_sur_suf;
 ALTER TABLE vital.births ADD _name_sur_suf AS
@@ -1326,15 +1408,27 @@ ALTER TABLE vital.births ADD _name_sur_suf AS
 		ISNULL(NULLIF(CHARINDEX('-',REPLACE(name_sur,' ','-'))+1,1),1),
 		LEN(name_sur)
 	),' ','') PERSISTED;
+CREATE INDEX vital_births__name_sur_suf
+	ON vital.births( _name_sur_suf );
 
 
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births__mom_address_pre', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births__mom_address_pre
+		ON vital.births;
 IF COL_LENGTH('vital.births','_mom_address_pre') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _mom_address_pre;
 ALTER TABLE vital.births ADD _mom_address_pre AS
 	SUBSTRING(mom_address, 1,
 		ISNULL(NULLIF(CHARINDEX(' ',mom_address)-1,-1),LEN(mom_address))
 	) PERSISTED;
+CREATE INDEX vital_births__mom_address_pre
+	ON vital.births( _mom_address_pre );
 
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births__mom_address_suf', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births__mom_address_suf
+		ON vital.births;
 IF COL_LENGTH('vital.births','_mom_address_suf') IS NOT NULL
 	ALTER TABLE vital.births DROP COLUMN _mom_address_suf;
 ALTER TABLE vital.births ADD _mom_address_suf AS
@@ -1342,4 +1436,96 @@ ALTER TABLE vital.births ADD _mom_address_suf AS
 		ISNULL(NULLIF(CHARINDEX(' ',mom_address)+1,1),1),
 		LEN(mom_address)
 	) PERSISTED;
+CREATE INDEX vital_births__mom_address_suf
+	ON vital.births( _mom_address_suf );
+
+
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births_mom_rzip', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births_mom_rzip
+		ON vital.births;
+CREATE INDEX vital_births_mom_rzip
+	ON vital.births( mom_rzip );
+
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births_bth_date', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births_bth_date
+		ON vital.births;
+CREATE INDEX vital_births_bth_date
+	ON vital.births( bth_date );
+
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births_mom_dob', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births_mom_dob
+		ON vital.births;
+CREATE INDEX vital_births_mom_dob
+	ON vital.births( mom_dob );
+
+
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births_bth_date_day', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births_bth_date_day
+		ON vital.births;
+IF COL_LENGTH('vital.births','bth_date_day') IS NOT NULL
+	ALTER TABLE vital.births DROP COLUMN bth_date_day;
+ALTER TABLE vital.births ADD bth_date_day AS
+	DAY(bth_date) PERSISTED;
+CREATE INDEX vital_births_bth_date_day
+	ON vital.births( bth_date_day );
+
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births_bth_date_month', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births_bth_date_month
+		ON vital.births;
+IF COL_LENGTH('vital.births','bth_date_month') IS NOT NULL
+	ALTER TABLE vital.births DROP COLUMN bth_date_month;
+ALTER TABLE vital.births ADD bth_date_month AS
+	MONTH(bth_date) PERSISTED;
+CREATE INDEX vital_births_bth_date_month
+	ON vital.births( bth_date_month );
+
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births_bth_date_year', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births_bth_date_year
+		ON vital.births;
+IF COL_LENGTH('vital.births','bth_date_year') IS NOT NULL
+	ALTER TABLE vital.births DROP COLUMN bth_date_year;
+ALTER TABLE vital.births ADD bth_date_year AS
+	YEAR(bth_date) PERSISTED;
+CREATE INDEX vital_births_bth_date_year
+	ON vital.births( bth_date_year );
+
+
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births_mom_dob_day', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births_mom_dob_day
+		ON vital.births;
+IF COL_LENGTH('vital.births','mom_dob_day') IS NOT NULL
+	ALTER TABLE vital.births DROP COLUMN mom_dob_day;
+ALTER TABLE vital.births ADD mom_dob_day AS
+	DAY(mom_dob) PERSISTED;
+CREATE INDEX vital_births_mom_dob_day
+	ON vital.births( mom_dob_day );
+
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births_mom_dob_month', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births_mom_dob_month
+		ON vital.births;
+IF COL_LENGTH('vital.births','mom_dob_month') IS NOT NULL
+	ALTER TABLE vital.births DROP COLUMN mom_dob_month;
+ALTER TABLE vital.births ADD mom_dob_month AS
+	MONTH(mom_dob) PERSISTED;
+CREATE INDEX vital_births_mom_dob_month
+	ON vital.births( mom_dob_month );
+
+IF IndexProperty(Object_Id('vital.births'),
+	'vital_births_mom_dob_year', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births_mom_dob_year
+		ON vital.births;
+IF COL_LENGTH('vital.births','mom_dob_year') IS NOT NULL
+	ALTER TABLE vital.births DROP COLUMN mom_dob_year;
+ALTER TABLE vital.births ADD mom_dob_year AS
+	YEAR(mom_dob) PERSISTED;
+CREATE INDEX vital_births_mom_dob_year
+	ON vital.births( mom_dob_year );
 

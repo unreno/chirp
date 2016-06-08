@@ -173,22 +173,44 @@ GO
 
 
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_patient_id', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_patient_id
+		ON health_lab.newborn_screenings;
+CREATE INDEX health_lab_newborn_screenings_patient_id
+	ON health_lab.newborn_screenings( patient_id );
 
 
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_accession_kit_number', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_accession_kit_number
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','accession_kit_number') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN accession_kit_number;
 ALTER TABLE health_lab.newborn_screenings ADD accession_kit_number AS
 	accession_number + '-' + kit_number;
+CREATE INDEX health_lab_newborn_screenings_accession_kit_number
+	ON health_lab.newborn_screenings( accession_kit_number );
 
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_patient_id_pre', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_patient_id_pre
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','patient_id_pre') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_pre;
 ALTER TABLE health_lab.newborn_screenings ADD patient_id_pre AS
 	RTRIM(SUBSTRING(patient_id, 1,
 		ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))-1,-1),LEN(patient_id))
 	)) PERSISTED;
+CREATE INDEX health_lab_newborn_screenings_patient_id_pre
+	ON health_lab.newborn_screenings( patient_id_pre );
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_patient_id_suf', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_patient_id_suf
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','patient_id_suf') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_suf;
 ALTER TABLE health_lab.newborn_screenings ADD patient_id_suf AS
@@ -196,15 +218,27 @@ ALTER TABLE health_lab.newborn_screenings ADD patient_id_suf AS
 		ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))+1,1),1),
 		LEN(patient_id)
 	)) PERSISTED;
+CREATE INDEX health_lab_newborn_screenings_patient_id_suf
+	ON health_lab.newborn_screenings( patient_id_suf );
 
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_patient_id_prex', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_patient_id_prex
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','patient_id_prex') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_prex;
 ALTER TABLE health_lab.newborn_screenings ADD patient_id_prex AS
 	REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(SUBSTRING(patient_id, 1,
 		ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))-1,-1),LEN(patient_id))
 	),' ',''),'M',''),'R',''),'D',''),'V','') PERSISTED;
+CREATE INDEX health_lab_newborn_screenings_patient_id_prex
+	ON health_lab.newborn_screenings( patient_id_prex );
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_patient_id_sufx', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_patient_id_sufx
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','patient_id_sufx') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_sufx;
 ALTER TABLE health_lab.newborn_screenings ADD patient_id_sufx AS
@@ -212,8 +246,14 @@ ALTER TABLE health_lab.newborn_screenings ADD patient_id_sufx AS
 		ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))+1,1),1),
 		LEN(patient_id)
 	),' ',''),'M',''),'R',''),'D',''),'V','') PERSISTED;
+CREATE INDEX health_lab_newborn_screenings_patient_id_sufx
+	ON health_lab.newborn_screenings( patient_id_sufx );
 
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_patient_id_prexi', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_patient_id_prexi
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','patient_id_prexi') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_prexi;
 ALTER TABLE health_lab.newborn_screenings ADD patient_id_prexi AS
@@ -222,7 +262,13 @@ ALTER TABLE health_lab.newborn_screenings ADD patient_id_prexi AS
 		ISNULL(NULLIF(CHARINDEX('/',REPLACE(patient_id,'-','/'))-1,-1),LEN(patient_id))
 	),' ',''),'M',''),'R',''),'D',''),'V','')
 	, '0', ' ')), ' ', '0') PERSISTED;
+CREATE INDEX health_lab_newborn_screenings_patient_id_prexi
+	ON health_lab.newborn_screenings( patient_id_prexi );
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_patient_id_sufxi', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_patient_id_sufxi
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','patient_id_sufxi') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN patient_id_sufxi;
 ALTER TABLE health_lab.newborn_screenings ADD patient_id_sufxi AS
@@ -232,33 +278,63 @@ ALTER TABLE health_lab.newborn_screenings ADD patient_id_sufxi AS
 		LEN(patient_id)
 	),' ',''),'M',''),'R',''),'D',''),'V','')
 	, '0', ' ')), ' ', '0') PERSISTED;
+CREATE INDEX health_lab_newborn_screenings_patient_id_sufxi
+	ON health_lab.newborn_screenings( patient_id_sufxi );
 
 
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings__mom_surname', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings__mom_surname
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','_mom_surname') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _mom_surname;
 ALTER TABLE health_lab.newborn_screenings ADD _mom_surname AS
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_surname
 		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+CREATE INDEX health_lab_newborn_screenings__mom_surname
+	ON health_lab.newborn_screenings( _mom_surname );
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings__last_name', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings__last_name
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','_last_name') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _last_name;
 ALTER TABLE health_lab.newborn_screenings ADD _last_name AS
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( last_name
 		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+CREATE INDEX health_lab_newborn_screenings__last_name
+	ON health_lab.newborn_screenings( _last_name );
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings__mom_first_name', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings__mom_first_name
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','_mom_first_name') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _mom_first_name;
 ALTER TABLE health_lab.newborn_screenings ADD _mom_first_name AS
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( mom_first_name
 		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+CREATE INDEX health_lab_newborn_screenings__mom_first_name
+	ON health_lab.newborn_screenings( _mom_first_name );
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings__first_name', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings__first_name
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','_first_name') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _first_name;
 ALTER TABLE health_lab.newborn_screenings ADD _first_name AS
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( first_name
 		, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;
+CREATE INDEX health_lab_newborn_screenings__first_name
+	ON health_lab.newborn_screenings( _first_name );
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings__address', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings__address
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','_address') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _address;
 ALTER TABLE health_lab.newborn_screenings ADD _address AS
@@ -269,23 +345,35 @@ ALTER TABLE health_lab.newborn_screenings ADD _address AS
 	REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( address
 		,' BOULEVARD',' ') ,' BLVD',' ') -- contains RD, so before RD extraction
 		,' COURT',' ') ,' CT',' ') ,' STREET',' ') ,' ST',' ')
-		,' DRIVE',' ') ,' DRIV',' ') ,' DRI',' ') ,' DR',' ') 
+		,' DRIVE',' ') ,' DRIV',' ') ,' DRI',' ') ,' DR',' ')
 		,' ROAD',' ') ,' RD',' ')
 		,' CIRCLE',' ') ,' CIR',' ') ,' LANE',' ') ,' LN',' ')
 		,' AVENUE',' ') ,' AVE',' ')
 		,' MOUNT',' MT'), ' PARKWAY',' '),' PKWY',' ')
 		,'SOUTH','S') ,'NORTH','N') ,'EAST','E') ,'WEST','W') )
 	PERSISTED;
+CREATE INDEX health_lab_newborn_screenings__address
+	ON health_lab.newborn_screenings( _address );
 
 
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings__last_name_pre', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings__last_name_pre
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','_last_name_pre') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _last_name_pre;
 ALTER TABLE health_lab.newborn_screenings ADD _last_name_pre AS
 	REPLACE(SUBSTRING(last_name, 1,
 		ISNULL(NULLIF(CHARINDEX('-',REPLACE(last_name,' ','-'))-1,-1),LEN(last_name))
 	),' ','') PERSISTED;
+CREATE INDEX health_lab_newborn_screenings__last_name_pre
+	ON health_lab.newborn_screenings( _last_name_pre );
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings__last_name_suf', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings__last_name_suf
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','_last_name_suf') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _last_name_suf;
 ALTER TABLE health_lab.newborn_screenings ADD _last_name_suf AS
@@ -293,14 +381,26 @@ ALTER TABLE health_lab.newborn_screenings ADD _last_name_suf AS
 		ISNULL(NULLIF(CHARINDEX('-',REPLACE(last_name,' ','-'))+1,1),1),
 		LEN(last_name)
 	),' ','') PERSISTED;
+CREATE INDEX health_lab_newborn_screenings__last_name_suf
+	ON health_lab.newborn_screenings( _last_name_suf );
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings__mom_surname_pre', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings__mom_surname_pre
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','_mom_surname_pre') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _mom_surname_pre;
 ALTER TABLE health_lab.newborn_screenings ADD _mom_surname_pre AS
 	REPLACE(SUBSTRING(mom_surname, 1,
 		ISNULL(NULLIF(CHARINDEX('-',REPLACE(mom_surname,' ','-'))-1,-1),LEN(mom_surname))
 	),' ','') PERSISTED;
+CREATE INDEX health_lab_newborn_screenings__mom_surname_pre
+	ON health_lab.newborn_screenings( _mom_surname_pre );
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings__mom_surname_suf', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings__mom_surname_suf
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','_mom_surname_suf') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _mom_surname_suf;
 ALTER TABLE health_lab.newborn_screenings ADD _mom_surname_suf AS
@@ -308,15 +408,27 @@ ALTER TABLE health_lab.newborn_screenings ADD _mom_surname_suf AS
 		ISNULL(NULLIF(CHARINDEX('-',REPLACE(mom_surname,' ','-'))+1,1),1),
 		LEN(mom_surname)
 	),' ','') PERSISTED;
+CREATE INDEX health_lab_newborn_screenings__mom_surname_suf
+	ON health_lab.newborn_screenings( _mom_surname_suf );
 
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings__address_pre', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings__address_pre
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','_address_pre') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _address_pre;
 ALTER TABLE health_lab.newborn_screenings ADD _address_pre AS
 	SUBSTRING(address, 1,
 		ISNULL(NULLIF(CHARINDEX(' ',address)-1,-1),LEN(address))
 	) PERSISTED;
+CREATE INDEX health_lab_newborn_screenings__address_pre
+	ON health_lab.newborn_screenings( _address_pre );
 
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings__address_suf', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings__address_suf
+		ON health_lab.newborn_screenings;
 IF COL_LENGTH('health_lab.newborn_screenings','_address_suf') IS NOT NULL
 	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _address_suf;
 ALTER TABLE health_lab.newborn_screenings ADD _address_suf AS
@@ -324,6 +436,97 @@ ALTER TABLE health_lab.newborn_screenings ADD _address_suf AS
 		ISNULL(NULLIF(CHARINDEX(' ',address)+1,1),1),
 		LEN(address)
 	) PERSISTED;
+CREATE INDEX health_lab_newborn_screenings__address_suf
+	ON health_lab.newborn_screenings( _address_suf );
 
+
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_zip_code', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_zip_code
+		ON health_lab.newborn_screenings;
+CREATE INDEX health_lab_newborn_screenings_zip_code
+	ON health_lab.newborn_screenings( zip_code );
+
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_birth_date', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_birth_date
+		ON health_lab.newborn_screenings;
+CREATE INDEX health_lab_newborn_screenings_birth_date
+	ON health_lab.newborn_screenings( birth_date );
+
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_mom_birth_date', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_mom_birth_date
+		ON health_lab.newborn_screenings;
+CREATE INDEX health_lab_newborn_screenings_mom_birth_date
+	ON health_lab.newborn_screenings( mom_birth_date );
+
+
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_birth_date_day', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_birth_date_day
+		ON health_lab.newborn_screenings;
+IF COL_LENGTH('health_lab.newborn_screenings','birth_date_day') IS NOT NULL
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN birth_date_day;
+ALTER TABLE health_lab.newborn_screenings ADD birth_date_day AS
+	DAY(birth_date) PERSISTED;
+CREATE INDEX health_lab_newborn_screenings_birth_date_day
+	ON health_lab.newborn_screenings( birth_date_day );
+
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_birth_date_month', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_birth_date_month
+		ON health_lab.newborn_screenings;
+IF COL_LENGTH('health_lab.newborn_screenings','birth_date_month') IS NOT NULL
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN birth_date_month;
+ALTER TABLE health_lab.newborn_screenings ADD birth_date_month AS
+	MONTH(birth_date) PERSISTED;
+CREATE INDEX health_lab_newborn_screenings_birth_date_month
+	ON health_lab.newborn_screenings( birth_date_month );
+
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_birth_date_year', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_birth_date_year
+		ON health_lab.newborn_screenings;
+IF COL_LENGTH('health_lab.newborn_screenings','birth_date_year') IS NOT NULL
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN birth_date_year;
+ALTER TABLE health_lab.newborn_screenings ADD birth_date_year AS
+	YEAR(birth_date) PERSISTED;
+CREATE INDEX health_lab_newborn_screenings_birth_date_year
+	ON health_lab.newborn_screenings( birth_date_year );
+
+
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_mom_birth_date_day', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_mom_birth_date_day
+		ON health_lab.newborn_screenings;
+IF COL_LENGTH('health_lab.newborn_screenings','mom_birth_date_day') IS NOT NULL
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN mom_birth_date_day;
+ALTER TABLE health_lab.newborn_screenings ADD mom_birth_date_day AS
+	DAY(mom_birth_date) PERSISTED;
+CREATE INDEX health_lab_newborn_screenings_mom_birth_date_day
+	ON health_lab.newborn_screenings( mom_birth_date_day );
+
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_mom_birth_date_month', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_mom_birth_date_month
+		ON health_lab.newborn_screenings;
+IF COL_LENGTH('health_lab.newborn_screenings','mom_birth_date_month') IS NOT NULL
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN mom_birth_date_month;
+ALTER TABLE health_lab.newborn_screenings ADD mom_birth_date_month AS
+	MONTH(mom_birth_date) PERSISTED;
+CREATE INDEX health_lab_newborn_screenings_mom_birth_date_month
+	ON health_lab.newborn_screenings( mom_birth_date_month );
+
+IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
+	'health_lab_newborn_screenings_mom_birth_date_year', 'IndexId') IS NOT NULL
+	DROP INDEX health_lab_newborn_screenings_mom_birth_date_year
+		ON health_lab.newborn_screenings;
+IF COL_LENGTH('health_lab.newborn_screenings','mom_birth_date_year') IS NOT NULL
+	ALTER TABLE health_lab.newborn_screenings DROP COLUMN mom_birth_date_year;
+ALTER TABLE health_lab.newborn_screenings ADD mom_birth_date_year AS
+	YEAR(mom_birth_date) PERSISTED;
+CREATE INDEX health_lab_newborn_screenings_mom_birth_date_year
+	ON health_lab.newborn_screenings( mom_birth_date_year );
 
 
