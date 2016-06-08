@@ -133,7 +133,7 @@ vital	births	fa_asianoth	standard4_yesno	Father is Other Asian
 vital	births	fa_black	standard4_yesno	Father is Black	
 vital	births	fa_bst	state	Father's Birth State	
 vital	births	fa_bus	business	Father's Industry	
-vital	births	fa_busines1	business	Father's General Industry	
+vital	births	fa_busines1	industry	Father's General Industry	
 vital	births	fa_chinese	standard4_yesno	Father is Chinese	
 vital	births	fa_cu	standard4_yesno	Father is Cuban	
 vital	births	fa_edu	education	Father's Highest Education Level	
@@ -148,8 +148,8 @@ vital	births	fa_husb	standard2_yesno	Is Father the husband?
 vital	births	fa_japanese	standard4_yesno	Father is Japanese	
 vital	births	fa_korean	standard4_yesno	Father is Korean	
 vital	births	fa_mex	standard4_yesno	Father is Mexican	
-vital	births	fa_occ	occ	Father's Occupation	
-vital	births	fa_occup1	occup	Father's General Occupation	
+vital	births	fa_occ	occup	Father's Occupation	
+vital	births	fa_occup1	occ	Father's General Occupation	
 vital	births	fa_pacisl	standard4_yesno	Father is Pacific Islander	
 vital	births	fa_pacisllit		Father is Pacific Islander (Literal)	
 vital	births	fa_pr	standard4_yesno	Father is Puerto Rican	
@@ -254,7 +254,7 @@ vital	births	mom_asianlit		Mother is Other Asian (Literal)
 vital	births	mom_asianoth	standard4_yesno	Mother is Other Asian	
 vital	births	mom_black	standard4_yesno	Mother is Black	
 vital	births	mom_bus	business	Mother's Industry	
-vital	births	mom_busines1	business	Mother's General Industry	
+vital	births	mom_busines1	industry	Mother's General Industry	
 vital	births	mom_chinese	standard4_yesno	Mother is Chinese	
 vital	births	mom_cu	standard4_yesno	Mother is Cuban	
 vital	births	mom_edu	education	Mother's Highest Education Level	
@@ -269,8 +269,8 @@ vital	births	mom_his	standard4_yesno	Mother is Hispanic
 vital	births	mom_japanese	standard4_yesno	Mother is Japanese	
 vital	births	mom_korean	standard4_yesno	Mother is Korean	
 vital	births	mom_mex	standard4_yesno	Mother is Mexican	
-vital	births	mom_occ	occ	Mother's Occupation	
-vital	births	mom_occup1	occup	Mother's General Occupation	
+vital	births	mom_occ	occup	Mother's Occupation	
+vital	births	mom_occup1	occ	Mother's General Occupation	
 vital	births	mom_pacisl	standard4_yesno	Mother is Pacific Islander	
 vital	births	mom_pacisllit		Mother is Pacific Islander (Literal)	
 vital	births	mom_pr	standard4_yesno	Mother is Puerto Rican	
