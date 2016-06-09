@@ -29,7 +29,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	DECLARE @cmd VARCHAR(255);
+	DECLARE @cmd VARCHAR(8000);
 	DECLARE @cname VARCHAR(255);
 
 	SELECT @cname = @schema + '_' + @table + '_imported_at_default';
@@ -105,7 +105,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	DECLARE @cmd VARCHAR(255);
+	DECLARE @cmd VARCHAR(8000);
 	DECLARE @cname VARCHAR(255);
 
 	SELECT @cname = @schema + '_' + @table + '_imported_to_dw_default';
