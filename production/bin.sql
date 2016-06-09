@@ -188,56 +188,60 @@ GO
 
 
 
---IF OBJECT_ID ( 'bin.import_into_data_warehouse_by_table_health_lab_newborn_screening', 'P' ) IS NOT NULL
---	DROP PROCEDURE bin.import_into_data_warehouse_by_table_health_lab_newborn_screening;
---GO
---CREATE PROCEDURE bin.import_into_data_warehouse_by_table_health_lab_newborn_screening
---AS
---BEGIN
---	SET NOCOUNT ON;
---
---	INSERT INTO dbo.observations
---		(chirp_id, provider_id, started_at,
---			concept, value, units, source_schema, source_table, downloaded_at)
---		SELECT chirp_id, provider_id, started_at,
---			cav.concept, cav.value, cav.units, source_schema, source_table, downloaded_at
---		FROM (
---			SELECT i.chirp_id, n.date_of_birth AS started_at,
---				'789' AS provider_id,
---				testresults1, testresults2, testresults3, testresults4, testresults5,
---				'health_lab' AS source_schema,
---				'newborn_screening' AS source_table,
---				n.imported_at AS downloaded_at
---			FROM health_lab.newborn_screening n
---			JOIN private.identifiers i
---				ON    i.source_id     = n.id
---					AND i.source_column = 'id'
---					AND i.source_table  = 'newborn_screening'
---					AND i.source_schema = 'health_lab'
---			WHERE n.imported_to_dw = 'FALSE'
---		) unimported_newborn_screening_data
---		CROSS APPLY ( VALUES
---			( 'TR1', testresults1, 'cm' ),
---			( 'TR2', testresults2, 'in' ),
---			( 'TR3', testresults3, 'Degrees' ),
---			( 'TR4', testresults4, 'mm Hg' ),
---			( 'TR5', testresults5, '%' )
---		) cav ( concept, value, units )
---		WHERE cav.value IS NOT NULL
---
---	UPDATE n
---		SET imported_to_dw = 'TRUE'
---		FROM health_lab.newborn_screening n
---		JOIN private.identifiers i
---			ON  i.source_id     = n.id
---			AND i.source_column = 'id'
---			AND i.source_table  = 'newborn_screening'
---			AND i.source_schema = 'health_lab'
---		WHERE imported_to_dw = 'FALSE'
---			AND i.id IS NOT NULL
---
---END	--	CREATE PROCEDURE bin.import_into_data_warehouse_by_table_health_lab_newborn_screening
---GO
+IF OBJECT_ID ( 'bin.import_into_data_warehouse_by_table_health_lab_newborn_screenings', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_into_data_warehouse_by_table_health_lab_newborn_screenings;
+GO
+CREATE PROCEDURE bin.import_into_data_warehouse_by_table_health_lab_newborn_screenings
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+
+
+	-- Be advised that the newborn screening records are in triplicate.
+	-- For the moment, everything added here will also be in triplicate.
+
+
+
+	INSERT INTO dbo.observations
+		(chirp_id, provider_id, started_at,
+			concept, value, units, source_schema, source_table, source_id, downloaded_at)
+		SELECT chirp_id, provider_id, started_at,
+			cav.concept, cav.value, cav.units, source_schema, source_table, source_id, downloaded_at
+		FROM (
+			SELECT i.chirp_id, s.birth_date AS started_at,	-- I hope that the actual data include date lab performed
+				0 AS provider_id,
+				'health_lab' AS source_schema,
+				'newborn_screening' AS source_table,
+				s.id AS source_id,
+				s.*,
+				imported_at AS downloaded_at
+			FROM health_lab.newborn_screenings s
+			JOIN private.identifiers i
+				ON  i.source_id     = s.accession_kit_number
+				AND i.source_column = 'accession_kit_number'
+				AND i.source_table  = 'newborn_screenings'
+				AND i.source_schema = 'health_lab'
+			WHERE imported_to_dw = 'FALSE'
+		) unimported_data
+		CROSS APPLY ( VALUES
+			('DEM:ZIP', CAST(zip_code AS VARCHAR(255)), NULL)
+		) cav ( concept, value, units )
+		WHERE cav.value IS NOT NULL
+
+	UPDATE s
+		SET imported_to_dw = 'TRUE'
+		FROM health_lab.newborn_screenings s
+		JOIN private.identifiers i
+			ON  i.source_id     = s.accession_kit_number
+			AND i.source_column = 'accession_kit_number'
+			AND i.source_table  = 'newborn_screenings'
+			AND i.source_schema = 'health_lab'
+		WHERE imported_to_dw = 'FALSE'
+			AND i.id IS NOT NULL
+
+END	--	CREATE PROCEDURE bin.import_into_data_warehouse_by_table_health_lab_newborn_screenings
+GO
 
 
 
@@ -284,7 +288,7 @@ BEGIN
 				AND i.source_table = 'births'
 				AND i.source_schema = 'vital'
 			WHERE imported_to_dw = 'FALSE'
-		) unimported_birth_record_data
+		) unimported_data
 		CROSS APPLY ( VALUES
 			('ac_anemia', bin.decode('vital','births','ac_anemia',ac_anemia), NULL),
 			('ac_antisepis', bin.decode('vital','births','ac_antisepis',ac_antisepis), NULL),
@@ -583,7 +587,7 @@ BEGIN
 			('mom_rci', bin.decode('vital','births','mom_rci',mom_rci), NULL),
 			('mom_rco', bin.decode('vital','births','mom_rco',mom_rco), NULL),
 			('mom_rst', bin.decode('vital','births','mom_rst',mom_rst), NULL),
-			('mom_rzip', bin.decode('vital','births','mom_rzip',mom_rzip), NULL),
+--			('mom_rzip', bin.decode('vital','births','mom_rzip',mom_rzip), NULL),
 			('mom_samoan', bin.decode('vital','births','mom_samoan',mom_samoan), NULL),
 -- identifiable
 --			('mom_snam', bin.decode('vital','births','mom_snam',mom_snam), NULL),
@@ -689,6 +693,7 @@ BEGIN
 
 			('DEM:DOB', CAST(bth_date AS VARCHAR(255)), NULL),
 			('birth_qtr',CAST(DATEPART(q,bth_date) AS VARCHAR(255)),NULL),
+			('DEM:ZIP', CAST(mom_rzip AS VARCHAR(255)), NULL),
 			('DEM:Weight', CAST(grams AS VARCHAR(255)), 'grams'),
 			('DEM:Weight', CAST(
 				bin.weight_from_lbs_and_oz( lbs, oz ) AS VARCHAR(255)), 'lbs')
@@ -878,7 +883,7 @@ BEGIN
 		SELECT code, value FROM dbo.codes
 		WHERE _schema = @schema
 			AND _table = @table
-			AND field = @codeset
+			AND codeset = @codeset
 
 	RETURN
 END
@@ -907,7 +912,7 @@ BEGIN
 	INSERT INTO private.identifiers ( chirp_id, source_schema,
 		source_table, source_column, source_id, match_method )
 		SELECT i.chirp_id, @schema2, @table2, @column2, @value2,
-			"Manually : "+@schema1+" "+@table1+" "+@column1+" "+@value1
+			'Manually : '+@schema1+' '+@table1+' '+@column1+' '+@value1
 		FROM private.identifiers i
 		WHERE i.source_schema = @schema1
 			AND i.source_table  = @table1
@@ -915,6 +920,115 @@ BEGIN
 			AND i.source_id     = @value1
 
 END	--	bin.manually_link
+GO
+
+
+
+
+
+-- ADD PARAMETERS. Year, Month,
+
+IF OBJECT_ID ( 'bin.link_screening_records_to_birth_records', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.link_screening_records_to_birth_records;
+GO
+CREATE PROCEDURE bin.link_screening_records_to_birth_records( @year INT = 2015, @month INT = 7 )
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	IF OBJECT_ID('tempdb..#temp_identifiers_link', 'U') IS NOT NULL
+		DROP TABLE #temp_identifiers_link
+
+	-- NEED to assign aliases to all columns here that aren't variables, like these fixed value strings.
+	SELECT DISTINCT chirp_id, 'health_lab' AS ss, 'newborn_screenings' AS st,
+		'accession_kit_number' AS sc, accession_kit_number,
+		'Matched to birth record with score of ' + CAST(score AS VARCHAR(10)) AS mm
+	INTO #temp_identifiers_link
+	FROM (
+
+		SELECT chirp_id, accession_kit_number,
+			birth_score + mom_birth_score + zip_score + address_score + num_score +
+				last_name_score + first_name_score + mom_first_name_score AS score,
+			RANK() OVER( PARTITION BY accession_kit_number ORDER BY
+				birth_score + mom_birth_score + zip_score + address_score + num_score +
+					last_name_score + first_name_score + mom_first_name_score DESC ) AS rank
+		FROM (
+
+			SELECT i.chirp_id, s.accession_kit_number,
+				CASE WHEN b.bth_date = s.birth_date    THEN 1.0
+					WHEN b.bth_date BETWEEN DATEADD(day,-8,s.birth_date) AND DATEADD(day,8,s.birth_date) THEN 0.5
+					ELSE 0.0 END AS birth_score,
+				CASE WHEN b.mom_dob = s.mom_birth_date THEN 1.0
+					WHEN (b.mom_dob_year = s.mom_birth_date_year AND b.mom_dob_month = s.mom_birth_date_month) THEN 0.5
+					WHEN (b.mom_dob_day  = s.mom_birth_date_day  AND b.mom_dob_month = s.mom_birth_date_month) THEN 0.5
+					WHEN (b.mom_dob_year = s.mom_birth_date_year AND b.mom_dob_day   = s.mom_birth_date_day)   THEN 0.5
+					ELSE 0.0 END AS mom_birth_score,
+				CASE WHEN b._mom_rzip = s.zip_code     THEN 1.0 ELSE 0.0 END AS zip_score,
+				CASE WHEN b._mom_address = s._address  THEN 1.0
+					WHEN b._mom_address_pre = s._address_pre THEN 0.5
+					WHEN b._mom_address_suf = s._address_suf THEN 0.5
+					ELSE 0.0 END AS address_score,
+				CASE WHEN b.inf_hospnum IN ( s.patient_id, s.patient_id_pre, s.patient_id_suf, s.patient_id_prex,
+						s.patient_id_sufx, s.patient_id_prexi, s.patient_id_sufxi ) THEN 1.0
+					WHEN s.patient_id LIKE '%' + b.inf_hospnum + '%' THEN 0.5
+					WHEN b.inf_hospnum LIKE '%' + s.patient_id + '%' THEN 0.5
+					ELSE 0.0 END AS num_score,
+				CASE WHEN ( s._mom_surname IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
+						b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
+					OR s._mom_surname_pre IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
+						b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
+					OR s._mom_surname_suf IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
+						b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
+					OR s._last_name IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
+						b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
+					OR s._last_name_pre IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
+						b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
+					OR s._last_name_suf IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
+						b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
+					) THEN 1.0 ELSE 0.0 END AS last_name_score,
+				CASE WHEN b._name_fir = s._first_name     THEN 0.5 ELSE 0.0 END AS first_name_score,
+				CASE WHEN b._mom_fnam = s._mom_first_name THEN 1.0 ELSE 0.0 END AS mom_first_name_score
+			FROM private.identifiers i
+			JOIN vital.births b
+				ON  i.source_id     = b.cert_year_num
+				AND i.source_column = 'cert_year_num'
+				AND i.source_table  = 'births'
+				AND i.source_schema = 'vital'
+			CROSS JOIN health_lab.newborn_screenings s
+			LEFT JOIN private.identifiers i2
+				ON  i2.source_id     = s.accession_kit_number
+				AND i2.source_column = 'accession_kit_number'
+				AND i2.source_table  = 'newborn_screenings'
+				AND i2.source_schema = 'health_lab'
+			WHERE b.bth_date_year = @year AND b.bth_date_month = @month
+				AND i2.chirp_id IS NULL
+/*
+				AND s.birth_date_year = @year AND s.birth_date_month = @month
+				AND s.zip_code IN ( '89402', '89405', '89412', '89424', '89431', '89432', '89433',
+					'89434', '89435', '89436', '89439', '89441', '89442', '89450', '89451', '89452',
+					'89501', '89502', '89503', '89504', '89505', '89506', '89507', '89508', '89509',
+					'89510', '89511', '89512', '89513', '89515', '89519', '89520', '89521', '89523',
+					'89533', '89555', '89557', '89570', '89595', '89599', '89704' )
+*/
+
+		) AS computing_scores
+		WHERE birth_score + mom_birth_score + zip_score + address_score + num_score +
+			last_name_score + first_name_score + mom_first_name_score >= 4
+
+	) AS ranked
+	WHERE rank = 1
+
+	INSERT INTO private.identifiers (
+		chirp_id, source_schema, source_table, source_column, source_id, match_method )
+		SELECT * FROM #temp_identifiers_link WHERE accession_kit_number NOT IN (
+			SELECT accession_kit_number FROM #temp_identifiers_link
+				GROUP BY accession_kit_number HAVING COUNT(1) > 1
+		)
+
+	IF OBJECT_ID('tempdb..#temp_identifiers_link', 'U') IS NOT NULL
+		DROP TABLE #temp_identifiers_link
+
+END	--	bin.link_screening_records_to_birth_records
 GO
 
 

@@ -23,6 +23,8 @@ GO
 --4*255=1020. Its unlikely that any of these will be 255 chars. Shrinking.
 --Warning! The maximum key length is 900 bytes. The index 'unique_source_identifiers' has maximum length of 1020 bytes. For some combination of large values, the insert/update operation will fail.
 
+CREATE INDEX source_schema_index ON private.identifiers( source_schema );
+CREATE INDEX source_table_index ON private.identifiers( source_table );
 
 --Can't use RAND() in function. This is a workaround.
 --http://blog.sqlauthority.com/2012/11/20/sql-server-using-rand-in-user-defined-functions-udf/

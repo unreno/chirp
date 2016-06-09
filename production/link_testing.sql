@@ -599,102 +599,96 @@ WHERE birth_score + mom_birth_score + zip_score + address_score + num_score +
 
 
 
+
+
+
+
+
+
+
+
+
+
 WITH mycte AS (
 	-- NEED to assign aliases to all columns here like these fixed value strings.
-	SELECT DISTINCT i.chirp_id, 'health_lab' AS ss, 'newborn_screenings' AS st,
-		'accession_kit_number' AS si, s.accession_kit_number
-	-- Start with an identifier to get an existing chirp_id
-	FROM private.identifiers i
-	-- that matches a birth record
-	JOIN vital.births b
-		ON  i.source_id     = b.cert_year_num
-		AND i.source_column = 'cert_year_num'
-		AND i.source_table  = 'births'
-		AND i.source_schema = 'vital'
+	SELECT DISTINCT chirp_id, 'health_lab' AS ss, 'newborn_screenings' AS st,
+		'accession_kit_number' AS sc, accession_kit_number, 
+		'Matched to birth record with score of ' + CAST(score AS VARCHAR(10)) AS mm FROM (
 
+		SELECT chirp_id, accession_kit_number,
+			birth_score + mom_birth_score + zip_score + address_score + num_score +
+				last_name_score + first_name_score + mom_first_name_score AS score,
+			RANK() OVER( PARTITION BY accession_kit_number ORDER BY
+				birth_score + mom_birth_score + zip_score + address_score + num_score +
+					last_name_score + first_name_score + mom_first_name_score DESC ) AS rank
+		FROM (
 
+			SELECT i.chirp_id,
+				cert_year_num, b.inf_hospnum, s.patient_id, s.accession_kit_number, b.plurality,
+				s.birth_date, b.bth_date, s.mom_birth_date, b.mom_dob,
+				s.first_name, b.name_fir, s.last_name, b.name_sur,
+				s.mom_first_name, b.mom_fnam, s.mom_surname, b.mom_snam, s.mom_maiden_name, b.maiden_n,
+				s.zip_code, b.mom_rzip, s.address, b.mom_address,
+				'scoring cross join' AS match_method,
+				CASE WHEN b.bth_date = s.birth_date    THEN 1.0
+					WHEN b.bth_date BETWEEN DATEADD(day,-8,s.birth_date) AND DATEADD(day,8,s.birth_date) THEN 0.5
+					ELSE 0.0 END AS birth_score,
+				CASE WHEN b.mom_dob = s.mom_birth_date THEN 1.0
+					WHEN (b.mom_dob_year = s.mom_birth_date_year AND b.mom_dob_month = s.mom_birth_date_month) THEN 0.5
+					WHEN (b.mom_dob_day  = s.mom_birth_date_day  AND b.mom_dob_month = s.mom_birth_date_month) THEN 0.5
+					WHEN (b.mom_dob_year = s.mom_birth_date_year AND b.mom_dob_day   = s.mom_birth_date_day)   THEN 0.5
+					ELSE 0.0 END AS mom_birth_score,
+				CASE WHEN b._mom_rzip = s.zip_code     THEN 1.0 ELSE 0.0 END AS zip_score,
+				CASE WHEN b._mom_address = s._address  THEN 1.0
+					WHEN b._mom_address_pre = s._address_pre THEN 0.5
+					WHEN b._mom_address_suf = s._address_suf THEN 0.5
+					ELSE 0.0 END AS address_score,
+				CASE WHEN b.inf_hospnum IN ( s.patient_id, s.patient_id_pre, s.patient_id_suf, s.patient_id_prex,
+						s.patient_id_sufx, s.patient_id_prexi, s.patient_id_sufxi ) THEN 1.0
+					WHEN s.patient_id LIKE '%' + b.inf_hospnum + '%' THEN 0.5
+					WHEN b.inf_hospnum LIKE '%' + s.patient_id + '%' THEN 0.5
+					ELSE 0.0 END AS num_score,
+				CASE WHEN ( s._mom_surname IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
+						b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
+					OR s._mom_surname_pre IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
+						b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
+					OR s._mom_surname_suf IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
+						b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
+					OR s._last_name IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
+						b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
+					OR s._last_name_pre IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
+						b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
+					OR s._last_name_suf IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
+						b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
+					) THEN 1.0 ELSE 0.0 END AS last_name_score,
+				CASE WHEN b._name_fir = s._first_name     THEN 0.5 ELSE 0.0 END AS first_name_score,
+				CASE WHEN b._mom_fnam = s._mom_first_name THEN 1.0 ELSE 0.0 END AS mom_first_name_score
+			FROM private.identifiers i
+			JOIN vital.births b
+				ON  i.source_id     = b.cert_year_num
+				AND i.source_column = 'cert_year_num'
+				AND i.source_table  = 'births'
+				AND i.source_schema = 'vital'
+			CROSS JOIN health_lab.newborn_screenings s
+			LEFT JOIN private.identifiers i2
+				ON  i2.source_id     = s.accession_kit_number
+				AND i2.source_column = 'accession_kit_number'
+				AND i2.source_table  = 'newborn_screenings'
+				AND i2.source_schema = 'health_lab'
+			WHERE b.bth_date_year = 2015   AND b.bth_date_month >= 12
+				AND i2.chirp_id IS NULL
 
-	-- that has a inf_hospnum that matches the beginning or ending of the screening patient_id
-	JOIN health_lab.newborn_screenings s
-		ON s.patient_id LIKE b.inf_hospnum + '%'
-		OR s.patient_id LIKE '%' + b.inf_hospnum
+		) AS computing_scores
+		WHERE birth_score + mom_birth_score + zip_score + address_score + num_score +
+			last_name_score + first_name_score + mom_first_name_score >= 4
 
-
-
-
-	-- that MAY (LEFT JOIN) match an identifer with this accession_kit_number
-	LEFT JOIN private.identifiers i2
-		ON  i2.source_id     = s.accession_kit_number
-		AND i2.source_column = 'accession_kit_number'
-		AND i2.source_table  = 'newborn_screenings'
-		AND i2.source_schema = 'health_lab'
-	WHERE i2.chirp_id IS NULL
+	) AS ranked
+	WHERE rank = 1
 
 )
-INSERT INTO private.identifiers ( chirp_id, source_schema, source_table, source_column, source_id, 'Match method' )
+INSERT INTO private.identifiers ( chirp_id, source_schema, source_table, source_column, source_id, match_method )
 	SELECT * FROM mycte WHERE accession_kit_number NOT IN (
 		SELECT accession_kit_number FROM mycte GROUP BY accession_kit_number HAVING COUNT(1) > 1
 	)
 
-
-
-SELECT *
-INTO health_lab.linked_records FROM (
-
-	SELECT *,
-		birth_score + mom_birth_score + zip_score + address_score + num_score +
-			last_name_score + first_name_score + mom_first_name_score AS score,
-		RANK() OVER( PARTITION BY accession_kit_number ORDER BY
-			birth_score + mom_birth_score + zip_score + address_score + num_score +
-				last_name_score + first_name_score + mom_first_name_score DESC ) AS rank
-	FROM (
-	
-		SELECT cert_year_num, b.inf_hospnum, s.patient_id, s.accession_kit_number, b.plurality,
-			s.birth_date, b.bth_date, s.mom_birth_date, b.mom_dob,
-			s.first_name, b.name_fir, s.last_name, b.name_sur,
-			s.mom_first_name, b.mom_fnam, s.mom_surname, b.mom_snam, s.mom_maiden_name, b.maiden_n,
-			s.zip_code, b.mom_rzip, s.address, b.mom_address,
-			'scoring cross join' AS match_method,
-			CASE WHEN b.bth_date = s.birth_date    THEN 1.0
-				WHEN b.bth_date BETWEEN DATEADD(day,-8,s.birth_date) AND DATEADD(day,8,s.birth_date) THEN 0.5
-				ELSE 0.0 END AS birth_score,
-			CASE WHEN b.mom_dob = s.mom_birth_date THEN 1.0
-				WHEN (b.mom_dob_year = s.mom_birth_date_year AND b.mom_dob_month = s.mom_birth_date_month) THEN 0.5
-				WHEN (b.mom_dob_day  = s.mom_birth_date_day  AND b.mom_dob_month = s.mom_birth_date_month) THEN 0.5
-				WHEN (b.mom_dob_year = s.mom_birth_date_year AND b.mom_dob_day   = s.mom_birth_date_day)   THEN 0.5
-				ELSE 0.0 END AS mom_birth_score,
-			CASE WHEN b._mom_rzip = s.zip_code     THEN 1.0 ELSE 0.0 END AS zip_score,
-			CASE WHEN b._mom_address = s._address  THEN 1.0
-				WHEN b._mom_address_pre = s._address_pre THEN 0.5
-				WHEN b._mom_address_suf = s._address_suf THEN 0.5
-				ELSE 0.0 END AS address_score,
-			CASE WHEN b.inf_hospnum IN ( s.patient_id, s.patient_id_pre, s.patient_id_suf, s.patient_id_prex,
-					s.patient_id_sufx, s.patient_id_prexi, s.patient_id_sufxi ) THEN 1.0
-				WHEN s.patient_id LIKE '%' + b.inf_hospnum + '%' THEN 0.5
-				WHEN b.inf_hospnum LIKE '%' + s.patient_id + '%' THEN 0.5
-				ELSE 0.0 END AS num_score,
-			CASE WHEN ( s._mom_surname IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
-					b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
-				OR s._mom_surname_pre IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
-					b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
-				OR s._mom_surname_suf IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
-					b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
-				OR s._last_name IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
-					b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
-				OR s._last_name_pre IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
-					b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
-				OR s._last_name_suf IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
-					b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
-				) THEN 1.0 ELSE 0.0 END AS last_name_score,
-			CASE WHEN b._name_fir = s._first_name     THEN 0.5 ELSE 0.0 END AS first_name_score,
-			CASE WHEN b._mom_fnam = s._mom_first_name THEN 1.0 ELSE 0.0 END AS mom_first_name_score
-		FROM vital.births b CROSS JOIN health_lab.newborn_screenings s
-		WHERE b.bth_date_year = 2015   AND b.bth_date_month >= 7
-	
-	) AS computing_scores
-	WHERE birth_score + mom_birth_score + zip_score + address_score + num_score +
-		last_name_score + first_name_score + mom_first_name_score >= 4
-
-) AS ranked
-WHERE rank = 1
 

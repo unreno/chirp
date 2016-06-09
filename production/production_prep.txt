@@ -22,3 +22,15 @@ EXEC bin.import_into_data_warehouse
 
 
 
+EXEC bin.link_screening_records_to_birth_records 2015, 7
+EXEC bin.link_screening_records_to_birth_records 2015, 8
+EXEC bin.link_screening_records_to_birth_records 2015, 9
+EXEC bin.link_screening_records_to_birth_records 2015, 10
+EXEC bin.link_screening_records_to_birth_records 2015, 11
+EXEC bin.link_screening_records_to_birth_records 2015, 12
+
+SELECT COUNT(*) FROM private.identifiers
+
+EXEC bin.import_into_data_warehouse
+
+
