@@ -29,7 +29,7 @@ SELECT COUNT(1) FROM dbo.observations
 #	Should be about 150000
 
 
-#	From here, it'll likely take about 30 minutes.
+#	From here, it'll likely take about 2 hours
 
 EXEC bin.link_screening_records_to_birth_records 2015, 7
 SELECT COUNT(1) FROM private.identifiers
@@ -37,11 +37,11 @@ SELECT COUNT(1) FROM private.identifiers
 
 EXEC bin.link_screening_records_to_birth_records 2015, 8
 SELECT COUNT(1) FROM private.identifiers
-#	Should be about 8000?
+#	Should be about 8350
 
 EXEC bin.link_screening_records_to_birth_records 2015, 9
 SELECT COUNT(1) FROM private.identifiers
-#	Should be about 9000?
+#	Should be about 9204
 
 EXEC bin.link_screening_records_to_birth_records 2015, 10
 SELECT COUNT(1) FROM private.identifiers
