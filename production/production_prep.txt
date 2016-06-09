@@ -4,9 +4,13 @@
 
 #	Add some birth records
 cat bulk_insert_birth_records.sql
+SELECT COUNT(1) FROM vital.births
+#	Should be 5670
 
 #	Add some newborn screening contact info
 cat bulk_insert_newborn_screenings.sql
+SELECT COUNT(1) FROM health_lab.newborn_screenings
+#	Should be about 159000 (although about to make this import DISTINCT so it should shrink to about 55000)
 
 #	Create an identifier for each birth record
 INSERT INTO private.identifiers ( chirp_id, source_schema, 
@@ -15,22 +19,44 @@ INSERT INTO private.identifiers ( chirp_id, source_schema,
     'cert_year_num', cert_year_num, 'Initial assignment' 
   FROM vital.births b WHERE b.imported_to_dw = 'FALSE';
 
-SELECT COUNT(*) FROM private.identifiers
+SELECT COUNT(1) FROM private.identifiers
+#	Should be 5670
 
 #	Import all data into observations table (takes about 3.5 min)
 EXEC bin.import_into_data_warehouse
 
+SELECT COUNT(1) FROM dbo.observations
+#	Should be about 150000
 
+
+#	From here, it'll likely take about 30 minutes.
 
 EXEC bin.link_screening_records_to_birth_records 2015, 7
-EXEC bin.link_screening_records_to_birth_records 2015, 8
-EXEC bin.link_screening_records_to_birth_records 2015, 9
-EXEC bin.link_screening_records_to_birth_records 2015, 10
-EXEC bin.link_screening_records_to_birth_records 2015, 11
-EXEC bin.link_screening_records_to_birth_records 2015, 12
+SELECT COUNT(1) FROM private.identifiers
+#	Should be about 7000?
 
-SELECT COUNT(*) FROM private.identifiers
+EXEC bin.link_screening_records_to_birth_records 2015, 8
+SELECT COUNT(1) FROM private.identifiers
+#	Should be about 8000?
+
+EXEC bin.link_screening_records_to_birth_records 2015, 9
+SELECT COUNT(1) FROM private.identifiers
+#	Should be about 9000?
+
+EXEC bin.link_screening_records_to_birth_records 2015, 10
+SELECT COUNT(1) FROM private.identifiers
+#	Should be about 10000?
+
+EXEC bin.link_screening_records_to_birth_records 2015, 11
+SELECT COUNT(1) FROM private.identifiers
+#	Should be about 11000?
+
+EXEC bin.link_screening_records_to_birth_records 2015, 12
+SELECT COUNT(1) FROM private.identifiers
+#	Should be about 12000?
 
 EXEC bin.import_into_data_warehouse
 
+SELECT COUNT(1) FROM dbo.observations
+#	Should be 
 
