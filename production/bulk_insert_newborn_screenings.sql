@@ -183,7 +183,12 @@ ALTER TABLE health_lab.newborn_screenings_buffer
 -- Change this to only insert DISTINCT records? Why have multiples of the same?
 -- This would stop the triplification of warehouse import and probably speed things up.
 -- How to select the source_record_number while still being DISTINCT?
--- Will need to use another subselect and ROW_NUMBER() OVER(PARTITION BY ... )
+-- Will need to use another subselect and RANK() OVER(PARTITION BY ORDER BY id desc )
+
+-- Want to Select smallest record number, but all other columns DISTINCT
+-- Sadly, can't do DISTINCT(* - source_record_number) so will need to list all columns in DISTINCT()
+-- Given that I haven't seen the REAL data yet, this may be moot as it will likely 
+-- make these records very NON-DISTINCT so I'll need to import them all anyway.
 
 
 INSERT INTO health_lab.newborn_screenings SELECT * FROM health_lab.newborn_screenings_buffer
