@@ -17,7 +17,7 @@ INSERT INTO private.identifiers ( chirp_id, source_schema,
 
 SELECT COUNT(*) FROM private.identifiers
 
-#	Import all data into observations table
+#	Import all data into observations table (takes about 3.5 min)
 EXEC bin.import_into_data_warehouse
 
 
