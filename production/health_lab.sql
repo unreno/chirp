@@ -42,7 +42,45 @@ CREATE TABLE health_lab.newborn_screenings (
 	mom_birth_date DATE,	--Mother's date of birth DATE
 	contact_facility VARCHAR(75),	--Contact facility VARCHAR
 	contact_address VARCHAR(50),	--Contact Address 1 VARCHAR
-	birth_weight VARCHAR(10)	-- Weight Birth (looks like grams)	-- 2/3 NULL in initial set
+	birth_weight VARCHAR(10),	-- Weight Birth (looks like grams)	-- 2/3 NULL in initial set
+
+	source_filename VARCHAR(255),
+	source_record_number INT,
+);
+GO
+
+IF OBJECT_ID('health_lab.newborn_screenings_buffer', 'U') IS NOT NULL
+	DROP TABLE health_lab.newborn_screenings_buffer;
+CREATE TABLE health_lab.newborn_screenings_buffer (
+--	id INT IDENTITY(1,1),
+--	CONSTRAINT health_lab_newborn_screenings_id PRIMARY KEY CLUSTERED (id ASC),
+	accession_number VARCHAR(15),	--Accession Number
+	kit_number VARCHAR(15),	--Kit Number
+	patient_id VARCHAR(30),	--Patient ID VARCHAR(15)
+	last_name VARCHAR(50),	--Last Name VARCHAR(15)
+	first_name VARCHAR(50),	--First Name VARCHAR(15)	-- MALE, FEMALE????
+	maiden_name VARCHAR(50),	--Maiden Name VARCHAR		-- All NULL in initial set
+	birth_date DATE,	--Birth Date DATE
+	place_of_birth VARCHAR(50),	--Place of birth VARCHAR		-- All NULL in initial set
+	address VARCHAR(50),	--Address 1 VARCHAR
+	city VARCHAR(50),	--City VARCHAR
+	state VARCHAR(50),	--State VARCHAR
+	zip_code VARCHAR(15),	--Zip Code VARCHAR
+	phone_1 VARCHAR(15),	--Phone no. 1 VARCHAR
+	phone_2 VARCHAR(15),	--Phone no. 2 VARCHAR
+	location VARCHAR(50),	--Location VARCHAR		-- (2/3='Default location',1/3=NULL)
+	entry_mode VARCHAR(50),	--Entry Mode VARCHAR (2/3='Reported',1/3 NULL, 3 are 'Linking')
+	rank VARCHAR(50),	--Rank VARCHAR			-- All NULL in initial set
+	mom_surname VARCHAR(50),	--Mother's surname VARCHAR
+	mom_first_name VARCHAR(50),	--Mother's first name VARCHAR
+	mom_maiden_name VARCHAR(50),	--Mother's maiden name VARCHAR
+	mom_birth_date DATE,	--Mother's date of birth DATE
+	contact_facility VARCHAR(75),	--Contact facility VARCHAR
+	contact_address VARCHAR(50),	--Contact Address 1 VARCHAR
+	birth_weight VARCHAR(10),	-- Weight Birth (looks like grams)	-- 2/3 NULL in initial set
+
+	source_filename VARCHAR(255),
+	source_record_number INT IDENTITY(1,1),
 );
 GO
 
@@ -137,7 +175,7 @@ CREATE VIEW health_lab.bulk_insert_newborn_screenings_2015 AS SELECT
 	mom_birth_date,
 	contact_facility,
 	contact_address
-FROM health_lab.newborn_screenings;
+FROM health_lab.newborn_screenings_buffer;
 GO
 
 IF OBJECT_ID ( 'health_lab.bulk_insert_newborn_screenings_2016', 'V' ) IS NOT NULL
@@ -168,7 +206,7 @@ CREATE VIEW health_lab.bulk_insert_newborn_screenings_2016 AS SELECT
 	mom_birth_date,
 	contact_facility,
 	contact_address
-FROM health_lab.newborn_screenings;
+FROM health_lab.newborn_screenings_buffer;
 GO
 
 
