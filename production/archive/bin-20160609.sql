@@ -176,6 +176,20 @@ GO
 
 
 
+
+
+
+
+
+
+
+--Give the constraint a predictable name so that can be removed if needed.
+--(Otherwise name is arbitrary DF__birth__importe_____ADF4456 or similar.)
+--FYI (NOT NULL is not a "constraint", but DEFAULT is so it must be adjacent to the name.)
+--CONSTRAINT -NAME- DEFAULT 0 NOT NULL - works
+--CONSTRAINT -NAME- NOT NULL DEFAULT - DOES NOT work (arbitrarily named)
+
+
 --INSERT INTO vital.births (birthid,imported_to_dw) VALUES (1,'true');  -- 'true'=1
 --INSERT INTO vital.births (birthid,imported_to_dw) VALUES (1,'false'); -- 'false'=0
 --INSERT INTO vital.births (birthid,imported_to_dw) VALUES (1,'blahblahblah');
@@ -186,6 +200,78 @@ GO
 
 
 
+
+
+/*
+
+SELECT * FROM vital.births b
+	JOIN private.identifiers p
+	ON p.source_id = b.state_file_number
+	AND p.source_name = 'birth_sfn'
+	WHERE b.imported_to_dw = 'FALSE'
+
+
+SELECT * FROM sys.columns  c
+	INNER JOIN sys.tables t
+	ON c.object_id = t.object_id
+	INNER JOIN sys.schemas s
+	ON t.schema_id = s.schema_id
+	WHERE s.name = 'vital' AND t.name = 'births'
+
+
+SELECT * FROM sys.columns  c
+	INNER JOIN sys.tables t
+	ON c.object_id = t.object_id
+	INNER JOIN sys.schemas s
+	ON t.schema_id = s.schema_id
+	JOIN concepts cc
+	ON cc.code = s.name + ':' + t.name + ':' + c.name
+	WHERE s.name = 'vital' AND t.name = 'births' AND cc.id IS NOT NULL
+
+*/
+
+
+--IF OBJECT_ID ( 'bin.import_into_data_warehouse_by_table_fakedoc1_emrs', 'P' ) IS NOT NULL
+--	DROP PROCEDURE bin.import_into_data_warehouse_by_table_fakedoc1_emrs;
+--GO
+--CREATE PROCEDURE bin.import_into_data_warehouse_by_table_fakedoc1_emrs
+--AS
+--BEGIN
+--	SET NOCOUNT ON;
+--
+--	INSERT INTO dbo.observations
+--		(chirp_id, provider_id, started_at,
+--			concept, value, units, source_schema, source_table, downloaded_at)
+--		SELECT i.chirp_id,
+--			8675309 AS provider_id,
+--			n.service_at AS started_at,
+--			code AS concept,
+--			value AS value,
+--			units AS units,
+--			'fakedoc1' AS source_schema,
+--			'emrs' AS source_table,
+--			n.imported_at AS downloaded_at
+--		FROM fakedoc1.emrs n
+--		JOIN private.identifiers i
+--			ON    i.source_id     = n.record_number
+--				AND i.source_column = 'record_number'
+--				AND i.source_table  = 'emrs'
+--				AND i.source_schema = 'fakedoc1'
+--		WHERE n.imported_to_dw = 'FALSE'
+--
+--	UPDATE n
+--		SET imported_to_dw = 'TRUE'
+--		FROM fakedoc1.emrs n
+--		JOIN private.identifiers i
+--			ON  i.source_id     = n.record_number
+--			AND i.source_column = 'record_number'
+--			AND i.source_table  = 'emrs'
+--			AND i.source_schema = 'fakedoc1'
+--		WHERE imported_to_dw = 'FALSE'
+--			AND i.id IS NOT NULL
+--
+--END	--	CREATE PROCEDURE bin.import_into_data_warehouse_by_table_fakedoc1_emrs
+--GO
 
 
 --IF OBJECT_ID ( 'bin.import_into_data_warehouse_by_table_health_lab_newborn_screening', 'P' ) IS NOT NULL
@@ -695,6 +781,114 @@ BEGIN
 		) cav ( concept, value, units )
 		WHERE cav.value IS NOT NULL
 
+
+
+
+
+
+-- :749,1131s/^\(.*\)$/			('\1', bin.decode('vital','births','\1',\1), NULL),/
+--			( 'DEM:DOB', CAST(CAST(date_of_birth AS DATE) AS VARCHAR(255)), NULL ),
+--			( 'DEM:Weight', CAST(
+--				bin.weight_from_lbs_and_oz( birth_weight_lbs, birth_weight_oz ) AS VARCHAR(255)), 'lbs'),
+--			( 'DEM:Sex', bin.decode('vital','births','sex',sex), NULL ),
+----			( 'infant_living', bin.decode('vital','births','standard2_yesno',infant_living), NULL ),
+---- infant_living is going to be inf_liv in real data, I think.
+--			( 'infant_living', bin.decode('vital','births','inf_liv',infant_living), NULL ),
+--			( 'gestation_weeks', CAST(gestation_weeks AS VARCHAR(255)), NULL ),
+--			( 'APGAR1', CAST(apgar_1 AS VARCHAR(255)), NULL ),
+--			( 'APGAR5', CAST(apgar_5 AS VARCHAR(255)), NULL ),
+--			( 'APGAR10', CAST(apgar_10 AS VARCHAR(255)), NULL )
+--			( 'DEM:Sex', sex, NULL ),
+--			( 'infant_living', infant_living, NULL ),
+
+-- Now that I have a better understanding of CAV, merged all below.
+
+--				CAST(b.date_of_birth AS VARCHAR(255)) AS [DEM:DOB],
+--				CAST(b.sex AS VARCHAR(255)) AS [DEM:Sex],
+--				CAST(b.apgar_1 AS VARCHAR(255)) AS [APGAR1],
+--				CAST(b.apgar_5 AS VARCHAR(255)) AS [APGAR5],
+--				CAST(b.apgar_10 AS VARCHAR(255)) AS [APGAR10],
+--		UNPIVOT (
+--			value FOR concept IN ( [DEM:DOB], [DEM:Sex], [APGAR1], [APGAR5], [APGAR10] )
+--		) AS anotherarbitraryrequiredname
+
+--	INSERT INTO dbo.observations
+--		(chirp_id, provider_id, started_at,
+--			concept, value, source_schema, source_table, downloaded_at)
+--		SELECT chirp_id, provider_id, started_at,
+--			concept, value, source_schema, source_table, downloaded_at
+--		FROM (
+--			SELECT i.chirp_id, b.date_of_birth AS started_at,
+--				'123' AS provider_id,
+--				CAST(b.sex AS VARCHAR(255)) AS [DEM:Sex],
+--				CAST(b.apgar_1 AS VARCHAR(255)) AS [APGAR1],
+--				CAST(b.apgar_5 AS VARCHAR(255)) AS [APGAR5],
+--				CAST(b.apgar_10 AS VARCHAR(255)) AS [APGAR10],
+--				'vital' AS source_schema,
+--				'births' AS source_table,
+--				b.imported_at AS downloaded_at
+--			FROM vital.births b
+--			JOIN private.identifiers i
+--				ON i.source_id = b.state_file_number
+--				AND i.source_column = 'state_file_number'
+--				AND i.source_table = 'births'
+--				AND i.source_schema = 'vital'
+--			WHERE b.imported_to_dw = 'FALSE'
+--		) unimported_birth_record_data
+--		UNPIVOT (
+--			value FOR concept IN ( [DEM:Sex], [APGAR1], [APGAR5], [APGAR10] )
+--		) AS anotherarbitraryrequiredname
+--
+--	INSERT INTO dbo.observations
+--		(chirp_id, provider_id, started_at,
+--			concept, value, source_schema, source_table, downloaded_at)
+--		SELECT chirp_id, provider_id, started_at,
+--			concept, value, source_schema, source_table, downloaded_at
+--		FROM (
+--			SELECT i.chirp_id, b.date_of_birth AS started_at,
+--				'123' AS provider_id,
+--				CAST(b.date_of_birth AS VARCHAR(255)) AS [DEM:DOB],
+--				'vital' AS source_schema,
+--				'births' AS source_table,
+--				b.imported_at AS downloaded_at
+--			FROM vital.births b
+--			JOIN private.identifiers i
+--				ON i.source_id = b.state_file_number
+--				AND i.source_column = 'state_file_number'
+--				AND i.source_table = 'births'
+--				AND i.source_schema = 'vital'
+--			WHERE b.imported_to_dw = 'FALSE'
+--		) arbitraryrequiredandignoredname
+--		UNPIVOT (
+--			value FOR concept IN ( [DEM:DOB] )
+--		) AS anotherarbitraryrequiredname
+--
+-- ORDER MATTERS! SELECT ORDER MUST BE THE SAME AS INSERT ORDER!
+
+--	INSERT INTO dbo.observations
+--		(chirp_id, provider_id, started_at,
+--			concept, value, units, source_schema, source_table, downloaded_at)
+--		SELECT i.chirp_id,
+--			'123' AS provider_id,
+--			b.date_of_birth AS started_at,
+--			'DEM:Weight' AS concept,
+--			CAST(
+--				(CAST(b.birth_weight_lbs AS FLOAT) + (CAST(b.birth_weight_oz AS FLOAT)/16)) AS VARCHAR(255)
+--			) AS value,
+--			'lbs' AS units,
+--			'vital' AS source_schema,
+--			'births' AS source_table,
+--			b.imported_at AS downloaded_at
+--		FROM vital.births b
+--		JOIN private.identifiers i
+--			ON i.source_id = b.state_file_number
+--			AND i.source_column = 'state_file_number'
+--			AND i.source_table = 'births'
+--			AND i.source_schema = 'vital'
+--		WHERE b.imported_to_dw = 'FALSE'
+--			AND b.birth_weight_lbs IS NOT NULL
+--			AND b.birth_weight_oz IS NOT NULL
+
 	UPDATE b
 		SET imported_to_dw = 'TRUE'
 		FROM vital.births b
@@ -705,6 +899,19 @@ BEGIN
 			AND i.source_schema = 'vital'
 		WHERE imported_to_dw = 'FALSE'
 			AND i.id IS NOT NULL
+
+--	UPDATE b2
+--		SET imported_to_dw = 'TRUE'
+--		FROM vital.birth2 b2
+--		JOIN vital.birth b
+--			ON b.birth2id = b2.birth2id
+--		JOIN private.identifiers i
+--			ON  i.source_id     = b.state_file_number
+--			AND i.source_column = 'state_file_number'
+--			AND i.source_table  = 'births'
+--			AND i.source_schema = 'vital'
+--		WHERE b.imported_to_dw = 'FALSE'
+--			AND i.id IS NOT NULL
 
 END -- CREATE PROCEDURE bin.import_into_data_warehouse_by_table_vital_births
 GO
@@ -893,7 +1100,129 @@ GO
 --	SELECT * FROM bin.codes('vital','births','race')
 
 
--- 20160609 - FYI, this has yet to be tested.
+
+--
+----	DROP TYPE bin.NamesTableType;	-- Can't be dropped if being referenced.
+--CREATE TYPE bin.NamesTableType AS TABLE ( name VARCHAR(255) )
+--GO
+--
+--
+--IF OBJECT_ID ( 'bin.group_by_each_where', 'P' ) IS NOT NULL
+--	DROP PROCEDURE bin.group_by_each_where;
+--GO
+--
+--CREATE PROCEDURE bin.group_by_each_where( @schema VARCHAR(255), @table VARCHAR(255),
+--	@exclude bin.NamesTableType READONLY, @condition VARCHAR(255) = '1=1' )
+--AS
+--BEGIN
+--	SET NOCOUNT ON;
+--	DECLARE @SQL NVARCHAR(MAX) = '';
+--	-- I could add the prefix WHERE to @condition if not blank, but '1=1' works.
+--	SELECT @SQL = (
+--		SELECT 'SELECT CASE WHEN (GROUPING(' + QUOTENAME(name) + ') = 1) THEN ''Total'' ELSE CAST(' +
+--			QUOTENAME(name) + ' AS VARCHAR) END AS ' + QUOTENAME(name) + ', COUNT(*) AS [count], ' +
+--      '( 2 * COUNT(*) * 100. / SUM(COUNT(*)) OVER()) AS [percent] FROM ' +
+--      QUOTENAME(@schema) + '.' + QUOTENAME(@table) +
+--			' WHERE ' + @condition + ' GROUP BY ' + QUOTENAME(name) +
+--			' WITH ROLLUP ORDER BY ' + QUOTENAME(name) + ';'
+--		FROM   sys.columns
+--		WHERE  object_id = OBJECT_ID(@schema + '.' + @table)
+--		AND name NOT IN (SELECT name FROM @exclude)
+--	-- concatenate result strings with FOR XML PATH
+--	FOR XML PATH (''));
+--	EXECUTE sp_executesql @SQL;
+--END
+--GO
+--
+--IF OBJECT_ID ( 'bin.group_by_each', 'P' ) IS NOT NULL
+--	DROP PROCEDURE bin.group_by_each;
+--GO
+--
+--CREATE PROCEDURE bin.group_by_each( @schema VARCHAR(255), @table VARCHAR(255),
+--	@exclude bin.NamesTableType READONLY )
+--AS
+--BEGIN
+--	SET NOCOUNT ON;
+--	EXEC bin.group_by_each_where @schema, @table, @exclude, default
+--END
+--GO
+--
+--
+---- This does work, but not helpful
+----DECLARE @exclude bin.NamesTableType;
+----INSERT INTO @exclude VALUES ('id'),('chirp_id'),('provider_id'),('concept'),('started_at'),('downloaded_at');
+----EXEC bin.group_by_each_where 'dbo','observations',@exclude,'concept = ''infant_living'''
+---- So does this! 'default' uses a blank table. Also not helpful. Nice to know though.
+----EXEC bin.group_by_each_where 'dbo','observations',default,'concept = ''infant_living'''
+--
+--
+--
+--
+--
+--
+--IF OBJECT_ID ( 'bin.distinct_value_counts_where', 'P' ) IS NOT NULL
+--	DROP PROCEDURE bin.distinct_value_counts_where;
+--GO
+--
+--CREATE PROCEDURE bin.distinct_value_counts_where( @schema VARCHAR(255), @table VARCHAR(255),
+--	@exclude bin.NamesTableType READONLY, @condition VARCHAR(255) = '1=1' )
+--AS
+--BEGIN
+--	SET NOCOUNT ON;
+--	CREATE TABLE #out ( name VARCHAR(255), count INT );
+--	DECLARE @SQL NVARCHAR(MAX) = '';
+--	-- I could add the prefix WHERE to @condition if not blank, but '1=1' works.
+--	SELECT @SQL = (
+--		SELECT 'INSERT INTO #out(name,count) SELECT ''' + name +
+--			''' AS name, COUNT(DISTINCT ' +
+--			QUOTENAME(name) + ') AS [count] ' +
+--			' FROM ' + QUOTENAME(@schema) + '.' + QUOTENAME(@table) +
+--			' WHERE ' + @condition + ';'
+--		FROM   sys.columns
+--		WHERE  object_id = OBJECT_ID(@schema + '.' + @table)
+--		AND name NOT IN (SELECT name FROM @exclude)
+--	-- concatenate result strings with FOR XML PATH
+--	FOR XML PATH (''));
+--	EXECUTE sp_executesql @SQL;
+--	SELECT * FROM #out
+--END
+--GO
+--
+--IF OBJECT_ID ( 'bin.distinct_value_counts', 'P' ) IS NOT NULL
+--	DROP PROCEDURE bin.distinct_value_counts;
+--GO
+--
+--CREATE PROCEDURE bin.distinct_value_counts( @schema VARCHAR(255), @table VARCHAR(255),
+--	@exclude bin.NamesTableType READONLY )
+--AS
+--BEGIN
+--	SET NOCOUNT ON;
+--	EXEC  bin.distinct_value_counts_where @schema, @table, @exclude, default
+--END
+--GO
+--
+----EXEC bin.distinct_value_counts 'vital', 'births', default
+
+
+
+--	just use DATEPART(q,bth_date)
+--IF OBJECT_ID ( 'bin.quarter', 'FN' ) IS NOT NULL
+--	DROP FUNCTION bin.quarter;
+--GO
+--CREATE FUNCTION bin.quarter( @date VARCHAR(255) )
+--	RETURNS VARCHAR(1)
+--BEGIN
+--	DECLARE @quarter VARCHAR(1);
+--	IF ISDATE(@date) = 1
+--		SET @quarter = CAST(DATEPART(q,@date) AS CHAR(1))
+--	RETURN @quarter
+--END
+--GO
+
+
+
+
+
 IF OBJECT_ID ( 'bin.manually_link', 'P' ) IS NOT NULL
 	DROP PROCEDURE bin.manually_link;
 GO
