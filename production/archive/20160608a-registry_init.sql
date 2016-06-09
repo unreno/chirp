@@ -1,9 +1,9 @@
 USE master;
-IF db_id('chirp') IS NOT NULL
-	DROP DATABASE chirp;
-CREATE DATABASE chirp;
+IF db_id('chirp_dev1') IS NOT NULL
+	DROP DATABASE chirp_dev1;
+CREATE DATABASE chirp_dev1;
 GO
-USE chirp
+USE chirp_dev1
 GO
 
 -- MS Sets these before every “CREATE TRIGGER”
