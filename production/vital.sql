@@ -1205,7 +1205,6 @@ CREATE VIEW vital.bulk_insert_births AS SELECT
 	death_date,
 	birth_rco
 FROM vital.births_buffer;
---FROM vital.births;
 GO
 
 
