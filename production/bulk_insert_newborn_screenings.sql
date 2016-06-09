@@ -178,6 +178,12 @@ ALTER TABLE health_lab.newborn_screenings_buffer
 
 --
 
+
+
+-- Change this to only insert DISTINCT records? Why have multiples of the same?
+-- This would stop the triplification of warehouse import and probably speed things up.
+
+
 INSERT INTO health_lab.newborn_screenings SELECT * FROM health_lab.newborn_screenings_buffer
 DELETE FROM health_lab.newborn_screenings_buffer
 
