@@ -1,18 +1,76 @@
 
-#	Build structure, data dictionary, concepts,
-./registry_init.bash
+--	Build structure, data dictionary, concepts,
+--
+--		./registry_init.bash
+--
 
-#	Add some birth records
-cat bulk_insert_birth_records.sql
+
+--	Add some birth records
+
+SELECT COUNT(1) FROM vital.births_buffer
+--	0
+EXEC bin.import_birth_records 'C:\Users\gwendt\Desktop\Data\NSBR\Washoe_2015.csv.tsv'
+SELECT COUNT(1) FROM vital.births_buffer
+--	5432
+EXEC bin.import_birth_records 'C:\Users\gwendt\Desktop\Data\NSBR\Washoe_2016a.csv.tsv'
+SELECT COUNT(1) FROM vital.births_buffer
+--	5670
 SELECT COUNT(1) FROM vital.births
-#	Should be 5670
+--	0
+INSERT INTO vital.births SELECT * FROM vital.births_buffer
+DELETE FROM vital.births_buffer
+SELECT COUNT(1) FROM vital.births
+--	5670
+SELECT COUNT(1) FROM vital.births_buffer
+--	0
 
-#	Add some newborn screening contact info
-cat bulk_insert_newborn_screenings.sql
+
+--	Add some newborn screening contact info
+
+SELECT COUNT(1) FROM health_lab.newborn_screenings_buffer
+--	0
+EXEC bin.import_newborn_screening_records_2015 'C:\Users\gwendt\Desktop\Data\NBS\July 2015.csv.tsv'
+SELECT COUNT(1) FROM health_lab.newborn_screenings_buffer
+--	18954
+EXEC bin.import_newborn_screening_records_2015 'C:\Users\gwendt\Desktop\Data\NBS\August 2015.csv.tsv'
+SELECT COUNT(1) FROM health_lab.newborn_screenings_buffer
+--	37063
+EXEC bin.import_newborn_screening_records_2015 'C:\Users\gwendt\Desktop\Data\NBS\September 2015.csv.tsv'
+SELECT COUNT(1) FROM health_lab.newborn_screenings_buffer
+--	55561
+EXEC bin.import_newborn_screening_records_2015 'C:\Users\gwendt\Desktop\Data\NBS\October 2015.csv.tsv'
+SELECT COUNT(1) FROM health_lab.newborn_screenings_buffer
+--	72897
+EXEC bin.import_newborn_screening_records_2015 'C:\Users\gwendt\Desktop\Data\NBS\November 2015.csv.tsv'
+SELECT COUNT(1) FROM health_lab.newborn_screenings_buffer
+--	90616
+EXEC bin.import_newborn_screening_records_2015 'C:\Users\gwendt\Desktop\Data\NBS\December 2015.csv.tsv'
+SELECT COUNT(1) FROM health_lab.newborn_screenings_buffer
+--	109168
+
+EXEC bin.import_newborn_screening_records_2016 'C:\Users\gwendt\Desktop\Data\NBS\January 2016.csv.tsv'
+SELECT COUNT(1) FROM health_lab.newborn_screenings_buffer
+--	125167
+EXEC bin.import_newborn_screening_records_2016 'C:\Users\gwendt\Desktop\Data\NBS\February 2016.csv.tsv'
+SELECT COUNT(1) FROM health_lab.newborn_screenings_buffer
+--	141759
+EXEC bin.import_newborn_screening_records_2016 'C:\Users\gwendt\Desktop\Data\NBS\March 2016.csv.tsv'
+SELECT COUNT(1) FROM health_lab.newborn_screenings_buffer
+--	159818
+
 SELECT COUNT(1) FROM health_lab.newborn_screenings
-#	Should be about 159000 (although about to make this import DISTINCT so it should shrink to about 55000)
+--	0
+INSERT INTO health_lab.newborn_screenings SELECT * FROM health_lab.newborn_screenings_buffer
+DELETE FROM health_lab.newborn_screenings_buffer
+SELECT COUNT(1) FROM health_lab.newborn_screenings
+--	159818
+SELECT COUNT(1) FROM health_lab.newborn_screenings_buffer
+--	0
 
-#	Create an identifier for each birth record
+
+SELECT COUNT(1) FROM private.identifiers
+--	0
+--	Create an identifier for each birth record
 INSERT INTO private.identifiers ( chirp_id, source_schema, 
     source_table, source_column, source_id, match_method ) 
   SELECT private.create_unique_chirp_id(), 'vital', 'births',
@@ -20,43 +78,42 @@ INSERT INTO private.identifiers ( chirp_id, source_schema,
   FROM vital.births b WHERE b.imported_to_dw = 'FALSE';
 
 SELECT COUNT(1) FROM private.identifiers
-#	Should be 5670
-
-#	Import all data into observations table (takes about 3.5 min)
-EXEC bin.import_into_data_warehouse
+--	5670
 
 SELECT COUNT(1) FROM dbo.observations
-#	Should be about 150000
+--	0
+--	Import all data into observations table (takes about 3.5 min)
+EXEC bin.import_into_data_warehouse
+SELECT COUNT(1) FROM dbo.observations
+--	1706663
 
 
-#	From here, it'll likely take about 2 hours
+--	From here, it'll likely take about 2 hours
 
+SELECT COUNT(1) FROM private.identifiers
+--	5670
 EXEC bin.link_screening_records_to_birth_records 2015, 7
 SELECT COUNT(1) FROM private.identifiers
-#	Should be about 7000?
-
+--	Should be about 7000?
 EXEC bin.link_screening_records_to_birth_records 2015, 8
 SELECT COUNT(1) FROM private.identifiers
-#	Should be about 8350
-
+--	Should be about 8350
 EXEC bin.link_screening_records_to_birth_records 2015, 9
 SELECT COUNT(1) FROM private.identifiers
-#	Should be about 9204
-
+--	Should be about 9204
 EXEC bin.link_screening_records_to_birth_records 2015, 10
 SELECT COUNT(1) FROM private.identifiers
-#	Should be about 10000?
-
+--	Should be about 10000?
 EXEC bin.link_screening_records_to_birth_records 2015, 11
 SELECT COUNT(1) FROM private.identifiers
-#	Should be about 11000?
-
+--	Should be about 11000?
 EXEC bin.link_screening_records_to_birth_records 2015, 12
 SELECT COUNT(1) FROM private.identifiers
-#	Should be about 12000?
-
-EXEC bin.import_into_data_warehouse
+--	Should be about 12000?
 
 SELECT COUNT(1) FROM dbo.observations
-#	Should be 
+--	1706663
+EXEC bin.import_into_data_warehouse
+SELECT COUNT(1) FROM dbo.observations
+--	Should be 
 
