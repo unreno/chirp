@@ -12,7 +12,7 @@ BEGIN
 	SET NOCOUNT ON;
 
 	IF OBJECT_ID('tempdb..#temp_identifiers_link', 'U') IS NOT NULL
-		DROP TABLE #temp_identifiers_link
+		DROP TABLE #temp_identifiers_link;
 
 	-- NEED to assign aliases to all columns here that aren't variables, like these fixed value strings.
 	SELECT DISTINCT chirp_id, 'health_lab' AS ss, 'newborn_screenings' AS st,
