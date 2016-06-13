@@ -3,7 +3,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	-- CHAR(92) o
+	-- CHAR(92) oo
 
 END	--	bin.testing
 GO
