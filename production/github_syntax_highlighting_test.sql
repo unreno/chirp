@@ -1,5 +1,264 @@
 
 
+-- MS Sets these before every “CREATE TRIGGER”
+-- Not sure if calling them once will suffice.
+-- Needed?
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='bin')
+	EXEC('CREATE SCHEMA bin')
+GO
+
+
+--Database diagram support objects cannot be installed because this database does not have a valid owner. To continue, first use the Files page of the Database Properties dialog box or the ALTER AUTHORIZATION statement to set the database owner to a valid login, then add the database diagram support objects.
+--Wanted to see these Database Diagrams and this seemed to work.
+--This changes the database owner to [sa]. I'd prefer to keep it.
+--ALTER AUTHORIZATION ON DATABASE::chirp TO [sa];
+
+
+
+
+
+IF OBJECT_ID ( 'bin.add_imported_at_column_to_table', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.add_imported_at_column_to_table;
+GO
+CREATE PROCEDURE bin.add_imported_at_column_to_table(@schema VARCHAR(255),@table VARCHAR(255))
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @cmd VARCHAR(8000);
+	DECLARE @cname VARCHAR(255);
+
+	SELECT @cname = @schema + '_' + @table + '_imported_at_default';
+
+/*
+	--Remove constraint if exists
+	SELECT @cmd = 'IF OBJECT_ID(''[' + @schema + '].[' + @cname + ']'') IS NOT NULL ' +
+		'ALTER TABLE ' + @schema + '.[' + @table +'] DROP CONSTRAINT ' + @cname + ';'
+	PRINT @cmd
+	EXEC (@cmd);	--	Parenthese required here!
+
+	--Remove column if exists
+	SELECT @cmd = 'IF COL_LENGTH(''[' + @schema + '].[' + @table +
+		']'',''imported_at'') IS NOT NULL '+
+		'ALTER TABLE ' + @schema + '.[' + @table + '] DROP COLUMN imported_at;'
+	PRINT @cmd
+	EXEC (@cmd);	--	Parenthese required here!
+
+	--Add column with constraint
+	SELECT @cmd = 'ALTER TABLE [' + @schema + '].[' + @table +
+		'] ADD imported_at DATETIME CONSTRAINT '
+		+ @cname + ' DEFAULT CURRENT_TIMESTAMP NOT NULL ;';
+	PRINT @cmd
+	EXEC (@cmd);	--	Parenthese required here!
+*/
+
+	--Add column with constraint if doesn't exist
+	SELECT @cmd = 'IF COL_LENGTH(''[' + @schema + '].[' + @table +
+		']'',''imported_at'') IS NULL '+
+		'ALTER TABLE [' + @schema + '].[' + @table +
+		'] ADD imported_at DATETIME CONSTRAINT '
+		+ @cname + ' DEFAULT CURRENT_TIMESTAMP NOT NULL ;';
+	EXEC (@cmd);	--	Parenthese required here!
+
+END
+GO
+
+
+IF OBJECT_ID ( 'bin.add_imported_at_column_to_tables_by_schema', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.add_imported_at_column_to_tables_by_schema;
+GO
+CREATE PROCEDURE bin.add_imported_at_column_to_tables_by_schema(@schema VARCHAR(255))
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @table VARCHAR(255);
+
+	DECLARE tables CURSOR FOR SELECT t.name
+		FROM sys.tables AS t
+		INNER JOIN sys.schemas AS s
+		ON t.schema_id = s.schema_id
+		WHERE s.name = @schema;
+
+	OPEN tables;
+	WHILE(1=1)BEGIN
+		FETCH tables INTO @table;
+		IF(@@FETCH_STATUS <> 0) BREAK
+--		PRINT @table
+		EXEC bin.add_imported_at_column_to_table @schema, @table
+	END
+	CLOSE tables;
+	DEALLOCATE tables;
+END
+GO
+
+
+IF OBJECT_ID ( 'bin.add_imported_to_dw_column_to_table', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.add_imported_to_dw_column_to_table;
+GO
+CREATE PROCEDURE bin.add_imported_to_dw_column_to_table(@schema VARCHAR(255),@table VARCHAR(255))
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @cmd VARCHAR(8000);
+	DECLARE @cname VARCHAR(255);
+
+	SELECT @cname = @schema + '_' + @table + '_imported_to_dw_default';
+
+/*
+	--Remove constraint if exists
+	SELECT @cmd = 'IF OBJECT_ID(''[' + @schema + '].[' + @cname + ']'') IS NOT NULL ' +
+		'ALTER TABLE ' + @schema + '.[' + @table +'] DROP CONSTRAINT ' + @cname + ';'
+	PRINT @cmd
+	EXEC (@cmd);	--	Parenthese required here!
+
+	--Remove column if exists
+	SELECT @cmd = 'IF COL_LENGTH(''[' + @schema + '].[' + @table +
+		']'',''imported_to_dw'') IS NOT NULL '+
+		'ALTER TABLE ' + @schema + '.[' + @table + '] DROP COLUMN imported_to_dw;'
+	PRINT @cmd
+	EXEC (@cmd);	--	Parenthese required here!
+
+	--Add column with constraint
+	SELECT @cmd = 'ALTER TABLE [' + @schema + '].[' + @table +
+		'] ADD imported_to_dw BIT CONSTRAINT '
+		+ @cname + ' DEFAULT ''FALSE'' NOT NULL ;';
+--	PRINT @cmd
+	EXEC (@cmd);	--	Parenthese required here!
+*/
+
+	--Add column with constraint if doesn't exist
+	SELECT @cmd = 'IF COL_LENGTH(''[' + @schema + '].[' + @table +
+		']'',''imported_to_dw'') IS NULL '+
+		'ALTER TABLE [' + @schema + '].[' + @table +
+		'] ADD imported_to_dw BIT CONSTRAINT '
+		+ @cname + ' DEFAULT ''FALSE'' NOT NULL ;';
+	EXEC (@cmd);	--	Parenthese required here!
+
+END
+GO
+
+
+IF OBJECT_ID ( 'bin.add_imported_to_dw_column_to_tables_by_schema', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.add_imported_to_dw_column_to_tables_by_schema;
+GO
+CREATE PROCEDURE bin.add_imported_to_dw_column_to_tables_by_schema(@schema VARCHAR(255))
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @table VARCHAR(255);
+
+	DECLARE tables CURSOR FOR SELECT t.name
+		FROM sys.tables AS t
+		INNER JOIN sys.schemas AS s
+		ON t.schema_id = s.schema_id
+		WHERE s.name = @schema;
+
+	OPEN tables;
+	WHILE(1=1)BEGIN
+		FETCH tables INTO @table;
+		IF(@@FETCH_STATUS <> 0)
+			BREAK
+--		PRINT @table
+		EXEC bin.add_imported_to_dw_column_to_table @schema, @table
+	END
+	CLOSE tables;
+	DEALLOCATE tables;
+
+END
+GO
+
+
+
+--INSERT INTO vital.births (birthid,imported_to_dw) VALUES (1,'true');  -- 'true'=1
+--INSERT INTO vital.births (birthid,imported_to_dw) VALUES (1,'false'); -- 'false'=0
+--INSERT INTO vital.births (birthid,imported_to_dw) VALUES (1,'blahblahblah');
+--INSERT INTO vital.births (birthid) values (1);
+--Conversion failed when converting the varchar value 'blahblahblah' to data type bit
+
+
+
+
+
+
+
+IF OBJECT_ID ( 'bin.import_into_data_warehouse_by_table_health_lab_newborn_screenings', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_into_data_warehouse_by_table_health_lab_newborn_screenings;
+GO
+CREATE PROCEDURE bin.import_into_data_warehouse_by_table_health_lab_newborn_screenings
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+
+
+	-- Be advised that the newborn screening records are in triplicate.
+	-- For the moment, everything added here will also be in triplicate.
+
+
+
+	INSERT INTO dbo.observations
+		(chirp_id, provider_id, started_at,
+			concept, value, units, source_schema, source_table, source_id, downloaded_at)
+		SELECT chirp_id, provider_id, started_at,
+			cav.concept, cav.value, cav.units, source_schema, source_table, source_id, downloaded_at
+		FROM (
+			SELECT i.chirp_id, s.birth_date AS started_at,	-- I hope that the actual data include date lab performed
+				0 AS provider_id,
+				'health_lab' AS source_schema,
+				'newborn_screening' AS source_table,
+				s.id AS source_id,
+				s.*,
+				imported_at AS downloaded_at
+			FROM health_lab.newborn_screenings s
+			JOIN private.identifiers i
+				ON  i.source_id     = s.accession_kit_number
+				AND i.source_column = 'accession_kit_number'
+				AND i.source_table  = 'newborn_screenings'
+				AND i.source_schema = 'health_lab'
+			WHERE imported_to_dw = 'FALSE'
+		) unimported_data
+		CROSS APPLY ( VALUES
+			('DEM:ZIP', CAST(zip_code AS VARCHAR(255)), NULL)
+		) cav ( concept, value, units )
+		WHERE cav.value IS NOT NULL
+
+	UPDATE s
+		SET imported_to_dw = 'TRUE'
+		FROM health_lab.newborn_screenings s
+		JOIN private.identifiers i
+			ON  i.source_id     = s.accession_kit_number
+			AND i.source_column = 'accession_kit_number'
+			AND i.source_table  = 'newborn_screenings'
+			AND i.source_schema = 'health_lab'
+		WHERE imported_to_dw = 'FALSE'
+			AND i.id IS NOT NULL
+
+END	--	CREATE PROCEDURE bin.import_into_data_warehouse_by_table_health_lab_newborn_screenings
+GO
+
+
+
+IF OBJECT_ID ( 'bin.weight_from_lbs_and_oz', 'FN' ) IS NOT NULL
+	DROP FUNCTION bin.weight_from_lbs_and_oz;
+GO
+CREATE FUNCTION bin.weight_from_lbs_and_oz( @lbs INT, @oz INT )
+	RETURNS FLOAT
+BEGIN
+	DECLARE @w FLOAT;
+	IF @lbs IS NOT NULL AND @oz IS NOT NULL
+		SET @w = CAST(@lbs AS FLOAT) + CAST(@oz AS FLOAT)/16
+	RETURN @w
+END
+GO
+
 
 
 IF OBJECT_ID ( 'bin.import_into_data_warehouse_by_table_vital_births', 'P' ) IS NOT NULL
