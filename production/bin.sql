@@ -1044,7 +1044,12 @@ BEGIN
 	SET NOCOUNT ON;
 
 	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path )
-	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))))
+	-- Using CHAR(92) instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
+	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
+		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))))
+	-- DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
+	--	ISNULL(NULLIF(CHARINDEX('\', @rf )-1,-1),LEN(@rf))))
+	-- '  The previous line mucks up syntax highlighting by escaping the quote, so added one here.
 
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT vital.bulk_insert_births
 		FROM ''' + @file_with_path + '''
@@ -1076,7 +1081,12 @@ BEGIN
 	SET NOCOUNT ON;
 
 	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path )
-	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))))
+	-- Using CHAR(92) instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
+	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
+		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))))
+	-- DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
+	--	ISNULL(NULLIF(CHARINDEX('\', @rf )-1,-1),LEN(@rf))))
+	-- '  The previous line mucks up syntax highlighting by escaping the quote, so added one here.
 
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT health_lab.bulk_insert_newborn_screenings_2015
 		FROM ''' + @file_with_path + '''
@@ -1110,7 +1120,12 @@ BEGIN
 	SET NOCOUNT ON;
 
 	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path )
-	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))))
+	-- Using CHAR(92) instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
+	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
+		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))))
+	-- DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
+	--	ISNULL(NULLIF(CHARINDEX('\', @rf )-1,-1),LEN(@rf))))
+	-- '  The previous line mucks up syntax highlighting by escaping the quote, so added one here.
 
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT health_lab.bulk_insert_newborn_screenings_2016
 		FROM ''' + @file_with_path + '''
