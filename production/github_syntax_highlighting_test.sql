@@ -1,27 +1,5 @@
 
 
--- MS Sets these before every “CREATE TRIGGER”
--- Not sure if calling them once will suffice.
--- Needed?
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='bin')
-	EXEC('CREATE SCHEMA bin')
-GO
-
-
---Database diagram support objects cannot be installed because this database does not have a valid owner. To continue, first use the Files page of the Database Properties dialog box or the ALTER AUTHORIZATION statement to set the database owner to a valid login, then add the database diagram support objects.
---Wanted to see these Database Diagrams and this seemed to work.
---This changes the database owner to [sa]. I'd prefer to keep it.
---ALTER AUTHORIZATION ON DATABASE::chirp TO [sa];
-
-
-
-
-
 IF OBJECT_ID ( 'bin.add_imported_at_column_to_table', 'P' ) IS NOT NULL
 	DROP PROCEDURE bin.add_imported_at_column_to_table;
 GO
