@@ -18,7 +18,7 @@ BEGIN
 	SELECT DISTINCT chirp_id, 'health_lab' AS ss, 'newborn_screenings' AS st,
 		'accession_kit_number' AS sc, accession_kit_number,
 		'Matched to birth record with score of ' + CAST(score AS VARCHAR(10)) AS mm
-	INTO #temp_identifiers_link
+	INTO temp_identifiers_link
 	FROM (
 
 		SELECT chirp_id, accession_kit_number,
