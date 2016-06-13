@@ -4,7 +4,7 @@ BEGIN
 	SET NOCOUNT ON;
 
 	-- Char of
-	-- The previous
+	-- The previous line
 
 END	--	bin.testing
 GO
