@@ -3,7 +3,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	-- Using CHAR(92) insteed of a \ which mucks up 
+	-- Using CHAR(92) insteed of a
 
 END	--	bin.testing
 GO
