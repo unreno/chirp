@@ -917,7 +917,7 @@ BEGIN
 		WHERE i.source_schema = @schema1
 			AND i.source_table  = @table1
 			AND i.source_column = @column1
-			AND i.source_id     = @value1
+			AND i.source_id     = @value1;
 
 END	--	bin.manually_link
 GO
@@ -1016,17 +1016,17 @@ BEGIN
 			last_name_score + first_name_score + mom_first_name_score >= 4
 
 	) AS ranked
-	WHERE rank = 1
+	WHERE rank = 1;
 
 	INSERT INTO private.identifiers (
 		chirp_id, source_schema, source_table, source_column, source_id, match_method )
 		SELECT * FROM #temp_identifiers_link WHERE accession_kit_number NOT IN (
 			SELECT accession_kit_number FROM #temp_identifiers_link
 				GROUP BY accession_kit_number HAVING COUNT(1) > 1
-		)
+		);
 
 	IF OBJECT_ID('tempdb..#temp_identifiers_link', 'U') IS NOT NULL
-		DROP TABLE #temp_identifiers_link
+		DROP TABLE #temp_identifiers_link;
 
 END	--	bin.link_screening_records_to_birth_records
 GO
