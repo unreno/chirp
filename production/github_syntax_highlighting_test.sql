@@ -3,7 +3,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	-- CHAR(92) of
+	-- Using CHAR(92) insteed xx a \ which mucks up syntax highlighting as it "escapes" the closing quote
 
 END	--	bin.testing
 GO
