@@ -1044,8 +1044,6 @@ BEGIN
 	SET NOCOUNT ON;
 
 	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path )
-	-- For some reason, upper case char in the next statement mucks up syntax highlighting on github too?
-	-- Using char 92 instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
 	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))))
 
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT vital.bulk_insert_births
@@ -1078,8 +1076,6 @@ BEGIN
 	SET NOCOUNT ON;
 
 	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path )
-	-- For some reason, upper case char in the next statement mucks up syntax highlighting on github too?
-	-- Using char 92 instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
 	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))))
 
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT health_lab.bulk_insert_newborn_screenings_2015
@@ -1114,8 +1110,6 @@ BEGIN
 	SET NOCOUNT ON;
 
 	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path )
-	-- For some reason, upper case char in the next statement mucks up syntax highlighting on github too?
-	-- Using char 92 instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
 	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))))
 
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT health_lab.bulk_insert_newborn_screenings_2016
