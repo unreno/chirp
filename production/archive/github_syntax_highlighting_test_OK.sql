@@ -5,7 +5,6 @@ BEGIN
 
 	-- Char of
 
-	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path )
 	-- Using CHAR(92) instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
 	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
 		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))))
