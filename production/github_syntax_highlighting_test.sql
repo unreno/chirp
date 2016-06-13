@@ -127,22 +127,6 @@ BEGIN
 	--	ISNULL(NULLIF(CHARINDEX('\', @rf )-1,-1),LEN(@rf))))
 	-- '  The previous line mucks up syntax highlighting by escaping the quote, so added one here.
 
-	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT vital.bulk_insert_births
-		FROM ''' + @file_with_path + '''
-		WITH (
-			ROWTERMINATOR = '''+CHAR(10)+''',
-			FIRSTROW = 2,
-			TABLOCK
-		)';
-
-	DBCC CHECKIDENT( 'vital.births_buffer', RESEED, 0);
-
-	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE vital.births_buffer
-		ADD CONSTRAINT temp_source_filename
-		DEFAULT ''' + @filename + ''' FOR source_filename';
-	EXEC(@alter_cmd);
-	EXEC(@bulk_cmd);
-	ALTER TABLE vital.births_buffer DROP CONSTRAINT temp_source_filename;
 
 END	--	bin.import_birth_records
 GO
