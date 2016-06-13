@@ -1,6 +1,86 @@
 
 
 
+IF OBJECT_ID ( 'bin.import_into_data_warehouse_by_schema', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_into_data_warehouse_by_schema;
+GO
+CREATE PROCEDURE bin.import_into_data_warehouse_by_schema( @schema VARCHAR(50) )
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @table VARCHAR(250)
+	DECLARE @proc VARCHAR(250)
+
+	DECLARE tables CURSOR FOR SELECT t.name
+		FROM sys.tables AS t
+		INNER JOIN sys.schemas AS s
+		ON t.schema_id = s.schema_id
+		WHERE s.name = @schema;
+
+	OPEN tables
+	WHILE(1=1)BEGIN
+		FETCH tables INTO @table;
+		IF(@@FETCH_STATUS <> 0) BREAK
+
+		SET @proc = 'bin.import_into_data_warehouse_by_table_' + @schema + '_' + @table
+
+		IF OBJECT_ID ( @proc, 'P' ) IS NOT NULL
+		BEGIN
+--			PRINT 'Importing select fields from ' + @schema + '.' + @table
+			EXEC @proc
+		END
+--		ELSE
+--			PRINT 'Ignoring table ' + @schema + '.' + @table
+
+	END
+	CLOSE tables;
+	DEALLOCATE tables;
+
+END	--	bin.import_into_data_warehouse_by_schema
+GO
+
+IF OBJECT_ID ( 'bin.import_into_data_warehouse', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_into_data_warehouse;
+GO
+CREATE PROCEDURE bin.import_into_data_warehouse
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+--	DECLARE @schemas TABLE ( name VARCHAR(50) )
+--	INSERT INTO @schemas VALUES ( 'vital' )
+--
+--	DECLARE schemas CURSOR FOR SELECT s.name FROM @schemas s
+--
+--	DECLARE @schema VARCHAR(50)
+--
+--	OPEN schemas
+--	WHILE(1=1)BEGIN
+--		FETCH schemas INTO @schema;
+--		IF(@@FETCH_STATUS <> 0) BREAK
+--		PRINT @schema
+--		EXEC bin.import_into_data_warehouse_by_schema @schema
+
+		--Until there are more than a dozen, this above is a bit excessive!
+		EXEC bin.import_into_data_warehouse_by_schema 'vital'
+		EXEC bin.import_into_data_warehouse_by_schema 'health_lab'
+		EXEC bin.import_into_data_warehouse_by_schema 'fakedoc1'
+
+--	END
+--	CLOSE schemas;
+--	DEALLOCATE schemas;
+
+END	--	bin.import_into_data_warehouse
+GO
+
+
+
+
+
+
+
+
 
 
 
