@@ -1,4 +1,3 @@
-
 -- MS Sets these before every “CREATE TRIGGER”
 -- Not sure if calling them once will suffice.
 -- Needed?
@@ -16,9 +15,6 @@ GO
 --Wanted to see these Database Diagrams and this seemed to work.
 --This changes the database owner to [sa]. I'd prefer to keep it.
 --ALTER AUTHORIZATION ON DATABASE::chirp TO [sa];
-
-
-
 
 
 IF OBJECT_ID ( 'bin.add_imported_at_column_to_table', 'P' ) IS NOT NULL
