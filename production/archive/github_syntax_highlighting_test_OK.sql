@@ -4,7 +4,7 @@ BEGIN
 	SET NOCOUNT ON;
 
 	-- Char of
-	-- The previous line
+	-- '  The previous mucks up syntax highlighting by escaping the quote, so added one here.
 
 END	--	bin.testing
 GO
