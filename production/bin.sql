@@ -1059,7 +1059,7 @@ BEGIN
 			TABLOCK
 		)';
 
-	DBCC CHECKIDENT( 'vital.births_buffer', RESEED, 0)
+	DBCC CHECKIDENT( 'vital.births_buffer', RESEED, 0);
 
 	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE vital.births_buffer
 		ADD CONSTRAINT temp_source_filename
@@ -1096,7 +1096,7 @@ BEGIN
 			TABLOCK
 		)';
 
-	DBCC CHECKIDENT( 'health_lab.newborn_screenings_buffer', RESEED, 0)
+	DBCC CHECKIDENT( 'health_lab.newborn_screenings_buffer', RESEED, 0);
 
 	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE health_lab.newborn_screenings_buffer
 		ADD CONSTRAINT temp_source_filename
@@ -1135,7 +1135,7 @@ BEGIN
 			TABLOCK
 		)';
 
-	DBCC CHECKIDENT( 'health_lab.newborn_screenings_buffer', RESEED, 0)
+	DBCC CHECKIDENT( 'health_lab.newborn_screenings_buffer', RESEED, 0);
 
 	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE health_lab.newborn_screenings_buffer
 		ADD CONSTRAINT temp_source_filename
