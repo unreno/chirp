@@ -8,5 +8,7 @@ BEGIN
 	-- '  The previous line mucks up syntax highlighting by escaping the quote, so added one here.
 	-- If I put the word "line" above, highlighting fails?
 
+	-- And now that I've added comments pointing it out, it works?????
+
 END	--	bin.testing
 GO
