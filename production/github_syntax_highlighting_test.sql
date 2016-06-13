@@ -77,6 +77,14 @@ BEGIN
 				AND i2.source_schema = 'health_lab'
 			WHERE b.bth_date_year = @year AND b.bth_date_month = @month
 				AND i2.chirp_id IS NULL
+/*
+				AND s.birth_date_year = @year AND s.birth_date_month = @month
+				AND s.zip_code IN ( '89402', '89405', '89412', '89424', '89431', '89432', '89433',
+					'89434', '89435', '89436', '89439', '89441', '89442', '89450', '89451', '89452',
+					'89501', '89502', '89503', '89504', '89505', '89506', '89507', '89508', '89509',
+					'89510', '89511', '89512', '89513', '89515', '89519', '89520', '89521', '89523',
+					'89533', '89555', '89557', '89570', '89595', '89599', '89704' )
+*/
 
 		) AS computing_scores
 		WHERE birth_score + mom_birth_score + zip_score + address_score + num_score +
@@ -90,13 +98,131 @@ BEGIN
 		SELECT * FROM #temp_identifiers_link WHERE accession_kit_number NOT IN (
 			SELECT accession_kit_number FROM #temp_identifiers_link
 				GROUP BY accession_kit_number HAVING COUNT(1) > 1
-		)
+		);
 
 	IF OBJECT_ID('tempdb..#temp_identifiers_link', 'U') IS NOT NULL
-		DROP TABLE #temp_identifiers_link
+		DROP TABLE #temp_identifiers_link;
 
 END	--	bin.link_screening_records_to_birth_records
 GO
 
 
+
+
+
+IF OBJECT_ID ( 'bin.import_birth_records', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_birth_records;
+GO
+CREATE PROCEDURE bin.import_birth_records( @file_with_path VARCHAR(255) )
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Something in the following section of code mucks up github syntax highlighting.
+	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path );
+	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
+		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
+	-- Using CHAR(92) instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
+	-- DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
+	--	ISNULL(NULLIF(CHARINDEX('\', @rf )-1,-1),LEN(@rf))))
+	-- '  The previous line mucks up syntax highlighting by escaping the quote, so added one here.
+
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT vital.bulk_insert_births
+		FROM ''' + @file_with_path + '''
+		WITH (
+			ROWTERMINATOR = '''+CHAR(10)+''',
+			FIRSTROW = 2,
+			TABLOCK
+		)';
+
+	DBCC CHECKIDENT( 'vital.births_buffer', RESEED, 0);
+
+	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE vital.births_buffer
+		ADD CONSTRAINT temp_source_filename
+		DEFAULT ''' + @filename + ''' FOR source_filename';
+	EXEC(@alter_cmd);
+	EXEC(@bulk_cmd);
+	ALTER TABLE vital.births_buffer DROP CONSTRAINT temp_source_filename;
+
+END	--	bin.import_birth_records
+GO
+
+
+IF OBJECT_ID ( 'bin.import_newborn_screening_records_2015', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_newborn_screening_records_2015;
+GO
+CREATE PROCEDURE bin.import_newborn_screening_records_2015( @file_with_path VARCHAR(255) )
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Something in the following section of code mucks up github syntax highlighting.
+	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path );
+	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
+		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
+	-- Using CHAR(92) instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
+	-- DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
+	--	ISNULL(NULLIF(CHARINDEX('\', @rf )-1,-1),LEN(@rf))))
+	-- '  The previous line mucks up syntax highlighting by escaping the quote, so added one here.
+
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT health_lab.bulk_insert_newborn_screenings_2015
+		FROM ''' + @file_with_path + '''
+		WITH (
+			ROWTERMINATOR = '''+CHAR(10)+''',
+			FIRSTROW = 2,
+			TABLOCK
+		)';
+
+	DBCC CHECKIDENT( 'health_lab.newborn_screenings_buffer', RESEED, 0);
+
+	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE health_lab.newborn_screenings_buffer
+		ADD CONSTRAINT temp_source_filename
+		DEFAULT ''' + @filename + ''' FOR source_filename';
+	EXEC(@alter_cmd);
+	EXEC(@bulk_cmd);
+	ALTER TABLE health_lab.newborn_screenings_buffer
+		DROP CONSTRAINT temp_source_filename;
+
+END	--	bin.import_newborn_screening_records_2015
+GO
+
+-- Sadly, the format changed from 2015 to 2016
+
+IF OBJECT_ID ( 'bin.import_newborn_screening_records_2016', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_newborn_screening_records_2016;
+GO
+CREATE PROCEDURE bin.import_newborn_screening_records_2016( @file_with_path VARCHAR(255) )
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- Something in the following section of code mucks up github syntax highlighting.
+	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path );
+	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
+		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
+	-- Using CHAR(92) instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
+	-- DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
+	--	ISNULL(NULLIF(CHARINDEX('\', @rf )-1,-1),LEN(@rf))))
+	-- '  The previous line mucks up syntax highlighting by escaping the quote, so added one here.
+
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT health_lab.bulk_insert_newborn_screenings_2016
+		FROM ''' + @file_with_path + '''
+		WITH (
+			ROWTERMINATOR = '''+CHAR(10)+''',
+			FIRSTROW = 2,
+			TABLOCK
+		)';
+
+	DBCC CHECKIDENT( 'health_lab.newborn_screenings_buffer', RESEED, 0);
+
+	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE health_lab.newborn_screenings_buffer
+		ADD CONSTRAINT temp_source_filename
+		DEFAULT ''' + @filename + ''' FOR source_filename';
+	EXEC(@alter_cmd);
+	EXEC(@bulk_cmd);
+	ALTER TABLE health_lab.newborn_screenings_buffer
+		DROP CONSTRAINT temp_source_filename;
+
+END	--	bin.import_newborn_screening_records_2016
+GO
 
