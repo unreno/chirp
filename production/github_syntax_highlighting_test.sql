@@ -77,14 +77,6 @@ BEGIN
 				AND i2.source_schema = 'health_lab'
 			WHERE b.bth_date_year = @year AND b.bth_date_month = @month
 				AND i2.chirp_id IS NULL
-/*
-				AND s.birth_date_year = @year AND s.birth_date_month = @month
-				AND s.zip_code IN ( '89402', '89405', '89412', '89424', '89431', '89432', '89433',
-					'89434', '89435', '89436', '89439', '89441', '89442', '89450', '89451', '89452',
-					'89501', '89502', '89503', '89504', '89505', '89506', '89507', '89508', '89509',
-					'89510', '89511', '89512', '89513', '89515', '89519', '89520', '89521', '89523',
-					'89533', '89555', '89557', '89570', '89595', '89599', '89704' )
-*/
 
 		) AS computing_scores
 		WHERE birth_score + mom_birth_score + zip_score + address_score + num_score +
