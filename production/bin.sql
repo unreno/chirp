@@ -1043,10 +1043,10 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path )
+	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path );
 	-- Using CHAR(92) instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
 	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
-		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))))
+		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
 	-- DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
 	--	ISNULL(NULLIF(CHARINDEX('\', @rf )-1,-1),LEN(@rf))))
 	-- '  The previous line mucks up syntax highlighting by escaping the quote, so added one here.
@@ -1080,10 +1080,10 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path )
+	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path );
 	-- Using CHAR(92) instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
 	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
-		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))))
+		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
 	-- DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
 	--	ISNULL(NULLIF(CHARINDEX('\', @rf )-1,-1),LEN(@rf))))
 	-- '  The previous line mucks up syntax highlighting by escaping the quote, so added one here.
@@ -1119,10 +1119,10 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path )
+	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path );
 	-- Using CHAR(92) instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
 	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
-		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))))
+		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
 	-- DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
 	--	ISNULL(NULLIF(CHARINDEX('\', @rf )-1,-1),LEN(@rf))))
 	-- '  The previous line mucks up syntax highlighting by escaping the quote, so added one here.
