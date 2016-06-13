@@ -13,7 +13,7 @@ GO
 
 --Database diagram support objects cannot be installed because this database does not have a valid owner. To continue, first use the Files page of the Database Properties dialog box or the ALTER AUTHORIZATION statement to set the database owner to a valid login, then add the database diagram support objects.
 --Wanted to see these Database Diagrams and this seemed to work.
---This changes the database owner to [sa]. I would prefer to keep it.
+--This changes the database owner to [sa]. I'd would prefer to keep it.
 --ALTER AUTHORIZATION ON DATABASE::chirp TO [sa];
 
 
