@@ -1,4 +1,42 @@
 
+
+
+
+--	PRINT bin.decode('vital','births','race',1)
+--	PRINT bin.label('vital','births','race')
+--	PRINT bin.description('vital','births','race')
+--	PRINT bin.codeset('vital','births','race')
+--	SELECT * FROM bin.codes('vital','births','race')
+
+
+-- 20160609 - FYI, this has yet to be tested.
+IF OBJECT_ID ( 'bin.manually_link', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.manually_link;
+GO
+CREATE PROCEDURE bin.manually_link(
+	@schema1 VARCHAR(50), @table1 VARCHAR(50), @column1 VARCHAR(50), @value1 VARCHAR(255),
+	@schema2 VARCHAR(50), @table2 VARCHAR(50), @column2 VARCHAR(50), @value2 VARCHAR(255) )
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	INSERT INTO private.identifiers ( chirp_id, source_schema,
+		source_table, source_column, source_id, match_method )
+		SELECT i.chirp_id, @schema2, @table2, @column2, @value2,
+			'Manually : '+@schema1+' '+@table1+' '+@column1+' '+@value1
+		FROM private.identifiers i
+		WHERE i.source_schema = @schema1
+			AND i.source_table  = @table1
+			AND i.source_column = @column1
+			AND i.source_id     = @value1;
+
+END	--	bin.manually_link
+GO
+
+
+
+
+
 -- ADD PARAMETERS. Year, Month,
 
 IF OBJECT_ID ( 'bin.link_screening_records_to_birth_records', 'P' ) IS NOT NULL
