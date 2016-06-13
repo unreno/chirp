@@ -1,6 +1,4 @@
 
-
-
 -- ADD PARAMETERS. Year, Month,
 
 IF OBJECT_ID ( 'bin.link_screening_records_to_birth_records', 'P' ) IS NOT NULL
