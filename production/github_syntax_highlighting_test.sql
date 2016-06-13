@@ -2,6 +2,101 @@
 
 
 
+
+
+-- syntax highlighting shows "decode" as blue. Reserved?
+
+IF OBJECT_ID ( 'bin.decode', 'FN' ) IS NOT NULL
+	DROP FUNCTION bin.decode;
+GO
+CREATE FUNCTION bin.decode( @schema VARCHAR(50), @table VARCHAR(50), @field VARCHAR(50), @code VARCHAR(255) )
+	RETURNS VARCHAR(255)
+BEGIN
+	DECLARE @value VARCHAR(255);
+	IF ISNUMERIC(@code) = 1 BEGIN
+		-- Don't put functions in WHERE clause. Performance issues.
+		-- Something about being called for every row. Unless you need that.
+		-- We don't need that here.
+		DECLARE @codeset VARCHAR(255) = bin.codeset(@schema,@table,@field);
+		SELECT @value = value FROM dbo.codes
+			WHERE _schema = @schema
+				AND _table = @table
+				AND codeset = @codeset
+				AND code = @code
+	END ELSE
+		SET @value = @code
+	RETURN ISNULL(@value,CAST(@code AS VARCHAR(255)))
+END
+GO
+
+IF OBJECT_ID ( 'bin.codeset', 'FN' ) IS NOT NULL
+	DROP FUNCTION bin.codeset;
+GO
+CREATE FUNCTION bin.codeset( @schema VARCHAR(50), @table VARCHAR(50), @field VARCHAR(255) )
+	RETURNS VARCHAR(255)
+BEGIN
+	DECLARE @codeset VARCHAR(255);
+	SELECT @codeset = codeset FROM dbo.dictionary
+		WHERE _schema = @schema
+			AND _table = @table
+			AND field = @field
+	RETURN ISNULL(@codeset, @field)
+END
+GO
+
+IF OBJECT_ID ( 'bin.label', 'FN' ) IS NOT NULL
+	DROP FUNCTION bin.label;
+GO
+CREATE FUNCTION bin.label( @schema VARCHAR(50), @table VARCHAR(50), @field VARCHAR(255) )
+	RETURNS VARCHAR(255)
+BEGIN
+	DECLARE @label VARCHAR(255);
+	SELECT @label = label FROM dbo.dictionary
+		WHERE _schema = @schema
+			AND _table = @table
+			AND field = @field
+	-- If label is blank, just return the given field
+	RETURN ISNULL(@label, @field)
+END
+GO
+
+IF OBJECT_ID ( 'bin.description', 'FN' ) IS NOT NULL
+	DROP FUNCTION bin.description;
+GO
+CREATE FUNCTION bin.description( @schema VARCHAR(50), @table VARCHAR(50), @field VARCHAR(255) )
+	RETURNS VARCHAR(255)
+BEGIN
+	DECLARE @description VARCHAR(255);
+	SELECT @description = description FROM dbo.dictionary
+		WHERE _schema = @schema
+			AND _table = @table
+			AND field = @field
+	-- If description is blank return label
+	RETURN ISNULL(@description, bin.label(@schema,@table,@field))
+END
+GO
+
+
+IF OBJECT_ID ( 'bin.codes', 'TF' ) IS NOT NULL
+	DROP FUNCTION bin.codes;
+GO
+CREATE FUNCTION bin.codes( @schema VARCHAR(50), @table VARCHAR(50), @field VARCHAR(50) )
+	RETURNS @codes TABLE ( code VARCHAR(255), value VARCHAR(255) )
+BEGIN
+	DECLARE @codeset VARCHAR(255) = bin.codeset(@schema,@table,@field);
+
+	INSERT INTO @codes
+		SELECT code, value FROM dbo.codes
+		WHERE _schema = @schema
+			AND _table = @table
+			AND codeset = @codeset
+
+	RETURN
+END
+GO
+
+
+
 --	PRINT bin.decode('vital','births','race',1)
 --	PRINT bin.label('vital','births','race')
 --	PRINT bin.description('vital','births','race')
