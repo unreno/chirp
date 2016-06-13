@@ -5,7 +5,7 @@ BEGIN
 
 	-- Char of
 
-	--The previous line mucks up syntax highlighting by
+	--The previous line mucks up syntax
 
 END	--	bin.testing
 GO
