@@ -164,7 +164,7 @@ CREATE TABLE dbo.observations (
 	CONSTRAINT observation_id PRIMARY KEY CLUSTERED (id ASC),
 
 	chirp_id        INT NOT NULL,
---	encounter_id    INT NOT NULL,
+--	encounter_id    INT NOT NULL,	-- perhaps encounter date instead? the use of a foreign key will complicate import.
 	provider_id     INT NOT NULL,
 --	location_id     INT NOT NULL,
 	concept         VARCHAR(255) NOT NULL,
