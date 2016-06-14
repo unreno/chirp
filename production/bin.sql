@@ -654,7 +654,7 @@ BEGIN
 --			('oz', bin.decode('vital','births','oz',oz), NULL),
 			('pat_complete', bin.decode('vital','births','pat_complete',pat_complete), NULL),
 			('place', bin.decode('vital','births','place',place), NULL),
-			('plurality', bin.decode('vital','births','plurality',plurality), NULL),
+			('plurality', CAST(plurality AS VARCHAR(255)), NULL),
 			('pre_begda', CAST(pre_begda AS VARCHAR(255)), NULL),
 			('pre_begin', CAST(pre_begin AS VARCHAR(255)), NULL),
 			('pre_begmo', CAST(pre_begmo AS VARCHAR(255)), NULL),
