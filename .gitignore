@@ -18,3 +18,5 @@ i2b2createdb-1707.zip
 icd10_code_lookup.csv
 ndc.zip
 ndc/
+production/content/vital/births/Format Birth-clean.sas
+production/content/vital/deaths/Format Death-clean.sas
