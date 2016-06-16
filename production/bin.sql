@@ -212,7 +212,7 @@ BEGIN
 			SELECT i.chirp_id, s.birth_date AS started_at,	-- I hope that the actual data include date lab performed
 				0 AS provider_id,
 				'health_lab' AS source_schema,
-				'newborn_screening' AS source_table,
+				'newborn_screenings' AS source_table,
 				s.id AS source_id,
 				s.*,
 				imported_at AS downloaded_at
@@ -926,7 +926,6 @@ GO
 
 
 
--- ADD PARAMETERS. Year, Month,
 
 IF OBJECT_ID ( 'bin.link_screening_records_to_birth_records', 'P' ) IS NOT NULL
 	DROP PROCEDURE bin.link_screening_records_to_birth_records;
@@ -1046,7 +1045,7 @@ BEGIN
 /*
 	-- Something in the following section of code mucks up github syntax highlighting.
 	-- Using CHAR(92) instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
-	-- DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
+	-- DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1,
 	--  ISNULL(NULLIF(CHARINDEX('\', @rf )-1,-1),LEN(@rf))))
 	-- '  The previous line mucks up syntax highlighting by escaping the quote, so added one here.
 */
@@ -1082,7 +1081,7 @@ BEGIN
 /*
 	-- Something in the following section of code mucks up github syntax highlighting.
 	-- Using CHAR(92) instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
-	-- DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
+	-- DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1,
 	--  ISNULL(NULLIF(CHARINDEX('\', @rf )-1,-1),LEN(@rf))))
 	-- '  The previous line mucks up syntax highlighting by escaping the quote, so added one here.
 */
@@ -1120,7 +1119,7 @@ BEGIN
 /*
 	-- Something in the following section of code mucks up github syntax highlighting.
 	-- Using CHAR(92) instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
-	-- DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1, 
+	-- DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1,
 	--  ISNULL(NULLIF(CHARINDEX('\', @rf )-1,-1),LEN(@rf))))
 	-- '  The previous line mucks up syntax highlighting by escaping the quote, so added one here.
 */
@@ -1143,5 +1142,43 @@ BEGIN
 		DROP CONSTRAINT temp_source_filename;
 
 END	--	bin.import_newborn_screening_records_2016
+GO
+
+
+
+
+IF OBJECT_ID ( 'bin.link_screening_records_to_screening_records', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.link_screening_records_to_screening_records;
+GO
+CREATE PROCEDURE bin.link_screening_records_to_screening_records
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	SELECT i1.chirp_id,
+		s1.mom_birth_date, s2.mom_birth_date, s1.last_name, s2.last_name,
+		s1.first_name, s2.first_name, s1.mom_surname, s2.mom_surname,
+		s1.address, s2.address, s1.zip_code, s2.zip_code
+	FROM private.identifiers i1
+
+	JOIN health_lab.newborn_screenings s1
+		ON i1.source_id = s1.accession_kit_number
+	JOIN health_lab.newborn_screenings s2
+		ON  s1.patient_id  = s2.patient_id
+		AND s1.birth_date  = s2.birth_date
+		AND s1.mom_surname = s2.mom_surname
+	LEFT JOIN private.identifiers i2
+		ON  i2.source_id     = s2.accession_kit_number
+		AND i2.source_schema = 'health_lab'
+		AND i2.source_table  = 'newborn_screenings'
+		AND i2.source_column = 'accession_kit_number'
+
+	WHERE i1.source_schema = 'health_lab'
+		AND i1.source_table  = 'newborn_screenings'
+		AND i1.source_column = 'accession_kit_number'
+		AND i2.chirp_id IS NULL
+	ORDER BY i1.chirp_id
+
+END	--	bin.link_screening_records_to_screening_records
 GO
 
