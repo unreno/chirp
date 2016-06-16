@@ -1155,6 +1155,8 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+	-- do something similar to linking births to screenings with scoring and ranking
+
 	SELECT i1.chirp_id,
 		s1.mom_birth_date, s2.mom_birth_date, s1.last_name, s2.last_name,
 		s1.first_name, s2.first_name, s1.mom_surname, s2.mom_surname,
