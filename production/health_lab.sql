@@ -45,7 +45,7 @@ CREATE TABLE health_lab.newborn_screenings (
 	birth_weight VARCHAR(10),	-- Weight Birth (looks like grams)	-- 2/3 NULL in initial set
 
 	source_filename VARCHAR(255),
-	source_record_number INT,
+--	source_record_number INT,	-- Sadly, BULK INSERT does NOT preserve file order so this is moot.
 );
 GO
 
@@ -80,7 +80,7 @@ CREATE TABLE health_lab.newborn_screenings_buffer (
 	birth_weight VARCHAR(10),	-- Weight Birth (looks like grams)	-- 2/3 NULL in initial set
 
 	source_filename VARCHAR(255),
-	source_record_number INT IDENTITY(1,1),	-- Sadly, BULK INSERT does NOT preserve file order so this is moot.
+--	source_record_number INT IDENTITY(1,1),	-- Sadly, BULK INSERT does NOT preserve file order so this is moot.
 );
 GO
 

@@ -398,7 +398,7 @@ CREATE TABLE vital.births (
 	death_date INT,
 	birth_rco INT,
 	source_filename VARCHAR(255),
-	source_record_number INT,
+--	source_record_number INT,	-- Sadly, BULK INSERT does NOT preserve file order so this is moot.
 --	imported_at DATETIME
 --		CONSTRAINT vital_births_imported_at_default DEFAULT CURRENT_TIMESTAMP NOT NULL,
 --	imported_to_dw BIT
@@ -803,7 +803,7 @@ CREATE TABLE vital.births_buffer (
 	death_date INT,
 	birth_rco INT,
 	source_filename VARCHAR(255),
-	source_record_number INT IDENTITY(1,1),	-- Sadly, BULK INSERT does NOT preserve file order so this is moot.
+--	source_record_number INT IDENTITY(1,1),	-- Sadly, BULK INSERT does NOT preserve file order so this is moot.
 --	imported_at DATETIME
 --		CONSTRAINT vital_births_buffer_imported_at_default DEFAULT CURRENT_TIMESTAMP NOT NULL,
 --	imported_to_dw BIT
