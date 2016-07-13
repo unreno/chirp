@@ -202,6 +202,19 @@ BEGIN
 	-- For the moment, everything added here will also be in triplicate.
 
 
+	-- To remove this triplication, we could add something like
+	--
+	-- 	GROUP BY chirp_id, provider_id, started_at, cav.concept, cav.value, cav.units, source_schema, source_table
+	--
+	--	to the end of the SELECT statement and then change the selected columns to
+	--
+	--	, MIN(source_id) AS source_id, MIN(downloaded_at) AS downloaded_at
+	--
+	--	to get the earliest encounter with this change.
+	--	Of course, this would only help in the each particular import.
+
+
+
 
 	INSERT INTO dbo.observations
 		(chirp_id, provider_id, started_at,
@@ -209,7 +222,8 @@ BEGIN
 		SELECT chirp_id, provider_id, started_at,
 			cav.concept, cav.value, cav.units, source_schema, source_table, source_id, downloaded_at
 		FROM (
-			SELECT i.chirp_id, s.birth_date AS started_at,	-- I hope that the actual data include date lab performed
+			SELECT i.chirp_id,
+				s.birth_date AS started_at,	-- I hope that the actual data include date lab performed
 				0 AS provider_id,
 				'health_lab' AS source_schema,
 				'newborn_screenings' AS source_table,
