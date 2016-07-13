@@ -212,6 +212,7 @@ BEGIN
 	--
 	--	to get the earliest encounter with this change.
 	--	Of course, this would only help in the each particular import.
+	--	Or perhaps FIRST() if ORDERed BY
 
 
 
