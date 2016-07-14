@@ -1,4 +1,5 @@
 10.0  
-2  
+3  
 1  SQLCHAR  0  4  "|"      1  cert_yr         SQL_Latin1_General_Cp437_BIN  
 2  SQLCHAR  0  10 "|"      2  cert_num        SQL_Latin1_General_Cp437_BIN  
+3  SQLCHAR  0  10000 "\n"      3  ignore        SQL_Latin1_General_Cp437_BIN  
