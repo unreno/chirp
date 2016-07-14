@@ -56,8 +56,8 @@ CREATE TABLE vital.births (
 	mres_city_fips INT,
 	mres_cnty_fips INT,
 	mom_edu INT,
-	mom_occ INT,
-	mom_occup1 INT,
+	mom_occ INT,		-- occupation
+	mom_occup1 INT,	-- industry
 	mom_bus INT,
 	mom_busines1 INT,
 	mom_ssn VARCHAR(9),
@@ -70,8 +70,8 @@ CREATE TABLE vital.births (
 	fa_age1 INT,
 	fa_bst INT,
 	fa_edu INT,
-	fa_occ INT,
-	fa_occup1 INT,
+	fa_occ INT,	--	occupation
+	fa_occup1 INT, --industry
 	fa_bus INT,
 	fa_busines1 INT,
 	fa_ssn VARCHAR(9),
