@@ -12,17 +12,17 @@ GO
 IF OBJECT_ID('vital.births', 'U') IS NOT NULL
 	DROP TABLE vital.births;
 CREATE TABLE vital.births (
-	id INT IDENTITY(1,1),
+	id INT IDENTITY(1,1),		--	1
 	CONSTRAINT vital_births_id PRIMARY KEY CLUSTERED (id ASC),
-	cert_yr INT,
-	cert_num INT,
+	cert_yr INT,	-- 2
+	cert_num INT,	--3
 	void INT,
 	name_sur VARCHAR(50),
 	name_sux VARCHAR(50),
 	name_fir VARCHAR(50),
 	name_mid VARCHAR(50),
 	sex INT,
-	bth_date DATE,
+	bth_date DATE,	--10
 	birth_mo INT,
 	birth_da INT,
 	birth_yr INT,
@@ -32,7 +32,7 @@ CREATE TABLE vital.births (
 	birth_st INT,
 	birth_ci INT,
 	birth_co INT,
-	attendant INT,
+	attendant INT,	--20
 	mom_snam VARCHAR(50),
 	mom_xnam VARCHAR(50),
 	mom_fnam VARCHAR(50),
@@ -42,7 +42,7 @@ CREATE TABLE vital.births (
 	mom_age INT,
 	mom_age1 INT,
 	mom_bst INT,
-	mom_bthcntry_fips VARCHAR(2),
+	mom_bthcntry_fips VARCHAR(2),	--30
 	mom_bthstate_fips VARCHAR(2),
 	mom_rst INT,
 	mom_rci INT,
@@ -52,7 +52,7 @@ CREATE TABLE vital.births (
 	mom_rzip INT,
 	incity INT,
 	mres_cntry_fips VARCHAR(2),
-	mres_st_fips VARCHAR(2),
+	mres_st_fips VARCHAR(2),	--40
 	mres_city_fips INT,
 	mres_cnty_fips INT,
 	mom_edu INT,
@@ -62,7 +62,7 @@ CREATE TABLE vital.births (
 	mom_busines1 INT,
 	mom_ssn VARCHAR(9),
 	fa_sname VARCHAR(50),
-	fa_xname VARCHAR(50),
+	fa_xname VARCHAR(50),	--50
 	fa_fname VARCHAR(50),
 	fa_mname VARCHAR(50),
 	fa_dob DATE,
@@ -72,7 +72,7 @@ CREATE TABLE vital.births (
 	fa_edu INT,
 	fa_occ INT,	--	occupation
 	fa_occup1 INT, --industry
-	fa_bus INT,
+	fa_bus INT,	--60
 	fa_busines1 INT,
 	fa_ssn VARCHAR(9),
 	mom_everm INT,
@@ -82,7 +82,7 @@ CREATE TABLE vital.births (
 	pat_complete INT,
 	lm_date DATE,
 	lm_mo INT,
-	lm_da INT,
+	lm_da INT,	--70
 	lm_yr INT,
 	prenatal INT,
 	pre_begin DATE,
@@ -92,7 +92,7 @@ CREATE TABLE vital.births (
 	pre_end DATE,
 	pre_endmo INT,
 	pre_endda INT,
-	pre_endyr INT,
+	pre_endyr INT,	--80
 	tot_visits INT,
 	gest_est INT,
 	gest_days INT,
@@ -102,7 +102,7 @@ CREATE TABLE vital.births (
 	pv_trims_cal INT,
 	mom_htft INT,
 	mom_htinch INT,
-	prepreg_wt INT,
+	prepreg_wt INT,	--90
 	del_wt INT,
 	wt_gain INT,
 	prv_livebth INT,
@@ -112,7 +112,7 @@ CREATE TABLE vital.births (
 	prv_term INT,
 	term_dte VARCHAR(15),	--badly coded dates 112003
 	tobacco INT,
-	cig_pck INT,
+	cig_pck INT,		--	100
 	prepreg_cig INT,
 	prepreg_pck INT,
 	first_cig INT,
@@ -122,7 +122,7 @@ CREATE TABLE vital.births (
 	last_cig INT,
 	last_pck INT,
 	alcohol INT,
-	drink_wk INT,
+	drink_wk INT,	--110
 	drug_use INT,
 	du_prscr INT,
 	du_otc INT,
@@ -132,7 +132,7 @@ CREATE TABLE vital.births (
 	mrf_prediab INT,
 	mrf_gestdiab INT,
 	mrf_hypert INT,
-	mrf_hypertchr INT,
+	mrf_hypertchr INT,	--120
 	mrf_hypergest INT,
 	mrf_eclampsia INT,
 	mrf_prevpreterm INT,
@@ -142,7 +142,7 @@ CREATE TABLE vital.births (
 	mrf_assistrep INT,
 	mrf_prevces INT,
 	mrf_prevcesnum INT,
-	mrf_anemia INT,
+	mrf_anemia INT,	--130
 	mrf_cardiac INT,
 	mrf_lungdis INT,
 	mrf_hydra INT,
@@ -152,7 +152,7 @@ CREATE TABLE vital.births (
 	mrf_renaldis INT,
 	mrf_rhsensit INT,
 	mrf_utbleed INT,
-	mrf_oth INT,
+	mrf_oth INT,	--140
 	mrf_othlit VARCHAR(50),
 	inf_none INT,
 	inf_gonor INT,
@@ -162,7 +162,7 @@ CREATE TABLE vital.births (
 	inf_hepc INT,
 	inf_hpv INT,
 	inf_hivaids INT,
-	inf_cmv INT,
+	inf_cmv INT,	--150
 	inf_rubella INT,
 	inf_toxo INT,
 	inf_genherpes INT,
@@ -172,7 +172,7 @@ CREATE TABLE vital.births (
 	ob_none INT,
 	ob_cercl INT,
 	ob_toco INT,
-	ob_amnio INT,
+	ob_amnio INT,	--160
 	ob_fetalmon INT,
 	ob_cephsucess INT,
 	ob_cephfail INT,
@@ -182,7 +182,7 @@ CREATE TABLE vital.births (
 	ol_none INT,
 	ol_prerom INT,
 	ol_preciplbr INT,
-	ol_prolonglbr INT,
+	ol_prolonglbr INT,	--170
 	cld_none INT,
 	cld_induc INT,
 	cld_aug INT,
@@ -192,7 +192,7 @@ CREATE TABLE vital.births (
 	cld_chorio INT,
 	cld_mecon INT,
 	cld_fetalintol INT,
-	cld_epi INT,
+	cld_epi INT,	--180
 	cld_febrile INT,
 	cld_abrplac INT,
 	cld_placprev INT,
@@ -202,7 +202,7 @@ CREATE TABLE vital.births (
 	cld_cephpelv INT,
 	cld_cordpro INT,
 	cld_anesth INT,
-	cld_oth INT,
+	cld_oth INT,	--190
 	cld_othlit VARCHAR(50),
 	md_forcepsattpt INT,
 	md_vaccumattpt INT,
@@ -212,7 +212,7 @@ CREATE TABLE vital.births (
 	mm_none INT,
 	mm_trnsfusion INT,
 	mm_perilac INT,
-	mm_ruputerus INT,
+	mm_ruputerus INT,	--200
 	mm_hyster INT,
 	mm_icu INT,
 	mm_unploper INT,
@@ -222,7 +222,7 @@ CREATE TABLE vital.births (
 	gest_wks INT,
 	gest_grp INT,
 	bthwt_unit INT,
-	grams INT,
+	grams INT,	--210
 	lbs INT,
 	oz INT,
 	bwt_grp INT,
@@ -232,7 +232,7 @@ CREATE TABLE vital.births (
 	match_certnum INT,
 	ac_none INT,
 	ac_ventless INT,
-	ac_ventmore INT,
+	ac_ventmore INT,	--220
 	ac_nicu INT,
 	ac_surf INT,
 	ac_antisepis INT,
@@ -242,7 +242,7 @@ CREATE TABLE vital.births (
 	ac_hyaline INT,
 	ac_mecon INT,
 	ac_bthinjury INT,
-	ac_oth INT,
+	ac_oth INT,	--230
 	ac_othlit VARCHAR(50),
 	acn_none INT,
 	acn_anencep INT,
@@ -252,7 +252,7 @@ CREATE TABLE vital.births (
 	acn_nervouslit VARCHAR(50),
 	acn_hrtdis INT,
 	acn_hrtmal INT,
-	acn_circ INT,
+	acn_circ INT,	--240
 	acn_cirlit VARCHAR(50),
 	acn_omphal INT,
 	acn_gastrosch INT,
@@ -262,7 +262,7 @@ CREATE TABLE vital.births (
 	acn_gastrolit VARCHAR(50),
 	acn_limbred INT,
 	acn_cleftlip INT,
-	acn_cleftpalate INT,
+	acn_cleftpalate INT,	--250
 	acn_polydact INT,
 	acn_clubft INT,
 	acn_diaphhern INT,
@@ -272,7 +272,7 @@ CREATE TABLE vital.births (
 	acn_renal INT,
 	acn_hypos INT,
 	acn_urogen INT,
-	acn_urogenlit VARCHAR(50),
+	acn_urogenlit VARCHAR(50),	--260
 	acn_downs INT,
 	acn_cdit INT,
 	acn_chromoth INT,
@@ -282,7 +282,7 @@ CREATE TABLE vital.births (
 	certifier INT,
 	cer_date DATE,
 	reg_date DATE,
-	cer_yr INT,
+	cer_yr INT,	--270
 	cer_mo INT,
 	cer_da INT,
 	reg_mo INT,
@@ -292,7 +292,7 @@ CREATE TABLE vital.births (
 	source_pay INT,
 	breastfeeding INT,
 	inf_liv INT,
-	inf_trans INT,
+	inf_trans INT,	--280
 	mom_trans INT,
 	ssn_request INT,
 	ssn_child VARCHAR(9),
@@ -302,7 +302,7 @@ CREATE TABLE vital.births (
 	mom_his INT,
 	mom_mex INT,
 	mom_pr INT,
-	mom_cu INT,
+	mom_cu INT,	--290
 	mom_ethoth INT,
 	mom_ethothlit VARCHAR(50),
 	mom_white INT,
@@ -312,7 +312,7 @@ CREATE TABLE vital.births (
 	mom_asian INT,
 	mom_asianoth INT,
 	mom_asianlit VARCHAR(50),
-	mom_chinese INT,
+	mom_chinese INT,	--300
 	mom_filipino INT,
 	mom_japanese INT,
 	mom_korean INT,
@@ -322,7 +322,7 @@ CREATE TABLE vital.births (
 	mom_samoan INT,
 	mom_pacisl INT,
 	mom_pacisllit VARCHAR(50),
-	mom_raceoth INT,
+	mom_raceoth INT,	--310
 	mom_raceothlit VARCHAR(50),
 	mom_raceunk INT,
 	mom_raceref INT,
@@ -332,7 +332,7 @@ CREATE TABLE vital.births (
 	mom_race4 INT,
 	mom_race5 INT,
 	mom_race6 INT,
-	mom_race7 INT,
+	mom_race7 INT,	--320
 	mom_race8 INT,
 	mom_race16 INT,
 	filler7 INT,
@@ -342,7 +342,7 @@ CREATE TABLE vital.births (
 	filler9 INT,
 	mom_race22 INT,
 	filler10 INT,
-	momhisp_nchs INT,
+	momhisp_nchs INT,	--330
 	mom_ethnic_nchs INT,
 	momrace_nchsbrg INT,
 	momrace_ethnchs INT,
@@ -352,7 +352,7 @@ CREATE TABLE vital.births (
 	fa_cu INT,
 	fa_ethoth INT,
 	fa_ethothlit VARCHAR(50),
-	fa_white INT,
+	fa_white INT,	--340
 	fa_black INT,
 	fa_amind INT,
 	fa_amindlit VARCHAR(50),
@@ -362,7 +362,7 @@ CREATE TABLE vital.births (
 	fa_chinese INT,
 	fa_filipino INT,
 	fa_japanese INT,
-	fa_korean INT,
+	fa_korean INT,	--350
 	fa_vietnamese INT,
 	fa_hawaiian INT,
 	fa_guam INT,
@@ -372,7 +372,7 @@ CREATE TABLE vital.births (
 	fa_raceoth INT,
 	fa_raceothlit VARCHAR(50),
 	fa_raceunk INT,
-	fa_raceref INT,
+	fa_raceref INT,	--360
 	fa_race1 INT,
 	fa_race2 INT,
 	fa_race3 INT,
@@ -382,7 +382,7 @@ CREATE TABLE vital.births (
 	fa_race7 INT,
 	fa_race8 INT,
 	fa_race16 INT,
-	filler14 INT,
+	filler14 INT,	--370
 	fa_race18 INT,
 	filler15 INT,
 	fa_race20 INT,
@@ -392,7 +392,7 @@ CREATE TABLE vital.births (
 	fahisp_nchs INT,
 	fa_ethnic_nchs INT,
 	farace_nchsbrg INT,
-	farace_ethnchs INT,
+	farace_ethnchs INT,	--380
 	death_match INT,
 	death_cert INT,
 	death_date INT,
