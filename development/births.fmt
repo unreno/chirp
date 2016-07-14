@@ -1,0 +1,4 @@
+10.0  
+2  
+1  SQLCHAR  0  4  "|"      1  cert_yr         SQL_Latin1_General_Cp437_BIN  
+2  SQLCHAR  0  10 "|"      2  cert_num        SQL_Latin1_General_Cp437_BIN  
