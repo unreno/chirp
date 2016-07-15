@@ -9,9 +9,24 @@ SELECT a.* FROM OPENROWSET(
 
 --	I don't understand why I need the Server Column Order AND the Server Column Name in the format file?
 
--- 	The column order seems to matter if using BULK INSERT, which is really stupid.
 
---	When using OPENROWSET, the name is likely more important
+-- 	The column order seems to matter if using BULK INSERT, which is really stupid.
+--	The name doesn't even have to be correct. Just the column order. Again. STUPID!
+
+
+--	When using OPENROWSET, the name is likely more important.
+--	If "SELECT *" is used, they are in the order specified, gaps ignored and named as given.
+--	If using "INSERT INTO t1 SELECT * FROM t2", it will make life nice if the columns are in the same order.
+--	Otherwise, ALL of the columns will need to be specified in the SELECT and/or the INSERT.
+--	Make the format table order match the destination table order.
+--	Not sure what to do about gaps.
+--	https://msdn.microsoft.com/en-us/library/ms179250.aspx
+--	For gaps, just skip a number.  Or use a bunch of 0's.
+
+
+--	INSERT INTO MyTable SELECT a.* FROM  
+--	OPENROWSET (BULK N'D:\data.csv', FORMATFILE = 'D:\format_no_collation.txt') AS a; 
+
 
 --	Seems that the Server Column Order is more important than the Name
 --	Name of the column copied from the SQL Server table. The actual name of the field is not required, but the field in the format file must not be blank.
