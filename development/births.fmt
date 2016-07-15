@@ -1,14 +1,12 @@
 10.0
-12
+11
 1   SQLCHAR  0   4    "|"     1  cert_yr          SQL_Latin1_General_Cp437_BIN
 2   SQLCHAR  0  10    "|"     2  cert_num         SQL_Latin1_General_Cp437_BIN
 3   SQLCHAR  0  10    "|"     0  void             SQL_Latin1_General_Cp437_BIN
 4   SQLCHAR  0  50    "|"     5  name_sur         SQL_Latin1_General_Cp437_BIN
-5   SQLCHAR  0  50    "|"     0  name_sux_SKIPPED SQL_Latin1_General_Cp437_BIN
+5   SQLCHAR  0  50    "|"     6  name_sux         SQL_Latin1_General_Cp437_BIN
 6   SQLCHAR  0  50    "|"     3  name_fir         SQL_Latin1_General_Cp437_BIN
 7   SQLCHAR  0  50    "|"     4  name_mid         SQL_Latin1_General_Cp437_BIN
-8   SQLCHAR  0  10    "|"     6  sex              SQL_Latin1_General_Cp437_BIN
-9   SQLCHAR  0   0    ""      0  fake_skipped     SQL_Latin1_General_Cp437_BIN
-10  SQLCHAR  0  10    "|"     7  bth_date         SQL_Latin1_General_Cp437_BIN
-11  SQLCHAR  0   0    ""      8  additional_NOPE  SQL_Latin1_General_Cp437_BIN
-12  SQLCHAR  0  10000 "\n"    9  ignore           SQL_Latin1_General_Cp437_BIN
+8   SQLCHAR  0  10    "|"     7  sex              SQL_Latin1_General_Cp437_BIN
+10  SQLCHAR  0  10    "|"     8  bth_date         SQL_Latin1_General_Cp437_BIN
+11  SQLCHAR  0  10000 "\n"    9  ignore           SQL_Latin1_General_Cp437_BIN

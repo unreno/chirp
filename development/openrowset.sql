@@ -1,22 +1,47 @@
 
-
+DROP TABLE temp;
 CREATE TABLE temp (
 	cert_yr INT,
 	cert_num INT,
+	name_sur VARCHAR(50),
+	name_sux VARCHAR(50),
+	other1 VARCHAR(50),
 	name_fir VARCHAR(50),
 	name_mid VARCHAR(50),
-	name_sur VARCHAR(50),
 	sex INT,
 	bth_date DATE,
+	other2 VARCHAR(50),
 	blank VARCHAR(50),
 	ignore VARCHAR(MAX)
 );
+GO
 
-SELECT a.* FROM OPENROWSET( 
+DROP VIEW temp_view;
+CREATE VIEW temp_view AS SELECT
+	cert_yr,
+	cert_num,
+	name_fir,
+	name_mid,
+	name_sur,
+	name_sux,
+	sex,
+	bth_date,
+	ignore
+);
+GO
+
+
+INSERT INTO temp
+SELECT a.* 
+FROM OPENROWSET( 
 	BULK 'C:\Users\gwendt\Desktop\Data\NSBR\Washoe_2016a.csv.psv',
 	FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\development\births.fmt',
 	FIRSTROW = 2
-) AS a
+) AS a;
+
+SELECT * FROM temp;
+
+
 
 
 --	I don't understand why I need the Server Column Order AND the Server Column Name in the format file?
@@ -35,7 +60,16 @@ SELECT a.* FROM OPENROWSET(
 --	https://msdn.microsoft.com/en-us/library/ms179250.aspx
 --	For gaps, just skip a number.  Or use a bunch of 0's.
 
---	DO NOT skip a server order numbers
+--	DO NOT skip a server order numbers!!!
+
+--	You can skip columns in the source file, BUT NOT THE TARGET TABLE.
+
+
+--	Likely a good idea to create a VIEW to match the FORMAT FILE.
+--	The combination should allow skipping and reordering columns.
+--	Make the format file and VIEW match the SOURCE FILE order.
+--	Only fields in FILE to be in VIEW.
+
 
 
 --	Really not sure what to do if target table has a column that the source file
