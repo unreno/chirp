@@ -66,6 +66,10 @@ SELECT * FROM temp;
 
 --	You can skip columns in the source file, BUT NOT THE TARGET TABLE.
 
+--	This skipping columns doesn't seem to work when
+--	INSERT TO SELECT * FROM OPENROWSET();
+--	Always get ...
+--	Column name or number of supplied values does not match table definition.
 
 
 
