@@ -2,7 +2,7 @@
 10
 1   SQLCHAR  0  4     "|"     1  cert_yr     SQL_Latin1_General_Cp437_BIN
 2   SQLCHAR  0  10    "|"     2  cert_num    SQL_Latin1_General_Cp437_BIN
-3   SQLCHAR  0  10    "|"     3  void        SQL_Latin1_General_Cp437_BIN
+3   SQLCHAR  0  10    "|"     0  void        SQL_Latin1_General_Cp437_BIN
 4   SQLCHAR  0  50    "|"     4  name_sur    SQL_Latin1_General_Cp437_BIN
 5   SQLCHAR  0  50    "|"     5  name_sux    SQL_Latin1_General_Cp437_BIN
 6   SQLCHAR  0  50    "|"     6  name_fir    SQL_Latin1_General_Cp437_BIN
