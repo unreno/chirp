@@ -1,0 +1,9 @@
+10.0
+7
+1   SQLCHAR  0   4    "|"     1  cert_yr          SQL_Latin1_General_Cp437_BIN
+2   SQLCHAR  0  10    "|"     2  cert_num         SQL_Latin1_General_Cp437_BIN
+3   SQLCHAR  0  50    "|"     3  name_sur         SQL_Latin1_General_Cp437_BIN
+4   SQLCHAR  0  50    "|"     4  name_sux         SQL_Latin1_General_Cp437_BIN
+5   SQLCHAR  0  50    "|"     6  name_fir         SQL_Latin1_General_Cp437_BIN
+6   SQLCHAR  0  50    "|"     7  name_mid         SQL_Latin1_General_Cp437_BIN
+7   SQLCHAR  0  10000 "\n"   12  ignore           SQL_Latin1_General_Cp437_BIN

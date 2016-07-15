@@ -37,7 +37,7 @@ INSERT INTO temp_view
 SELECT a.* 
 FROM OPENROWSET( 
 	BULK 'C:\Users\gwendt\Desktop\Data\NSBR\Washoe_2016a.csv.psv',
-	FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\development\births.fmt',
+	FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\development\births_view.fmt',
 	FIRSTROW = 2
 ) AS a;
 
