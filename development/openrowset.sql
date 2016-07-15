@@ -9,6 +9,10 @@ SELECT a.* FROM OPENROWSET(
 
 --	I don't understand why I need the Server Column Order AND the Server Column Name in the format file?
 
+-- 	The column order seems to matter if using BULK INSERT, which is really stupid.
+
+--	When using OPENROWSET, the name is likely more important
+
 --	Seems that the Server Column Order is more important than the Name
 --	Name of the column copied from the SQL Server table. The actual name of the field is not required, but the field in the format file must not be blank.
 
