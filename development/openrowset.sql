@@ -1,5 +1,6 @@
 
 DROP TABLE temp;
+GO
 CREATE TABLE temp (
 	cert_yr INT,
 	cert_num INT,
@@ -17,6 +18,7 @@ CREATE TABLE temp (
 GO
 
 DROP VIEW temp_view;
+GO
 CREATE VIEW temp_view AS SELECT
 	cert_yr,
 	cert_num,
@@ -27,11 +29,11 @@ CREATE VIEW temp_view AS SELECT
 	sex,
 	bth_date,
 	ignore
-);
+FROM temp;
 GO
 
 
-INSERT INTO temp
+INSERT INTO temp_view
 SELECT a.* 
 FROM OPENROWSET( 
 	BULK 'C:\Users\gwendt\Desktop\Data\NSBR\Washoe_2016a.csv.psv',
@@ -65,10 +67,16 @@ SELECT * FROM temp;
 --	You can skip columns in the source file, BUT NOT THE TARGET TABLE.
 
 
+
+
+-- *************
+--
 --	Likely a good idea to create a VIEW to match the FORMAT FILE.
 --	The combination should allow skipping and reordering columns.
 --	Make the format file and VIEW match the SOURCE FILE order.
 --	Only fields in FILE to be in VIEW.
+--
+-- *************
 
 
 
