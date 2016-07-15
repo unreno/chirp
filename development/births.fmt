@@ -10,4 +10,5 @@
 8   SQLCHAR  0  10    "|"     8  sex         SQL_Latin1_General_Cp437_BIN
 9   SQLCHAR  0   0    ""      0  skipped     SQL_Latin1_General_Cp437_BIN
 10  SQLCHAR  0  10    "|"    10  bth_date    SQL_Latin1_General_Cp437_BIN
-11  SQLCHAR  0  10000 "\n"   11  ignore      SQL_Latin1_General_Cp437_BIN
+11  SQLCHAR  0   0    ""     11  additional  SQL_Latin1_General_Cp437_BIN
+12  SQLCHAR  0  10000 "\n"   12  ignore      SQL_Latin1_General_Cp437_BIN
