@@ -23,6 +23,10 @@ SELECT a.* FROM OPENROWSET(
 --	https://msdn.microsoft.com/en-us/library/ms179250.aspx
 --	For gaps, just skip a number.  Or use a bunch of 0's.
 
+--	Really not sure what to do if target table has a column that the source file
+--	and therefore format file do not have. Think this will fail.
+--	The fields after the missing column will be offset by 1 then dirty data.
+
 
 --	INSERT INTO MyTable SELECT a.* FROM  
 --	OPENROWSET (BULK N'D:\data.csv', FORMATFILE = 'D:\format_no_collation.txt') AS a; 
