@@ -1,105 +1,112 @@
 10.0
 341
-1  SQLCHAR  0  10  ""      3  cert_num         SQL_Latin1_General_Cp437_BIN
-2  SQLCHAR  0  1   ""      4  void             SQL_Latin1_General_Cp437_BIN
-3  SQLCHAR  0  21  ""      5  name_sur         SQL_Latin1_General_Cp437_BIN
-4  SQLCHAR  0  4   ""      6  name_sux         SQL_Latin1_General_Cp437_BIN
-5  SQLCHAR  0  16  ""      7  name_fir         SQL_Latin1_General_Cp437_BIN
-6  SQLCHAR  0  16  ""      8  name_mid         SQL_Latin1_General_Cp437_BIN
-7  SQLCHAR  0  1   ""      9  sex              SQL_Latin1_General_Cp437_BIN
-8  SQLCHAR  0  8   ""     10  bth_date         SQL_Latin1_General_Cp437_BIN
-9  SQLCHAR  0  4   ""     14  bth_time         SQL_Latin1_General_Cp437_BIN
-10 SQLCHAR  0  4   ""     15  place            SQL_Latin1_General_Cp437_BIN
-11 SQLCHAR  0  4   ""     16  facility            SQL_Latin1_General_Cp437_BIN
-12 SQLCHAR  0  2   ""     17  birth_st            SQL_Latin1_General_Cp437_BIN
-13 SQLCHAR  0  3   ""     18  birth_ci            SQL_Latin1_General_Cp437_BIN
-14 SQLCHAR  0  2   ""     19  birth_co            SQL_Latin1_General_Cp437_BIN
-15 SQLCHAR  0  1   ""     20  attendant            SQL_Latin1_General_Cp437_BIN
-16 SQLCHAR  0  21  ""     21  mom_snam            SQL_Latin1_General_Cp437_BIN
-17 SQLCHAR  0  4   ""     22  mom_xnam            SQL_Latin1_General_Cp437_BIN
-18 SQLCHAR  0  16  ""     23  mom_fnam            SQL_Latin1_General_Cp437_BIN
-19 SQLCHAR  0  16  ""     24  mom_mnam            SQL_Latin1_General_Cp437_BIN
-20 SQLCHAR  0  21  ""     25  maiden_n            SQL_Latin1_General_Cp437_BIN
-21 SQLCHAR  0  4   ""      0  maiden_suffix_unused            SQL_Latin1_General_Cp437_BIN
-22 SQLCHAR  0  8   ""     26  mom_dob            SQL_Latin1_General_Cp437_BIN
-23 SQLCHAR  0  2   ""     27  mom_age            SQL_Latin1_General_Cp437_BIN
-24 SQLCHAR  0  2   ""     30  mom_bthcntry_fips_WRONG            SQL_Latin1_General_Cp437_BIN
-25 SQLCHAR  0  2   ""     31  mom_bthstate_fips_WRONG            SQL_Latin1_General_Cp437_BIN
-26 SQLCHAR  0  2   ""     32  mom_rst            SQL_Latin1_General_Cp437_BIN
-27 SQLCHAR  0  3   ""     33  mom_rci            SQL_Latin1_General_Cp437_BIN
-28 SQLCHAR  0  2   ""     34  mom_rco            SQL_Latin1_General_Cp437_BIN
-29 SQLCHAR  0  40  ""     35  mom_address            SQL_Latin1_General_Cp437_BIN
-30 SQLCHAR  0  10  ""     36  mom_apt            SQL_Latin1_General_Cp437_BIN
-31 SQLCHAR  0  9   ""     37  mom_rzip            SQL_Latin1_General_Cp437_BIN
-32 SQLCHAR  0  1   ""     38  incity            SQL_Latin1_General_Cp437_BIN
-33 SQLCHAR  0  1   ""     43  mom_edu            SQL_Latin1_General_Cp437_BIN
-34 SQLCHAR  0  3   ""     44  mom_occ            SQL_Latin1_General_Cp437_BIN
-35 SQLCHAR  0  3   ""     45  mom_occup1            SQL_Latin1_General_Cp437_BIN
-36 SQLCHAR  0  9   ""     48  mom_ssn            SQL_Latin1_General_Cp437_BIN
-37 SQLCHAR  0  21  ""     49  fa_sname            SQL_Latin1_General_Cp437_BIN
-38 SQLCHAR  0  4   ""     50  fa_xname            SQL_Latin1_General_Cp437_BIN
-39 SQLCHAR  0  16  ""     51  fa_fname            SQL_Latin1_General_Cp437_BIN
-40 SQLCHAR  0  16  ""     52  fa_mname            SQL_Latin1_General_Cp437_BIN
-41 SQLCHAR  0  8   ""     53  fa_dob            SQL_Latin1_General_Cp437_BIN
-42 SQLCHAR  0  2   ""     54  fa_age            SQL_Latin1_General_Cp437_BIN
-43 SQLCHAR  0  2   ""  FBIR_COUNTRY_COUNTRY_CODE_NV,Father's State of Birth
-44 SQLCHAR  0  2   ""  FBIR_STATE_STATE_CODE_NV,Father's Country of Birth
-45 SQLCHAR  0  1   ""     57 fa_edu
-46 SQLCHAR  0  3   ""     58 fa_occ
-47 SQLCHAR  0  3   ""     59 fa_occup1
-48 SQLCHAR  0  9   ""     62 fa_ssn
-49 SQLCHAR  0  1   ""     63 mom_everm
-50 SQLCHAR  0  1   ""     64 married_betw
-51 SQLCHAR  0  1   ""     65 fa_husb
-52 SQLCHAR  0  1   ""     66 fa_signpat
-53 SQLCHAR  0  1   ""    281 mom_trans
-54 SQLCHAR  0  8   ""     68 lm_date
-55 SQLCHAR  0  1   ""     72 prenatal
-56 SQLCHAR  0  8   ""     73 pre_begin
-57 SQLCHAR  0  8   ""     77 pre_end
-58 SQLCHAR  0  2   ""     81 tot_visits
-59 SQLCHAR  0  1   ""     88 mom_htft
-60 SQLCHAR  0  2   ""     89 mom_htinch
-61 SQLCHAR  0  3   ""     90 prepreg_wt
-62 SQLCHAR  0  3   ""     91 del_wt
-63 SQLCHAR  0  2   ""     93 prv_livebth
-64 SQLCHAR  0  6   ""     94 prv_livebthdte
-65 SQLCHAR  0  2   ""     95 live_bthliv
-66 SQLCHAR  0  2   ""     96 live_bthdead
-67 SQLCHAR  0  2   ""     97 prv_term
-68 SQLCHAR  0  6   ""     98 term_dte
-69 SQLCHAR  0  1   ""     99 tobacco
-70 SQLCHAR  0  1   ""    100 cig_pck
+1   SQLCHAR  0  10  ""      3  cert_num         SQL_Latin1_General_Cp437_BIN
+2   SQLCHAR  0  1   ""      4  void             SQL_Latin1_General_Cp437_BIN
+3   SQLCHAR  0  21  ""      5  name_sur         SQL_Latin1_General_Cp437_BIN
+4   SQLCHAR  0  4   ""      6  name_sux         SQL_Latin1_General_Cp437_BIN
+5   SQLCHAR  0  16  ""      7  name_fir         SQL_Latin1_General_Cp437_BIN
+6   SQLCHAR  0  16  ""      8  name_mid         SQL_Latin1_General_Cp437_BIN
+7   SQLCHAR  0  1   ""      9  sex              SQL_Latin1_General_Cp437_BIN
+8   SQLCHAR  0  8   ""     10  bth_date         SQL_Latin1_General_Cp437_BIN
+9   SQLCHAR  0  4   ""     14  bth_time         SQL_Latin1_General_Cp437_BIN
+10  SQLCHAR  0  4   ""     15  place            SQL_Latin1_General_Cp437_BIN
+11  SQLCHAR  0  4   ""     16  facility            SQL_Latin1_General_Cp437_BIN
+12  SQLCHAR  0  2   ""     17  birth_st            SQL_Latin1_General_Cp437_BIN
+13  SQLCHAR  0  3   ""     18  birth_ci            SQL_Latin1_General_Cp437_BIN
+14  SQLCHAR  0  2   ""     19  birth_co            SQL_Latin1_General_Cp437_BIN
+15  SQLCHAR  0  1   ""     20  attendant            SQL_Latin1_General_Cp437_BIN
+16  SQLCHAR  0  21  ""     21  mom_snam            SQL_Latin1_General_Cp437_BIN
+17  SQLCHAR  0  4   ""     22  mom_xnam            SQL_Latin1_General_Cp437_BIN
+18  SQLCHAR  0  16  ""     23  mom_fnam            SQL_Latin1_General_Cp437_BIN
+19  SQLCHAR  0  16  ""     24  mom_mnam            SQL_Latin1_General_Cp437_BIN
+20  SQLCHAR  0  21  ""     25  maiden_n            SQL_Latin1_General_Cp437_BIN
 
-71 SQLCHAR  0  2   ""    101 prepreg_cig
-72 SQLCHAR  0  2   ""    102 prepreg_pck
-73 SQLCHAR  0  2   ""    103 first_cig
-74 SQLCHAR  0  2   ""    104 first_pck
-75 SQLCHAR  0  2   ""    105 sec_cig
-76 SQLCHAR  0  2   ""    106 sec_pck
-77 SQLCHAR  0  2   ""    107 last cig
-78 SQLCHAR  0  2   ""    108 last_pck
-79 SQLCHAR  0  1   ""    109 alcohol
-80 SQLCHAR  0  2   ""    110 drink_wk
-81 SQLCHAR  0  1   ""    111 drug_use
-82 SQLCHAR  0  1   ""    112 du_prscr
-83 SQLCHAR  0  1   ""    113 du_otc
-84 SQLCHAR  0  1   ""    114 du_other
-85 SQLCHAR  0  30  ""    115 du_otherlit
-86 SQLCHAR  0  1   ""     116 mrf_none
-87 SQLCHAR  0  1   ""     117 mrf_prediab
-88 SQLCHAR  0  1   ""     118 mrf_gestdiab
-89 SQLCHAR  0  1   ""     119 mrf_hypert
-90 SQLCHAR  0  1   ""     120 mrf_hypertchr
-91 SQLCHAR  0  1   ""     121 mrf_hypertgest
-92 SQLCHAR  0  1   ""     122 mrf_eclampsia
-93 SQLCHAR  0  1   ""     123 mrf_prevpreterm
-94 SQLCHAR  0  1   ""     124 mrf_poorout
-95 SQLCHAR  0  1   ""     125 mrf_inftreat
-96 SQLCHAR  0  1   ""     126 mrf_infdrugs
-97 SQLCHAR  0  1   ""     127 mrf_assistrep
-98 SQLCHAR  0  1   ""     128 mrf_prevces
-99 SQLCHAR  0  2   ""     129 mrf_prevcesnum
+21  SQLCHAR  0  4   "" 0  maiden_suffix_NEW????            SQL_Latin1_General_Cp437_BIN
+
+22  SQLCHAR  0  8   ""     26  mom_dob            SQL_Latin1_General_Cp437_BIN
+23  SQLCHAR  0  2   ""     27  mom_age            SQL_Latin1_General_Cp437_BIN
+24  SQLCHAR  0  2   ""     30  mom_bthcntry_fips_WRONG            SQL_Latin1_General_Cp437_BIN
+MBIR_COUNTRY_COUNTRY_CODE_NV	Mother's Country of Birth	Drop down Menu	See NV Country Codes	Numeric	187	2																			
+25  SQLCHAR  0  2   ""     31  mom_bthstate_fips_WRONG            SQL_Latin1_General_Cp437_BIN
+MBIR_STATE_STATE_CODE_NV	Mother's State of Birth	Drop down Menu	See NV State Codes	Numeric	189	2																			
+26  SQLCHAR  0  2   ""     32  mom_rst            SQL_Latin1_General_Cp437_BIN
+MRES_STATE_STATE_CODE_NV	Mother's Residence State	Drop down Menu	See NV State Codes	Numeric	191	2																			
+27  SQLCHAR  0  3   ""     33  mom_rci            SQL_Latin1_General_Cp437_BIN
+28  SQLCHAR  0  2   ""     34  mom_rco            SQL_Latin1_General_Cp437_BIN
+29  SQLCHAR  0  40  ""     35  mom_address            SQL_Latin1_General_Cp437_BIN
+30  SQLCHAR  0  10  ""     36  mom_apt            SQL_Latin1_General_Cp437_BIN
+31  SQLCHAR  0  9   ""     37  mom_rzip            SQL_Latin1_General_Cp437_BIN
+32  SQLCHAR  0  1   ""     38  incity            SQL_Latin1_General_Cp437_BIN
+33  SQLCHAR  0  1   ""     43  mom_edu            SQL_Latin1_General_Cp437_BIN
+34  SQLCHAR  0  3   ""     44  mom_occ            SQL_Latin1_General_Cp437_BIN
+35  SQLCHAR  0  3   ""     45  mom_occup1            SQL_Latin1_General_Cp437_BIN
+36  SQLCHAR  0  9   ""     48  mom_ssn            SQL_Latin1_General_Cp437_BIN
+37  SQLCHAR  0  21  ""     49  fa_sname            SQL_Latin1_General_Cp437_BIN
+38  SQLCHAR  0  4   ""     50  fa_xname            SQL_Latin1_General_Cp437_BIN
+39  SQLCHAR  0  16  ""     51  fa_fname            SQL_Latin1_General_Cp437_BIN
+40  SQLCHAR  0  16  ""     52  fa_mname            SQL_Latin1_General_Cp437_BIN
+41  SQLCHAR  0  8   ""     53  fa_dob            SQL_Latin1_General_Cp437_BIN
+42  SQLCHAR  0  2   ""     54  fa_age            SQL_Latin1_General_Cp437_BIN
+43  SQLCHAR  0  2   ""  FBIR_COUNTRY_COUNTRY_CODE_NV,Father's State of Birth
+FBIR_COUNTRY_COUNTRY_CODE_NV	Father's State of Birth	Drop down Menu	See NV State Codes	Numeric	341	2																			
+
+44  SQLCHAR  0  2   ""  FBIR_STATE_STATE_CODE_NV,Father's Country of Birth
+FBIR_STATE_STATE_CODE_NV	Father's Country of Birth	Drop down Menu	See NV Country Codes	Numeric	343	2																			
+45  SQLCHAR  0  1   ""     57 fa_edu
+46  SQLCHAR  0  3   ""     58 fa_occ
+47  SQLCHAR  0  3   ""     59 fa_occup1
+48  SQLCHAR  0  9   ""     62 fa_ssn
+49  SQLCHAR  0  1   ""     63 mom_everm
+50  SQLCHAR  0  1   ""     64 married_betw
+51  SQLCHAR  0  1   ""     65 fa_husb
+52  SQLCHAR  0  1   ""     66 fa_signpat
+53  SQLCHAR  0  1   ""    281 mom_trans
+54  SQLCHAR  0  8   ""     68 lm_date
+55  SQLCHAR  0  1   ""     72 prenatal
+56  SQLCHAR  0  8   ""     73 pre_begin
+57  SQLCHAR  0  8   ""     77 pre_end
+58  SQLCHAR  0  2   ""     81 tot_visits
+59  SQLCHAR  0  1   ""     88 mom_htft
+60  SQLCHAR  0  2   ""     89 mom_htinch
+61  SQLCHAR  0  3   ""     90 prepreg_wt
+62  SQLCHAR  0  3   ""     91 del_wt
+63  SQLCHAR  0  2   ""     93 prv_livebth
+64  SQLCHAR  0  6   ""     94 prv_livebthdte
+65  SQLCHAR  0  2   ""     95 live_bthliv
+66  SQLCHAR  0  2   ""     96 live_bthdead
+67  SQLCHAR  0  2   ""     97 prv_term
+68  SQLCHAR  0  6   ""     98 term_dte
+69  SQLCHAR  0  1   ""     99 tobacco
+70  SQLCHAR  0  1   ""    100 cig_pck
+71  SQLCHAR  0  2   ""    101 prepreg_cig
+72  SQLCHAR  0  2   ""    102 prepreg_pck
+73  SQLCHAR  0  2   ""    103 first_cig
+74  SQLCHAR  0  2   ""    104 first_pck
+75  SQLCHAR  0  2   ""    105 sec_cig
+76  SQLCHAR  0  2   ""    106 sec_pck
+77  SQLCHAR  0  2   ""    107 last cig
+78  SQLCHAR  0  2   ""    108 last_pck
+79  SQLCHAR  0  1   ""    109 alcohol
+80  SQLCHAR  0  2   ""    110 drink_wk
+81  SQLCHAR  0  1   ""    111 drug_use
+82  SQLCHAR  0  1   ""    112 du_prscr
+83  SQLCHAR  0  1   ""    113 du_otc
+84  SQLCHAR  0  1   ""    114 du_other
+85  SQLCHAR  0  30  ""    115 du_otherlit
+86  SQLCHAR  0  1   ""     116 mrf_none
+87  SQLCHAR  0  1   ""     117 mrf_prediab
+88  SQLCHAR  0  1   ""     118 mrf_gestdiab
+89  SQLCHAR  0  1   ""     119 mrf_hypert
+90  SQLCHAR  0  1   ""     120 mrf_hypertchr
+91  SQLCHAR  0  1   ""     121 mrf_hypertgest
+92  SQLCHAR  0  1   ""     122 mrf_eclampsia
+93  SQLCHAR  0  1   ""     123 mrf_prevpreterm
+94  SQLCHAR  0  1   ""     124 mrf_poorout
+95  SQLCHAR  0  1   ""     125 mrf_inftreat
+96  SQLCHAR  0  1   ""     126 mrf_infdrugs
+97  SQLCHAR  0  1   ""     127 mrf_assistrep
+98  SQLCHAR  0  1   ""     128 mrf_prevces
+99  SQLCHAR  0  2   ""     129 mrf_prevcesnum
 100 SQLCHAR  0  1   ""     130 mrf_anemia
 101 SQLCHAR  0  1   ""     131 mrf_cardiac
 102 SQLCHAR  0  1   ""     132 mrf_lungdis
@@ -274,74 +281,72 @@
 271 SQLCHAR  0  30  ""     311 mom_raceothlit
 272 SQLCHAR  0  1   ""     312 mom_raceunk
 273 SQLCHAR  0  1   ""     313 mom_raceref
-274 SQLCHAR  0  3   ""     B2_MRACE1E,Mother's Race Tabulation Variable,0,Import from NCHS,Numeric,1223,3
-275 SQLCHAR  0  3   ""     B2_MRACE2E,Mother's Race Tabulation Variable,0,Import from NCHS,Numeric,1226,3
-276 SQLCHAR  0  3   ""     B2_MRACE3E,Mother's Race Tabulation Variable,0,Import from NCHS,Numeric,1229,3
-277 SQLCHAR  0  3   ""     B2_MRACE4E,Mother's Race Tabulation Variable,0,Import from NCHS,Numeric,1232,3
-278 SQLCHAR  0  3   ""     B2_MRACE5E,Mother's Race Tabulation Variable,0,Import from NCHS,Numeric,1235,3
-279 SQLCHAR  0  3   ""     B2_MRACE6E,Mother's Race Tabulation Variable,0,Import from NCHS,Numeric,1238,3
-280 SQLCHAR  0  3   ""     B2_MRACE7E,Mother's Race Tabulation Variable,0,Import from NCHS,Numeric,1241,3
-281 SQLCHAR  0  3   ""     B2_MRACE8E,Mother's Race Tabulation Variable,0,Import from NCHS,Numeric,1244,3
-282 SQLCHAR  0  3   ""     B2_MRACE16E,Mother's Race Tabulation Variable,0,Import from NCHS,Numeric,1247,3
-283 SQLCHAR  0  3   ""     B2_MRACE18E,Mother's Race Tabulation Variable,0,Import from NCHS,Numeric,1253,3
-284 SQLCHAR  0  3   ""     B2_MRACE20E,Mother's Race Tabulation Variable,0,Import from NCHS,Numeric,1259,3
-285 SQLCHAR  0  3   ""     B2_MRACE22E,Mother's Race Tabulation Variable,0,Import from NCHS,Numeric,1265,3
-286 SQLCHAR  0  3   ""     B2_NCHS_MO_ETHNIC_CD,Mother's Hispanic Code for Literal,,Ethnic NCHS,Numeric,1271,3
-287 SQLCHAR  0  3   ""     B2_NCHS_MO_ETHNIC_LIT_CD,Mother's Edited Hispanic Origin Code,,Ethnic NCHS,Numeric,1274,3
-288 SQLCHAR  0  2   ""     B2_MO_BRIDGED_RACE,Mother's Bridged Race,,,Numeric,1277,2
-289 SQLCHAR  0  1   ""     B2_FATHER_ETHNIC_YESNO,Father's Ethnicity Hispanic Origin? ,"N,H,U","1=Yes 2=No U=Unknown",Alphanumeric,1279,1
-290 SQLCHAR  0  1   ""     B2_FATHER_MEXICAN,Mexican,"N,H,U","1=Yes 2=No 9=Unknown",Alphanumeric,1280,1
-291 SQLCHAR  0  1   ""     B2_FATHER_PR,Puerto Rican,"N,H,U","1=Yes 2=No 9=Unknown",Alphanumeric,1281,1
-292 SQLCHAR  0  1   ""     B2_FATHER_CUBAN,Cuban,"N,H,U","1=Yes 2=No 9=Unknown",Alphanumeric,1282,1
-293 SQLCHAR  0  1   ""     B2_FATHER_ETHNIC_OTHER,Other,"N,H,U","1=Yes 2=No 9=Unknown",Alphanumeric,1283,1
-294 SQLCHAR  0  20  ""     B2_FATHER_ETHNIC,Other Description,Free Text ,Literal,Alphanumeric,1284,20
-295 SQLCHAR  0  1   ""     B2_FATHER_RACE_WHITE,Father's Race-White,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1304,1
-296 SQLCHAR  0  1   ""     B2_FATHER_RACE_BLACK,Father Race-Black or African American,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1305,1
-297 SQLCHAR  0  1   ""     B2_FATHER_RACE_AM_INDIAN,Father's Race-Amer. Indian or Alaska Native,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1306,1
-298 SQLCHAR  0  30  ""     B2_FATHER_RACE_AM_IND_LIT,Father's Race-American Indian or Alaska Native Desc.1,Free Text ,Literal,Alphanumeric,1307,30
-299 SQLCHAR  0  1   ""     B2_FATHER_RACE_ASIAN_IND,Father's Race-Asian Indian,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1337,1
-300 SQLCHAR  0  1   ""     B2_FATHER_RACE_ASIAN_OTH,Father's Race-Other Asian,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1338,1
-301 SQLCHAR  0  30  ""     B2_FATHER_RACE_ASIAN_LIT,Father's Race-Other Asian Desc.1,Free Text ,Literal,Alphanumeric,1339,30
-302 SQLCHAR  0  1   ""     B2_FATHER_RACE_CHINESE,Father's Race-Chinese,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1369,1
-303 SQLCHAR  0  1   ""     B2_FATHER_RACE_FILIPINO,Father's Race-Filipino,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1370,1
-304 SQLCHAR  0  1   ""     B2_FATHER_RACE_JAPANESE,Father's Race-Japanese,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1371,1
-305 SQLCHAR  0  1   ""     B2_FATHER_RACE_KOREAN,Father's Race-Korean,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1372,1
-306 SQLCHAR  0  1   ""     B2_FATHER_RACE_VIETNAMESE,Father's Race-Vietnamese,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1373,1
-307 SQLCHAR  0  1   ""     B2_FATHER_RACE_HAWAIIAN,Father's Race-Native Hawaiian,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1374,1
-308 SQLCHAR  0  1   ""     B2_FATHER_RACE_GUAM,Father's Race-Guamanian or Chamorro,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1375,1
-309 SQLCHAR  0  1   ""     B2_FATHER_RACE_SAMOAN,Father's Race-Samoan,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1376,1
-310 SQLCHAR  0  1   ""     B2_FATHER_RACE_PAC,Father's Race-Other Pacific Islander,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1377,1
-311 SQLCHAR  0  30  ""     B2_FATHER_RACE_PAC_LIT,Father's Race-Other Pacific Islander Desc.1,Free Text ,Literal,Alphanumeric,1378,30
-312 SQLCHAR  0  1   ""     B2_FATHER_RACE_OTHER,Father's Race-Other,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1408,1
-313 SQLCHAR  0  30  ""     B2_FATHER_RACE_OTHER_LIT,Father's Race-Other Desc.1,Free Text ,Literal,Alphanumeric,1409,30
-314 SQLCHAR  0  1   ""     B2_FATHER_RACE_UNKNOWN,Father's Race-Unknown,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1439,1
-315 SQLCHAR  0  1   ""     B2_FATHER_RACE_REFUSED,Father's Race-Refused,Check Box,"1=Yes 2=No 9=Unknown",Alphanumeric,1440,1
-316 SQLCHAR  0  3   ""     B2_FRACE1E,Father's Race Tabulation Variable,0,Import from NCHS,Numeric,1441,3
-317 SQLCHAR  0  3   ""     B2_FRACE2E,Father's Race Tabulation Variable,0,Import from NCHS,Numeric,1444,3
-318 SQLCHAR  0  3   ""     B2_FRACE3E,Father's Race Tabulation Variable,0,Import from NCHS,Numeric,1447,3
-319 SQLCHAR  0  3   ""     B2_FRACE4E,Father's Race Tabulation Variable,0,Import from NCHS,Numeric,1450,3
-320 SQLCHAR  0  3   ""     B2_FRACE5E,Father's Race Tabulation Variable,0,Import from NCHS,Numeric,1453,3
-321 SQLCHAR  0  3   ""     B2_FRACE6E,Father's Race Tabulation Variable,0,Import from NCHS,Numeric,1456,3
-322 SQLCHAR  0  3   ""     B2_FRACE7E,Father's Race Tabulation Variable,0,Import from NCHS,Numeric,1459,3
-323 SQLCHAR  0  3   ""     B2_FRACE8E,Father's Race Tabulation Variable,0,Import from NCHS,Numeric,1462,3
-324 SQLCHAR  0  3   ""     B2_FRACE16E,Father's Race Tabulation Variable,0,Import from NCHS,Numeric,1465,3
-325 SQLCHAR  0  3   ""     B2_FRACE18E,Father's Race Tabulation Variable,0,Import from NCHS,Numeric,1471,3
-326 SQLCHAR  0  3   ""     B2_FRACE20E,Father's Race Tabulation Variable,0,Import from NCHS,Numeric,1477,3
-327 SQLCHAR  0  3   ""     B2_FRACE22E,Father's Race Tabulation Variable,0,Import from NCHS,Numeric,1483,3
-328 SQLCHAR  0  3   ""     B2_NCHS_FA_ETHNIC_CD,Father's Hispanic Code for Literal,,Ethnic NCHS,Numeric,1489,3
-329 SQLCHAR  0  3   ""     B2_NCHS_FA_ETHNIC_LIT_CD,Father's Edited Hispanic Origin Code,,Ethnic NCHS,Numeric,1492,3
-330 SQLCHAR  0  2   ""     B2_FA_BRIDGED_RACE,Father's Bridged Race,,,Numeric,1495,2
-331 SQLCHAR  0  4   ""     2  cert_year
-332 SQLCHAR  0  1   ""     ISACTIVE,,,"1=Yes 2=No",Numeric,1501,1
-333 SQLCHAR  0  2   ""     MOTHER_BIRTH_STATE,Mother Birth State,,,Alphanumeric,1513,2
-334 SQLCHAR  0  2   ""     MOTHER_BIRTH_COUNTRY_FIPS,Mother Birth Country,,,Alphanumeric,1515,2
-335 SQLCHAR  0  5   ""     MOTHER_RES_CITY_FIPS,Mother Residential City FIPS,,,Alphanumeric,1518,5
-336 SQLCHAR  0  3   ""     MOTHER_RES_CNTY_FIPS,Mother Residential County FIPS,,,Alphanumeric,1524,3
-337 SQLCHAR  0  2   ""     MOTHER_RES_STATE,Mother Residential State,,,Alphanumeric,1528,2
-338 SQLCHAR  0  2   ""     MOTHER_RES_COUNTRY_FIPS,Mother Residential Country,,,Alphanumeric,1531,2
-339 SQLCHAR  0  9   ""     SSN_CHILD,SSN of Child,,,Alphanumeric,1537,9
-
-
-340 SQLCHAR  0  1  ""      ???  death_match         SQL_Latin1_General_Cp437_BIN
-341 SQLCHAR  0  10 ""      ???  death_cert         SQL_Latin1_General_Cp437_BIN
-342 SQLCHAR  0  8  "\n"      ???  death_date         SQL_Latin1_General_Cp437_BIN
+274 SQLCHAR  0  3   ""     314 mom_race1
+275 SQLCHAR  0  3   ""     315 mom_race2
+276 SQLCHAR  0  3   ""     316 mom_race3
+277 SQLCHAR  0  3   ""     317 mom_race4
+278 SQLCHAR  0  3   ""     318 mom_race5
+279 SQLCHAR  0  3   ""     319 mom_race6
+280 SQLCHAR  0  3   ""     320 mom_race7
+281 SQLCHAR  0  3   ""     321 mom_race8
+282 SQLCHAR  0  3   ""     322 mom_race16
+283 SQLCHAR  0  3   ""     324 mom_race18
+284 SQLCHAR  0  3   ""     326 mom_race20
+285 SQLCHAR  0  3   ""     328 mom_race22
+286 SQLCHAR  0  3   "" B2_NCHS_MO_ETHNIC_CD,Mother's Hispanic Code for Literal,,Ethnic NCHS,Numeric,1271,3
+287 SQLCHAR  0  3   "" B2_NCHS_MO_ETHNIC_LIT_CD,Mother's Edited Hispanic Origin Code,,Ethnic NCHS,Numeric,1274,3
+288 SQLCHAR  0  2   ""     332 momrace_nchsbrg
+289 SQLCHAR  0  1   ""     334 fa_his
+290 SQLCHAR  0  1   ""     335 fa_mex
+291 SQLCHAR  0  1   ""     336 fa_pr
+292 SQLCHAR  0  1   ""     337 fa_cu
+293 SQLCHAR  0  1   ""     338 fa_ethoth
+294 SQLCHAR  0  20  ""     339 fa_ethothlit
+295 SQLCHAR  0  1   ""     340 fa_white
+296 SQLCHAR  0  1   ""     341 fa_black
+297 SQLCHAR  0  1   ""     342 fa_amind
+298 SQLCHAR  0  30  ""     343 fa_amindlit
+299 SQLCHAR  0  1   ""     344 fa_asian
+300 SQLCHAR  0  1   ""     345 fa_asianoth
+301 SQLCHAR  0  30  ""     346 fa_asianothlit
+302 SQLCHAR  0  1   ""     347 fa_chinese
+303 SQLCHAR  0  1   ""     348 fa_filipino
+304 SQLCHAR  0  1   ""     349 fa_japanese
+305 SQLCHAR  0  1   ""     350 fa_korean
+306 SQLCHAR  0  1   ""     351 fa_vietnamese
+307 SQLCHAR  0  1   ""     352 fa_hawaiian
+308 SQLCHAR  0  1   ""     353 fa_guam
+309 SQLCHAR  0  1   ""     354 fa_samoan
+310 SQLCHAR  0  1   ""     355 fa_pacisl
+311 SQLCHAR  0  30  ""     356 fa_pacisloth
+312 SQLCHAR  0  1   ""     357 fa_raceoth
+313 SQLCHAR  0  30  ""     358 fa_raceothlit
+314 SQLCHAR  0  1   ""     359 fa_raceunk
+315 SQLCHAR  0  1   ""     360 fa_raceref
+316 SQLCHAR  0  3   ""     361 fa_race1
+317 SQLCHAR  0  3   ""     362 fa_race2
+318 SQLCHAR  0  3   ""     363 fa_race3
+319 SQLCHAR  0  3   ""     364 fa_race4
+320 SQLCHAR  0  3   ""     365 fa_race5
+321 SQLCHAR  0  3   ""     366 fa_race6
+322 SQLCHAR  0  3   ""     367 fa_race7
+323 SQLCHAR  0  3   ""     368 fa_race8
+324 SQLCHAR  0  3   ""     369 fa_race16
+325 SQLCHAR  0  3   ""     371 fa_race18
+326 SQLCHAR  0  3   ""     373 fa_race20
+327 SQLCHAR  0  3   ""     375 fa_race22
+328 SQLCHAR  0  3   ""  B2_NCHS_FA_ETHNIC_CD,Father's Hispanic Code for Literal,,Ethnic NCHS,Numeric,1489,3
+329 SQLCHAR  0  3   ""  B2_NCHS_FA_ETHNIC_LIT_CD,Father's Edited Hispanic Origin Code,,Ethnic NCHS,Numeric,1492,3
+330 SQLCHAR  0  2   ""     379  farace_nchsbrg
+331 SQLCHAR  0  4   ""       2  cert_year
+332 SQLCHAR  0  1   ""  ISACTIVE,,,"1=Yes 2=No",Numeric,1501,1
+333 SQLCHAR  0  2   ""  MOTHER_BIRTH_STATE,Mother Birth State,,,Alphanumeric,1513,2   FIPS? 2-Letter ABBREV?
+334 SQLCHAR  0  2   ""      30   mom_bthcntry_fips
+335 SQLCHAR  0  5   ""      41   mres_city_fips
+336 SQLCHAR  0  3   ""      42   mres_cnty_fips
+337 SQLCHAR  0  2   ""  MOTHER_RES_STATE,Mother Residential State,,,Alphanumeric,1528,2   FIPS? 2-Letter ABBREV?
+338 SQLCHAR  0  2   ""      39   mres_cntry_fips
+339 SQLCHAR  0  9   ""     283   ssn_child
+340 SQLCHAR  0  1  ""      381   death_match         SQL_Latin1_General_Cp437_BIN
+341 SQLCHAR  0  10 ""      382   death_cert         SQL_Latin1_General_Cp437_BIN
+342 SQLCHAR  0  8  "\n"    383   death_date         SQL_Latin1_General_Cp437_BIN
