@@ -341,4 +341,5 @@
 339 SQLCHAR  0   9   ""     283   ssn_child SQL_Latin1_General_Cp437_BIN
 340 SQLCHAR  0   1   ""     381   death_match         SQL_Latin1_General_Cp437_BIN
 341 SQLCHAR  0  10   ""     382   death_cert         SQL_Latin1_General_Cp437_BIN
-342 SQLCHAR  0   8   "\n"   383   death_date         SQL_Latin1_General_Cp437_BIN
+342 SQLCHAR  0   8   ""   383   death_date         SQL_Latin1_General_Cp437_BIN
+343 SQLCHAR  0   500   "\n"   389   UNKNOWN         SQL_Latin1_General_Cp437_BIN
