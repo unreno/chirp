@@ -395,6 +395,7 @@ CREATE TABLE test_births (
 GO
 
 
+-- First field is YEAR AND NUM!!!!!!!!!~!~!!!@`
 
 
 INSERT INTO test_births

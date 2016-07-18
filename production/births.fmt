@@ -9,7 +9,7 @@
 7   SQLCHAR  0   1   ""       9  sex              SQL_Latin1_General_Cp437_BIN
 8   SQLCHAR  0   8   ""      10  bth_date         SQL_Latin1_General_Cp437_BIN
 9   SQLCHAR  0   4   ""      14  bth_time         SQL_Latin1_General_Cp437_BIN
-10  SQLCHAR  0   4   ""      15  place            SQL_Latin1_General_Cp437_BIN
+10  SQLCHAR  0   1   ""      15  place            SQL_Latin1_General_Cp437_BIN
 11  SQLCHAR  0   4   ""      16  facility            SQL_Latin1_General_Cp437_BIN
 12  SQLCHAR  0   2   ""      17  birth_st            SQL_Latin1_General_Cp437_BIN
 13  SQLCHAR  0   3   ""      18  birth_ci            SQL_Latin1_General_Cp437_BIN
