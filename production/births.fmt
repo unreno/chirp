@@ -76,7 +76,7 @@
 74  SQLCHAR  0   2   ""     104 first_pck SQL_Latin1_General_Cp437_BIN
 75  SQLCHAR  0   2   ""     105 sec_cig SQL_Latin1_General_Cp437_BIN
 76  SQLCHAR  0   2   ""     106 sec_pck SQL_Latin1_General_Cp437_BIN
-77  SQLCHAR  0   2   ""     107 last cig SQL_Latin1_General_Cp437_BIN
+77  SQLCHAR  0   2   ""     107 last_cig SQL_Latin1_General_Cp437_BIN
 78  SQLCHAR  0   2   ""     108 last_pck SQL_Latin1_General_Cp437_BIN
 79  SQLCHAR  0   1   ""     109 alcohol SQL_Latin1_General_Cp437_BIN
 80  SQLCHAR  0   2   ""     110 drink_wk SQL_Latin1_General_Cp437_BIN
