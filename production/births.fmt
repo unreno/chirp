@@ -333,7 +333,7 @@
 331 SQLCHAR  0   4   ""       2  cert_year SQL_Latin1_General_Cp437_BIN
 332 SQLCHAR  0   1   ""  385 ISACTIVE SQL_Latin1_General_Cp437_BIN
 333 SQLCHAR  0   2   ""  386 MOTHER_BIRTH_STATE SQL_Latin1_General_Cp437_BIN
-334 SQLCHAR  0   2   ""      30   mom_bthcntry_fips SQL_Latin1_General_Cp437_BIN
+334 SQLCHAR  0   2   ""  388 MOTHER_BIRTH_COUNTRY_FIPS SQL_Latin1_General_Cp437_BIN
 335 SQLCHAR  0   5   ""      41   mres_city_fips SQL_Latin1_General_Cp437_BIN
 336 SQLCHAR  0   3   ""      42   mres_cnty_fips SQL_Latin1_General_Cp437_BIN
 337 SQLCHAR  0   2   ""  387 MOTHER_RES_STATE SQL_Latin1_General_Cp437_BIN

@@ -1,5 +1,4 @@
 
--- This could cause issue inserting?
 IF OBJECT_ID('test_births', 'U') IS NOT NULL
 	DROP TABLE test_births;
 CREATE TABLE test_births (
@@ -387,17 +386,11 @@ CREATE TABLE test_births (
 	death_match INT,
 	death_cert INT,
 	death_date INT,
-	birth_rco INT,
-	source_filename VARCHAR(255),
---	source_record_number INT,	-- Sadly, BULK INSERT does NOT preserve file order so this is moot.
---	imported_at DATETIME
---		CONSTRAINT vital_births_imported_at_default DEFAULT CURRENT_TIMESTAMP NOT NULL,
---	imported_to_dw BIT
---		CONSTRAINT vital_births_imported_to_dw_default DEFAULT 'FALSE' NOT NULL,
 	maiden_suffix_NEW VARCHAR(255),
 	ISACTIVE VARCHAR(255),
 	MOTHER_BIRTH_STATE VARCHAR(255),
-	MOTHER_RES_STATE VARCHAR(255)
+	MOTHER_RES_STATE VARCHAR(255),
+	MOTHER_BIRTH_COUNTRY_FIPS VARCHAR(255)
 );
 GO
 
