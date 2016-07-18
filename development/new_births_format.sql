@@ -403,7 +403,7 @@ GO
 INSERT INTO test_births
 SELECT a.* 
 FROM OPENROWSET( 
-	BULK 'C:\Users\gwendt\Desktop\CHIRP Birth Extract 20160701.txt',
+	BULK 'C:\Users\gwendt\CHIRP Birth Extract 20160701.txt',
 	FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\births.fmt',
 	FIRSTROW = 1
 ) AS a;
@@ -415,7 +415,7 @@ SELECT * FROM test_births;
 
 
 BULK INSERT test_births
-FROM 'C:\Users\gwendt\Desktop\CHIRP Birth Extract 20160701.txt'
+FROM 'C:\Users\gwendt\CHIRP Birth Extract 20160701.txt'
 	FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\births.fmt',
 WITH ( FIRSTROW = 1, TABLOCK );
 
