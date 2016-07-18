@@ -414,6 +414,7 @@ SELECT * FROM test_births;
 
 BULK INSERT test_births
 FROM 'C:\Users\gwendt\Desktop\CHIRP Birth Extract 20160701.txt'
-	FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\births.fmt',
-WITH ( FIRSTROW = 1, TABLOCK );
+WITH ( 
+FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\births.fmt',
+FIRSTROW = 1, TABLOCK );
 

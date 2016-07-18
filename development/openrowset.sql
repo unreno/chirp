@@ -89,8 +89,9 @@ WITH (
 
 BULK INSERT temp
 FROM 'C:\Users\gwendt\Desktop\Data\NSBR\Washoe_2016a.csv.psv'
+WITH ( 
 	FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\development\births_skip3.fmt',
-WITH ( FIRSTROW = 2, TABLOCK );
+	FIRSTROW = 2, TABLOCK );
 
 
 --	I don't understand why I need the Server Column Order AND the Server Column Name in the format file?
