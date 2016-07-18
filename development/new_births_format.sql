@@ -394,6 +394,10 @@ CREATE TABLE test_births (
 --		CONSTRAINT vital_births_imported_at_default DEFAULT CURRENT_TIMESTAMP NOT NULL,
 --	imported_to_dw BIT
 --		CONSTRAINT vital_births_imported_to_dw_default DEFAULT 'FALSE' NOT NULL,
+	maiden_suffix_NEW VARCHAR(255),
+	ISACTIVE VARCHAR(255),
+	MOTHER_BIRTH_STATE VARCHAR(255),
+	MOTHER_RES_STATE VARCHAR(255)
 );
 GO
 
@@ -403,7 +407,7 @@ GO
 INSERT INTO test_births
 SELECT a.* 
 FROM OPENROWSET( 
-	BULK 'C:\Users\gwendt\CHIRP Birth Extract 20160701.txt',
+	BULK 'C:\Users\gwendt\Desktop\CHIRP Birth Extract 20160701.txt',
 	FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\births.fmt',
 	FIRSTROW = 1
 ) AS a;
@@ -415,7 +419,7 @@ SELECT * FROM test_births;
 
 
 BULK INSERT test_births
-FROM 'C:\Users\gwendt\CHIRP Birth Extract 20160701.txt'
+FROM 'C:\Users\gwendt\Desktop\CHIRP Birth Extract 20160701.txt'
 	FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\births.fmt',
 WITH ( FIRSTROW = 1, TABLOCK );
 
