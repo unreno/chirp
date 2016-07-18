@@ -41,9 +41,56 @@ FROM OPENROWSET(
 	FIRSTROW = 2
 ) AS a;
 
+INSERT INTO temp
+SELECT a.* 
+FROM OPENROWSET( 
+	BULK 'C:\Users\gwendt\Desktop\Data\NSBR\Washoe_2016a.csv.psv',
+	FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\development\births_skip1.fmt',
+	FIRSTROW = 2
+) AS a;
+
+INSERT INTO temp
+SELECT a.* 
+FROM OPENROWSET( 
+	BULK 'C:\Users\gwendt\Desktop\Data\NSBR\Washoe_2016a.csv.psv',
+	FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\development\births_skip2.fmt',
+	FIRSTROW = 2
+) AS a;
+
+INSERT INTO temp
+SELECT a.* 
+FROM OPENROWSET( 
+	BULK 'C:\Users\gwendt\Desktop\Data\NSBR\Washoe_2016a.csv.psv',
+	FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\development\births_skip3.fmt',
+	FIRSTROW = 2
+) AS a;
+
+
 SELECT * FROM temp;
 
 
+
+BULK INSERT temp
+FROM 'C:\Users\gwendt\Desktop\Data\NSBR\Washoe_2016a.csv.psv'
+WITH ( 
+	FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\development\births_skip1.fmt',
+	FIRSTROW = 2, TABLOCK );
+
+--	both 2 and 3 work. 1 does not, 
+--	likely due to most of the line being forced in column 7 and truncated.
+--	So OPENROWSET and BULK INSERT treat the file differently for the same format file.
+
+
+BULK INSERT temp
+FROM 'C:\Users\gwendt\Desktop\Data\NSBR\Washoe_2016a.csv.psv'
+WITH ( 
+	FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\development\births_skip2.fmt',
+	FIRSTROW = 2, TABLOCK );
+
+BULK INSERT temp
+FROM 'C:\Users\gwendt\Desktop\Data\NSBR\Washoe_2016a.csv.psv'
+	FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\development\births_skip3.fmt',
+WITH ( FIRSTROW = 2, TABLOCK );
 
 
 --	I don't understand why I need the Server Column Order AND the Server Column Name in the format file?
