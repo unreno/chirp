@@ -15,6 +15,7 @@
 13  SQLCHAR  0   3   ""      18  birth_ci            SQL_Latin1_General_Cp437_BIN
 14  SQLCHAR  0   2   ""      19  birth_co            SQL_Latin1_General_Cp437_BIN
 15  SQLCHAR  0   1   ""      20  attendant            SQL_Latin1_General_Cp437_BIN
+89
 16  SQLCHAR  0  21   ""      21  mom_snam            SQL_Latin1_General_Cp437_BIN
 17  SQLCHAR  0   4   ""      22  mom_xnam            SQL_Latin1_General_Cp437_BIN
 18  SQLCHAR  0  16   ""      23  mom_fnam            SQL_Latin1_General_Cp437_BIN
@@ -229,7 +230,7 @@
 227 SQLCHAR  0   1   ""     257 acn_renal SQL_Latin1_General_Cp437_BIN
 228 SQLCHAR  0   1   ""     258 acn_hypos SQL_Latin1_General_Cp437_BIN
 229 SQLCHAR  0   1   ""     259 acn_urogen SQL_Latin1_General_Cp437_BIN
-230 SQLCHAR  0   1   ""     260 acn_urogenlit SQL_Latin1_General_Cp437_BIN
+230 SQLCHAR  0  30   ""     260 acn_urogenlit SQL_Latin1_General_Cp437_BIN
 231 SQLCHAR  0   1   ""     261 acn_downs SQL_Latin1_General_Cp437_BIN
 232 SQLCHAR  0   1   ""     262 acn_cdit SQL_Latin1_General_Cp437_BIN
 233 SQLCHAR  0   1   ""     263 acn_chromoth SQL_Latin1_General_Cp437_BIN
