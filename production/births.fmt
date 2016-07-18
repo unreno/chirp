@@ -42,303 +42,303 @@
 40  SQLCHAR  0  16   ""      52  fa_mname            SQL_Latin1_General_Cp437_BIN
 41  SQLCHAR  0   8   ""      53  fa_dob            SQL_Latin1_General_Cp437_BIN
 42  SQLCHAR  0   2   ""      54  fa_age            SQL_Latin1_General_Cp437_BIN
-43  SQLCHAR  0   2   "" 55 FBIR_COUNTRY_COUNTRY_CODE_NV_NEW ,Father's State of Birth
-44  SQLCHAR  0   2   "" 56 FBIR_STATE_STATE_CODE_NV_NEW ,Father's Country of Birth
-45  SQLCHAR  0   1   ""      57 fa_edu
-46  SQLCHAR  0   3   ""      58 fa_occ
-47  SQLCHAR  0   3   ""      59 fa_occup1
-48  SQLCHAR  0   9   ""      62 fa_ssn
-49  SQLCHAR  0   1   ""      63 mom_everm
-50  SQLCHAR  0   1   ""      64 married_betw
-51  SQLCHAR  0   1   ""      65 fa_husb
-52  SQLCHAR  0   1   ""      66 fa_signpat
-53  SQLCHAR  0   1   ""     281 mom_trans
-54  SQLCHAR  0   8   ""      68 lm_date
-55  SQLCHAR  0   1   ""      72 prenatal
-56  SQLCHAR  0   8   ""      73 pre_begin
-57  SQLCHAR  0   8   ""      77 pre_end
-58  SQLCHAR  0   2   ""      81 tot_visits
-59  SQLCHAR  0   1   ""      88 mom_htft
-60  SQLCHAR  0   2   ""      89 mom_htinch
-61  SQLCHAR  0   3   ""      90 prepreg_wt
-62  SQLCHAR  0   3   ""      91 del_wt
-63  SQLCHAR  0   2   ""      93 prv_livebth
-64  SQLCHAR  0   6   ""      94 prv_livebthdte
-65  SQLCHAR  0   2   ""      95 live_bthliv
-66  SQLCHAR  0   2   ""      96 live_bthdead
-67  SQLCHAR  0   2   ""      97 prv_term
-68  SQLCHAR  0   6   ""      98 term_dte
-69  SQLCHAR  0   1   ""      99 tobacco
-70  SQLCHAR  0   1   ""     100 cig_pck
-71  SQLCHAR  0   2   ""     101 prepreg_cig
-72  SQLCHAR  0   2   ""     102 prepreg_pck
-73  SQLCHAR  0   2   ""     103 first_cig
-74  SQLCHAR  0   2   ""     104 first_pck
-75  SQLCHAR  0   2   ""     105 sec_cig
-76  SQLCHAR  0   2   ""     106 sec_pck
-77  SQLCHAR  0   2   ""     107 last cig
-78  SQLCHAR  0   2   ""     108 last_pck
-79  SQLCHAR  0   1   ""     109 alcohol
-80  SQLCHAR  0   2   ""     110 drink_wk
-81  SQLCHAR  0   1   ""     111 drug_use
-82  SQLCHAR  0   1   ""     112 du_prscr
-83  SQLCHAR  0   1   ""     113 du_otc
-84  SQLCHAR  0   1   ""     114 du_other
-85  SQLCHAR  0  30   ""     115 du_otherlit
-86  SQLCHAR  0   1   ""     116 mrf_none
-87  SQLCHAR  0   1   ""     117 mrf_prediab
-88  SQLCHAR  0   1   ""     118 mrf_gestdiab
-89  SQLCHAR  0   1   ""     119 mrf_hypert
-90  SQLCHAR  0   1   ""     120 mrf_hypertchr
-91  SQLCHAR  0   1   ""     121 mrf_hypertgest
-92  SQLCHAR  0   1   ""     122 mrf_eclampsia
-93  SQLCHAR  0   1   ""     123 mrf_prevpreterm
-94  SQLCHAR  0   1   ""     124 mrf_poorout
-95  SQLCHAR  0   1   ""     125 mrf_inftreat
-96  SQLCHAR  0   1   ""     126 mrf_infdrugs
-97  SQLCHAR  0   1   ""     127 mrf_assistrep
-98  SQLCHAR  0   1   ""     128 mrf_prevces
-99  SQLCHAR  0   2   ""     129 mrf_prevcesnum
-100 SQLCHAR  0   1   ""     130 mrf_anemia
-101 SQLCHAR  0   1   ""     131 mrf_cardiac
-102 SQLCHAR  0   1   ""     132 mrf_lungdis
-103 SQLCHAR  0   1   ""     133 mrf_hydra
-104 SQLCHAR  0   1   ""     134 mrf_hemoglob
-105 SQLCHAR  0   1   ""     135 mrf_incompcerv
-106 SQLCHAR  0   1   ""     136 mrf_prev4000
-107 SQLCHAR  0   1   ""     137 mrf_renaldis
-108 SQLCHAR  0   1   ""     138 mrf_rhsensit
-109 SQLCHAR  0   1   ""     139 mrf_utbleed
-110 SQLCHAR  0   1   ""     140 mrf_oth
-111 SQLCHAR  0  30   ""     141 mrf_othlit
-112 SQLCHAR  0   1   ""     142 inf_none
-113 SQLCHAR  0   1   ""     143 inf_gonor
-114 SQLCHAR  0   1   ""     144 inf_syph
-115 SQLCHAR  0   1   ""     145 inf_chlam
-116 SQLCHAR  0   1   ""     146 inf_hepb
-117 SQLCHAR  0   1   ""     147 inf_hepc
-118 SQLCHAR  0   1   ""     148 inf_hpv
-119 SQLCHAR  0   1   ""     149 inf_hivaids
-120 SQLCHAR  0   1   ""     150 inf_cmv
-121 SQLCHAR  0   1   ""     151 inf_rubella
-122 SQLCHAR  0   1   ""     152 inf_toxo
-123 SQLCHAR  0   1   ""     153 inf_genherpes
-124 SQLCHAR  0   1   ""     154 inf_tuber
-125 SQLCHAR  0   1   ""     155 inf_oth
-126 SQLCHAR  0  30   ""     156 inf_othlit
-127 SQLCHAR  0   1   ""     157 ob_none
-128 SQLCHAR  0   1   ""     158 ob_cercl
-129 SQLCHAR  0   1   ""     159 ob_toco
-130 SQLCHAR  0   1   ""     160 ob_amnio
-131 SQLCHAR  0   1   ""     161 ob_fetalmon
-132 SQLCHAR  0   1   ""     162 ob_cephsucess
-133 SQLCHAR  0   1   ""     163 ob_cephfail
-134 SQLCHAR  0   1   ""     164 ob_ultrasnd
-135 SQLCHAR  0   1   ""     165 ob_oth
-136 SQLCHAR  0  30   ""     166 ob_othlit
-137 SQLCHAR  0   1   ""     167 ol_none
-138 SQLCHAR  0   1   ""     168 ol_prerom
-139 SQLCHAR  0   1   ""     169 ol_preciplbr
-140 SQLCHAR  0   1   ""     170 ol_prolonglbr
-141 SQLCHAR  0   1   ""     171 cld_none
-142 SQLCHAR  0   1   ""     172 cld_induc
-143 SQLCHAR  0   1   ""     173 cld_aug
-144 SQLCHAR  0   1   ""     174 cld_nonvert
-145 SQLCHAR  0   1   ""     175 cld_steroid
-146 SQLCHAR  0   1   ""     176 cld_antibiotic
-147 SQLCHAR  0   1   ""     177 cld_chorio
-148 SQLCHAR  0   1   ""     178 cld_mecon
-149 SQLCHAR  0   1   ""     179 cld_fetalintol
-150 SQLCHAR  0   1   ""     180 cld_epi
-151 SQLCHAR  0   1   ""     181 cld_febrile
-152 SQLCHAR  0   1   ""     182 cld_abrplac
-153 SQLCHAR  0   1   ""     183 cld_placprev
-154 SQLCHAR  0   1   ""     184 cld_bleed
-155 SQLCHAR  0   1   ""     185 cld_seizures
-156 SQLCHAR  0   1   ""     186 cld_dysfunc
-157 SQLCHAR  0   1   ""     187 cld_cephpelv
-158 SQLCHAR  0   1   ""     188 cld_cordpro
-159 SQLCHAR  0   1   ""     189 cld_anesth
-160 SQLCHAR  0   1   ""     190 cld_oth
-161 SQLCHAR  0  30   ""     191 cld_othlit
-162 SQLCHAR  0   1   ""     192 md_forcepsattpt
-163 SQLCHAR  0   1   ""     193 md_vaccumattpt
-164 SQLCHAR  0   1   ""     194 bth_present
-165 SQLCHAR  0   1   ""     195 bth_route
-166 SQLCHAR  0   1   ""     196 trial_lbr
-167 SQLCHAR  0   1   ""     197 mm_none
-168 SQLCHAR  0   1   ""     198 mm_trnsfusion
-169 SQLCHAR  0   1   ""     199 mm_perilac
-170 SQLCHAR  0   1   ""     200 mm_ruputerus
-171 SQLCHAR  0   1   ""     201 mm_hyster
-172 SQLCHAR  0   1   ""     202 mm_icu
-173 SQLCHAR  0   1   ""     203 mm_unploper
-174 SQLCHAR  0   1   ""     204 mm_unk
-175 SQLCHAR  0   2   ""     205 apgar_5
-176 SQLCHAR  0   2   ""     206 apgar_10
-177 SQLCHAR  0   1   ""     209 bthwt_unit
-178 SQLCHAR  0   4   ""     210 grams
-179 SQLCHAR  0   2   ""     211 lbs
-180 SQLCHAR  0   2   ""     212 oz
-181 SQLCHAR  0   2   ""     207 gest_wks
-182 SQLCHAR  0   2   ""     214 plurality
-183 SQLCHAR  0   2   ""     215 bth_order
-184 SQLCHAR  0   2   ""     216 born_alive
-185 SQLCHAR  0   6   ""     217 match_certnum
-186 SQLCHAR  0   1   ""     280 inf_trans
-187 SQLCHAR  0   1   ""     279 inf_liv
-188 SQLCHAR  0   1   ""     218 ac_none
-189 SQLCHAR  0   1   ""     219 ac_ventless
-190 SQLCHAR  0   1   ""     220 ac_ventmore
-191 SQLCHAR  0   1   ""     221 ac_nicu
-192 SQLCHAR  0   1   ""     222 ac_surf
-193 SQLCHAR  0   1   ""     223 ac_antisepsis
-194 SQLCHAR  0   1   ""     224 ac_seizures
-195 SQLCHAR  0   1   ""     225 ac_anemia
-196 SQLCHAR  0   1   ""     226 ac_fas
-197 SQLCHAR  0   1   ""     227 ac_hyaline
-198 SQLCHAR  0   1   ""     228 ac_mecon
-199 SQLCHAR  0   1   ""     229 ac_bthinjury
-200 SQLCHAR  0   1   ""     230 ac_oth
-201 SQLCHAR  0  30   ""     231 ac_othlit
-202 SQLCHAR  0   1   ""     232 acn_none
-203 SQLCHAR  0   1   ""     233 acn_anencep
-204 SQLCHAR  0   1   ""     234 acn_spina
-205 SQLCHAR  0   1   ""     235 acn_micro
-206 SQLCHAR  0   1   ""     236 acn_nervous
-207 SQLCHAR  0  30   ""     237 acn_nervouslit
-208 SQLCHAR  0   1   ""     238 acn_hrtdis
-209 SQLCHAR  0   1   ""     239 acn_hrtmal
-210 SQLCHAR  0   1   ""     240 acn_circ
-211 SQLCHAR  0  30   ""     241 acn_circlit
-212 SQLCHAR  0   1   ""     242 acn_omphal
-213 SQLCHAR  0   1   ""     243 acn_gastrosch
-214 SQLCHAR  0   1   ""     244 acn_rectal
-215 SQLCHAR  0   1   ""     245 acn_tracheo
-216 SQLCHAR  0   1   ""     246 acn_gastro
-217 SQLCHAR  0  30   ""     247 acn_gastrolit
-218 SQLCHAR  0   1   ""     248 acn_limbred
-219 SQLCHAR  0   1   ""     249 acn_cleftlip
-220 SQLCHAR  0   1   ""     250 acn_cleftpalate
-221 SQLCHAR  0   1   ""     251 acn_polydact
-222 SQLCHAR  0   1   ""     252 acn_clubft
-223 SQLCHAR  0   1   ""     253 acn_diaphhern
-224 SQLCHAR  0   1   ""     254 acn_muscle
-225 SQLCHAR  0  30   ""     255 acn_musclelit
-226 SQLCHAR  0   1   ""     256 acn_malgen
-227 SQLCHAR  0   1   ""     257 acn_renal
-228 SQLCHAR  0   1   ""     258 acn_hypos
-229 SQLCHAR  0   1   ""     259 acn_urogen
-230 SQLCHAR  0   1   ""     260 acn_urogenlit
-231 SQLCHAR  0   1   ""     261 acn_downs
-232 SQLCHAR  0   1   ""     262 acn_cdit
-233 SQLCHAR  0   1   ""     263 acn_chromoth
-234 SQLCHAR  0  30   ""     264 acn_chromothlit
-235 SQLCHAR  0   1   ""     265 acn_oth
-236 SQLCHAR  0  30   ""     266 acn_othlit
-237 SQLCHAR  0   1   ""     267 certifier
-238 SQLCHAR  0   8   ""     268 cer_date
-239 SQLCHAR  0   8   ""     269 reg_date
-240 SQLCHAR  0   1   ""     276 wic
-241 SQLCHAR  0   1   ""     277 source_pay
-242 SQLCHAR  0   1   ""     278 breastfeeding
-243 SQLCHAR  0   1   ""     282 ssn_request
-244 SQLCHAR  0  20   ""     285 inf_hospnum
-245 SQLCHAR  0  20   ""     286 mom_hospnum
-246 SQLCHAR  0   1   ""      67 pat_complete
-247 SQLCHAR  0   1   ""     287 mom_his
-248 SQLCHAR  0   1   ""     288 mom_mex
-249 SQLCHAR  0   1   ""     289 mom_pr
-250 SQLCHAR  0   1   ""     290 mom_cu
-251 SQLCHAR  0   1   ""     291 mom_ethoth
-252 SQLCHAR  0  20   ""     292 mom_ethothlit
-253 SQLCHAR  0   1   ""     293 mom_white
-254 SQLCHAR  0   1   ""     294 mom_black
-255 SQLCHAR  0   1   ""     295 mom_amind
-256 SQLCHAR  0  30   ""     296 mom_amindlit
-257 SQLCHAR  0   1   ""     297 mom_asian
-258 SQLCHAR  0   1   ""     298 mom_asianoth
-259 SQLCHAR  0  30   ""     299 mom_asianlit
-260 SQLCHAR  0   1   ""     300 mom_chinese
-261 SQLCHAR  0   1   ""     301 mom_filipino
-262 SQLCHAR  0   1   ""     302 mom_japanese
-263 SQLCHAR  0   1   ""     303 mom_korean
-264 SQLCHAR  0   1   ""     304 mom_vietnamese
-265 SQLCHAR  0   1   ""     305 mom_hawaiian
-266 SQLCHAR  0   1   ""     306 mom_guam
-267 SQLCHAR  0   1   ""     307 mom_samoan
-268 SQLCHAR  0   1   ""     308 mom_pacisl
-269 SQLCHAR  0  30   ""     309 mom_pacisloth
-270 SQLCHAR  0   1   ""     310 mom_raceoth
-271 SQLCHAR  0  30   ""     311 mom_raceothlit
-272 SQLCHAR  0   1   ""     312 mom_raceunk
-273 SQLCHAR  0   1   ""     313 mom_raceref
-274 SQLCHAR  0   3   ""     314 mom_race1
-275 SQLCHAR  0   3   ""     315 mom_race2
-276 SQLCHAR  0   3   ""     316 mom_race3
-277 SQLCHAR  0   3   ""     317 mom_race4
-278 SQLCHAR  0   3   ""     318 mom_race5
-279 SQLCHAR  0   3   ""     319 mom_race6
-280 SQLCHAR  0   3   ""     320 mom_race7
-281 SQLCHAR  0   3   ""     321 mom_race8
-282 SQLCHAR  0   3   ""     322 mom_race16
-283 SQLCHAR  0   3   ""     324 mom_race18
-284 SQLCHAR  0   3   ""     326 mom_race20
-285 SQLCHAR  0   3   ""     328 mom_race22
-286 SQLCHAR  0   3   "" B2_NCHS_MO_ETHNIC_CD,Mother's Hispanic Code for Literal,,Ethnic NCHS
-287 SQLCHAR  0   3   "" B2_NCHS_MO_ETHNIC_LIT_CD,Mother's Edited Hispanic Origin Code,,Ethnic NCHS
-288 SQLCHAR  0   2   ""     332 momrace_nchsbrg
-289 SQLCHAR  0   1   ""     334 fa_his
-290 SQLCHAR  0   1   ""     335 fa_mex
-291 SQLCHAR  0   1   ""     336 fa_pr
-292 SQLCHAR  0   1   ""     337 fa_cu
-293 SQLCHAR  0   1   ""     338 fa_ethoth
-294 SQLCHAR  0  20   ""     339 fa_ethothlit
-295 SQLCHAR  0   1   ""     340 fa_white
-296 SQLCHAR  0   1   ""     341 fa_black
-297 SQLCHAR  0   1   ""     342 fa_amind
-298 SQLCHAR  0  30   ""     343 fa_amindlit
-299 SQLCHAR  0   1   ""     344 fa_asian
-300 SQLCHAR  0   1   ""     345 fa_asianoth
-301 SQLCHAR  0  30   ""     346 fa_asianothlit
-302 SQLCHAR  0   1   ""     347 fa_chinese
-303 SQLCHAR  0   1   ""     348 fa_filipino
-304 SQLCHAR  0   1   ""     349 fa_japanese
-305 SQLCHAR  0   1   ""     350 fa_korean
-306 SQLCHAR  0   1   ""     351 fa_vietnamese
-307 SQLCHAR  0   1   ""     352 fa_hawaiian
-308 SQLCHAR  0   1   ""     353 fa_guam
-309 SQLCHAR  0   1   ""     354 fa_samoan
-310 SQLCHAR  0   1   ""     355 fa_pacisl
-311 SQLCHAR  0  30   ""     356 fa_pacisloth
-312 SQLCHAR  0   1   ""     357 fa_raceoth
-313 SQLCHAR  0  30   ""     358 fa_raceothlit
-314 SQLCHAR  0   1   ""     359 fa_raceunk
-315 SQLCHAR  0   1   ""     360 fa_raceref
-316 SQLCHAR  0   3   ""     361 fa_race1
-317 SQLCHAR  0   3   ""     362 fa_race2
-318 SQLCHAR  0   3   ""     363 fa_race3
-319 SQLCHAR  0   3   ""     364 fa_race4
-320 SQLCHAR  0   3   ""     365 fa_race5
-321 SQLCHAR  0   3   ""     366 fa_race6
-322 SQLCHAR  0   3   ""     367 fa_race7
-323 SQLCHAR  0   3   ""     368 fa_race8
-324 SQLCHAR  0   3   ""     369 fa_race16
-325 SQLCHAR  0   3   ""     371 fa_race18
-326 SQLCHAR  0   3   ""     373 fa_race20
-327 SQLCHAR  0   3   ""     375 fa_race22
-328 SQLCHAR  0   3   ""  B2_NCHS_FA_ETHNIC_CD,Father's Hispanic Code for Literal,,Ethnic NCHS
-329 SQLCHAR  0   3   ""  B2_NCHS_FA_ETHNIC_LIT_CD,Father's Edited Hispanic Origin Code,,Ethnic NCHS
-330 SQLCHAR  0   2   ""     379  farace_nchsbrg
-331 SQLCHAR  0   4   ""       2  cert_year
-332 SQLCHAR  0   1   ""  ISACTIVE,,,"1=Yes 2=No",Numeric,1501,1
-333 SQLCHAR  0   2   ""  MOTHER_BIRTH_STATE,Mother Birth State,,,Alphanumeric,1513,2   FIPS? 2-Letter ABBREV?
-334 SQLCHAR  0   2   ""      30   mom_bthcntry_fips
-335 SQLCHAR  0   5   ""      41   mres_city_fips
-336 SQLCHAR  0   3   ""      42   mres_cnty_fips
-337 SQLCHAR  0   2   ""  MOTHER_RES_STATE,Mother Residential State,,,Alphanumeric,1528,2   FIPS? 2-Letter ABBREV?
-338 SQLCHAR  0   2   ""      39   mres_cntry_fips
-339 SQLCHAR  0   9   ""     283   ssn_child
+43  SQLCHAR  0   2   "" 55 FBIR_COUNTRY_COUNTRY_CODE_NV_NEW SQL_Latin1_General_Cp437_BIN
+44  SQLCHAR  0   2   "" 56 FBIR_STATE_STATE_CODE_NV_NEW SQL_Latin1_General_Cp437_BIN
+45  SQLCHAR  0   1   ""      57 fa_edu SQL_Latin1_General_Cp437_BIN
+46  SQLCHAR  0   3   ""      58 fa_occ SQL_Latin1_General_Cp437_BIN
+47  SQLCHAR  0   3   ""      59 fa_occup1 SQL_Latin1_General_Cp437_BIN
+48  SQLCHAR  0   9   ""      62 fa_ssn SQL_Latin1_General_Cp437_BIN
+49  SQLCHAR  0   1   ""      63 mom_everm SQL_Latin1_General_Cp437_BIN
+50  SQLCHAR  0   1   ""      64 married_betw SQL_Latin1_General_Cp437_BIN
+51  SQLCHAR  0   1   ""      65 fa_husb SQL_Latin1_General_Cp437_BIN
+52  SQLCHAR  0   1   ""      66 fa_signpat SQL_Latin1_General_Cp437_BIN
+53  SQLCHAR  0   1   ""     281 mom_trans SQL_Latin1_General_Cp437_BIN
+54  SQLCHAR  0   8   ""      68 lm_date SQL_Latin1_General_Cp437_BIN
+55  SQLCHAR  0   1   ""      72 prenatal SQL_Latin1_General_Cp437_BIN
+56  SQLCHAR  0   8   ""      73 pre_begin SQL_Latin1_General_Cp437_BIN
+57  SQLCHAR  0   8   ""      77 pre_end SQL_Latin1_General_Cp437_BIN
+58  SQLCHAR  0   2   ""      81 tot_visits SQL_Latin1_General_Cp437_BIN
+59  SQLCHAR  0   1   ""      88 mom_htft SQL_Latin1_General_Cp437_BIN
+60  SQLCHAR  0   2   ""      89 mom_htinch SQL_Latin1_General_Cp437_BIN
+61  SQLCHAR  0   3   ""      90 prepreg_wt SQL_Latin1_General_Cp437_BIN
+62  SQLCHAR  0   3   ""      91 del_wt SQL_Latin1_General_Cp437_BIN
+63  SQLCHAR  0   2   ""      93 prv_livebth SQL_Latin1_General_Cp437_BIN
+64  SQLCHAR  0   6   ""      94 prv_livebthdte SQL_Latin1_General_Cp437_BIN
+65  SQLCHAR  0   2   ""      95 live_bthliv SQL_Latin1_General_Cp437_BIN
+66  SQLCHAR  0   2   ""      96 live_bthdead SQL_Latin1_General_Cp437_BIN
+67  SQLCHAR  0   2   ""      97 prv_term SQL_Latin1_General_Cp437_BIN
+68  SQLCHAR  0   6   ""      98 term_dte SQL_Latin1_General_Cp437_BIN
+69  SQLCHAR  0   1   ""      99 tobacco SQL_Latin1_General_Cp437_BIN
+70  SQLCHAR  0   1   ""     100 cig_pck SQL_Latin1_General_Cp437_BIN
+71  SQLCHAR  0   2   ""     101 prepreg_cig SQL_Latin1_General_Cp437_BIN
+72  SQLCHAR  0   2   ""     102 prepreg_pck SQL_Latin1_General_Cp437_BIN
+73  SQLCHAR  0   2   ""     103 first_cig SQL_Latin1_General_Cp437_BIN
+74  SQLCHAR  0   2   ""     104 first_pck SQL_Latin1_General_Cp437_BIN
+75  SQLCHAR  0   2   ""     105 sec_cig SQL_Latin1_General_Cp437_BIN
+76  SQLCHAR  0   2   ""     106 sec_pck SQL_Latin1_General_Cp437_BIN
+77  SQLCHAR  0   2   ""     107 last cig SQL_Latin1_General_Cp437_BIN
+78  SQLCHAR  0   2   ""     108 last_pck SQL_Latin1_General_Cp437_BIN
+79  SQLCHAR  0   1   ""     109 alcohol SQL_Latin1_General_Cp437_BIN
+80  SQLCHAR  0   2   ""     110 drink_wk SQL_Latin1_General_Cp437_BIN
+81  SQLCHAR  0   1   ""     111 drug_use SQL_Latin1_General_Cp437_BIN
+82  SQLCHAR  0   1   ""     112 du_prscr SQL_Latin1_General_Cp437_BIN
+83  SQLCHAR  0   1   ""     113 du_otc SQL_Latin1_General_Cp437_BIN
+84  SQLCHAR  0   1   ""     114 du_other SQL_Latin1_General_Cp437_BIN
+85  SQLCHAR  0  30   ""     115 du_otherlit SQL_Latin1_General_Cp437_BIN
+86  SQLCHAR  0   1   ""     116 mrf_none SQL_Latin1_General_Cp437_BIN
+87  SQLCHAR  0   1   ""     117 mrf_prediab SQL_Latin1_General_Cp437_BIN
+88  SQLCHAR  0   1   ""     118 mrf_gestdiab SQL_Latin1_General_Cp437_BIN
+89  SQLCHAR  0   1   ""     119 mrf_hypert SQL_Latin1_General_Cp437_BIN
+90  SQLCHAR  0   1   ""     120 mrf_hypertchr SQL_Latin1_General_Cp437_BIN
+91  SQLCHAR  0   1   ""     121 mrf_hypertgest SQL_Latin1_General_Cp437_BIN
+92  SQLCHAR  0   1   ""     122 mrf_eclampsia SQL_Latin1_General_Cp437_BIN
+93  SQLCHAR  0   1   ""     123 mrf_prevpreterm SQL_Latin1_General_Cp437_BIN
+94  SQLCHAR  0   1   ""     124 mrf_poorout SQL_Latin1_General_Cp437_BIN
+95  SQLCHAR  0   1   ""     125 mrf_inftreat SQL_Latin1_General_Cp437_BIN
+96  SQLCHAR  0   1   ""     126 mrf_infdrugs SQL_Latin1_General_Cp437_BIN
+97  SQLCHAR  0   1   ""     127 mrf_assistrep SQL_Latin1_General_Cp437_BIN
+98  SQLCHAR  0   1   ""     128 mrf_prevces SQL_Latin1_General_Cp437_BIN
+99  SQLCHAR  0   2   ""     129 mrf_prevcesnum SQL_Latin1_General_Cp437_BIN
+100 SQLCHAR  0   1   ""     130 mrf_anemia SQL_Latin1_General_Cp437_BIN
+101 SQLCHAR  0   1   ""     131 mrf_cardiac SQL_Latin1_General_Cp437_BIN
+102 SQLCHAR  0   1   ""     132 mrf_lungdis SQL_Latin1_General_Cp437_BIN
+103 SQLCHAR  0   1   ""     133 mrf_hydra SQL_Latin1_General_Cp437_BIN
+104 SQLCHAR  0   1   ""     134 mrf_hemoglob SQL_Latin1_General_Cp437_BIN
+105 SQLCHAR  0   1   ""     135 mrf_incompcerv SQL_Latin1_General_Cp437_BIN
+106 SQLCHAR  0   1   ""     136 mrf_prev4000 SQL_Latin1_General_Cp437_BIN
+107 SQLCHAR  0   1   ""     137 mrf_renaldis SQL_Latin1_General_Cp437_BIN
+108 SQLCHAR  0   1   ""     138 mrf_rhsensit SQL_Latin1_General_Cp437_BIN
+109 SQLCHAR  0   1   ""     139 mrf_utbleed SQL_Latin1_General_Cp437_BIN
+110 SQLCHAR  0   1   ""     140 mrf_oth SQL_Latin1_General_Cp437_BIN
+111 SQLCHAR  0  30   ""     141 mrf_othlit SQL_Latin1_General_Cp437_BIN
+112 SQLCHAR  0   1   ""     142 inf_none SQL_Latin1_General_Cp437_BIN
+113 SQLCHAR  0   1   ""     143 inf_gonor SQL_Latin1_General_Cp437_BIN
+114 SQLCHAR  0   1   ""     144 inf_syph SQL_Latin1_General_Cp437_BIN
+115 SQLCHAR  0   1   ""     145 inf_chlam SQL_Latin1_General_Cp437_BIN
+116 SQLCHAR  0   1   ""     146 inf_hepb SQL_Latin1_General_Cp437_BIN
+117 SQLCHAR  0   1   ""     147 inf_hepc SQL_Latin1_General_Cp437_BIN
+118 SQLCHAR  0   1   ""     148 inf_hpv SQL_Latin1_General_Cp437_BIN
+119 SQLCHAR  0   1   ""     149 inf_hivaids SQL_Latin1_General_Cp437_BIN
+120 SQLCHAR  0   1   ""     150 inf_cmv SQL_Latin1_General_Cp437_BIN
+121 SQLCHAR  0   1   ""     151 inf_rubella SQL_Latin1_General_Cp437_BIN
+122 SQLCHAR  0   1   ""     152 inf_toxo SQL_Latin1_General_Cp437_BIN
+123 SQLCHAR  0   1   ""     153 inf_genherpes SQL_Latin1_General_Cp437_BIN
+124 SQLCHAR  0   1   ""     154 inf_tuber SQL_Latin1_General_Cp437_BIN
+125 SQLCHAR  0   1   ""     155 inf_oth SQL_Latin1_General_Cp437_BIN
+126 SQLCHAR  0  30   ""     156 inf_othlit SQL_Latin1_General_Cp437_BIN
+127 SQLCHAR  0   1   ""     157 ob_none SQL_Latin1_General_Cp437_BIN
+128 SQLCHAR  0   1   ""     158 ob_cercl SQL_Latin1_General_Cp437_BIN
+129 SQLCHAR  0   1   ""     159 ob_toco SQL_Latin1_General_Cp437_BIN
+130 SQLCHAR  0   1   ""     160 ob_amnio SQL_Latin1_General_Cp437_BIN
+131 SQLCHAR  0   1   ""     161 ob_fetalmon SQL_Latin1_General_Cp437_BIN
+132 SQLCHAR  0   1   ""     162 ob_cephsucess SQL_Latin1_General_Cp437_BIN
+133 SQLCHAR  0   1   ""     163 ob_cephfail SQL_Latin1_General_Cp437_BIN
+134 SQLCHAR  0   1   ""     164 ob_ultrasnd SQL_Latin1_General_Cp437_BIN
+135 SQLCHAR  0   1   ""     165 ob_oth SQL_Latin1_General_Cp437_BIN
+136 SQLCHAR  0  30   ""     166 ob_othlit SQL_Latin1_General_Cp437_BIN
+137 SQLCHAR  0   1   ""     167 ol_none SQL_Latin1_General_Cp437_BIN
+138 SQLCHAR  0   1   ""     168 ol_prerom SQL_Latin1_General_Cp437_BIN
+139 SQLCHAR  0   1   ""     169 ol_preciplbr SQL_Latin1_General_Cp437_BIN
+140 SQLCHAR  0   1   ""     170 ol_prolonglbr SQL_Latin1_General_Cp437_BIN
+141 SQLCHAR  0   1   ""     171 cld_none SQL_Latin1_General_Cp437_BIN
+142 SQLCHAR  0   1   ""     172 cld_induc SQL_Latin1_General_Cp437_BIN
+143 SQLCHAR  0   1   ""     173 cld_aug SQL_Latin1_General_Cp437_BIN
+144 SQLCHAR  0   1   ""     174 cld_nonvert SQL_Latin1_General_Cp437_BIN
+145 SQLCHAR  0   1   ""     175 cld_steroid SQL_Latin1_General_Cp437_BIN
+146 SQLCHAR  0   1   ""     176 cld_antibiotic SQL_Latin1_General_Cp437_BIN
+147 SQLCHAR  0   1   ""     177 cld_chorio SQL_Latin1_General_Cp437_BIN
+148 SQLCHAR  0   1   ""     178 cld_mecon SQL_Latin1_General_Cp437_BIN
+149 SQLCHAR  0   1   ""     179 cld_fetalintol SQL_Latin1_General_Cp437_BIN
+150 SQLCHAR  0   1   ""     180 cld_epi SQL_Latin1_General_Cp437_BIN
+151 SQLCHAR  0   1   ""     181 cld_febrile SQL_Latin1_General_Cp437_BIN
+152 SQLCHAR  0   1   ""     182 cld_abrplac SQL_Latin1_General_Cp437_BIN
+153 SQLCHAR  0   1   ""     183 cld_placprev SQL_Latin1_General_Cp437_BIN
+154 SQLCHAR  0   1   ""     184 cld_bleed SQL_Latin1_General_Cp437_BIN
+155 SQLCHAR  0   1   ""     185 cld_seizures SQL_Latin1_General_Cp437_BIN
+156 SQLCHAR  0   1   ""     186 cld_dysfunc SQL_Latin1_General_Cp437_BIN
+157 SQLCHAR  0   1   ""     187 cld_cephpelv SQL_Latin1_General_Cp437_BIN
+158 SQLCHAR  0   1   ""     188 cld_cordpro SQL_Latin1_General_Cp437_BIN
+159 SQLCHAR  0   1   ""     189 cld_anesth SQL_Latin1_General_Cp437_BIN
+160 SQLCHAR  0   1   ""     190 cld_oth SQL_Latin1_General_Cp437_BIN
+161 SQLCHAR  0  30   ""     191 cld_othlit SQL_Latin1_General_Cp437_BIN
+162 SQLCHAR  0   1   ""     192 md_forcepsattpt SQL_Latin1_General_Cp437_BIN
+163 SQLCHAR  0   1   ""     193 md_vaccumattpt SQL_Latin1_General_Cp437_BIN
+164 SQLCHAR  0   1   ""     194 bth_present SQL_Latin1_General_Cp437_BIN
+165 SQLCHAR  0   1   ""     195 bth_route SQL_Latin1_General_Cp437_BIN
+166 SQLCHAR  0   1   ""     196 trial_lbr SQL_Latin1_General_Cp437_BIN
+167 SQLCHAR  0   1   ""     197 mm_none SQL_Latin1_General_Cp437_BIN
+168 SQLCHAR  0   1   ""     198 mm_trnsfusion SQL_Latin1_General_Cp437_BIN
+169 SQLCHAR  0   1   ""     199 mm_perilac SQL_Latin1_General_Cp437_BIN
+170 SQLCHAR  0   1   ""     200 mm_ruputerus SQL_Latin1_General_Cp437_BIN
+171 SQLCHAR  0   1   ""     201 mm_hyster SQL_Latin1_General_Cp437_BIN
+172 SQLCHAR  0   1   ""     202 mm_icu SQL_Latin1_General_Cp437_BIN
+173 SQLCHAR  0   1   ""     203 mm_unploper SQL_Latin1_General_Cp437_BIN
+174 SQLCHAR  0   1   ""     204 mm_unk SQL_Latin1_General_Cp437_BIN
+175 SQLCHAR  0   2   ""     205 apgar_5 SQL_Latin1_General_Cp437_BIN
+176 SQLCHAR  0   2   ""     206 apgar_10 SQL_Latin1_General_Cp437_BIN
+177 SQLCHAR  0   1   ""     209 bthwt_unit SQL_Latin1_General_Cp437_BIN
+178 SQLCHAR  0   4   ""     210 grams SQL_Latin1_General_Cp437_BIN
+179 SQLCHAR  0   2   ""     211 lbs SQL_Latin1_General_Cp437_BIN
+180 SQLCHAR  0   2   ""     212 oz SQL_Latin1_General_Cp437_BIN
+181 SQLCHAR  0   2   ""     207 gest_wks SQL_Latin1_General_Cp437_BIN
+182 SQLCHAR  0   2   ""     214 plurality SQL_Latin1_General_Cp437_BIN
+183 SQLCHAR  0   2   ""     215 bth_order SQL_Latin1_General_Cp437_BIN
+184 SQLCHAR  0   2   ""     216 born_alive SQL_Latin1_General_Cp437_BIN
+185 SQLCHAR  0   6   ""     217 match_certnum SQL_Latin1_General_Cp437_BIN
+186 SQLCHAR  0   1   ""     280 inf_trans SQL_Latin1_General_Cp437_BIN
+187 SQLCHAR  0   1   ""     279 inf_liv SQL_Latin1_General_Cp437_BIN
+188 SQLCHAR  0   1   ""     218 ac_none SQL_Latin1_General_Cp437_BIN
+189 SQLCHAR  0   1   ""     219 ac_ventless SQL_Latin1_General_Cp437_BIN
+190 SQLCHAR  0   1   ""     220 ac_ventmore SQL_Latin1_General_Cp437_BIN
+191 SQLCHAR  0   1   ""     221 ac_nicu SQL_Latin1_General_Cp437_BIN
+192 SQLCHAR  0   1   ""     222 ac_surf SQL_Latin1_General_Cp437_BIN
+193 SQLCHAR  0   1   ""     223 ac_antisepsis SQL_Latin1_General_Cp437_BIN
+194 SQLCHAR  0   1   ""     224 ac_seizures SQL_Latin1_General_Cp437_BIN
+195 SQLCHAR  0   1   ""     225 ac_anemia SQL_Latin1_General_Cp437_BIN
+196 SQLCHAR  0   1   ""     226 ac_fas SQL_Latin1_General_Cp437_BIN
+197 SQLCHAR  0   1   ""     227 ac_hyaline SQL_Latin1_General_Cp437_BIN
+198 SQLCHAR  0   1   ""     228 ac_mecon SQL_Latin1_General_Cp437_BIN
+199 SQLCHAR  0   1   ""     229 ac_bthinjury SQL_Latin1_General_Cp437_BIN
+200 SQLCHAR  0   1   ""     230 ac_oth SQL_Latin1_General_Cp437_BIN
+201 SQLCHAR  0  30   ""     231 ac_othlit SQL_Latin1_General_Cp437_BIN
+202 SQLCHAR  0   1   ""     232 acn_none SQL_Latin1_General_Cp437_BIN
+203 SQLCHAR  0   1   ""     233 acn_anencep SQL_Latin1_General_Cp437_BIN
+204 SQLCHAR  0   1   ""     234 acn_spina SQL_Latin1_General_Cp437_BIN
+205 SQLCHAR  0   1   ""     235 acn_micro SQL_Latin1_General_Cp437_BIN
+206 SQLCHAR  0   1   ""     236 acn_nervous SQL_Latin1_General_Cp437_BIN
+207 SQLCHAR  0  30   ""     237 acn_nervouslit SQL_Latin1_General_Cp437_BIN
+208 SQLCHAR  0   1   ""     238 acn_hrtdis SQL_Latin1_General_Cp437_BIN
+209 SQLCHAR  0   1   ""     239 acn_hrtmal SQL_Latin1_General_Cp437_BIN
+210 SQLCHAR  0   1   ""     240 acn_circ SQL_Latin1_General_Cp437_BIN
+211 SQLCHAR  0  30   ""     241 acn_circlit SQL_Latin1_General_Cp437_BIN
+212 SQLCHAR  0   1   ""     242 acn_omphal SQL_Latin1_General_Cp437_BIN
+213 SQLCHAR  0   1   ""     243 acn_gastrosch SQL_Latin1_General_Cp437_BIN
+214 SQLCHAR  0   1   ""     244 acn_rectal SQL_Latin1_General_Cp437_BIN
+215 SQLCHAR  0   1   ""     245 acn_tracheo SQL_Latin1_General_Cp437_BIN
+216 SQLCHAR  0   1   ""     246 acn_gastro SQL_Latin1_General_Cp437_BIN
+217 SQLCHAR  0  30   ""     247 acn_gastrolit SQL_Latin1_General_Cp437_BIN
+218 SQLCHAR  0   1   ""     248 acn_limbred SQL_Latin1_General_Cp437_BIN
+219 SQLCHAR  0   1   ""     249 acn_cleftlip SQL_Latin1_General_Cp437_BIN
+220 SQLCHAR  0   1   ""     250 acn_cleftpalate SQL_Latin1_General_Cp437_BIN
+221 SQLCHAR  0   1   ""     251 acn_polydact SQL_Latin1_General_Cp437_BIN
+222 SQLCHAR  0   1   ""     252 acn_clubft SQL_Latin1_General_Cp437_BIN
+223 SQLCHAR  0   1   ""     253 acn_diaphhern SQL_Latin1_General_Cp437_BIN
+224 SQLCHAR  0   1   ""     254 acn_muscle SQL_Latin1_General_Cp437_BIN
+225 SQLCHAR  0  30   ""     255 acn_musclelit SQL_Latin1_General_Cp437_BIN
+226 SQLCHAR  0   1   ""     256 acn_malgen SQL_Latin1_General_Cp437_BIN
+227 SQLCHAR  0   1   ""     257 acn_renal SQL_Latin1_General_Cp437_BIN
+228 SQLCHAR  0   1   ""     258 acn_hypos SQL_Latin1_General_Cp437_BIN
+229 SQLCHAR  0   1   ""     259 acn_urogen SQL_Latin1_General_Cp437_BIN
+230 SQLCHAR  0   1   ""     260 acn_urogenlit SQL_Latin1_General_Cp437_BIN
+231 SQLCHAR  0   1   ""     261 acn_downs SQL_Latin1_General_Cp437_BIN
+232 SQLCHAR  0   1   ""     262 acn_cdit SQL_Latin1_General_Cp437_BIN
+233 SQLCHAR  0   1   ""     263 acn_chromoth SQL_Latin1_General_Cp437_BIN
+234 SQLCHAR  0  30   ""     264 acn_chromothlit SQL_Latin1_General_Cp437_BIN
+235 SQLCHAR  0   1   ""     265 acn_oth SQL_Latin1_General_Cp437_BIN
+236 SQLCHAR  0  30   ""     266 acn_othlit SQL_Latin1_General_Cp437_BIN
+237 SQLCHAR  0   1   ""     267 certifier SQL_Latin1_General_Cp437_BIN
+238 SQLCHAR  0   8   ""     268 cer_date SQL_Latin1_General_Cp437_BIN
+239 SQLCHAR  0   8   ""     269 reg_date SQL_Latin1_General_Cp437_BIN
+240 SQLCHAR  0   1   ""     276 wic SQL_Latin1_General_Cp437_BIN
+241 SQLCHAR  0   1   ""     277 source_pay SQL_Latin1_General_Cp437_BIN
+242 SQLCHAR  0   1   ""     278 breastfeeding SQL_Latin1_General_Cp437_BIN
+243 SQLCHAR  0   1   ""     282 ssn_request SQL_Latin1_General_Cp437_BIN
+244 SQLCHAR  0  20   ""     285 inf_hospnum SQL_Latin1_General_Cp437_BIN
+245 SQLCHAR  0  20   ""     286 mom_hospnum SQL_Latin1_General_Cp437_BIN
+246 SQLCHAR  0   1   ""      67 pat_complete SQL_Latin1_General_Cp437_BIN
+247 SQLCHAR  0   1   ""     287 mom_his SQL_Latin1_General_Cp437_BIN
+248 SQLCHAR  0   1   ""     288 mom_mex SQL_Latin1_General_Cp437_BIN
+249 SQLCHAR  0   1   ""     289 mom_pr SQL_Latin1_General_Cp437_BIN
+250 SQLCHAR  0   1   ""     290 mom_cu SQL_Latin1_General_Cp437_BIN
+251 SQLCHAR  0   1   ""     291 mom_ethoth SQL_Latin1_General_Cp437_BIN
+252 SQLCHAR  0  20   ""     292 mom_ethothlit SQL_Latin1_General_Cp437_BIN
+253 SQLCHAR  0   1   ""     293 mom_white SQL_Latin1_General_Cp437_BIN
+254 SQLCHAR  0   1   ""     294 mom_black SQL_Latin1_General_Cp437_BIN
+255 SQLCHAR  0   1   ""     295 mom_amind SQL_Latin1_General_Cp437_BIN
+256 SQLCHAR  0  30   ""     296 mom_amindlit SQL_Latin1_General_Cp437_BIN
+257 SQLCHAR  0   1   ""     297 mom_asian SQL_Latin1_General_Cp437_BIN
+258 SQLCHAR  0   1   ""     298 mom_asianoth SQL_Latin1_General_Cp437_BIN
+259 SQLCHAR  0  30   ""     299 mom_asianlit SQL_Latin1_General_Cp437_BIN
+260 SQLCHAR  0   1   ""     300 mom_chinese SQL_Latin1_General_Cp437_BIN
+261 SQLCHAR  0   1   ""     301 mom_filipino SQL_Latin1_General_Cp437_BIN
+262 SQLCHAR  0   1   ""     302 mom_japanese SQL_Latin1_General_Cp437_BIN
+263 SQLCHAR  0   1   ""     303 mom_korean SQL_Latin1_General_Cp437_BIN
+264 SQLCHAR  0   1   ""     304 mom_vietnamese SQL_Latin1_General_Cp437_BIN
+265 SQLCHAR  0   1   ""     305 mom_hawaiian SQL_Latin1_General_Cp437_BIN
+266 SQLCHAR  0   1   ""     306 mom_guam SQL_Latin1_General_Cp437_BIN
+267 SQLCHAR  0   1   ""     307 mom_samoan SQL_Latin1_General_Cp437_BIN
+268 SQLCHAR  0   1   ""     308 mom_pacisl SQL_Latin1_General_Cp437_BIN
+269 SQLCHAR  0  30   ""     309 mom_pacisloth SQL_Latin1_General_Cp437_BIN
+270 SQLCHAR  0   1   ""     310 mom_raceoth SQL_Latin1_General_Cp437_BIN
+271 SQLCHAR  0  30   ""     311 mom_raceothlit SQL_Latin1_General_Cp437_BIN
+272 SQLCHAR  0   1   ""     312 mom_raceunk SQL_Latin1_General_Cp437_BIN
+273 SQLCHAR  0   1   ""     313 mom_raceref SQL_Latin1_General_Cp437_BIN
+274 SQLCHAR  0   3   ""     314 mom_race1 SQL_Latin1_General_Cp437_BIN
+275 SQLCHAR  0   3   ""     315 mom_race2 SQL_Latin1_General_Cp437_BIN
+276 SQLCHAR  0   3   ""     316 mom_race3 SQL_Latin1_General_Cp437_BIN
+277 SQLCHAR  0   3   ""     317 mom_race4 SQL_Latin1_General_Cp437_BIN
+278 SQLCHAR  0   3   ""     318 mom_race5 SQL_Latin1_General_Cp437_BIN
+279 SQLCHAR  0   3   ""     319 mom_race6 SQL_Latin1_General_Cp437_BIN
+280 SQLCHAR  0   3   ""     320 mom_race7 SQL_Latin1_General_Cp437_BIN
+281 SQLCHAR  0   3   ""     321 mom_race8 SQL_Latin1_General_Cp437_BIN
+282 SQLCHAR  0   3   ""     322 mom_race16 SQL_Latin1_General_Cp437_BIN
+283 SQLCHAR  0   3   ""     324 mom_race18 SQL_Latin1_General_Cp437_BIN
+284 SQLCHAR  0   3   ""     326 mom_race20 SQL_Latin1_General_Cp437_BIN
+285 SQLCHAR  0   3   ""     328 mom_race22 SQL_Latin1_General_Cp437_BIN
+286 SQLCHAR  0   3   "" 330 B2_NCHS_MO_ETHNIC_CD SQL_Latin1_General_Cp437_BIN
+287 SQLCHAR  0   3   "" 331 B2_NCHS_MO_ETHNIC_LIT_CD SQL_Latin1_General_Cp437_BIN
+288 SQLCHAR  0   2   ""     332 momrace_nchsbrg SQL_Latin1_General_Cp437_BIN
+289 SQLCHAR  0   1   ""     334 fa_his SQL_Latin1_General_Cp437_BIN
+290 SQLCHAR  0   1   ""     335 fa_mex SQL_Latin1_General_Cp437_BIN
+291 SQLCHAR  0   1   ""     336 fa_pr SQL_Latin1_General_Cp437_BIN
+292 SQLCHAR  0   1   ""     337 fa_cu SQL_Latin1_General_Cp437_BIN
+293 SQLCHAR  0   1   ""     338 fa_ethoth SQL_Latin1_General_Cp437_BIN
+294 SQLCHAR  0  20   ""     339 fa_ethothlit SQL_Latin1_General_Cp437_BIN
+295 SQLCHAR  0   1   ""     340 fa_white SQL_Latin1_General_Cp437_BIN
+296 SQLCHAR  0   1   ""     341 fa_black SQL_Latin1_General_Cp437_BIN
+297 SQLCHAR  0   1   ""     342 fa_amind SQL_Latin1_General_Cp437_BIN
+298 SQLCHAR  0  30   ""     343 fa_amindlit SQL_Latin1_General_Cp437_BIN
+299 SQLCHAR  0   1   ""     344 fa_asian SQL_Latin1_General_Cp437_BIN
+300 SQLCHAR  0   1   ""     345 fa_asianoth SQL_Latin1_General_Cp437_BIN
+301 SQLCHAR  0  30   ""     346 fa_asianothlit SQL_Latin1_General_Cp437_BIN
+302 SQLCHAR  0   1   ""     347 fa_chinese SQL_Latin1_General_Cp437_BIN
+303 SQLCHAR  0   1   ""     348 fa_filipino SQL_Latin1_General_Cp437_BIN
+304 SQLCHAR  0   1   ""     349 fa_japanese SQL_Latin1_General_Cp437_BIN
+305 SQLCHAR  0   1   ""     350 fa_korean SQL_Latin1_General_Cp437_BIN
+306 SQLCHAR  0   1   ""     351 fa_vietnamese SQL_Latin1_General_Cp437_BIN
+307 SQLCHAR  0   1   ""     352 fa_hawaiian SQL_Latin1_General_Cp437_BIN
+308 SQLCHAR  0   1   ""     353 fa_guam SQL_Latin1_General_Cp437_BIN
+309 SQLCHAR  0   1   ""     354 fa_samoan SQL_Latin1_General_Cp437_BIN
+310 SQLCHAR  0   1   ""     355 fa_pacisl SQL_Latin1_General_Cp437_BIN
+311 SQLCHAR  0  30   ""     356 fa_pacisloth SQL_Latin1_General_Cp437_BIN
+312 SQLCHAR  0   1   ""     357 fa_raceoth SQL_Latin1_General_Cp437_BIN
+313 SQLCHAR  0  30   ""     358 fa_raceothlit SQL_Latin1_General_Cp437_BIN
+314 SQLCHAR  0   1   ""     359 fa_raceunk SQL_Latin1_General_Cp437_BIN
+315 SQLCHAR  0   1   ""     360 fa_raceref SQL_Latin1_General_Cp437_BIN
+316 SQLCHAR  0   3   ""     361 fa_race1 SQL_Latin1_General_Cp437_BIN
+317 SQLCHAR  0   3   ""     362 fa_race2 SQL_Latin1_General_Cp437_BIN
+318 SQLCHAR  0   3   ""     363 fa_race3 SQL_Latin1_General_Cp437_BIN
+319 SQLCHAR  0   3   ""     364 fa_race4 SQL_Latin1_General_Cp437_BIN
+320 SQLCHAR  0   3   ""     365 fa_race5 SQL_Latin1_General_Cp437_BIN
+321 SQLCHAR  0   3   ""     366 fa_race6 SQL_Latin1_General_Cp437_BIN
+322 SQLCHAR  0   3   ""     367 fa_race7 SQL_Latin1_General_Cp437_BIN
+323 SQLCHAR  0   3   ""     368 fa_race8 SQL_Latin1_General_Cp437_BIN
+324 SQLCHAR  0   3   ""     369 fa_race16 SQL_Latin1_General_Cp437_BIN
+325 SQLCHAR  0   3   ""     371 fa_race18 SQL_Latin1_General_Cp437_BIN
+326 SQLCHAR  0   3   ""     373 fa_race20 SQL_Latin1_General_Cp437_BIN
+327 SQLCHAR  0   3   ""     375 fa_race22 SQL_Latin1_General_Cp437_BIN
+328 SQLCHAR  0   3   ""  377 B2_NCHS_FA_ETHNIC_CD SQL_Latin1_General_Cp437_BIN
+329 SQLCHAR  0   3   ""  378 B2_NCHS_FA_ETHNIC_LIT_CD SQL_Latin1_General_Cp437_BIN
+330 SQLCHAR  0   2   ""     379  farace_nchsbrg SQL_Latin1_General_Cp437_BIN
+331 SQLCHAR  0   4   ""       2  cert_year SQL_Latin1_General_Cp437_BIN
+332 SQLCHAR  0   1   ""  385 ISACTIVE SQL_Latin1_General_Cp437_BIN
+333 SQLCHAR  0   2   ""  386 MOTHER_BIRTH_STATE SQL_Latin1_General_Cp437_BIN
+334 SQLCHAR  0   2   ""      30   mom_bthcntry_fips SQL_Latin1_General_Cp437_BIN
+335 SQLCHAR  0   5   ""      41   mres_city_fips SQL_Latin1_General_Cp437_BIN
+336 SQLCHAR  0   3   ""      42   mres_cnty_fips SQL_Latin1_General_Cp437_BIN
+337 SQLCHAR  0   2   ""  387 MOTHER_RES_STATE SQL_Latin1_General_Cp437_BIN
+338 SQLCHAR  0   2   ""      39   mres_cntry_fips SQL_Latin1_General_Cp437_BIN
+339 SQLCHAR  0   9   ""     283   ssn_child SQL_Latin1_General_Cp437_BIN
 340 SQLCHAR  0   1   ""     381   death_match         SQL_Latin1_General_Cp437_BIN
 341 SQLCHAR  0  10   ""     382   death_cert         SQL_Latin1_General_Cp437_BIN
 342 SQLCHAR  0   8   "\n"   383   death_date         SQL_Latin1_General_Cp437_BIN
