@@ -37,3 +37,11 @@ puts "#{row+=1} SQLCHAR 0 1000 \"\\n\" #{row} UNK#{unknum+=1} SQL_Latin1_General
 #	May need to manually correct record count if there are gaps
 
 
+
+
+#	SELECT a.* 
+#	FROM OPENROWSET( 
+#		BULK 'C:\Users\gwendt\Desktop\CHIRP Birth Extract 20160701.txt',
+#		FORMATFILE = 'Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\development\births_dev.fmt'
+#	) AS a;
+
