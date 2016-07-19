@@ -30,3 +30,10 @@ csv.each do |incsv|
 	position+=incsv['End Position'].to_i
 end
 csv.close
+
+
+
+#	May need to manually correct record count if there are gaps
+#	WILL need to add \n as final separator.
+
+
