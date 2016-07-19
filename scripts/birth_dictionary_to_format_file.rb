@@ -31,9 +31,9 @@ csv.each do |incsv|
 end
 csv.close
 
+puts "#{row+=1} SQLCHAR 0 1000 \"\\n\" #{row} UNK#{unknum+=1} SQL_Latin1_General_Cp437_BIN"
 
 
 #	May need to manually correct record count if there are gaps
-#	WILL need to add \n as final separator.
 
 
