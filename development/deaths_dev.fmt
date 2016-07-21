@@ -1,0 +1,134 @@
+10.0
+115
+1 SQLCHAR 0 10 "" 1 [Certificate Number] SQL_Latin1_General_Cp437_BIN
+2 SQLCHAR 0 1 "" 2 [Alias Name] SQL_Latin1_General_Cp437_BIN
+3 SQLCHAR 0 25 "" 3 [Full Name] SQL_Latin1_General_Cp437_BIN
+4 SQLCHAR 0 4 "" 4 [Death Year] SQL_Latin1_General_Cp437_BIN
+5 SQLCHAR 0 2 "" 5 [Death Month] SQL_Latin1_General_Cp437_BIN
+6 SQLCHAR 0 2 "" 6 [Death Day] SQL_Latin1_General_Cp437_BIN
+7 SQLCHAR 0 2 "" 7 [State of Death] SQL_Latin1_General_Cp437_BIN
+8 SQLCHAR 0 3 "" 8 [City of Death] SQL_Latin1_General_Cp437_BIN
+9 SQLCHAR 0 2 "" 9 [County of Death] SQL_Latin1_General_Cp437_BIN
+10 SQLCHAR 0 4 "" 10 [Death Facility Code] SQL_Latin1_General_Cp437_BIN
+11 SQLCHAR 0 1 "" 11 [Place of Death] SQL_Latin1_General_Cp437_BIN
+12 SQLCHAR 0 2 "" 12 UNK1 SQL_Latin1_General_Cp437_BIN
+13 SQLCHAR 0 1 "" 13 [Ethnicity Hispanic Origin?] SQL_Latin1_General_Cp437_BIN
+14 SQLCHAR 0 1 "" 14 [Mexican] SQL_Latin1_General_Cp437_BIN
+15 SQLCHAR 0 1 "" 15 [Puerto Rican] SQL_Latin1_General_Cp437_BIN
+16 SQLCHAR 0 1 "" 16 [Cuban] SQL_Latin1_General_Cp437_BIN
+17 SQLCHAR 0 1 "" 17 [Other] SQL_Latin1_General_Cp437_BIN
+18 SQLCHAR 0 20 "" 18 [Other Description] SQL_Latin1_General_Cp437_BIN
+19 SQLCHAR 0 1 "" 19 UNK2 SQL_Latin1_General_Cp437_BIN
+20 SQLCHAR 0 1 "" 20 [Race-White] SQL_Latin1_General_Cp437_BIN
+21 SQLCHAR 0 1 "" 21 [Race-Black or African American] SQL_Latin1_General_Cp437_BIN
+22 SQLCHAR 0 1 "" 22 [Race-Amer. Indian or Alaska Native] SQL_Latin1_General_Cp437_BIN
+23 SQLCHAR 0 1 "" 23 [Race-Asian Indian] SQL_Latin1_General_Cp437_BIN
+24 SQLCHAR 0 1 "" 24 [Race-Chinese] SQL_Latin1_General_Cp437_BIN
+25 SQLCHAR 0 1 "" 25 [Race-Filipino] SQL_Latin1_General_Cp437_BIN
+26 SQLCHAR 0 1 "" 26 [Race-Japanese] SQL_Latin1_General_Cp437_BIN
+27 SQLCHAR 0 1 "" 27 [Race-Korean] SQL_Latin1_General_Cp437_BIN
+28 SQLCHAR 0 1 "" 28 [Race-Vietnamese] SQL_Latin1_General_Cp437_BIN
+29 SQLCHAR 0 1 "" 29 [Race-Other Asian] SQL_Latin1_General_Cp437_BIN
+30 SQLCHAR 0 1 "" 30 [Race-Native Hawaiian] SQL_Latin1_General_Cp437_BIN
+31 SQLCHAR 0 1 "" 31 [Race-Guamanian or Chamorro] SQL_Latin1_General_Cp437_BIN
+32 SQLCHAR 0 1 "" 32 [Race-Samoan] SQL_Latin1_General_Cp437_BIN
+33 SQLCHAR 0 1 "" 33 [Race-Other Pacific Islander] SQL_Latin1_General_Cp437_BIN
+34 SQLCHAR 0 1 "" 34 [Race-Other] SQL_Latin1_General_Cp437_BIN
+35 SQLCHAR 0 30 "" 35 [Race-Native American Indian or Alaska Native Desc.1] SQL_Latin1_General_Cp437_BIN
+36 SQLCHAR 0 30 "" 36 [Race-Other Asian Desc.1] SQL_Latin1_General_Cp437_BIN
+37 SQLCHAR 0 30 "" 37 [Race-Other Pacific Islander Desc.1] SQL_Latin1_General_Cp437_BIN
+38 SQLCHAR 0 30 "" 38 [Race-Other Desc.1] SQL_Latin1_General_Cp437_BIN
+39 SQLCHAR 0 1 "" 39 [Race-Not Obtainable] SQL_Latin1_General_Cp437_BIN
+40 SQLCHAR 0 1 "" 40 [Race-Unknown] SQL_Latin1_General_Cp437_BIN
+41 SQLCHAR 0 1 "" 41 [Race-Refused] SQL_Latin1_General_Cp437_BIN
+42 SQLCHAR 0 2 "" 42 UNK3 SQL_Latin1_General_Cp437_BIN
+43 SQLCHAR 0 1 "" 43 [Education (2008+)] SQL_Latin1_General_Cp437_BIN
+44 SQLCHAR 0 1 "" 44 [Age Unit] SQL_Latin1_General_Cp437_BIN
+45 SQLCHAR 0 3 "" 45 [Age] SQL_Latin1_General_Cp437_BIN
+46 SQLCHAR 0 4 "" 46 [Birth Year] SQL_Latin1_General_Cp437_BIN
+47 SQLCHAR 0 2 "" 47 [Birth Month] SQL_Latin1_General_Cp437_BIN
+48 SQLCHAR 0 2 "" 48 [Birth Day] SQL_Latin1_General_Cp437_BIN
+49 SQLCHAR 0 1 "" 49 [Gender] SQL_Latin1_General_Cp437_BIN
+50 SQLCHAR 0 2 "" 50 [Birth State] SQL_Latin1_General_Cp437_BIN
+51 SQLCHAR 0 1 "" 51 [Citizen of what Country?] SQL_Latin1_General_Cp437_BIN
+52 SQLCHAR 0 1 "" 52 [Marital Status] SQL_Latin1_General_Cp437_BIN
+53 SQLCHAR 0 9 "" 53 [Social Security Number] SQL_Latin1_General_Cp437_BIN
+54 SQLCHAR 0 3 "" 54 [Occupation] SQL_Latin1_General_Cp437_BIN
+55 SQLCHAR 0 3 "" 55 [Industry] SQL_Latin1_General_Cp437_BIN
+56 SQLCHAR 0 2 "" 56 [Resident State] SQL_Latin1_General_Cp437_BIN
+57 SQLCHAR 0 3 "" 57 [Resident City] SQL_Latin1_General_Cp437_BIN
+58 SQLCHAR 0 2 "" 58 [Resident County] SQL_Latin1_General_Cp437_BIN
+59 SQLCHAR 0 40 "" 59 [Resident Address] SQL_Latin1_General_Cp437_BIN
+60 SQLCHAR 0 10 "" 60 [Apt Number] SQL_Latin1_General_Cp437_BIN
+61 SQLCHAR 0 9 "" 61 [Zip Code] SQL_Latin1_General_Cp437_BIN
+62 SQLCHAR 0 25 "" 62 [Father's Last Name] SQL_Latin1_General_Cp437_BIN
+63 SQLCHAR 0 20 "" 63 [Mother's Last Name] SQL_Latin1_General_Cp437_BIN
+64 SQLCHAR 0 5 "" 64 [Mother's Suffix] SQL_Latin1_General_Cp437_BIN
+65 SQLCHAR 0 10 "" 65 [Mother's First Name] SQL_Latin1_General_Cp437_BIN
+66 SQLCHAR 0 10 "" 66 [Mother's Middle Name] SQL_Latin1_General_Cp437_BIN
+67 SQLCHAR 0 1 "" 67 [Method of Disposition] SQL_Latin1_General_Cp437_BIN
+68 SQLCHAR 0 3 "" 68 UNK4 SQL_Latin1_General_Cp437_BIN
+69 SQLCHAR 0 1 "" 69 [Certifier Type] SQL_Latin1_General_Cp437_BIN
+70 SQLCHAR 0 1 "" 70 [Coroner Contacted?] SQL_Latin1_General_Cp437_BIN
+71 SQLCHAR 0 1 "" 71 [Manner of Death] SQL_Latin1_General_Cp437_BIN
+72 SQLCHAR 0 4 "" 72 [ICD-10 Code from NCHS] SQL_Latin1_General_Cp437_BIN
+73 SQLCHAR 0 60 "" 73 [Immediate Cause] SQL_Latin1_General_Cp437_BIN
+74 SQLCHAR 0 60 "" 74 [First Consequence] SQL_Latin1_General_Cp437_BIN
+75 SQLCHAR 0 60 "" 75 [Second Consequence] SQL_Latin1_General_Cp437_BIN
+76 SQLCHAR 0 60 "" 76 [Third Consequence] SQL_Latin1_General_Cp437_BIN
+77 SQLCHAR 0 60 "" 77 [Other Consequences] SQL_Latin1_General_Cp437_BIN
+78 SQLCHAR 0 1 "" 78 [Communicable Disease] SQL_Latin1_General_Cp437_BIN
+79 SQLCHAR 0 1 "" 79 [Autopsy Performed?] SQL_Latin1_General_Cp437_BIN
+80 SQLCHAR 0 1 "" 80 [Did tobacco use contribute to death?] SQL_Latin1_General_Cp437_BIN
+81 SQLCHAR 0 1 "" 81 [Was female pregnant?] SQL_Latin1_General_Cp437_BIN
+82 SQLCHAR 0 1 "" 82 [Injury at Work?] SQL_Latin1_General_Cp437_BIN
+83 SQLCHAR 0 2 "" 83 [Injury Place] SQL_Latin1_General_Cp437_BIN
+84 SQLCHAR 0 1 "" 84 [Transportation Injury?] SQL_Latin1_General_Cp437_BIN
+85 SQLCHAR 0 1 "" 85 [Transportation Injury Description] SQL_Latin1_General_Cp437_BIN
+86 SQLCHAR 0 1 "" 86 UNK5 SQL_Latin1_General_Cp437_BIN
+87 SQLCHAR 0 4 "" 87 [Birth Year] SQL_Latin1_General_Cp437_BIN
+88 SQLCHAR 0 8 "" 88 [Birth State File Number] SQL_Latin1_General_Cp437_BIN
+89 SQLCHAR 0 5 "" 89 [Supermicar1] SQL_Latin1_General_Cp437_BIN
+90 SQLCHAR 0 5 "" 90 [Supermicar2] SQL_Latin1_General_Cp437_BIN
+91 SQLCHAR 0 5 "" 91 [Supermicar3] SQL_Latin1_General_Cp437_BIN
+92 SQLCHAR 0 5 "" 92 [Supermicar4] SQL_Latin1_General_Cp437_BIN
+93 SQLCHAR 0 5 "" 93 [Supermicar5] SQL_Latin1_General_Cp437_BIN
+94 SQLCHAR 0 5 "" 94 [Supermicar6] SQL_Latin1_General_Cp437_BIN
+95 SQLCHAR 0 5 "" 95 [Supermicar7] SQL_Latin1_General_Cp437_BIN
+96 SQLCHAR 0 5 "" 96 [Supermicar8] SQL_Latin1_General_Cp437_BIN
+97 SQLCHAR 0 5 "" 97 [Supermicar9] SQL_Latin1_General_Cp437_BIN
+98 SQLCHAR 0 5 "" 98 [Supermicar10] SQL_Latin1_General_Cp437_BIN
+99 SQLCHAR 0 5 "" 99 [Supermicar11] SQL_Latin1_General_Cp437_BIN
+100 SQLCHAR 0 5 "" 100 [Supermicar12] SQL_Latin1_General_Cp437_BIN
+101 SQLCHAR 0 5 "" 101 [Supermicar13] SQL_Latin1_General_Cp437_BIN
+102 SQLCHAR 0 5 "" 102 [Supermicar14] SQL_Latin1_General_Cp437_BIN
+103 SQLCHAR 0 5 "" 103 [Supermicar15] SQL_Latin1_General_Cp437_BIN
+104 SQLCHAR 0 5 "" 104 [Supermicar16] SQL_Latin1_General_Cp437_BIN
+105 SQLCHAR 0 5 "" 105 [Supermicar17] SQL_Latin1_General_Cp437_BIN
+106 SQLCHAR 0 5 "" 106 [Supermicar18] SQL_Latin1_General_Cp437_BIN
+107 SQLCHAR 0 5 "" 107 [Supermicar19] SQL_Latin1_General_Cp437_BIN
+108 SQLCHAR 0 5 "" 108 [Supermicar20] SQL_Latin1_General_Cp437_BIN
+109 SQLCHAR 0 48 "" 109 UNK6 SQL_Latin1_General_Cp437_BIN
+110 SQLCHAR 0 3 "" 110 [Hispanic Code] SQL_Latin1_General_Cp437_BIN
+111 SQLCHAR 0 3 "" 111 UNK7 SQL_Latin1_General_Cp437_BIN
+112 SQLCHAR 0 2 "" 112 [Bridged Race] SQL_Latin1_General_Cp437_BIN
+113 SQLCHAR 0 3 "" 113 UNK8 SQL_Latin1_General_Cp437_BIN
+114 SQLCHAR 0 4 "" 114 [Death Year] SQL_Latin1_General_Cp437_BIN
+115 SQLCHAR 0 1 "" 115 UNK9 SQL_Latin1_General_Cp437_BIN
+116 SQLCHAR 0 10 "" 116 [State File Number] SQL_Latin1_General_Cp437_BIN
+117 SQLCHAR 0 1 "" 117 [Army] SQL_Latin1_General_Cp437_BIN
+118 SQLCHAR 0 3 "" 118 UNK10 SQL_Latin1_General_Cp437_BIN
+119 SQLCHAR 0 2 "" 119 [Birth Country FIPS] SQL_Latin1_General_Cp437_BIN
+120 SQLCHAR 0 1 "" 120 UNK11 SQL_Latin1_General_Cp437_BIN
+121 SQLCHAR 0 2 "" 121 [Birth State FIPS] SQL_Latin1_General_Cp437_BIN
+122 SQLCHAR 0 1 "" 122 UNK12 SQL_Latin1_General_Cp437_BIN
+123 SQLCHAR 0 5 "" 123 [Resident City] SQL_Latin1_General_Cp437_BIN
+124 SQLCHAR 0 1 "" 124 UNK13 SQL_Latin1_General_Cp437_BIN
+125 SQLCHAR 0 3 "" 125 [Resident County FIPS] SQL_Latin1_General_Cp437_BIN
+126 SQLCHAR 0 2 "" 126 UNK14 SQL_Latin1_General_Cp437_BIN
+127 SQLCHAR 0 2 "" 127 [Resident State] SQL_Latin1_General_Cp437_BIN
+128 SQLCHAR 0 2 "" 128 UNK15 SQL_Latin1_General_Cp437_BIN
+129 SQLCHAR 0 2 "" 129 [Resident Country] SQL_Latin1_General_Cp437_BIN
+130 SQLCHAR 0 3 "" 130 UNK16 SQL_Latin1_General_Cp437_BIN
+131 SQLCHAR 0 2 "" 131 [Death State] SQL_Latin1_General_Cp437_BIN
+132 SQLCHAR 0 1000 "\n" 132 UNK17 SQL_Latin1_General_Cp437_BIN
