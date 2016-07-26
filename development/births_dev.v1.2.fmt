@@ -1,5 +1,5 @@
 10.0
-345
+367
 1    SQLCHAR 0    10 ""     1 STATE_FILE_NUMBER              SQL_Latin1_General_CP1_CI_AS
 2    SQLCHAR 0     1 ""     2 VOID_FLAG                      SQL_Latin1_General_CP1_CI_AS
 3    SQLCHAR 0    21 ""     3 NAME_LAST                      SQL_Latin1_General_CP1_CI_AS

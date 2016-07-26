@@ -1,5 +1,5 @@
 10.0
-115
+132
 1    SQLCHAR 0    10 ""     1 [Certificate Number]           SQL_Latin1_General_CP1_CI_AS
 2    SQLCHAR 0     1 ""     2 [Alias Name]                   SQL_Latin1_General_CP1_CI_AS
 3    SQLCHAR 0    25 ""     3 [Full Name]                    SQL_Latin1_General_CP1_CI_AS
