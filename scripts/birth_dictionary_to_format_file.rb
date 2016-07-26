@@ -17,30 +17,33 @@ csv.rewind	#	csv.count reads to the end of the file. Undo so can read.
 
 #	End Position is really LENGTH
 
+def print_line(num,len,sep,order,name)
+	puts "#{num.to_s.ljust(4)} SQLCHAR 0 #{len.to_s.rjust(5)} #{sep.ljust(4)} #{order.to_s.rjust(3)} #{name.ljust(30)} SQL_Latin1_General_CP1_CI_AS"
+end
+
 position=1
 unknum=0
 csv.each do |incsv|
 	
 	if position != incsv['Start Position'].to_i
-		puts "#{row+=1} SQLCHAR 0 #{incsv['Start Position'].to_i - position} \"\" #{row} UNK#{unknum+=1} SQL_Latin1_General_Cp437_BIN"
+		print_line row+=1, incsv['Start Position'].to_i - position, "\"\"",
+			row, "UNK"+(unknum+=1).to_s
 		position=incsv['Start Position'].to_i
 	end
 
-#	puts "#{row+=1} SQLCHAR 0 #{incsv['End Position']} \"\" #{row} #{incsv['EBRS Field Name']} SQL_Latin1_General_Cp437_BIN"
-	puts "#{row+=1} SQLCHAR 0 #{incsv['Length']} \"\" #{row} #{incsv['EBRS Field Name']} SQL_Latin1_General_Cp437_BIN"
-##1   SQLCHAR  0  10   ""       3  cert_num         SQL_Latin1_General_Cp437_BIN
-#	puts incsv
+	print_line row+=1, incsv['Length'], "\"\"", row, incsv['EBRS Field Name']
 
 #	position+=incsv['End Position'].to_i
 	position+=incsv['Length'].to_i
 end
 csv.close
 
-puts "#{row+=1} SQLCHAR 0 1000 \"\\n\" #{row} UNK#{unknum+=1} SQL_Latin1_General_Cp437_BIN"
+print_line row+=1, 1000, "\"\\n\"", row, "UNK"+(unknum+=1).to_s
+
+
 
 
 #	May need to manually correct record count if there are gaps
-
 
 
 
