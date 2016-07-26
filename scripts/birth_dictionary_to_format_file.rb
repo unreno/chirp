@@ -3,14 +3,17 @@
 require 'csv'
 
 row=0
-csv=CSV.open("CHIRP Birth Extract Dictionary (v1.1) - Dictionary Extract.csv", 
+csv=CSV.open("CHIRP Birth Extract Dictionary (v1.2) - Dictionary Extract.csv", 
 	'r:bom|utf-8', headers: true)	#, return_headers: true )
 
 puts "10.0"	#	SQL Server version-ish
 puts csv.count		#	this is only a placeholder if there are gaps.
 csv.rewind	#	csv.count reads to the end of the file. Undo so can read.
 
+#	v 1.1
 #EBRS Field Name,Variable Name,Field Structure,Code Description,Type,Start Position,End Position
+#	v 1.2
+#EBRS Field Name,Variable Name,Field Structure,Code Description,Type,Start Position,Length
 
 #	End Position is really LENGTH
 
@@ -23,11 +26,13 @@ csv.each do |incsv|
 		position=incsv['Start Position'].to_i
 	end
 
-	puts "#{row+=1} SQLCHAR 0 #{incsv['End Position']} \"\" #{row} #{incsv['EBRS Field Name']} SQL_Latin1_General_Cp437_BIN"
+#	puts "#{row+=1} SQLCHAR 0 #{incsv['End Position']} \"\" #{row} #{incsv['EBRS Field Name']} SQL_Latin1_General_Cp437_BIN"
+	puts "#{row+=1} SQLCHAR 0 #{incsv['Length']} \"\" #{row} #{incsv['EBRS Field Name']} SQL_Latin1_General_Cp437_BIN"
 ##1   SQLCHAR  0  10   ""       3  cert_num         SQL_Latin1_General_Cp437_BIN
 #	puts incsv
 
-	position+=incsv['End Position'].to_i
+#	position+=incsv['End Position'].to_i
+	position+=incsv['Length'].to_i
 end
 csv.close
 
