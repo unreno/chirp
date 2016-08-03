@@ -914,3 +914,43 @@ BEGIN
 END -- CREATE PROCEDURE bin.JOIN_TEST_import_into_data_warehouse_by_table_vital_births
 GO
 
+
+
+/*
+
+Compare results ...
+
+
+
+SELECT COUNT(1) FROM temp_select_decode
+SELECT COUNT(1) FROM temp_select_join
+
+-- Both 1706663
+
+--	chirp_id is an INT and units may be NULL
+
+SELECT COUNT(DISTINCT CAST(chirp_id AS VARCHAR(255)) + concept + value + ISNULL(units,'') + source_schema)
+FROM temp_select_decode
+
+SELECT COUNT(DISTINCT CAST(chirp_id AS VARCHAR(255)) + concept + value + ISNULL(units,'') + source_schema)
+FROM temp_select_join
+
+-- Both 1706663
+
+SELECT d.*, j.*
+FROM temp_select_decode d
+LEFT JOIN temp_select_join j
+ON  d.chirp_id = j.chirp_id
+AND d.started_at = j.started_at
+AND d.concept = j.concept
+AND d.value = j.value
+AND ( ( d.units = j.units ) OR ( d.units IS NULL AND j.units IS NULL ) )
+AND d.source_schema = j.source_schema
+
+--	1706663 Rows
+
+
+--	I believe that the table contents are identical
+
+
+*/
