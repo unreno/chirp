@@ -4,7 +4,8 @@
 #	and as this will really only be used once,
 #	just catting them.
 
-DB_NAME='chirp'
+[[ -z $1 ]] && DB_NAME="chirp" || DB_NAME=$1
+
 
 #	Put this here so can programmatically select dev or prod
 echo "USE master;"
