@@ -8,7 +8,7 @@ GO
 -- This could cause issue inserting?
 -- What if we get an updated record?
 --	CONSTRAINT vital_births_cert_yr_cert_num
---		UNIQUE ( cert_yr, cert_num ),	
+--		UNIQUE ( cert_yr, cert_num ),
 IF OBJECT_ID('vital.births', 'U') IS NOT NULL
 	DROP TABLE vital.births;
 CREATE TABLE vital.births (
@@ -398,7 +398,12 @@ CREATE TABLE vital.births (
 	death_date INT,
 	birth_rco INT,
 	source_filename VARCHAR(255),
---	source_record_number INT,	-- Sadly, BULK INSERT does NOT preserve file order so this is moot.
+
+	--	Sadly, BULK INSERT does NOT preserve file order so this is moot.
+	--	If remove, remove code that RESEED ID
+	--	Actually, despite saying it doesn't, it seems to preserve the order.
+	source_record_number INT,
+
 --	imported_at DATETIME
 --		CONSTRAINT vital_births_imported_at_default DEFAULT CURRENT_TIMESTAMP NOT NULL,
 --	imported_to_dw BIT
@@ -420,7 +425,7 @@ CREATE TABLE vital.births_buffer (
 -- This could cause issue inserting?
 -- What if we get an updated record?
 --	CONSTRAINT vital_births_cert_yr_cert_num
---		UNIQUE ( cert_yr, cert_num ),	
+--		UNIQUE ( cert_yr, cert_num ),
 	void INT,
 	name_sur VARCHAR(50),
 	name_sux VARCHAR(50),
@@ -803,7 +808,12 @@ CREATE TABLE vital.births_buffer (
 	death_date INT,
 	birth_rco INT,
 	source_filename VARCHAR(255),
---	source_record_number INT IDENTITY(1,1),	-- Sadly, BULK INSERT does NOT preserve file order so this is moot.
+
+	--	Sadly, BULK INSERT does NOT preserve file order so this is moot.
+	--	If remove, remove code that RESEED ID
+	--	Actually, despite saying it doesn't, it seems to preserve the order.
+	source_record_number INT IDENTITY(1,1),
+
 --	imported_at DATETIME
 --		CONSTRAINT vital_births_buffer_imported_at_default DEFAULT CURRENT_TIMESTAMP NOT NULL,
 --	imported_to_dw BIT
