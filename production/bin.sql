@@ -283,12 +283,12 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
---awk -F, 'BEGIN{OFS=","}(/^--/){print}(!/^--/){gsub(/^[ ]+/,"",$2);gsub(/[ ]+$/,"",$2); gsub(/CAST \(/,"CAST(",$2);printf "%-25s, %-45s,%s\n", $1, $2,$3}' temp 
+--awk -F, 'BEGIN{OFS=","}(/^--/){print}(!/^--/){gsub(/^[ ]+/,"",$2);gsub(/[ ]+$/,"",$2); gsub(/CAST \(/,"CAST(",$2);printf "%-25s, %-45s,%s\n", $1, $2,$3}' temp
 
 	INSERT INTO dbo.observations
 		(chirp_id, provider_id, started_at,
 			concept, value, units, source_schema, source_table, source_id, downloaded_at)
-		SELECT chirp_id, provider_id, started_at, cav.concept, 
+		SELECT chirp_id, provider_id, started_at, cav.concept,
 			CASE WHEN c.value IS NOT NULL THEN c.value ELSE cav.value END AS value,
 			cav.units, source_schema, source_table, source_id, downloaded_at
 		FROM (
@@ -1516,7 +1516,11 @@ BEGIN
 		'FROM ''' + @file_with_path + ''' WITH ( ' +
 			'ROWTERMINATOR = '''+CHAR(10)+''', FIRSTROW = 2, TABLOCK )';
 
-	DBCC CHECKIDENT( 'vital.births_buffer', RESEED, 0);
+	-- RESEEDing acts differently the first time it is called
+	-- making the very first id 0. All calls after will set it to 1????
+	-- So, basically, don't RESEED the very first time.
+	IF EXISTS (SELECT * FROM sys.identity_columns WHERE object_id = OBJECT_ID( 'vital.births_buffer','U') AND last_value IS NOT NULL)
+		DBCC CHECKIDENT( 'vital.births_buffer', RESEED, 0);
 
 	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE vital.births_buffer ' +
 		'ADD CONSTRAINT temp_source_filename ' +
@@ -1552,7 +1556,11 @@ BEGIN
 		'FROM ''' + @file_with_path + ''' WITH ( ' +
 			'ROWTERMINATOR = '''+CHAR(10)+''', FIRSTROW = 2, TABLOCK )';
 
-	DBCC CHECKIDENT( 'health_lab.newborn_screenings_buffer', RESEED, 0);
+	-- RESEEDing acts differently the first time it is called
+	-- making the very first id 0. All calls after will set it to 1????
+	-- So, basically, don't RESEED the very first time.
+	IF EXISTS (SELECT * FROM sys.identity_columns WHERE object_id = OBJECT_ID( 'health_lab.newborn_screenings_buffer','U') AND last_value IS NOT NULL)
+		DBCC CHECKIDENT( 'health_lab.newborn_screenings_buffer', RESEED, 0);
 
 	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE health_lab.newborn_screenings_buffer ' +
 		'ADD CONSTRAINT temp_source_filename ' +
@@ -1590,7 +1598,11 @@ BEGIN
 		'FROM ''' + @file_with_path + ''' WITH ( ' +
 			'ROWTERMINATOR = '''+CHAR(10)+''', FIRSTROW = 2, TABLOCK )';
 
-	DBCC CHECKIDENT( 'health_lab.newborn_screenings_buffer', RESEED, 0);
+	-- RESEEDing acts differently the first time it is called
+	-- making the very first id 0. All calls after will set it to 1????
+	-- So, basically, don't RESEED the very first time.
+	IF EXISTS (SELECT * FROM sys.identity_columns WHERE object_id = OBJECT_ID( 'health_lab.newborn_screenings_buffer','U') AND last_value IS NOT NULL)
+		DBCC CHECKIDENT( 'health_lab.newborn_screenings_buffer', RESEED, 0);
 
 	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE health_lab.newborn_screenings_buffer ' +
 		'ADD CONSTRAINT temp_source_filename ' +
