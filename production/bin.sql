@@ -1491,6 +1491,25 @@ GO
 
 
 
+-- Called from a SSIS / BIDS project (Using SSIS seems to make this all more complicated.)
+IF OBJECT_ID ( 'bin.reset_vital_births_buffer_identity', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.reset_vital_births_buffer_identity;
+GO
+CREATE PROCEDURE bin.reset_vital_births_buffer_identity
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	-- RESEEDing acts differently the first time it is called
+	-- making the very first id 0. All calls after will set it to 1????
+	-- So, basically, don't RESEED the very first time.
+	IF EXISTS (SELECT * FROM sys.identity_columns WHERE object_id = OBJECT_ID( 'vital.births_buffer','U') AND last_value IS NOT NULL)
+		DBCC CHECKIDENT( 'vital.births_buffer', RESEED, 0);
+
+
+END	--	bin.reset_vital_births_buffer_identity
+GO
+
 
 
 IF OBJECT_ID ( 'bin.import_birth_records', 'P' ) IS NOT NULL
