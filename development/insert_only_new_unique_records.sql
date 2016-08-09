@@ -69,12 +69,13 @@
 	AND new.started_at = o.started_at
 	AND new.concept = o.concept
 	AND new.value = o.value
---	AND new.units = o.units -- NULL <> NULL
+	AND ISNULL(new.units,'NULL') = ISNULL(o.units,'NULL')
 	AND new.source_schema = o.source_schema
 	AND new.source_table = o.source_table
 	WHERE o.chirp_id IS NULL
      
 --	As units is commonly NULL, would need more thorough comparison there.
+--	Of course, this only works if units is NEVER CORRECTLY 'NULL'!
 --	Same with ended_at.
 --	All other fields should NOT be NULL
 
