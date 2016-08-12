@@ -97,8 +97,8 @@ CREATE TABLE vital.births (
 	gest_est INT,
 	gest_days INT,
 	dat_concep DATE,
-	mpv_days_cal INT,
-	mpv_cal INT,
+	mpv_days_cal INT,		--	0-278, 998, 999?
+	mpv_cal INT,			--	0-10, 88, 99 ?
 	pv_trims_cal INT,
 	mom_htft INT,
 	mom_htinch INT,
