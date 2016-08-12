@@ -213,8 +213,7 @@ BEGIN
 			SELECT chirp_id, provider_id, started_at, cav.concept, cav.value,
 				cav.units, source_schema, source_table, source_id, downloaded_at,
 				ROW_NUMBER() OVER ( PARTITION BY
-					chirp_id, provider_id, started_at, cav.concept,
-					cav.value, cav.units, source_schema, source_table
+					chirp_id, started_at, cav.concept, cav.value, cav.units
 					ORDER BY source_id ASC) AS row
 			FROM (
 				SELECT i.chirp_id,

@@ -114,7 +114,12 @@ SELECT COUNT(1) AS identifiers_with_12_screenings_count FROM private.identifiers
 SELECT COUNT(1) AS observations_count_again FROM dbo.observations
 --	1706663
 EXEC bin.import_into_data_warehouse
---	At this point, only importing a zip code from each of the screening records.
+--	At this point, only importing a zip code from each of the screening records. (mostly 6x, but some 3x, 9x and 12x)
 SELECT COUNT(1) AS observations_count_with_screenings FROM dbo.observations
 --	1722021
+
+--	New version de-multiplicates. Should be about 10-12,000 less now. ~ 1710000 ish.
+--	1709436
+
+
 
