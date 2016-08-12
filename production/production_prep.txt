@@ -9,10 +9,10 @@
 
 SELECT COUNT(1) AS births_buffer_pre_count FROM vital.births_buffer
 --	0
-EXEC bin.import_birth_records 'C:\Users\gwendt\Desktop\Data\NSBR\Washoe_2015.csv.tsv'
+EXEC bin.import_birth_records 'C:\Users\gwendt\Desktop\Data\NSBR\v1.0\Washoe_2015.csv.psv'
 SELECT COUNT(1) AS births_buffer_2015_count FROM vital.births_buffer
 --	5432
-EXEC bin.import_birth_records 'C:\Users\gwendt\Desktop\Data\NSBR\Washoe_2016a.csv.tsv'
+EXEC bin.import_birth_records 'C:\Users\gwendt\Desktop\Data\NSBR\v1.0\Washoe_2016a.csv.psv'
 SELECT COUNT(1) AS births_buffer_2016_count FROM vital.births_buffer
 --	5670
 SELECT COUNT(1) AS births_pre_count FROM vital.births

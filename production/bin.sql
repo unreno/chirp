@@ -222,6 +222,7 @@ BEGIN
 			concept, value, units, source_schema, source_table, source_id, downloaded_at)
 		SELECT chirp_id, provider_id, started_at,
 			cav.concept, cav.value, cav.units, source_schema, source_table, source_id, downloaded_at
+--		, MIN(source_id), MIN(downloaded_at)
 		FROM (
 			SELECT i.chirp_id,
 				s.birth_date AS started_at,	-- I hope that the actual data include date lab performed
@@ -243,6 +244,9 @@ BEGIN
 			('DEM:ZIP', CAST(zip_code AS VARCHAR(255)), NULL)
 		) cav ( concept, value, units )
 		WHERE cav.value IS NOT NULL
+
+--		GROUP BY chirp_id, provider_id, started_at, cav.concept, cav.value, cav.units, source_schema, source_table
+
 
 	UPDATE s
 		SET imported_to_dw = 'TRUE'
@@ -1533,7 +1537,8 @@ BEGIN
 
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT vital.bulk_insert_births ' +
 		'FROM ''' + @file_with_path + ''' WITH ( ' +
-			'ROWTERMINATOR = '''+CHAR(10)+''', FIRSTROW = 2, TABLOCK )';
+			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 2, TABLOCK )';
+--			'ROWTERMINATOR = '''+CHAR(10)+''', FIRSTROW = 2, TABLOCK )';
 
 	-- RESEEDing acts differently the first time it is called
 	-- making the very first id 0. All calls after will set it to 1????
