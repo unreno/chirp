@@ -196,57 +196,49 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-
-
 	-- Be advised that the newborn screening records are in triplicate.
 	-- For the moment, everything added here will also be in triplicate.
 
-
-	-- To remove this triplication, we could add something like
-	--
-	-- 	GROUP BY chirp_id, provider_id, started_at, cav.concept, cav.value, cav.units, source_schema, source_table
-	--
-	--	to the end of the SELECT statement and then change the selected columns to
-	--
-	--	, MIN(source_id) AS source_id, MIN(downloaded_at) AS downloaded_at
-	--
-	--	to get the earliest encounter with this change.
-	--	Of course, this would only help in the each particular import.
-	--	Or perhaps FIRST() if ORDERed BY
-
-
-
+	--	In order to address the triplication of data from screening records,
+	--	I've added the ROW_NUMBER() OVER ( PARTITION BY ... stuff
+	--	This seems better that GROUP BY as it allows the ordering by
+	--	one field (source_id) and selecting it and others (downloaded_at)
 
 	INSERT INTO dbo.observations
-		(chirp_id, provider_id, started_at,
-			concept, value, units, source_schema, source_table, source_id, downloaded_at)
-		SELECT chirp_id, provider_id, started_at,
-			cav.concept, cav.value, cav.units, source_schema, source_table, source_id, downloaded_at
---		, MIN(source_id), MIN(downloaded_at)
+		(chirp_id, provider_id, started_at, concept, value,
+			units, source_schema, source_table, source_id, downloaded_at)
+		SELECT chirp_id, provider_id, started_at, concept, value,
+			units, source_schema, source_table, source_id, downloaded_at
 		FROM (
-			SELECT i.chirp_id,
-				s.birth_date AS started_at,	-- I hope that the actual data include date lab performed
-				0 AS provider_id,
-				'health_lab' AS source_schema,
-				'newborn_screenings' AS source_table,
-				s.id AS source_id,
-				s.*,
-				imported_at AS downloaded_at
-			FROM health_lab.newborn_screenings s
-			JOIN private.identifiers i
-				ON  i.source_id     = s.accession_kit_number
-				AND i.source_column = 'accession_kit_number'
-				AND i.source_table  = 'newborn_screenings'
-				AND i.source_schema = 'health_lab'
-			WHERE imported_to_dw = 'FALSE'
-		) unimported_data
-		CROSS APPLY ( VALUES
-			('DEM:ZIP', CAST(zip_code AS VARCHAR(255)), NULL)
-		) cav ( concept, value, units )
-		WHERE cav.value IS NOT NULL
-
---		GROUP BY chirp_id, provider_id, started_at, cav.concept, cav.value, cav.units, source_schema, source_table
-
+			SELECT chirp_id, provider_id, started_at, cav.concept, cav.value,
+				cav.units, source_schema, source_table, source_id, downloaded_at,
+				ROW_NUMBER() OVER ( PARTITION BY
+					chirp_id, provider_id, started_at, cav.concept,
+					cav.value, cav.units, source_schema, source_table
+					ORDER BY source_id ASC) AS row
+			FROM (
+				SELECT i.chirp_id,
+					s.birth_date AS started_at,	-- I hope that the actual data include date lab performed
+					0 AS provider_id,
+					'health_lab' AS source_schema,
+					'newborn_screenings' AS source_table,
+					s.id AS source_id,
+					s.*,
+					imported_at AS downloaded_at
+				FROM health_lab.newborn_screenings s
+				JOIN private.identifiers i
+					ON  i.source_id     = s.accession_kit_number
+					AND i.source_column = 'accession_kit_number'
+					AND i.source_table  = 'newborn_screenings'
+					AND i.source_schema = 'health_lab'
+				WHERE imported_to_dw = 'FALSE'
+			) unimported_data
+			CROSS APPLY ( VALUES
+				('DEM:ZIP', CAST(zip_code AS VARCHAR(255)), NULL)
+			) cav ( concept, value, units )
+			WHERE cav.value IS NOT NULL
+		) rowed
+		WHERE row = 1
 
 	UPDATE s
 		SET imported_to_dw = 'TRUE'
