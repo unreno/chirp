@@ -22,7 +22,9 @@ cat bin.sql
 cat private.sql
 cat dbo.sql
 
-cat vital.sql
+cat vital_birth.sql
+cat vital_death.sql
+cat vital_webiz.sql
 
 
 

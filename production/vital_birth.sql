@@ -5,10 +5,6 @@ GO
 
 
 
--- This could cause issue inserting?
--- What if we get an updated record?
---	CONSTRAINT vital_births_cert_yr_cert_num
---		UNIQUE ( cert_yr, cert_num ),
 IF OBJECT_ID('vital.births', 'U') IS NOT NULL
 	DROP TABLE vital.births;
 CREATE TABLE vital.births (
@@ -404,10 +400,10 @@ CREATE TABLE vital.births (
 	--	Actually, despite saying it doesn't, it seems to preserve the order.
 	source_record_number INT,
 
---	imported_at DATETIME
---		CONSTRAINT vital_births_imported_at_default DEFAULT CURRENT_TIMESTAMP NOT NULL,
---	imported_to_dw BIT
---		CONSTRAINT vital_births_imported_to_dw_default DEFAULT 'FALSE' NOT NULL,
+	imported_at DATETIME
+		CONSTRAINT vital_births_imported_at_default DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	imported_to_dw BIT
+		CONSTRAINT vital_births_imported_to_dw_default DEFAULT 'FALSE' NOT NULL,
 );
 GO
 
@@ -814,15 +810,17 @@ CREATE TABLE vital.births_buffer (
 	--	Actually, despite saying it doesn't, it seems to preserve the order.
 	source_record_number INT IDENTITY(1,1),
 
---	imported_at DATETIME
---		CONSTRAINT vital_births_buffer_imported_at_default DEFAULT CURRENT_TIMESTAMP NOT NULL,
---	imported_to_dw BIT
---		CONSTRAINT vital_births_buffer_imported_to_dw_default DEFAULT 'FALSE' NOT NULL,
+	imported_at DATETIME
+		CONSTRAINT vital_births_buffer_imported_at_default DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	imported_to_dw BIT
+		CONSTRAINT vital_births_buffer_imported_to_dw_default DEFAULT 'FALSE' NOT NULL
 );
 GO
 
-EXEC bin.add_imported_at_column_to_tables_by_schema 'vital';
-EXEC bin.add_imported_to_dw_column_to_tables_by_schema 'vital';
+
+--	Why use a procedure?
+--EXEC bin.add_imported_at_column_to_tables_by_schema 'vital';
+--EXEC bin.add_imported_to_dw_column_to_tables_by_schema 'vital';
 
 
 
