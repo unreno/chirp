@@ -401,9 +401,11 @@ CREATE TABLE vital.births (
 	source_record_number INT,
 
 	imported_at DATETIME
-		CONSTRAINT vital_births_imported_at_default DEFAULT CURRENT_TIMESTAMP NOT NULL,
+		CONSTRAINT vital_births_imported_at_default
+		DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	imported_to_dw BIT
-		CONSTRAINT vital_births_imported_to_dw_default DEFAULT 'FALSE' NOT NULL,
+		CONSTRAINT vital_births_imported_to_dw_default
+		DEFAULT 'FALSE' NOT NULL,
 );
 GO
 
@@ -811,9 +813,11 @@ CREATE TABLE vital.births_buffer (
 	source_record_number INT IDENTITY(1,1),
 
 	imported_at DATETIME
-		CONSTRAINT vital_births_buffer_imported_at_default DEFAULT CURRENT_TIMESTAMP NOT NULL,
+		CONSTRAINT vital_births_buffer_imported_at_default
+		DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	imported_to_dw BIT
-		CONSTRAINT vital_births_buffer_imported_to_dw_default DEFAULT 'FALSE' NOT NULL
+		CONSTRAINT vital_births_buffer_imported_to_dw_default
+		DEFAULT 'FALSE' NOT NULL
 );
 GO
 
