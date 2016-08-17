@@ -32,6 +32,8 @@ cat vital_birth.sql
 ./dehyphenate_name_column.bash vital.births maiden_n
 ./dehyphenate_name_column.bash vital.births mom_snam
 ./dehyphenate_name_column.bash vital.births name_sur
+./split_date_column.bash vital.births bth_date
+./split_date_column.bash vital.births mom_dob
 
 cat vital_death.sql
 cat vital_webiz.sql
@@ -45,6 +47,9 @@ cat health_lab.sql
 ./normalize_street_column.bash health_lab.newborn_screenings address
 ./dehyphenate_name_column.bash health_lab.newborn_screenings last_name
 ./dehyphenate_name_column.bash health_lab.newborn_screenings mom_surname
+./split_date_column.bash health_lab.newborn_screenings birth_date
+./split_date_column.bash health_lab.newborn_screenings mom_birth_date
+
 
 
 

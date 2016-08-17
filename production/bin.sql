@@ -1412,9 +1412,9 @@ BEGIN
 					WHEN b.bth_date BETWEEN DATEADD(day,-8,s.birth_date) AND DATEADD(day,8,s.birth_date) THEN 0.5
 					ELSE 0.0 END AS birth_score,
 				CASE WHEN b.mom_dob = s.mom_birth_date THEN 1.0
-					WHEN (b.mom_dob_year = s.mom_birth_date_year AND b.mom_dob_month = s.mom_birth_date_month) THEN 0.5
-					WHEN (b.mom_dob_day  = s.mom_birth_date_day  AND b.mom_dob_month = s.mom_birth_date_month) THEN 0.5
-					WHEN (b.mom_dob_year = s.mom_birth_date_year AND b.mom_dob_day   = s.mom_birth_date_day)   THEN 0.5
+					WHEN (b._mom_dob_year = s._mom_birth_date_year AND b._mom_dob_month = s._mom_birth_date_month) THEN 0.5
+					WHEN (b._mom_dob_day  = s._mom_birth_date_day  AND b._mom_dob_month = s._mom_birth_date_month) THEN 0.5
+					WHEN (b._mom_dob_year = s._mom_birth_date_year AND b._mom_dob_day   = s._mom_birth_date_day)   THEN 0.5
 					ELSE 0.0 END AS mom_birth_score,
 				CASE WHEN b._mom_rzip = s.zip_code     THEN 1.0 ELSE 0.0 END AS zip_score,
 				CASE WHEN b._mom_address = s._address  THEN 1.0
@@ -1453,10 +1453,10 @@ BEGIN
 				AND i2.source_column = 'accession_kit_number'
 				AND i2.source_table  = 'newborn_screenings'
 				AND i2.source_schema = 'health_lab'
-			WHERE b.bth_date_year = @year AND b.bth_date_month = @month
+			WHERE b._bth_date_year = @year AND b._bth_date_month = @month
 				AND i2.chirp_id IS NULL
 /*
-				AND s.birth_date_year = @year AND s.birth_date_month = @month
+				AND s._birth_date_year = @year AND s._birth_date_month = @month
 				AND s.zip_code IN ( '89402', '89405', '89412', '89424', '89431', '89432', '89433',
 					'89434', '89435', '89436', '89439', '89441', '89442', '89450', '89451', '89452',
 					'89501', '89502', '89503', '89504', '89505', '89506', '89507', '89508', '89509',
