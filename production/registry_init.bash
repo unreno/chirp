@@ -37,6 +37,14 @@ cat vital_death.sql
 cat vital_webiz.sql
 
 
+cat health_lab.sql
+./normalize_name_column.bash health_lab.newborn_screenings mom_surname
+./normalize_name_column.bash health_lab.newborn_screenings last_name
+./normalize_name_column.bash health_lab.newborn_screenings mom_first_name
+./normalize_name_column.bash health_lab.newborn_screenings first_name
+./normalize_street_column.bash health_lab.newborn_screenings address
+./dehyphenate_name_column.bash health_lab.newborn_screenings last_name
+./dehyphenate_name_column.bash health_lab.newborn_screenings mom_surname
 
 
 
@@ -90,8 +98,6 @@ ls -1 content/vital/{births,deaths}/*tsv | \
 #echo "	WHERE value LIKE '''%''';"
 
 
-
-cat health_lab.sql
 
 #cat fakedoc1.sql
 
