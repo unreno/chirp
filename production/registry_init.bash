@@ -23,6 +23,16 @@ cat private.sql
 cat dbo.sql
 
 cat vital_birth.sql
+./normalize_name_column.bash vital.births name_sur
+./normalize_name_column.bash vital.births maiden_n
+./normalize_name_column.bash vital.births mom_snam
+./normalize_name_column.bash vital.births mom_fnam
+./normalize_name_column.bash vital.births name_fir
+./normalize_street_column.bash vital.births mom_address
+./dehyphenate_name_column.bash vital.births maiden_n
+./dehyphenate_name_column.bash vital.births mom_snam
+./dehyphenate_name_column.bash vital.births name_sur
+
 cat vital_death.sql
 cat vital_webiz.sql
 
