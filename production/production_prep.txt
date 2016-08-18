@@ -86,6 +86,9 @@ SELECT COUNT(1) AS observations_pre_count FROM dbo.observations
 EXEC bin.import_into_data_warehouse
 SELECT COUNT(1) AS observations_post_count FROM dbo.observations
 --	1706663
+--	1576259	-- I stopped importing 6 sets of date breakdown fields and the 5 _pck fields (23).
+--	23*5670=130410; 1576253
+--	1576253-1576259=-6. Some could have been NULL already I suppose?
 
 
 --	From here, it'll likely take about 2 hours
