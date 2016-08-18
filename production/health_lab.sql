@@ -165,9 +165,6 @@ GO
 --);
 --GO
 
---EXEC bin.add_imported_at_column_to_tables_by_schema 'health_lab';
---EXEC bin.add_imported_to_dw_column_to_tables_by_schema 'health_lab';
-
 
 
 IF OBJECT_ID ( 'health_lab.bulk_insert_newborn_screenings_2015', 'V' ) IS NOT NULL

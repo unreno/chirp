@@ -822,11 +822,6 @@ CREATE TABLE vital.births_buffer (
 GO
 
 
---	Why use a procedure?
---EXEC bin.add_imported_at_column_to_tables_by_schema 'vital';
---EXEC bin.add_imported_to_dw_column_to_tables_by_schema 'vital';
-
-
 
 IF OBJECT_ID ( 'vital.bulk_insert_births', 'V' ) IS NOT NULL
 	DROP VIEW vital.bulk_insert_births;

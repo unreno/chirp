@@ -101,9 +101,6 @@ CREATE TABLE vital.webizs_buffer (
 );
 GO
 
---EXEC bin.add_imported_at_column_to_tables_by_schema 'vital';
---EXEC bin.add_imported_to_dw_column_to_tables_by_schema 'vital';
-
 
 
 --IF OBJECT_ID ( 'vital.bulk_insert_webizs', 'V' ) IS NOT NULL
