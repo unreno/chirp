@@ -849,6 +849,15 @@ BEGIN
 					) THEN 1.0 ELSE 0.0 END AS last_name_score,
 				CASE WHEN b._name_fir = s._first_name     THEN 0.5 ELSE 0.0 END AS first_name_score,
 				CASE WHEN b._mom_fnam = s._mom_first_name THEN 1.0 ELSE 0.0 END AS mom_first_name_score
+/*
+	I think that using an edit distance function could be useful in comparing names
+	that may be mispelled kinda like so ...
+
+select name_sur, mom_snam,
+1 - ( dbo.edit_distance(name_sur,mom_snam) /  (0.5 * ((LEN(name_sur) + LEN(mom_snam)) + ABS(LEN(name_sur) - LEN(mom_snam))) ))
+
+from vital.births
+*/
 			FROM private.identifiers i
 			JOIN vital.births b
 				ON  i.source_id     = b.cert_year_num
