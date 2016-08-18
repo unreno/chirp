@@ -14,10 +14,16 @@ index=${table/./_}
 #	Not so much for the day.
 
 echo 
+#echo "IF IndexProperty(Object_Id('${table}'),"
+#echo "	'${index}__${field}_day', 'IndexId') IS NOT NULL"
+#echo "	DROP INDEX ${index}__${field}_day"
+#echo "		ON ${table};"
 echo "IF COL_LENGTH('${table}','_${field}_day') IS NOT NULL"
 echo "	ALTER TABLE ${table} DROP COLUMN _${field}_day;"
 echo "ALTER TABLE ${table} ADD _${field}_day AS"
 echo "	DAY(${field}) PERSISTED;"
+#echo "CREATE INDEX ${index}__${field}_day"
+#echo "	ON ${table}( _${field}_day );"
 echo
 echo "IF IndexProperty(Object_Id('${table}'),"
 echo "	'${index}__${field}_month', 'IndexId') IS NOT NULL"

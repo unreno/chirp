@@ -341,36 +341,6 @@ ALTER TABLE health_lab.newborn_screenings ADD patient_id_sufxi AS
 --CREATE INDEX health_lab_newborn_screenings_patient_id_sufxi
 --	ON health_lab.newborn_screenings( patient_id_sufxi );
 
-
-
---IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
---	'health_lab_newborn_screenings__address_pre', 'IndexId') IS NOT NULL
---	DROP INDEX health_lab_newborn_screenings__address_pre
---		ON health_lab.newborn_screenings;
-IF COL_LENGTH('health_lab.newborn_screenings','_address_pre') IS NOT NULL
-	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _address_pre;
-ALTER TABLE health_lab.newborn_screenings ADD _address_pre AS
-	SUBSTRING(address, 1,
-		ISNULL(NULLIF(CHARINDEX(' ',address)-1,-1),LEN(address))
-	) PERSISTED;
---CREATE INDEX health_lab_newborn_screenings__address_pre
---	ON health_lab.newborn_screenings( _address_pre );
-
---IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
---	'health_lab_newborn_screenings__address_suf', 'IndexId') IS NOT NULL
---	DROP INDEX health_lab_newborn_screenings__address_suf
---		ON health_lab.newborn_screenings;
-IF COL_LENGTH('health_lab.newborn_screenings','_address_suf') IS NOT NULL
-	ALTER TABLE health_lab.newborn_screenings DROP COLUMN _address_suf;
-ALTER TABLE health_lab.newborn_screenings ADD _address_suf AS
-	SUBSTRING(address,
-		ISNULL(NULLIF(CHARINDEX(' ',address)+1,1),1),
-		LEN(address)
-	) PERSISTED;
---CREATE INDEX health_lab_newborn_screenings__address_suf
---	ON health_lab.newborn_screenings( _address_suf );
-
-
 IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
 	'health_lab_newborn_screenings_zip_code', 'IndexId') IS NOT NULL
 	DROP INDEX health_lab_newborn_screenings_zip_code
@@ -384,11 +354,4 @@ IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
 		ON health_lab.newborn_screenings;
 CREATE INDEX health_lab_newborn_screenings_birth_date
 	ON health_lab.newborn_screenings( birth_date );
-
---IF IndexProperty(Object_Id('health_lab.newborn_screenings'),
---	'health_lab_newborn_screenings_mom_birth_date', 'IndexId') IS NOT NULL
---	DROP INDEX health_lab_newborn_screenings_mom_birth_date
---		ON health_lab.newborn_screenings;
---CREATE INDEX health_lab_newborn_screenings_mom_birth_date
---	ON health_lab.newborn_screenings( mom_birth_date );
 
