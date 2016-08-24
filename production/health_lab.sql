@@ -54,8 +54,8 @@ CREATE TABLE health_lab.newborn_screenings (
 	imported_at DATETIME
 		CONSTRAINT health_lab_newborn_screenings_imported_at_default
 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	imported_to_dw BIT
-		CONSTRAINT health_lab_newborn_screenings_imported_to_dw_default
+	imported_to_observations BIT
+		CONSTRAINT health_lab_newborn_screenings_imported_to_observations_default
 		DEFAULT 'FALSE' NOT NULL,
 );
 GO
@@ -100,8 +100,8 @@ CREATE TABLE health_lab.newborn_screenings_buffer (
 	imported_at DATETIME
 		CONSTRAINT health_lab_newborn_screenings_buffer_imported_at_default
 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	imported_to_dw BIT
-		CONSTRAINT health_lab_newborn_screenings_buffer_imported_to_dw_default
+	imported_to_observations BIT
+		CONSTRAINT health_lab_newborn_screenings_buffer_imported_to_observations_default
 		DEFAULT 'FALSE' NOT NULL,
 );
 GO

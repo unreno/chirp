@@ -25,7 +25,7 @@ BEGIN
 	INSERT INTO private.identifiers
 		( chirp_id, source_schema, source_table, source_column, source_id ) 
 		SELECT private.create_unique_chirp_id(), 'vital', 'birth', 'state_file_number', 
-			state_file_number from vital.birth b where b.imported_to_dw = 'FALSE';
+			state_file_number from vital.birth b where b.imported_to_observations = 'FALSE';
 	SELECT @actual = COUNT(*) FROM private.identifiers;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
@@ -59,7 +59,7 @@ BEGIN
 	INSERT INTO private.identifiers
 		( chirp_id, source_schema, source_table, source_column, source_id ) 
 		SELECT private.create_unique_chirp_id(), 'vital', 'birth', 'state_file_number', 
-			state_file_number from vital.birth b where b.imported_to_dw = 'FALSE';
+			state_file_number from vital.birth b where b.imported_to_observations = 'FALSE';
 	SELECT @actual = COUNT(*) FROM private.identifiers;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
@@ -92,7 +92,7 @@ BEGIN
 	INSERT INTO private.identifiers
 		( chirp_id, source_schema, source_table, source_column, source_id ) 
 		SELECT private.create_unique_chirp_id(), 'vital', 'birth', 'state_file_number', 
-			state_file_number from vital.birth b where b.imported_to_dw = 'FALSE';
+			state_file_number from vital.birth b where b.imported_to_observations = 'FALSE';
 	SELECT @actual = COUNT(*) FROM private.identifiers;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
@@ -124,7 +124,7 @@ BEGIN
 	INSERT INTO private.identifiers
 		( chirp_id, source_schema, source_table, source_column, source_id ) 
 		SELECT private.create_unique_chirp_id(), 'vital', 'birth', 'state_file_number', 
-			state_file_number from vital.birth b where b.imported_to_dw = 'FALSE';
+			state_file_number from vital.birth b where b.imported_to_observations = 'FALSE';
 	SELECT @actual = COUNT(*) FROM private.identifiers;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 
@@ -157,7 +157,7 @@ BEGIN
 	INSERT INTO private.identifiers
 		( chirp_id, source_schema, source_table, source_column, source_id ) 
 		SELECT private.create_unique_chirp_id(), 'vital', 'birth', 'state_file_number', 
-			state_file_number from vital.birth b where b.imported_to_dw = 'FALSE';
+			state_file_number from vital.birth b where b.imported_to_observations = 'FALSE';
 	SELECT @actual = COUNT(*) FROM private.identifiers;
 	EXEC tSQLt.AssertEquals @expected, @actual;
 END;

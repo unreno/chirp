@@ -21,9 +21,9 @@ GO
 */
 
 
---INSERT INTO vital.births (birthid,imported_to_dw) VALUES (1,'true');  -- 'true'=1
---INSERT INTO vital.births (birthid,imported_to_dw) VALUES (1,'false'); -- 'false'=0
---INSERT INTO vital.births (birthid,imported_to_dw) VALUES (1,'blahblahblah');
+--INSERT INTO vital.births (birthid,imported_to_observations) VALUES (1,'true');  -- 'true'=1
+--INSERT INTO vital.births (birthid,imported_to_observations) VALUES (1,'false'); -- 'false'=0
+--INSERT INTO vital.births (birthid,imported_to_observations) VALUES (1,'blahblahblah');
 --INSERT INTO vital.births (birthid) values (1);
 --Conversion failed when converting the varchar value 'blahblahblah' to data type bit
 
@@ -71,7 +71,7 @@ BEGIN
 					AND i.source_column = 'accession_kit_number'
 					AND i.source_table  = 'newborn_screenings'
 					AND i.source_schema = 'health_lab'
-				WHERE imported_to_dw = 'FALSE'
+				WHERE imported_to_observations = 'FALSE'
 			) unimported_data
 			CROSS APPLY ( VALUES
 				('DEM:ZIP', CAST(zip_code AS VARCHAR(255)), NULL)
@@ -81,14 +81,14 @@ BEGIN
 		WHERE row = 1
 
 	UPDATE s
-		SET imported_to_dw = 'TRUE'
+		SET imported_to_observations = 'TRUE'
 		FROM health_lab.newborn_screenings s
 		JOIN private.identifiers i
 			ON  i.source_id     = s.accession_kit_number
 			AND i.source_column = 'accession_kit_number'
 			AND i.source_table  = 'newborn_screenings'
 			AND i.source_schema = 'health_lab'
-		WHERE imported_to_dw = 'FALSE'
+		WHERE imported_to_observations = 'FALSE'
 			AND i.id IS NOT NULL
 
 END	--	CREATE PROCEDURE bin.import_into_data_warehouse_by_table_health_lab_newborn_screenings
@@ -141,7 +141,7 @@ BEGIN
 				AND i.source_column = 'cert_year_num'
 				AND i.source_table = 'births'
 				AND i.source_schema = 'vital'
-			WHERE imported_to_dw = 'FALSE'
+			WHERE imported_to_observations = 'FALSE'
 		) unimported_data
 		CROSS APPLY ( VALUES
 			('ac_anemia'          , CAST(ac_anemia AS VARCHAR(255))              , NULL),
@@ -563,14 +563,14 @@ BEGIN
 		WHERE cav.value IS NOT NULL
 
 	UPDATE b
-		SET imported_to_dw = 'TRUE'
+		SET imported_to_observations = 'TRUE'
 		FROM vital.births b
 		JOIN private.identifiers i
 			ON  i.source_id     = b.cert_year_num
 			AND i.source_column = 'cert_year_num'
 			AND i.source_table  = 'births'
 			AND i.source_schema = 'vital'
-		WHERE imported_to_dw = 'FALSE'
+		WHERE imported_to_observations = 'FALSE'
 			AND i.id IS NOT NULL
 
 END -- CREATE PROCEDURE bin.import_into_data_warehouse_by_table_vital_births

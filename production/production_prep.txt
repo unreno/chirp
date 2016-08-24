@@ -75,7 +75,7 @@ INSERT INTO private.identifiers ( chirp_id, source_schema,
     source_table, source_column, source_id, match_method ) 
   SELECT private.create_unique_chirp_id(), 'vital', 'births',
     'cert_year_num', cert_year_num, 'Initial assignment' 
-  FROM vital.births b WHERE b.imported_to_dw = 'FALSE';
+  FROM vital.births b WHERE b.imported_to_observations = 'FALSE';
 
 SELECT COUNT(1) AS identifiers_post_count FROM private.identifiers
 --	5670

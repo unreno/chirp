@@ -46,8 +46,8 @@ CREATE TABLE vital.webizs (
 	imported_at DATETIME
 		CONSTRAINT vital_webizs_imported_at_default
 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	imported_to_dw BIT
-		CONSTRAINT vital_webizs_imported_to_dw_default
+	imported_to_observations BIT
+		CONSTRAINT vital_webizs_imported_to_observations_default
 		DEFAULT 'FALSE' NOT NULL
 );
 GO
@@ -95,8 +95,8 @@ CREATE TABLE vital.webizs_buffer (
 	imported_at DATETIME
 		CONSTRAINT vital_webizs_buffer_imported_at_default
 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	imported_to_dw BIT
-		CONSTRAINT vital_webizs_buffer_imported_to_dw_default
+	imported_to_observations BIT
+		CONSTRAINT vital_webizs_buffer_imported_to_observations_default
 		DEFAULT 'FALSE' NOT NULL,
 );
 GO
