@@ -857,6 +857,13 @@ select name_sur, mom_snam,
 1 - ( dbo.edit_distance(name_sur,mom_snam) /  (0.5 * ((LEN(name_sur) + LEN(mom_snam)) + ABS(LEN(name_sur) - LEN(mom_snam))) ))
 
 from vital.births
+
+
+-- FYI, the max of 2 numbers is half the sum of them plus their absolute difference
+-- SELECT 0.5 * ((4 + 7) + ABS(4 - 7))  as max
+-- If used regularly, perhaps write a FUNCTION MAX_OF(....)
+
+
 */
 			FROM private.identifiers i
 			JOIN vital.births b
