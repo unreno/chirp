@@ -68,6 +68,26 @@ SELECT COUNT(1) AS screening_buffer_post_count FROM health_lab.newborn_screening
 --	0
 
 
+
+
+
+SELECT COUNT(1) AS webizs_buffer_pre_count FROM vital.webizs_buffer
+--	0
+EXEC bin.import_webiz_records 'C:\Users\gwendt\Desktop\Data\WebIZ\20160904 CHIRP export notepad.txt'
+SELECT COUNT(1) AS webizs_buffer_count FROM vital.webizs_buffer
+--	40553
+SELECT COUNT(1) AS webizs_pre_count FROM vital.webizs
+--	0
+INSERT INTO vital.webizs SELECT * FROM vital.webizs_buffer
+DELETE FROM vital.webizs_buffer
+SELECT COUNT(1) AS webiz_post_count FROM vital.webizs
+--	40553
+SELECT COUNT(1) AS webizs_buffer_post_count FROM vital.webizs_buffer
+--	0
+
+
+
+
 SELECT COUNT(1) AS identifiers_pre_count FROM private.identifiers
 --	0
 --	Create an identifier for each birth record
