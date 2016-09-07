@@ -73,15 +73,15 @@ SELECT COUNT(1) AS screening_buffer_post_count FROM health_lab.newborn_screening
 
 SELECT COUNT(1) AS webizs_buffer_pre_count FROM vital.webizs_buffer
 --	0
-EXEC bin.import_webiz_records 'C:\Users\gwendt\Desktop\Data\WebIZ\20160904 CHIRP export notepad.txt'
+EXEC bin.import_webiz_records 'C:\Users\gwendt\Desktop\Data\WebIZ\20160907 CHIRP export notepad.txt'
 SELECT COUNT(1) AS webizs_buffer_count FROM vital.webizs_buffer
---	40553
+--	42739
 SELECT COUNT(1) AS webizs_pre_count FROM vital.webizs
 --	0
 INSERT INTO vital.webizs SELECT * FROM vital.webizs_buffer
 DELETE FROM vital.webizs_buffer
 SELECT COUNT(1) AS webiz_post_count FROM vital.webizs
---	40553
+--	42739
 SELECT COUNT(1) AS webizs_buffer_post_count FROM vital.webizs_buffer
 --	0
 
