@@ -46,11 +46,7 @@ CREATE TABLE webiz.immunizations (
 	middle_name	VARCHAR(25), --	Middle Name of the patient
 	dob	DATE, --	Date of Birth for the patient
 	po_box	VARCHAR(50), --	The PO Box portion of the address
-
-
 	street_number	VARCHAR(25), --	The street number portion of the address.
-
-
 	street_prefix_desc	VARCHAR(50), --	Short description of the street prefix.
 	street_name	VARCHAR(250), --	The street name portion of the address.
 	street_type_desc	VARCHAR(50), --	Short description of the street type.
