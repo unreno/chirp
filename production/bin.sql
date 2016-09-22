@@ -1057,44 +1057,61 @@ GO
 
 
 
-IF OBJECT_ID ( 'bin.import_webiz_records', 'P' ) IS NOT NULL
-	DROP PROCEDURE bin.import_webiz_records;
+
+
+
+
+
+
+
+
+IF OBJECT_ID ( 'bin.import_webiz_addresses', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_webiz_addresses;
 GO
-CREATE PROCEDURE bin.import_webiz_records( @file_with_path VARCHAR(255) )
+CREATE PROCEDURE bin.import_webiz_addresses( @file_with_path VARCHAR(255) )
 AS
 BEGIN
 	SET NOCOUNT ON;
 
-/*
-	-- Something in the following section of code mucks up github syntax highlighting.
-	-- Using CHAR(92) instead of a \ which mucks up syntax highlighting as it "escapes" the closing quote
-	-- DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1,
-	--  ISNULL(NULLIF(CHARINDEX('\', @rf )-1,-1),LEN(@rf))))
-	-- '  The previous line mucks up syntax highlighting by escaping the quote, so added one here.
-*/
 	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path );
 	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1,
 		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
 
-	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT vital.bulk_insert_webizs ' +
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT webiz.bulk_insert_addresses ' +
 		'FROM ''' + @file_with_path + ''' WITH ( ' +
 			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 2, TABLOCK )';
 
 	-- RESEEDing acts differently the first time it is called
 	-- making the very first id 0. All calls after will set it to 1????
 	-- So, basically, don't RESEED the very first time.
-	IF EXISTS (SELECT * FROM sys.identity_columns WHERE object_id = OBJECT_ID( 'vital.webizs_buffer','U') AND last_value IS NOT NULL)
-		DBCC CHECKIDENT( 'vital.webizs_buffer', RESEED, 0);
+	IF EXISTS (SELECT * FROM sys.identity_columns WHERE object_id = OBJECT_ID( 'webiz.addresses_buffer','U') AND last_value IS NOT NULL)
+		DBCC CHECKIDENT( 'webiz.addresses_buffer', RESEED, 0);
 
-	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE vital.webizs_buffer ' +
+	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE webiz.addresses_buffer ' +
 		'ADD CONSTRAINT temp_source_filename ' +
 		'DEFAULT ''' + @filename + ''' FOR source_filename';
 	EXEC(@alter_cmd);
 	EXEC(@bulk_cmd);
-	ALTER TABLE vital.webizs_buffer DROP CONSTRAINT temp_source_filename;
+	ALTER TABLE webiz.addresses_buffer DROP CONSTRAINT temp_source_filename;
 
-END	--	bin.import_webiz_records
+END	--	bin.import_webiz_addresses
 GO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
