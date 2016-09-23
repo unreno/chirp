@@ -71,19 +71,59 @@ SELECT COUNT(1) AS screening_buffer_post_count FROM health_lab.newborn_screening
 
 
 
-SELECT COUNT(1) AS webizs_buffer_pre_count FROM vital.webizs_buffer
---	0
-EXEC bin.import_webiz_records 'C:\Users\gwendt\Desktop\Data\WebIZ\20160907 CHIRP export notepad.txt'
-SELECT COUNT(1) AS webizs_buffer_count FROM vital.webizs_buffer
---	42739
-SELECT COUNT(1) AS webizs_pre_count FROM vital.webizs
---	0
-INSERT INTO vital.webizs SELECT * FROM vital.webizs_buffer
-DELETE FROM vital.webizs_buffer
-SELECT COUNT(1) AS webiz_post_count FROM vital.webizs
---	42739
-SELECT COUNT(1) AS webizs_buffer_post_count FROM vital.webizs_buffer
---	0
+--SELECT COUNT(1) AS webizs_buffer_pre_count FROM vital.webizs_buffer
+----	0
+--EXEC bin.import_webiz_records 'C:\Users\gwendt\Desktop\Data\WebIZ\20160907 CHIRP export notepad.txt'
+--SELECT COUNT(1) AS webizs_buffer_count FROM vital.webizs_buffer
+----	42739
+--SELECT COUNT(1) AS webizs_pre_count FROM vital.webizs
+----	0
+--INSERT INTO vital.webizs SELECT * FROM vital.webizs_buffer
+--DELETE FROM vital.webizs_buffer
+--SELECT COUNT(1) AS webiz_post_count FROM vital.webizs
+----	42739
+--SELECT COUNT(1) AS webizs_buffer_post_count FROM vital.webizs_buffer
+----	0
+
+
+
+
+
+
+
+EXEC bin.import_webiz_addresses 'C:\Users\gwendt\Desktop\Data\WebIZ\20160921 CHIRP address hist export.txt'
+SELECT * FROM webiz.addresses_buffer
+SELECT COUNT(1) FROM webiz.addresses_buffer
+--	6031
+
+EXEC bin.import_webiz_immunizations 'C:\Users\gwendt\Desktop\Data\WebIZ\20160921 CHIRP immunizations export.txt'
+SELECT * FROM webiz.immunizations_buffer
+SELECT COUNT(1) FROM webiz.immunizations_buffer
+--	20322
+
+EXEC bin.import_webiz_insurances 'C:\Users\gwendt\Desktop\Data\WebIZ\20160921 CHIRP insurance export.txt'
+SELECT * FROM webiz.insurances_buffer
+SELECT COUNT(1) FROM webiz.insurances_buffer
+--	53
+
+EXEC bin.import_webiz_local_ids 'C:\Users\gwendt\Desktop\Data\WebIZ\20160921 CHIRP local id export.txt'
+SELECT * FROM webiz.local_ids_buffer
+SELECT COUNT(1) FROM webiz.local_ids_buffer
+--	7546
+
+EXEC bin.import_webiz_races 'C:\Users\gwendt\Desktop\Data\WebIZ\20160921 CHIRP race ethn export.txt'
+SELECT * FROM webiz.races_buffer
+SELECT COUNT(1) FROM webiz.races_buffer
+--	3955
+
+
+
+
+
+
+
+
+
 
 
 

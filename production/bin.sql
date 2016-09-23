@@ -1081,10 +1081,8 @@ BEGIN
 		'FROM ''' + @file_with_path + ''' WITH ( ' +
 			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 2, TABLOCK )';
 
-	-- RESEEDing acts differently the first time it is called
-	-- making the very first id 0. All calls after will set it to 1????
-	-- So, basically, don't RESEED the very first time.
-	IF EXISTS (SELECT * FROM sys.identity_columns WHERE object_id = OBJECT_ID( 'webiz.addresses_buffer','U') AND last_value IS NOT NULL)
+	IF EXISTS (SELECT * FROM sys.identity_columns 
+		WHERE object_id = OBJECT_ID( 'webiz.addresses_buffer','U') AND last_value IS NOT NULL)
 		DBCC CHECKIDENT( 'webiz.addresses_buffer', RESEED, 0);
 
 	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE webiz.addresses_buffer ' +
@@ -1095,6 +1093,126 @@ BEGIN
 	ALTER TABLE webiz.addresses_buffer DROP CONSTRAINT temp_source_filename;
 
 END	--	bin.import_webiz_addresses
+GO
+
+IF OBJECT_ID ( 'bin.import_webiz_immunizations', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_webiz_immunizations;
+GO
+CREATE PROCEDURE bin.import_webiz_immunizations( @file_with_path VARCHAR(255) )
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path );
+	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1,
+		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
+
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT webiz.bulk_insert_immunizations ' +
+		'FROM ''' + @file_with_path + ''' WITH ( ' +
+			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 2, TABLOCK )';
+
+	IF EXISTS (SELECT * FROM sys.identity_columns 
+		WHERE object_id = OBJECT_ID( 'webiz.immunizations_buffer','U') AND last_value IS NOT NULL)
+		DBCC CHECKIDENT( 'webiz.immunizations_buffer', RESEED, 0);
+
+	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE webiz.immunizations_buffer ' +
+		'ADD CONSTRAINT temp_source_filename ' +
+		'DEFAULT ''' + @filename + ''' FOR source_filename';
+	EXEC(@alter_cmd);
+	EXEC(@bulk_cmd);
+	ALTER TABLE webiz.immunizations_buffer DROP CONSTRAINT temp_source_filename;
+
+END	--	bin.import_webiz_immunizations
+GO
+
+IF OBJECT_ID ( 'bin.import_webiz_insurances', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_webiz_insurances;
+GO
+CREATE PROCEDURE bin.import_webiz_insurances( @file_with_path VARCHAR(255) )
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path );
+	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1,
+		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
+
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT webiz.bulk_insert_insurances ' +
+		'FROM ''' + @file_with_path + ''' WITH ( ' +
+			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 2, TABLOCK )';
+
+	IF EXISTS (SELECT * FROM sys.identity_columns 
+		WHERE object_id = OBJECT_ID( 'webiz.insurances_buffer','U') AND last_value IS NOT NULL)
+		DBCC CHECKIDENT( 'webiz.insurances_buffer', RESEED, 0);
+
+	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE webiz.insurances_buffer ' +
+		'ADD CONSTRAINT temp_source_filename ' +
+		'DEFAULT ''' + @filename + ''' FOR source_filename';
+	EXEC(@alter_cmd);
+	EXEC(@bulk_cmd);
+	ALTER TABLE webiz.insurances_buffer DROP CONSTRAINT temp_source_filename;
+
+END	--	bin.import_webiz_insurances
+GO
+
+IF OBJECT_ID ( 'bin.import_webiz_local_ids', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_webiz_local_ids;
+GO
+CREATE PROCEDURE bin.import_webiz_local_ids( @file_with_path VARCHAR(255) )
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path );
+	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1,
+		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
+
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT webiz.bulk_insert_local_ids ' +
+		'FROM ''' + @file_with_path + ''' WITH ( ' +
+			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 2, TABLOCK )';
+
+	IF EXISTS (SELECT * FROM sys.identity_columns 
+		WHERE object_id = OBJECT_ID( 'webiz.local_ids_buffer','U') AND last_value IS NOT NULL)
+		DBCC CHECKIDENT( 'webiz.local_ids_buffer', RESEED, 0);
+
+	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE webiz.local_ids_buffer ' +
+		'ADD CONSTRAINT temp_source_filename ' +
+		'DEFAULT ''' + @filename + ''' FOR source_filename';
+	EXEC(@alter_cmd);
+	EXEC(@bulk_cmd);
+	ALTER TABLE webiz.local_ids_buffer DROP CONSTRAINT temp_source_filename;
+
+END	--	bin.import_webiz_local_ids
+GO
+
+IF OBJECT_ID ( 'bin.import_webiz_races', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_webiz_races;
+GO
+CREATE PROCEDURE bin.import_webiz_races( @file_with_path VARCHAR(255) )
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path );
+	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1,
+		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
+
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT webiz.bulk_insert_races ' +
+		'FROM ''' + @file_with_path + ''' WITH ( ' +
+			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 2, TABLOCK )';
+
+	IF EXISTS (SELECT * FROM sys.identity_columns 
+		WHERE object_id = OBJECT_ID( 'webiz.races_buffer','U') AND last_value IS NOT NULL)
+		DBCC CHECKIDENT( 'webiz.races_buffer', RESEED, 0);
+
+	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE webiz.races_buffer ' +
+		'ADD CONSTRAINT temp_source_filename ' +
+		'DEFAULT ''' + @filename + ''' FOR source_filename';
+	EXEC(@alter_cmd);
+	EXEC(@bulk_cmd);
+	ALTER TABLE webiz.races_buffer DROP CONSTRAINT temp_source_filename;
+
+END	--	bin.import_webiz_races
 GO
 
 

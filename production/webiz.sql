@@ -200,8 +200,8 @@ GO
 IF OBJECT_ID('webiz.addresses_buffer', 'U') IS NOT NULL
 	DROP TABLE webiz.addresses_buffer;
 CREATE TABLE webiz.addresses_buffer (
-	id INT IDENTITY(1,1),
-	CONSTRAINT webiz_addresses_buffer_id PRIMARY KEY CLUSTERED (id ASC),
+--	id INT IDENTITY(1,1),
+--	CONSTRAINT webiz_addresses_buffer_id PRIMARY KEY CLUSTERED (id ASC),
 
 -- ==> 20160913 CHIRP address hist export.txt <==
 -- patient_id|address_line1|address_line2|city_desc|state_desc|zip_code|county_desc|country_desc
@@ -216,7 +216,7 @@ CREATE TABLE webiz.addresses_buffer (
 	country_desc VARCHAR(50),
 
 	source_filename VARCHAR(255),
-	source_record_number INT,
+	source_record_number INT IDENTITY(1,1),
 	imported_at DATETIME
 		CONSTRAINT webiz_addresses_buffer_imported_at_default
 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -229,8 +229,8 @@ GO
 IF OBJECT_ID('webiz.immunizations_buffer', 'U') IS NOT NULL
 	DROP TABLE webiz.immunizations_buffer;
 CREATE TABLE webiz.immunizations_buffer (
-	id INT IDENTITY(1,1),
-	CONSTRAINT webiz_immunizations_buffer_id PRIMARY KEY CLUSTERED (id ASC),
+--	id INT IDENTITY(1,1),
+--	CONSTRAINT webiz_immunizations_buffer_id PRIMARY KEY CLUSTERED (id ASC),
 
 -- ==> 20160913 CHIRP immunizations export.txt <==
 -- patient_id|last_name|first_name|middle_name|dob|po_box|street_prefix_desc|street_name|street_type_desc|city_desc|apt_number|zip_code|county_desc|gender_code|mother_last_name|mother_first_name|mother_maiden_name|telephone|ssn|vaccination_desc|vaccination_date|patient_vaccination_id|dosage_num|npi|provider_desc|provider_id|street_number|street_prefix_desc|street_name|street_type_desc|city_desc|clinic_desc|clinic_id|street_number|street_prefix_desc|street_name|street_type_desc|city_desc|city_desc|county_desc|state_desc|country_desc
@@ -294,7 +294,7 @@ CREATE TABLE webiz.immunizations_buffer (
 --	health_insurance_desc	VARCHAR(50), --	Full name of the Insurance Source. Displayed in some dropdowns, reports, etc. within the application.
 
 	source_filename VARCHAR(255),
-	source_record_number INT,
+	source_record_number INT IDENTITY(1,1),
 	imported_at DATETIME
 		CONSTRAINT webiz_immunizations_buffer_imported_at_default
 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -307,8 +307,8 @@ GO
 IF OBJECT_ID('webiz.insurances_buffer', 'U') IS NOT NULL
 	DROP TABLE webiz.insurances_buffer;
 CREATE TABLE webiz.insurances_buffer (
-	id INT IDENTITY(1,1),
-	CONSTRAINT webiz_insurances_buffer_id PRIMARY KEY CLUSTERED (id ASC),
+--	id INT IDENTITY(1,1),
+--	CONSTRAINT webiz_insurances_buffer_id PRIMARY KEY CLUSTERED (id ASC),
 
 -- ==> 20160913 CHIRP insurance export.txt <==
 -- patient_id|dob|health_insurance_desc
@@ -318,7 +318,7 @@ CREATE TABLE webiz.insurances_buffer (
 	health_insurance_desc	VARCHAR(50), --	Full name of the Insurance Source. Displayed in some dropdowns, reports, etc. within the application.
 
 	source_filename VARCHAR(255),
-	source_record_number INT,
+	source_record_number INT IDENTITY(1,1),
 	imported_at DATETIME
 		CONSTRAINT webiz_insurances_buffer_imported_at_default
 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -332,8 +332,8 @@ GO
 IF OBJECT_ID('webiz.local_ids_buffer', 'U') IS NOT NULL
 	DROP TABLE webiz.local_ids_buffer;
 CREATE TABLE webiz.local_ids_buffer (
-	id INT IDENTITY(1,1),
-	CONSTRAINT webiz_local_ids_buffer_id PRIMARY KEY CLUSTERED (id ASC),
+--	id INT IDENTITY(1,1),
+--	CONSTRAINT webiz_local_ids_buffer_id PRIMARY KEY CLUSTERED (id ASC),
 
 -- ==> 20160913 CHIRP local id export.txt <==
 -- patient_id|local_id|clinic_id|clinic_desc|provider_id|provider_desc
@@ -346,7 +346,7 @@ CREATE TABLE webiz.local_ids_buffer (
 	provider_desc	VARCHAR(50), --	Name of the provider
 
 	source_filename VARCHAR(255),
-	source_record_number INT,
+	source_record_number INT IDENTITY(1,1),
 	imported_at DATETIME
 		CONSTRAINT webiz_local_ids_buffer_imported_at_default
 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -360,8 +360,8 @@ GO
 IF OBJECT_ID('webiz.races_buffer', 'U') IS NOT NULL
 	DROP TABLE webiz.races_buffer;
 CREATE TABLE webiz.races_buffer (
-	id INT IDENTITY(1,1),
-	CONSTRAINT webiz_races_buffer_id PRIMARY KEY CLUSTERED (id ASC),
+--	id INT IDENTITY(1,1),
+--	CONSTRAINT webiz_races_buffer_id PRIMARY KEY CLUSTERED (id ASC),
 
 -- ==> 20160913 CHIRP race ethn export.txt <==
 -- patient_id|dob|race_desc|ethnicity_desc
@@ -372,7 +372,7 @@ CREATE TABLE webiz.races_buffer (
 	ethnicity_desc	VARCHAR(50), --	Description of the Ethnicity code. Displayed in some dropdowns, reports, etc. within the application.
 
 	source_filename VARCHAR(255),
-	source_record_number INT,
+	source_record_number INT IDENTITY(1,1),
 	imported_at DATETIME
 		CONSTRAINT webiz_races_buffer_imported_at_default
 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
