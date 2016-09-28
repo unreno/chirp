@@ -1,0 +1,384 @@
+v1.0_birth_data	v1.2_birth_data
+cert_yr	STATE_FILE_NUMBER_YR
+cert_num	STATE_FILE_NUMBER_NUM
+void	VOID_FLAG
+name_sur	NAME_LAST
+name_sux	NAME_SUFFIX
+name_fir	NAME_FIRST
+name_mid	NAME_MIDDLE
+sex	SEX
+bth_date	DATE_OF_BIRTH
+birth_mo	
+birth_da	
+birth_yr	
+bth_time	TIME_OF_BIRTH
+place	FAC_TYPE_CODE
+facility	FAC_NV_CODE
+birth_st	
+birth_ci	
+birth_co	
+attendant	ATTENDANT_TITLE_CODE
+mom_snam	MOTHER_NAME_LAST
+mom_xnam	MOTHER_NAME_SUFFIX
+mom_fnam	MOTHER_NAME_FIRST
+mom_mnam	MOTHER_NAME_MIDDLE
+maiden_n	MOTHER_NAME_LAST_P
+mom_dob	B2_MOTHER_DOB
+mom_age	B2_MOTHER_AGE
+mom_age1	
+mom_bst	MOTHER_BIRTH_STATE
+mom_bthcntry_fips	MOTHER_BIRTH_COUNTRY_FIPS
+mom_bthstate_fips	MBIR_STATE_STATE_CODE_NV
+mom_rst	
+mom_rci	
+mom_rco	
+mom_address	MOTHER_RES_ADDR1
+mom_apt	MOTHER_RES_APT
+mom_rzip	MOTHER_RES_ZIP
+incity	MOTHER_RES_INCITY
+mres_cntry_fips	MOTHER_RES_COUNTRY_FIPS
+mres_st_fips	MOTHER_RES_STATE
+mres_city_fips	MOTHER_RES_CITY_FIPS
+mres_cnty_fips	MOTHER_RES_CNTY_FIPS
+mom_edu	B2_MOTHER_ED
+mom_occ	MOTHER_OCCUPATION_CD
+mom_occup1	MOTHER_INDUSTRY_CD
+mom_bus	
+mom_busines1	
+mom_ssn	MOTHER_SSN
+fa_sname	FATHER_NAME_LAST
+fa_xname	FATHER_NAME_SUFFIX
+fa_fname	FATHER_NAME_FIRST
+fa_mname	FATHER_NAME_MIDDLE
+fa_dob	B2_FATHER_DOB
+fa_age	B2_FATHER_AGE
+fa_age1	
+fa_bst	FBIR_STATE_STATE_CODE_NV
+fa_edu	B2_FATHER_ED
+fa_occ	FATHER_OCCUPATION_CD
+fa_occup1	FATHER_INDUSTRY_CD
+fa_bus	
+fa_busines1	
+fa_ssn	FATHER_SSN
+mom_everm	B2_MOTHER_EVER_MARRIED
+married_betw	MOTHER_MARRIED
+fa_husb	FATHER_IS_HUSBAND
+fa_signpat	FATHER_SIGN_PAT_AFFIDAVIT
+pat_complete	B2_HOSP_PATERNITY_COMPLETE
+lm_date	MENSES_DATE
+lm_mo	
+lm_da	
+lm_yr	
+prenatal	B2_PRENATAL_YESNO
+pre_begin	B2_PRENATAL_DATE_BEGIN
+pre_begmo	
+pre_begda	
+pre_begyr	
+pre_end	B2_PRENATAL_DATE_END
+pre_endmo	
+pre_endda	
+pre_endyr	
+tot_visits	B2_PRENAT_TOT_VISITS
+gest_est	
+gest_days	
+dat_concep	
+mpv_days_cal	
+mpv_cal	
+pv_trims_cal	
+mom_htft	B2_MOTHER_HEIGHT_FEET
+mom_htinch	B2_MOTHER_HEIGHT_INCH
+prepreg_wt	B2_MOTHER_PRE_PREG_WT
+del_wt	B2_MOTHER_WT_AT_DELIV
+wt_gain	
+prv_livebth	LIVE_BIRTHS_TOTAL
+prv_livebthdte	LIVE_BIRTHS_DATE_MMYYYY
+live_bthliv	LIVE_BIRTHS_LIVING
+live_bthdead	LIVE_BIRTHS_DEAD
+prv_term	TERM_NUMBER
+term_dte	TERM_DATE_MMYYYY
+tobacco	B2_TOBACCO_USE
+cig_pck	B2_MOTHER_CIG_OR_PACK
+prepreg_cig	B2_MOTHER_CIG_PREV
+prepreg_pck	B2_MOTHER_CIG_PREV_PACK
+first_cig	B2_MOTHER_CIG_FIRST_TRI
+first_pck	B2_MOTHER_CIG_FIRST_PACK
+sec_cig	B2_MOTHER_CIG_SECOND_TRI
+sec_pck	B2_MOTHER_CIG_SECOND_PACK
+last_cig	B2_MOTHER_CIG_LAST_TRI
+last_pck	B2_MOTHER_CIG_LAST_PACK
+alcohol	M_ALCOHOL_USE
+drink_wk	M_ALCOHOL_DRINK_WEEK
+drug_use	M_DRUG_USE
+du_prscr	M_DRUG_PRESCRIPTION
+du_otc	M_DRUG_OTC
+du_other	M_DRUG_OTHER
+du_otherlit	M_DRUG_OTHER_LIT
+mrf_none	M_MR_NONE
+mrf_prediab	M_MR_DIAB
+mrf_gestdiab	M_MR_DIAB_GEST
+mrf_hypert	M_MR_HYPERT_ALL
+mrf_hypertchr	M_MR_HYPERT_CHRONIC
+mrf_hypergest	M_MR_HYPERT_PREG
+mrf_eclampsia	M_MR_ECLAMPSIA
+mrf_prevpreterm	M_MR_PREV_PRETERM
+mrf_poorout	M_MR_PREV_POOR_OUTCOME
+mrf_inftreat	M_MR_PREG_FROM_TREATMENT
+mrf_infdrugs	M_MR_INFERT_DRUGS
+mrf_assistrep	M_MR_ASSIST_REP_TECH
+mrf_prevces	M_MR_PREV_CESAREAN_YESNO
+mrf_prevcesnum	M_MR_PREV_CES_NUMB
+mrf_anemia	M_MR_ANEMIA
+mrf_cardiac	M_MR_CARDIAC
+mrf_lungdis	M_MR_LUNG_DISEASE
+mrf_hydra	M_MR_HYDRAMINOS_OLIG
+mrf_hemoglob	M_MR_HEMOGLOBINOPATHY
+mrf_incompcerv	M_MR_INCOMPENT_CERVIX
+mrf_prev4000	M_MR_PREV_4000_PLUS
+mrf_renaldis	M_MR_RENAL_DISEASE
+mrf_rhsensit	M_MR_RH_SENSIT
+mrf_utbleed	M_MR_UTERINE_BLEEDING
+mrf_oth	M_MR_OTHER
+mrf_othlit	M_MR_OTHER_LIT
+inf_none	M_INF_NONE
+inf_gonor	M_INF_GONORRHEA
+inf_syph	M_INF_SYPHILIS
+inf_chlam	M_INF_CHLAMYDIA
+inf_hepb	M_INF_HEPATITIS_B
+inf_hepc	M_INF_HEPATITIS_C
+inf_hpv	M_INF_HPV
+inf_hivaids	M_INF_HIV_AIDS
+inf_cmv	M_INF_CMV
+inf_rubella	M_INF_RUBELLA
+inf_toxo	M_INF_TOXOPLASMOSIS
+inf_genherpes	M_INF_GENITAL_HERPES
+inf_tuber	M_INF_TUBERCULOSIS
+inf_oth	M_INF_OTHER
+inf_othlit	M_INF_OTHER_LIT
+ob_none	M_OB_NONE
+ob_cercl	M_OB_CERCLAGE
+ob_toco	M_OB_TOCOLYSIS
+ob_amnio	M_OB_AMNIO
+ob_fetalmon	M_OB_FETAL_MONITOR
+ob_cephsucess	M_OB_CEPHALIC_SUCCESS
+ob_cephfail	M_OB_CEPHALIC_FAILED
+ob_ultrasnd	M_OB_ULTRASOUND
+ob_oth	M_OB_OTHER
+ob_othlit	M_OB_OTHER_LIT
+ol_none	M_OL_NONE
+ol_prerom	M_OL_PREMATURE_ROM
+ol_preciplbr	M_OL_PRECIP_LABOR
+ol_prolonglbr	M_OL_PROLONG_LABOR
+cld_none	M_CLD_NONE
+cld_induc	M_CLD_INDUCTION
+cld_aug	M_CLD_AUGMENT
+cld_nonvert	M_CLD_NON_VERTEX
+cld_steroid	M_CLD_STEROID
+cld_antibiotic	M_CLD_ANTIBIOTIC
+cld_chorio	M_CLD_CHORIOAMNIO
+cld_mecon	M_CLD_MECONIUM
+cld_fetalintol	M_CLD_FETAL_INTOLERANCE
+cld_epi	M_CLD_EPIDURAL
+cld_febrile	M_CLD_FEBRILE
+cld_abrplac	M_CLD_ABR_PLACENTA
+cld_placprev	M_CLD_PLACENTA_PREVIA
+cld_bleed	M_CLD_BLEEDING
+cld_seizures	M_CLD_SEIZURES
+cld_dysfunc	M_CLD_DYSFUNCTIONAL
+cld_cephpelv	M_CLD_CEPHALOPELVIC
+cld_cordpro	M_CLD_CORD_PROLAPSE
+cld_anesth	M_CLD_ANESTHETIC
+cld_oth	M_CLD_OTHER
+cld_othlit	M_CLD_OTHER_LIT
+md_forcepsattpt	M_MD_FORCEPS_ATTEMPT
+md_vaccumattpt	M_MD_VACUUM_ATTEMPT
+bth_present	B2_BIRPRESENT_CODE
+bth_route	B2_BIRROUTE_CODE
+trial_lbr	M_MD_CES_LABOR_ATTEMPT
+mm_none	M_MM_NONE
+mm_trnsfusion	M_MM_TRANSFUSION
+mm_perilac	M_MM_PERINEAL_LACERAT
+mm_ruputerus	M_MM_RUPTURED_UTERUS
+mm_hyster	M_MM_HYSTERECTOMY
+mm_icu	M_MM_ICU
+mm_unploper	M_MM_OR_PROC
+mm_unk	M_MM_UNKNOWN
+apgar_5	APGAR_5
+apgar_10	APGAR_10
+gest_wks	GESTATION_WEEKS
+gest_grp	
+bthwt_unit	BIRTH_WEIGHT_UNIT
+grams	BIRTH_WEIGHT_GRAMS
+lbs	BIRTH_WEIGHT_LBS
+oz	BIRTH_WEIGHT_OZ
+bwt_grp	
+plurality	PLURALITY
+bth_order	BIRTH_ORDER
+born_alive	B2_BORN_ALIVE
+match_certnum	B2_MATCH_NUMBER
+ac_none	M_AC_NONE
+ac_ventless	M_AC_VENT_LESS_30
+ac_ventmore	M_AC_VENT_MORE_30
+ac_nicu	M_AC_NICU
+ac_surf	M_AC_SURFACTANT
+ac_antisepis	M_AC_ANTIBIOTIC_SEPSIS
+ac_seizures	M_AC_SEIZURES
+ac_anemia	M_AC_ANEMIA
+ac_fas	M_AC_FAS
+ac_hyaline	M_AC_HYALINE
+ac_mecon	M_AC_MECONIUM_AS
+ac_bthinjury	M_AC_BIRTH_INJURY
+ac_oth	M_AC_OTHER
+ac_othlit	M_AC_OTHER_LIT
+acn_none	M_ANOM_NONE
+acn_anencep	M_ANOM_ANENCEP
+acn_spina	M_ANOM_SPINA
+acn_micro	M_ANOM_MICRO
+acn_nervous	M_ANOM_NERVOUS
+acn_nervouslit	M_ANOM_NERVOUS_LIT
+acn_hrtdis	M_ANOM_HEART
+acn_hrtmal	M_ANOM_HEART_MALFORM
+acn_circ	M_ANOM_CIRC
+acn_cirlit	M_ANOM_CIRC_LIT
+acn_omphal	M_ANOM_OMPHAL
+acn_gastrosch	M_ANOM_GASTROSCHISIS
+acn_rectal	M_ANOM_RECTAL
+acn_tracheo	M_ANOM_TRACHEO
+acn_gastro	M_ANOM_GASTRO
+acn_gastrolit	M_ANOM_GASTRO_LIT
+acn_limbred	M_ANOM_LIMB_REDUCT
+acn_cleftlip	M_ANOM_CLEFT_LIP
+acn_cleftpalate	M_ANOM_CLEFT_PALATE
+acn_polydact	M_ANOM_POLYDACT
+acn_clubft	M_ANOM_CLUB_FOOT
+acn_diaphhern	M_ANOM_DIAPH_HERNIA
+acn_muscle	M_ANOM_MUSCLE
+acn_musclelit	M_ANOM_MUSCLE_LIT
+acn_malgen	M_ANOM_MALF_GENITALIA
+acn_renal	M_ANOM_RENAL
+acn_hypos	M_ANOM_HYPOSPADIAS
+acn_urogen	M_ANOM_UROGENITAL
+acn_urogenlit	M_ANOM_UROGENITAL_LIT
+acn_downs	M_ANOM_DOWNS_CODE
+acn_cdit	M_ANOM_CDIT
+acn_chromoth	M_ANOM_CHROM_OTHER
+acn_chromothlit	M_ANOM_CHROM_LIT
+acn_oth	M_ANOM_OTHER
+acn_othlit	M_ANOM_OTHER_LIT
+certifier	CERTIFIERTITLEID
+cer_date	CERTIFIER_DATE_COMP
+reg_date	REGISTRAR_REGIS_DATE
+cer_yr	
+cer_mo	
+cer_da	
+reg_mo	
+reg_da	
+reg_yr	
+wic	B2_MOTHER_WIC_YESNO
+source_pay	B2_SOURCE_PAY_CODE
+breastfeeding	M_BREASTFEEDING
+inf_liv	B2_INFANT_LIVING
+inf_trans	TRANS_INFANT
+mom_trans	B2_TRANS_MOTHER
+ssn_request	SSN_REQUESTED
+ssn_child	SSN_CHILD
+ssn_date	
+inf_hospnum	HOS_NUMBER
+mom_hospnum	M_MOTHER_MED_REC_NUM
+mom_his	B2_MOTHER_ETHNIC_YESNO
+mom_mex	B2_MOTHER_MEXICAN
+mom_pr	B2_MOTHER_PR
+mom_cu	B2_MOTHER_CUBAN
+mom_ethoth	B2_MOTHER_ETHNIC_OTHER
+mom_ethothlit	B2_MOTHER_ETHNIC
+mom_white	B2_MOTHER_RACE_WHITE
+mom_black	B2_MOTHER_RACE_BLACK
+mom_amind	B2_MOTHER_RACE_AM_INDIAN
+mom_amindlit	B2_MOTHER_RACE_AM_IND_LIT
+mom_asian	B2_MOTHER_RACE_ASIAN_IND
+mom_asianoth	B2_MOTHER_RACE_ASIAN_OTH
+mom_asianlit	B2_MOTHER_RACE_ASIAN_LIT
+mom_chinese	B2_MOTHER_RACE_CHINESE
+mom_filipino	B2_MOTHER_RACE_FILIPINO
+mom_japanese	B2_MOTHER_RACE_JAPANESE
+mom_korean	B2_MOTHER_RACE_KOREAN
+mom_vietnamese	B2_MOTHER_RACE_VIETNAMESE
+mom_hawaiian	B2_MOTHER_RACE_HAWAIIAN
+mom_guam	B2_MOTHER_RACE_GUAM
+mom_samoan	B2_MOTHER_RACE_SAMOAN
+mom_pacisl	B2_MOTHER_RACE_PAC_OTHER
+mom_pacisllit	B2_MOTHER_RACE_PAC_LIT
+mom_raceoth	B2_MOTHER_RACE_OTHER
+mom_raceothlit	B2_MOTHER_RACE_OTHER_LIT
+mom_raceunk	B2_MOTHER_RACE_UNKNOWN
+mom_raceref	B2_MOTHER_RACE_REFUSED
+mom_race1	B2_MRACE1E
+mom_race2	B2_MRACE2E
+mom_race3	B2_MRACE3E
+mom_race4	B2_MRACE4E
+mom_race5	B2_MRACE5E
+mom_race6	B2_MRACE6E
+mom_race7	B2_MRACE7E
+mom_race8	B2_MRACE8E
+mom_race16	B2_MRACE16E
+filler7	
+mom_race18	B2_MRACE18E
+filler8	
+mom_race20	B2_MRACE20E
+filler9	
+mom_race22	B2_MRACE22E
+filler10	
+momhisp_nchs	B2_NCHS_MO_ETHNIC_CD
+mom_ethnic_nchs	B2_NCHS_MO_ETHNIC_LIT_CD
+momrace_nchsbrg	B2_MO_BRIDGED_RACE
+momrace_ethnchs	
+fa_his	B2_FATHER_ETHNIC_YESNO
+fa_mex	B2_FATHER_MEXICAN
+fa_pr	B2_FATHER_PR
+fa_cu	B2_FATHER_CUBAN
+fa_ethoth	B2_FATHER_ETHNIC_OTHER
+fa_ethothlit	B2_FATHER_ETHNIC
+fa_white	B2_FATHER_RACE_WHITE
+fa_black	B2_FATHER_RACE_BLACK
+fa_amind	B2_FATHER_RACE_AM_INDIAN
+fa_amindlit	B2_FATHER_RACE_AM_IND_LIT
+fa_asian	B2_FATHER_RACE_ASIAN_IND
+fa_asianoth	B2_FATHER_RACE_ASIAN_OTH
+fa_asianlit	B2_FATHER_RACE_ASIAN_LIT
+fa_chinese	B2_FATHER_RACE_CHINESE
+fa_filipino	B2_FATHER_RACE_FILIPINO
+fa_japanese	B2_FATHER_RACE_JAPANESE
+fa_korean	B2_FATHER_RACE_KOREAN
+fa_vietnamese	B2_FATHER_RACE_VIETNAMESE
+fa_hawaiian	B2_FATHER_RACE_HAWAIIAN
+fa_guam	B2_FATHER_RACE_GUAM
+fa_samoan	B2_FATHER_RACE_SAMOAN
+fa_pacisl	B2_FATHER_RACE_PAC
+fa_pacisllit	B2_FATHER_RACE_PAC_LIT
+fa_raceoth	B2_FATHER_RACE_OTHER
+fa_raceothlit	B2_FATHER_RACE_OTHER_LIT
+fa_raceunk	B2_FATHER_RACE_UNKNOWN
+fa_raceref	B2_FATHER_RACE_REFUSED
+fa_race1	B2_FRACE1E
+fa_race2	B2_FRACE2E
+fa_race3	B2_FRACE3E
+fa_race4	B2_FRACE4E
+fa_race5	B2_FRACE5E
+fa_race6	B2_FRACE6E
+fa_race7	B2_FRACE7E
+fa_race8	B2_FRACE8E
+fa_race16	B2_FRACE16E
+filler14	
+fa_race18	B2_FRACE18E
+filler15	
+fa_race20	B2_FRACE20E
+filler16	
+fa_race22	B2_FRACE22E
+filler17	
+fahisp_nchs	B2_NCHS_FA_ETHNIC_CD
+fa_ethnic_nchs	B2_NCHS_FA_ETHNIC_LIT_CD
+farace_nchsbrg	B2_FA_BRIDGED_RACE
+farace_ethnchs	
+death_match	DEATH_MATCHED
+death_cert	DEATH_STATE_FILE_NUMBER
+death_date	DEATH_DATE
+birth_rco	
