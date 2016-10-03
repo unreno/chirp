@@ -276,14 +276,21 @@ CREATE TABLE dbo.codes (
 	code VARCHAR(100) NOT NULL,	-- Vaccination descriptions are 100 so ...
 	value VARCHAR(255) NOT NULL,
 	units VARCHAR(20),	--	testing using "individual" and "combination" for immunizations
-	CONSTRAINT codes_unique_schema_table_codeset_code
-		UNIQUE ( _schema, _table, codeset, code )
+
+
+--	Can't have this restraint, otherwise can't split immunizations. Problems elsewhere???
+--	Temporarily remove and then put back???
+--	CONSTRAINT codes_unique_schema_table_codeset_code
+--		UNIQUE ( _schema, _table, codeset, code )
+
+
 );
 -- FYI The maximum key length is 900 bytes. For some combination of large values, the insert/update operation will fail.
+
 IF OBJECT_ID ( 'dbo.bulk_insert_codes', 'V' ) IS NOT NULL
 	DROP VIEW dbo.bulk_insert_codes;
 GO
-CREATE VIEW dbo.bulk_insert_codes AS SELECT code, value FROM dbo.codes;
+CREATE VIEW dbo.bulk_insert_codes AS SELECT code, value, units FROM dbo.codes;
 GO
 
 
@@ -347,4 +354,5 @@ WITH (
 	FIRSTROW = 2,
 	TABLOCK
 )';
+EXEC(@bulk_cmd);
 GO
