@@ -71,15 +71,17 @@ echo "DECLARE @bulk_cmd VARCHAR(1000)"
 #	Nevertheless, converting to TABs with tsv. Pretty on github and in vi too.
 #	TABs are BULK INSERT's default separator anyhow.
 #	Must manually remove single and double quote wrappers.
-ls -1 content/vital/{births,deaths}/*tsv | \
+#ls -1 content/{vital,webiz}/{births,deaths,immun}/*tsv | \
+ls -1 content/{vital,webiz}/*/*tsv | \
 	awk -F. '{print $1}' | awk -F/ '{
-		table=$(NF-1)
-		codeset=$NF
-		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_schema_default DEFAULT '"'"'vital'"'"' FOR _schema;"
+		schema=$(NF-2)  #	or $2
+		table=$(NF-1)   #	or $3
+		codeset=$NF     #	or $4
+		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_schema_default DEFAULT '"'"'"schema"'"'"' FOR _schema;"
 		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_table_default DEFAULT '"'"'"table"'"'"' FOR _table;"
 		print "ALTER TABLE dbo.codes ADD CONSTRAINT temp_codeset_default DEFAULT '"'"'"codeset"'"'"' FOR codeset;"
 		print "SET @bulk_cmd = '"'"'BULK INSERT dbo.bulk_insert_codes"
-		print "	FROM '"''"'Z:\\Renown Project\\CHIRP\\Personal folders\\Jake\\chirp\\production\\content\\vital\\"table"\\"codeset".tsv'"''"'"
+		print "	FROM '"''"'Z:\\Renown Project\\CHIRP\\Personal folders\\Jake\\chirp\\production\\content\\"schema"\\"table"\\"codeset".tsv'"''"'"
 		print "	WITH ("
 		print "		ROWTERMINATOR = '"'''"'+CHAR(10)+'"'''"',"
 		print "		FIRSTROW = 2,"
