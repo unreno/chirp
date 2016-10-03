@@ -290,7 +290,13 @@ CREATE TABLE dbo.codes (
 IF OBJECT_ID ( 'dbo.bulk_insert_codes', 'V' ) IS NOT NULL
 	DROP VIEW dbo.bulk_insert_codes;
 GO
-CREATE VIEW dbo.bulk_insert_codes AS SELECT code, value, units FROM dbo.codes;
+CREATE VIEW dbo.bulk_insert_codes AS SELECT code, value FROM dbo.codes;
+GO
+
+IF OBJECT_ID ( 'dbo.bulk_insert_codes_with_units', 'V' ) IS NOT NULL
+	DROP VIEW dbo.bulk_insert_codes_with_units;
+GO
+CREATE VIEW dbo.bulk_insert_codes_with_units AS SELECT code, value, units FROM dbo.codes;
 GO
 
 
