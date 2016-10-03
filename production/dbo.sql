@@ -275,7 +275,7 @@ CREATE TABLE dbo.codes (
 	codeset VARCHAR(50) NOT NULL,
 	code VARCHAR(100) NOT NULL,	-- Vaccination descriptions are 100 so ...
 	value VARCHAR(255) NOT NULL,
-	units VARCHAR(20) NOT NULL,	--	testing using "individual" and "combination" for immunizations
+	units VARCHAR(20),	--	testing using "individual" and "combination" for immunizations
 	CONSTRAINT codes_unique_schema_table_codeset_code
 		UNIQUE ( _schema, _table, codeset, code )
 );
