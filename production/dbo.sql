@@ -273,9 +273,9 @@ CREATE TABLE dbo.codes (
 	_schema VARCHAR(50) NOT NULL,
 	_table VARCHAR(50) NOT NULL,
 	codeset VARCHAR(50) NOT NULL,
---	code INT NOT NULL,
-	code VARCHAR(5) NOT NULL,	-- Some of the CDC Race Codes start with a letter
-	value VARCHAR(255) NOT NULL, 	-- Isn't this comma needed?
+	code VARCHAR(100) NOT NULL,	-- Vaccination descriptions are 100 so ...
+	value VARCHAR(255) NOT NULL,
+	units VARCHAR(20) NOT NULL,	--	testing using "individual" and "combination" for immunizations
 	CONSTRAINT codes_unique_schema_table_codeset_code
 		UNIQUE ( _schema, _table, codeset, code )
 );
@@ -339,3 +339,12 @@ GO
 --END CATCH
 GO
 
+
+DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT dbo.dictionary
+FROM ''Z:\Renown Project\CHIRP\Personal folders\Jake\chirp\production\content\webiz\immunization_dictionary.tsv''
+WITH (
+	ROWTERMINATOR = '''+CHAR(10)+''',
+	FIRSTROW = 2,
+	TABLOCK
+)';
+GO
