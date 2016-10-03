@@ -178,6 +178,7 @@ CREATE TABLE dbo.observations (
 --	t_value         DATETIME,
 	value           VARCHAR(255),
 	units           VARCHAR(20),
+	raw             VARCHAR(255),	--	is "raw" a keyword? sorta so may not be able to use it.
 	downloaded_at   DATETIME,
 	source_schema   VARCHAR(50) NOT NULL,
 	source_table    VARCHAR(50) NOT NULL,
