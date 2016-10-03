@@ -37,7 +37,7 @@ cat vital_birth.sql
 ./split_address_column.bash vital.births mom_address
 
 cat vital_death.sql
-cat vital_webiz.sql
+cat webiz.sql
 
 
 cat health_lab.sql
