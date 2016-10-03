@@ -1,0 +1,27 @@
+code	value	units
+diphtheria, tetanus toxiods and acellular pertusis	DTaP	individual
+diphtheria, tetanus toxoids & acellular pertussis	DTaP	individual
+DTaP, hepatitis B and poliovirus vaccine	DTaP	combination
+DTaP, hepatitis B and poliovirus vaccine	Hep B	combination
+DTaP, hepatitis B and poliovirus vaccine	IPV	combination
+DTaP-IPV	DTaP	combination
+DTaP-IPV	IPV	combination
+DTaP-IPV, and Haemophilus influenzae type b conjug	DTaP	combination
+DTaP-IPV, and Haemophilus influenzae type b conjug	IPV	combination
+DTaP-IPV, and Haemophilus influenzae type b conjug	HIB	combination
+Haemophilus influenzae type b vaccine, conjugate U	HIB	individual
+Haemophilus influenzae type b vaccine, HbOC conjug	HIB	individual
+Haemophilus influenzae type b vaccine, PRP-OMP con	HIB	individual
+Haemophilus influenzae type b vaccine, PRP-T conju	HIB	individual
+hepatitis B immune globulin	Hep B IgG	individual
+hepatitis B vaccine, pediatric or pediatric/adoles	Hep B	individual
+hepatitis B vaccine, Unspecified Formulation	Hep B	individual
+Influenza, Injectable, Quadrivalent, Pfree	Flu	individual
+Pneumococcal Conjugate Vaccine, 13 valent	PCV 13	individual
+Pneumococcal, Unspecified Formulation	Pneumococcal	individual
+polio, Unspecified Formulation	IPV	individual
+poliovirus vaccine, inactivated	IPV	individual
+respiratory syncytial virus immune globulin, intra	RSV IgG	individual
+rotavirus, live, monovalent vaccine	Rotavirus	individual
+rotavirus, live, pentavalent vaccine	Rotavirus	individual
+Rotavirus, Unspecified Formulation	Rotavirus	individual

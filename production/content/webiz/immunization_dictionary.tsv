@@ -1,0 +1,2 @@
+schema	table	field	codeset	label	description
+webiz	immunizations	vaccination_desc	vaccination_desc	Vaccination	Vaccination Description
