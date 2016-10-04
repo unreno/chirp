@@ -37,7 +37,16 @@ cat vital_birth.sql
 ./split_address_column.bash vital.births mom_address
 
 cat vital_death.sql
+
 cat webiz.sql
+./normalize_name_column.bash webiz.immunizations mother_last_name
+./normalize_name_column.bash webiz.immunizations last_name
+./normalize_name_column.bash webiz.immunizations mother_first_name
+./normalize_name_column.bash webiz.immunizations first_name
+./normalize_name_column.bash webiz.immunizations mother_maiden_name
+./dehyphenate_name_column.bash webiz.immunizations mother_last_name
+./dehyphenate_name_column.bash webiz.immunizations mother_maiden_name
+./dehyphenate_name_column.bash webiz.immunizations last_name
 
 
 cat health_lab.sql
