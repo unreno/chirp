@@ -28,6 +28,66 @@ GO
 --Conversion failed when converting the varchar value 'blahblahblah' to data type bit
 
 
+IF OBJECT_ID ( 'bin.import_into_data_warehouse_by_table_webiz_immunizations', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_into_data_warehouse_by_table_webiz_immunizations;
+GO
+CREATE PROCEDURE bin.import_into_data_warehouse_by_table_webiz_immunizations
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	INSERT INTO dbo.observations
+		(chirp_id, provider_id, started_at,
+			concept, value, units, source_schema, source_table, source_id, downloaded_at)
+		SELECT chirp_id, provider_id, started_at, 'immunization' AS concept,
+			CASE WHEN c.value IS NOT NULL THEN c.value ELSE vaccination_desc END AS value,
+			c.units AS units, source_schema, source_table, source_id, downloaded_at
+		FROM (
+			SELECT i.chirp_id, vaccination_date AS started_at,
+--				0 AS provider_id,
+				'webiz' AS source_schema,
+				'immunizations' AS source_table,
+				b.id AS source_id,
+				b.*,
+				imported_at AS downloaded_at
+			FROM webiz.immunizations b
+			JOIN private.identifiers i
+				ON i.source_id = patient_id
+				AND i.source_column = 'patient_id'
+				AND i.source_table = 'immunizations'
+				AND i.source_schema = 'webiz'
+			WHERE imported_to_observations = 'FALSE'
+		) unimported_data
+--		CROSS APPLY ( VALUES
+--			('ac_anemia'          , CAST(ac_anemia AS VARCHAR(255))              , NULL),
+--			('gest_days'          , CAST(gest_days AS VARCHAR(255))              , 'days'),
+--			('DEM:Weight'         , CAST(grams AS VARCHAR(255))                  , 'grams')
+--		) cav ( concept, value, units )
+		LEFT JOIN dbo.dictionary d
+			ON  d._schema = 'webiz'
+			AND d._table = 'immunizations'
+			AND d.field = 'vaccination_desc'
+		LEFT JOIN dbo.codes c
+			ON  c._schema = 'webiz'
+			AND c._table = 'immunizations'
+			AND d.codeset = c.codeset
+			AND CAST(c.code AS VARCHAR(255)) = vaccination_desc
+--		WHERE cav.value IS NOT NULL
+
+	UPDATE b
+		SET imported_to_observations = 'TRUE'
+		FROM webiz.immunizations b
+		JOIN private.identifiers i
+			ON  i.source_id     = b.patient_id
+			AND i.source_column = 'patient_id'
+			AND i.source_table  = 'immunizations'
+			AND i.source_schema = 'webiz'
+		WHERE imported_to_observations = 'FALSE'
+			AND i.id IS NOT NULL
+
+END -- CREATE PROCEDURE bin.import_into_data_warehouse_by_table_webiz_immunizations
+GO
+
 
 IF OBJECT_ID ( 'bin.import_into_data_warehouse_by_table_health_lab_newborn_screenings', 'P' ) IS NOT NULL
 	DROP PROCEDURE bin.import_into_data_warehouse_by_table_health_lab_newborn_screenings;
