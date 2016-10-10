@@ -145,6 +145,7 @@ CREATE TABLE webiz.local_ids (
 -- patient_id|local_id|clinic_id|clinic_desc|provider_id|provider_desc
 
 	patient_id	INT,	--	System Assigned Number used for Primary key. Represents the Patient ID within the system (a.k.a., Web­IZ ID)
+	dob	DATE, --	Date of Birth for the patient
 	local_id	VARCHAR(50), --	The identifier this clinic has assigned to the patient
 	clinic_id	INT, --	System Assigned Number used for Primary key
 	clinic_desc	VARCHAR(50), --	Full name of the clinic
@@ -339,6 +340,7 @@ CREATE TABLE webiz.local_ids_buffer (
 -- patient_id|local_id|clinic_id|clinic_desc|provider_id|provider_desc
 
 	patient_id	INT,	--	System Assigned Number used for Primary key. Represents the Patient ID within the system (a.k.a., Web­IZ ID)
+	dob	DATE, --	Date of Birth for the patient
 	local_id	VARCHAR(50), --	The identifier this clinic has assigned to the patient
 	clinic_id	INT, --	System Assigned Number used for Primary key
 	clinic_desc	VARCHAR(50), --	Full name of the clinic
@@ -470,6 +472,7 @@ IF OBJECT_ID ( 'webiz.bulk_insert_local_ids', 'V' ) IS NOT NULL
 GO
 CREATE VIEW webiz.bulk_insert_local_ids AS SELECT
 	patient_id,
+	dob,
 	local_id,
 	clinic_id,
 	clinic_desc,
