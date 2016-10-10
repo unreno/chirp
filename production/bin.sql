@@ -1265,6 +1265,9 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+	IF OBJECT_ID('webiz.addresses_buffer_temp_source_filename') IS NOT NULL
+		ALTER TABLE webiz.addresses_buffer DROP CONSTRAINT addresses_buffer_temp_source_filename;
+
 	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path );
 	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1,
 		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
@@ -1273,16 +1276,18 @@ BEGIN
 		'FROM ''' + @file_with_path + ''' WITH ( ' +
 			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 2, TABLOCK )';
 
-	IF EXISTS (SELECT * FROM sys.identity_columns 
+	IF EXISTS (SELECT * FROM sys.identity_columns
 		WHERE object_id = OBJECT_ID( 'webiz.addresses_buffer','U') AND last_value IS NOT NULL)
 		DBCC CHECKIDENT( 'webiz.addresses_buffer', RESEED, 0);
 
 	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE webiz.addresses_buffer ' +
-		'ADD CONSTRAINT temp_source_filename ' +
+		'ADD CONSTRAINT addresses_buffer_temp_source_filename ' +
 		'DEFAULT ''' + @filename + ''' FOR source_filename';
 	EXEC(@alter_cmd);
 	EXEC(@bulk_cmd);
-	ALTER TABLE webiz.addresses_buffer DROP CONSTRAINT temp_source_filename;
+
+	IF OBJECT_ID('webiz.addresses_buffer_temp_source_filename') IS NOT NULL
+		ALTER TABLE webiz.addresses_buffer DROP CONSTRAINT addresses_buffer_temp_source_filename;
 
 END	--	bin.import_webiz_addresses
 GO
@@ -1295,6 +1300,9 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+	IF OBJECT_ID('webiz.immunizations_buffer_temp_source_filename') IS NOT NULL
+		ALTER TABLE webiz.immunizations_buffer DROP CONSTRAINT immunizations_buffer_temp_source_filename;
+
 	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path );
 	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1,
 		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
@@ -1303,16 +1311,18 @@ BEGIN
 		'FROM ''' + @file_with_path + ''' WITH ( ' +
 			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 2, TABLOCK )';
 
-	IF EXISTS (SELECT * FROM sys.identity_columns 
+	IF EXISTS (SELECT * FROM sys.identity_columns
 		WHERE object_id = OBJECT_ID( 'webiz.immunizations_buffer','U') AND last_value IS NOT NULL)
 		DBCC CHECKIDENT( 'webiz.immunizations_buffer', RESEED, 0);
 
 	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE webiz.immunizations_buffer ' +
-		'ADD CONSTRAINT temp_source_filename ' +
+		'ADD CONSTRAINT immunizations_buffer_temp_source_filename ' +
 		'DEFAULT ''' + @filename + ''' FOR source_filename';
 	EXEC(@alter_cmd);
 	EXEC(@bulk_cmd);
-	ALTER TABLE webiz.immunizations_buffer DROP CONSTRAINT temp_source_filename;
+
+	IF OBJECT_ID('webiz.immunizations_buffer_temp_source_filename') IS NOT NULL
+		ALTER TABLE webiz.immunizations_buffer DROP CONSTRAINT immunizations_buffer_temp_source_filename;
 
 END	--	bin.import_webiz_immunizations
 GO
@@ -1325,6 +1335,9 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+	IF OBJECT_ID('webiz.insurances_buffer_temp_source_filename') IS NOT NULL
+		ALTER TABLE webiz.insurances_buffer DROP CONSTRAINT insurances_buffer_temp_source_filename;
+
 	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path );
 	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1,
 		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
@@ -1333,16 +1346,18 @@ BEGIN
 		'FROM ''' + @file_with_path + ''' WITH ( ' +
 			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 2, TABLOCK )';
 
-	IF EXISTS (SELECT * FROM sys.identity_columns 
+	IF EXISTS (SELECT * FROM sys.identity_columns
 		WHERE object_id = OBJECT_ID( 'webiz.insurances_buffer','U') AND last_value IS NOT NULL)
 		DBCC CHECKIDENT( 'webiz.insurances_buffer', RESEED, 0);
 
 	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE webiz.insurances_buffer ' +
-		'ADD CONSTRAINT temp_source_filename ' +
+		'ADD CONSTRAINT insurances_buffer_temp_source_filename ' +
 		'DEFAULT ''' + @filename + ''' FOR source_filename';
 	EXEC(@alter_cmd);
 	EXEC(@bulk_cmd);
-	ALTER TABLE webiz.insurances_buffer DROP CONSTRAINT temp_source_filename;
+
+	IF OBJECT_ID('webiz.insurances_buffer_temp_source_filename') IS NOT NULL
+		ALTER TABLE webiz.insurances_buffer DROP CONSTRAINT insurances_buffer_temp_source_filename;
 
 END	--	bin.import_webiz_insurances
 GO
@@ -1355,6 +1370,9 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+	IF OBJECT_ID('webiz.local_ids_buffer_temp_source_filename') IS NOT NULL
+		ALTER TABLE webiz.local_ids_buffer DROP CONSTRAINT local_ids_buffer_temp_source_filename;
+
 	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path );
 	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1,
 		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
@@ -1363,16 +1381,18 @@ BEGIN
 		'FROM ''' + @file_with_path + ''' WITH ( ' +
 			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 2, TABLOCK )';
 
-	IF EXISTS (SELECT * FROM sys.identity_columns 
+	IF EXISTS (SELECT * FROM sys.identity_columns
 		WHERE object_id = OBJECT_ID( 'webiz.local_ids_buffer','U') AND last_value IS NOT NULL)
 		DBCC CHECKIDENT( 'webiz.local_ids_buffer', RESEED, 0);
 
 	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE webiz.local_ids_buffer ' +
-		'ADD CONSTRAINT temp_source_filename ' +
+		'ADD CONSTRAINT local_ids_buffer_temp_source_filename ' +
 		'DEFAULT ''' + @filename + ''' FOR source_filename';
 	EXEC(@alter_cmd);
 	EXEC(@bulk_cmd);
-	ALTER TABLE webiz.local_ids_buffer DROP CONSTRAINT temp_source_filename;
+
+	IF OBJECT_ID('webiz.local_ids_buffer_temp_source_filename') IS NOT NULL
+		ALTER TABLE webiz.local_ids_buffer DROP CONSTRAINT local_ids_buffer_temp_source_filename;
 
 END	--	bin.import_webiz_local_ids
 GO
@@ -1385,6 +1405,9 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+	IF OBJECT_ID('webiz.races_buffer_temp_source_filename') IS NOT NULL
+		ALTER TABLE webiz.races_buffer DROP CONSTRAINT races_buffer_temp_source_filename;
+
 	DECLARE @rf VARCHAR(255) = REVERSE( @file_with_path );
 	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1,
 		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
@@ -1393,16 +1416,18 @@ BEGIN
 		'FROM ''' + @file_with_path + ''' WITH ( ' +
 			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 2, TABLOCK )';
 
-	IF EXISTS (SELECT * FROM sys.identity_columns 
+	IF EXISTS (SELECT * FROM sys.identity_columns
 		WHERE object_id = OBJECT_ID( 'webiz.races_buffer','U') AND last_value IS NOT NULL)
 		DBCC CHECKIDENT( 'webiz.races_buffer', RESEED, 0);
 
 	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE webiz.races_buffer ' +
-		'ADD CONSTRAINT temp_source_filename ' +
+		'ADD CONSTRAINT races_buffer_temp_source_filename ' +
 		'DEFAULT ''' + @filename + ''' FOR source_filename';
 	EXEC(@alter_cmd);
 	EXEC(@bulk_cmd);
-	ALTER TABLE webiz.races_buffer DROP CONSTRAINT temp_source_filename;
+
+	IF OBJECT_ID('webiz.races_buffer_temp_source_filename') IS NOT NULL
+		ALTER TABLE webiz.races_buffer DROP CONSTRAINT races_buffer_temp_source_filename;
 
 END	--	bin.import_webiz_races
 GO
