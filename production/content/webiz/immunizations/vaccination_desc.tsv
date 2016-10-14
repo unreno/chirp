@@ -1,27 +1,139 @@
 code	value	units
+Bacillus Calmette-Guerin vaccine
+cholera vaccine	Cholera	individual
+diphtheria and tetanus toxoids adsorbed for pedia	DTaP	individual
+diphtheria antitoxin	Diphtheria	individual
+diphtheria tetanus toxiods and acellular pertusis	DTaP	individual
+diphtheria tetanus toxoids & acellular pertussis	DTaP	individual
+diphtheria tetanus toxoids and pertussis vaccine	DTaP	individual
 diphtheria, tetanus toxiods and acellular pertusis	DTaP	individual
 diphtheria, tetanus toxoids & acellular pertussis	DTaP	individual
+DTaP hepatitis B and poliovirus vaccine	DTaP	combination
+DTaP hepatitis B and poliovirus vaccine	Hep B	combination
+DTaP hepatitis B and poliovirus vaccine	IPV	combination
 DTaP, hepatitis B and poliovirus vaccine	DTaP	combination
 DTaP, hepatitis B and poliovirus vaccine	Hep B	combination
 DTaP, hepatitis B and poliovirus vaccine	IPV	combination
+DTaP-Haemophilus influenzae type b conjugate vacci	DTaP	combination
+DTaP-Haemophilus influenzae type b conjugate vacci	HIB	combination
 DTaP-IPV	DTaP	combination
 DTaP-IPV	IPV	combination
+DTaP-IPV and Haemophilus influenzae type b conjug	DTaP	combination
+DTaP-IPV and Haemophilus influenzae type b conjug	HIB	combination
+DTaP-IPV and Haemophilus influenzae type b conjug	IPV	combination
 DTaP-IPV, and Haemophilus influenzae type b conjug	DTaP	combination
-DTaP-IPV, and Haemophilus influenzae type b conjug	IPV	combination
 DTaP-IPV, and Haemophilus influenzae type b conjug	HIB	combination
+DTaP-IPV, and Haemophilus influenzae type b conjug	IPV	combination
+DTaP-IPV-Hib-HepB historical	DTaP	combination
+DTaP-IPV-Hib-HepB historical	Hep B	combination
+DTaP-IPV-Hib-HepB historical	HIB	combination
+DTaP-IPV-Hib-HepB historical	IPV	combination
+DTaP/DTP-Haemophilusinfluenzaetypebconjugate HepB	DTaP	combination
+DTaP/DTP-Haemophilusinfluenzaetypebconjugate HepB	Hep B	combination
+DTaP/DTP-Haemophilusinfluenzaetypebconjugate HepB	HIB	combination
+DTP-Haemophilus influenzae type b conjugate vaccin
+Haemophilus influenzae type b conjugate and Hepati
+Haemophilus influenzae type b vaccine conjugate U	HIB	individual
+Haemophilus influenzae type b vaccine HbOC conjug	HIB	individual
+Haemophilus influenzae type b vaccine PRP-D conju	HIB	individual
+Haemophilus influenzae type b vaccine PRP-OMP con	HIB	individual
+Haemophilus influenzae type b vaccine PRP-T conju	HIB	individual
 Haemophilus influenzae type b vaccine, conjugate U	HIB	individual
 Haemophilus influenzae type b vaccine, HbOC conjug	HIB	individual
 Haemophilus influenzae type b vaccine, PRP-OMP con	HIB	individual
 Haemophilus influenzae type b vaccine, PRP-T conju	HIB	individual
+hepatitis A and hepatitis B vaccine	Hep A	combination
+hepatitis A and hepatitis B vaccine	Hep B	combination
+Hepatitis A Immune Globulin	HepA	individual
+Hepatitis A vaccine adult dosage	HepA	individual
+hepatitis A vaccine pediatric dosage Unspecified	Hep A	individual
+hepatitis A vaccine pediatric/adolescent dosage	Hep A	individual
+Hepatitis A vaccine Unspecified Formulation	HepA	individual
 hepatitis B immune globulin	Hep B IgG	individual
+hepatitis B vaccine adult dosage	Hep B	individual
+hepatitis B vaccine pediatric or pediatric/adoles	Hep B	individual
+hepatitis B vaccine Unspecified Formulation	Hep B	individual
 hepatitis B vaccine, pediatric or pediatric/adoles	Hep B	individual
 hepatitis B vaccine, Unspecified Formulation	Hep B	individual
+human papilloma virus vaccine	HPV	individual
+immune globulin intravenous
+Influenza High Dose Seasonal Preservative-Free	Flu	individual
+Influenza injectable Madin Darby Canine Kidney	Flu	individual
+Influenza Injectable Quadrivalent Contains Pres	Flu	individual
+Influenza Injectable Quadrivalent Pfree	Flu	individual
+Influenza Injectable Quadrivalent Preservative Fre	Flu	individual
+Influenza Intradermal Quadrivalent P-free	Flu	individual
+Influenza Live Attenuated For Intranasal	Flu	individual
+Influenza Live Intranasal Quadrivalent	Flu	individual
+Influenza Nasal UF	Flu	individual
+Influenza Recombinant Injectable Preservative Fre	Flu	individual
+Influenza Seasonal Injectable	Flu	individual
+Influenza Seasonal Injectable P-Free	Flu	individual
+Influenza Seasonal Intradermal Preservative-Free	Flu	individual
+influenza Unspecified Formulation	Flu	individual
+influenza virus vaccine split virus (incl. purifi	Flu	individual
 Influenza, Injectable, Quadrivalent, Pfree	Flu	individual
+Japanese Encephalitis for IM Administration	Encephalitis	individual
+Japanese Encephalitis Unspecified Formulation	Encephalitis	individual
+Japanese encephalitis vaccine	Encephalitis	individual
+MCV4 unspecified formulation (groups A C Y and
+measles and rubella virus vaccine	Measles	combination
+measles and rubella virus vaccine	Rubella	combination
+measles mumps and rubella virus vaccine	Measles	combination
+measles mumps and rubella virus vaccine	Mumps	combination
+measles mumps and rubella virus vaccine	Rubella	combination
+measles mumps rubella and varicella virus vacci	Measles	combination
+measles mumps rubella and varicella virus vacci	Mumps	combination
+measles mumps rubella and varicella virus vacci	Rubella	combination
+measles mumps rubella and varicella virus vacci	Varicella	combination
+measles virus vaccine	Measles	individual
+meningococal acwy Unspecified Formulation	Menigococcal	individual
+Meningococcal B fully Recombinant 3 Dose IM use
+Meningococcal B Unspecified Formulation
+Meningococcal B Vaccine Recombinant OMV Adjuvan
+meningococcal C conjugate vaccine	Menigococcal	individual
+meningococcal conjugate MCV4p (MENACTRA)	Menigococcal	individual
+Meningococcal Groups C and Y and Haemophilus b Tet
+Meningococcal oligosaccharide (groups ACY and W-
+mumps virus vaccine	Mumps	individual
+Novel Influenza-H1N1-09 All Formulations	H1N1	individual
+Novel Influenza-H1N1-09 Injectable	H1N1	individual
+Novel Influenza-H1N1-09 Preservative-Free Injecta	H1N1	individual
+PCV UF	PCV	individual
+pertussis vaccine	Pertussis	individual
+Pneumococcal Conjugate Vaccine 13 valent	PCV 13	individual
+pneumococcal conjugate vaccine 7 valent	Pneumococcal	individual
 Pneumococcal Conjugate Vaccine, 13 valent	PCV 13	individual
+pneumococcal polysaccharide vaccine	Pneumococcal	individual
+Pneumococcal Unspecified Formulation	Pneumococcal	individual
 Pneumococcal, Unspecified Formulation	Pneumococcal	individual
+polio Unspecified Formulation	IPV	individual
 polio, Unspecified Formulation	IPV	individual
+poliovirus vaccine inactivated	IPV	individual
+poliovirus vaccine live oral	IPV	individual
 poliovirus vaccine, inactivated	IPV	individual
+rabies immune globulin	Rabies	individual
+rabies vaccine for intramuscular injection	Rabies	individual
+respiratory syncytial virus immune globulin intra	RSV IgG	individual
 respiratory syncytial virus immune globulin, intra	RSV IgG	individual
+respiratory syncytial virus monoclonal antibody	RSV	individual
+rotavirus live monovalent vaccine	Rotavirus	individual
+rotavirus live pentavalent vaccine	Rotavirus	individual
+Rotavirus Unspecified Formulation	Rotavirus	individual
 rotavirus, live, monovalent vaccine	Rotavirus	individual
 rotavirus, live, pentavalent vaccine	Rotavirus	individual
 Rotavirus, Unspecified Formulation	Rotavirus	individual
+rubella virus vaccine	Rubella	individual
+tetanus and diphtheria toxoids adsorbed for adult	Diphtheria	combination
+tetanus and diphtheria toxoids adsorbed for adult	Tetanus	combination
+tetanus diphtheria toxoids and acellular pertussis	TDaP	individual
+tetanus immune globulin	Tetanus	individual
+tetanus toxoid	Tetanus	individual
+tuberculin skin test Unspecified Formulation	Tuberculin	individual
+tuberculin skin test; purified protein derivative	Tuberculin	individual
+typhoid vaccine parenteral other than acetone-ki	Typhoid	individual
+typhoid vaccine Unspecified Formulation	Typhoid	individual
+typhoid Vi capsular polysaccharide vaccine	Typhoid	individual
+varicella virus vaccine	Varicella	individual
+yellow fever vaccine	Yellow Fever	individual
+Zoster Vaccine Live (Shingles)	Shingles	individual
