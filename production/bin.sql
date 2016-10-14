@@ -939,6 +939,9 @@ BEGIN
 				AND i2.source_schema = 'webiz'
 			WHERE b._bth_date_year = @year AND b._bth_date_month = @month
 				AND i2.chirp_id IS NULL
+
+				AND s._dob_year = @year AND s._dob_month = @month
+
 /*
 				AND s._birth_date_year = @year AND s._birth_date_month = @month
 				AND s.zip_code IN ( '89402', '89405', '89412', '89424', '89431', '89432', '89433',

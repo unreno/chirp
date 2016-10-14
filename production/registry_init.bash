@@ -52,6 +52,7 @@ cat webiz.sql
 ./dehyphenate_name_column.bash webiz.immunizations mother_last_name
 ./dehyphenate_name_column.bash webiz.immunizations mother_maiden_name
 ./dehyphenate_name_column.bash webiz.immunizations last_name
+./split_date_column.bash webiz.immunizations dob
 
 
 cat health_lab.sql
