@@ -96,13 +96,13 @@ SELECT COUNT(1) FROM webiz.addresses_buffer
 EXEC bin.import_webiz_addresses 'C:\Users\gwendt\Desktop\Data\WebIZ\20161007 CHIRP address hist export 2010.txt'
 --	SELECT * FROM webiz.addresses_buffer
 SELECT COUNT(1) FROM webiz.addresses_buffer
---	6031
+--	110800
 SELECT COUNT(1) FROM webiz.addresses
 --	0
 INSERT INTO webiz.addresses SELECT * FROM webiz.addresses_buffer
 DELETE FROM webiz.addresses_buffer
 SELECT COUNT(1) FROM webiz.addresses
---	6031
+--	110800
 
 
 SELECT COUNT(1) FROM webiz.immunizations_buffer
@@ -110,13 +110,13 @@ SELECT COUNT(1) FROM webiz.immunizations_buffer
 EXEC bin.import_webiz_immunizations 'C:\Users\gwendt\Desktop\Data\WebIZ\20161007 CHIRP immunizations export 2010.txt'
 --	SELECT * FROM webiz.immunizations_buffer
 SELECT COUNT(1) FROM webiz.immunizations_buffer
---	20322
+--	671038
 SELECT COUNT(1) FROM webiz.immunizations
 --	0
 INSERT INTO webiz.immunizations SELECT * FROM webiz.immunizations_buffer
 DELETE FROM webiz.immunizations_buffer
 SELECT COUNT(1) FROM webiz.immunizations
---	20322
+--	671038
 
 
 SELECT COUNT(1) FROM webiz.insurances_buffer
@@ -124,13 +124,13 @@ SELECT COUNT(1) FROM webiz.insurances_buffer
 EXEC bin.import_webiz_insurances 'C:\Users\gwendt\Desktop\Data\WebIZ\20161007 CHIRP insurance export 2010.txt'
 --	SELECT * FROM webiz.insurances_buffer
 SELECT COUNT(1) FROM webiz.insurances_buffer
---	53
+--	3801
 SELECT COUNT(1) FROM webiz.insurances
 --	0
 INSERT INTO webiz.insurances SELECT * FROM webiz.insurances_buffer
 DELETE FROM webiz.insurances_buffer
 SELECT COUNT(1) FROM webiz.insurances
---	53
+--	3801
 
 
 SELECT COUNT(1) FROM webiz.local_ids_buffer
@@ -138,26 +138,26 @@ SELECT COUNT(1) FROM webiz.local_ids_buffer
 EXEC bin.import_webiz_local_ids 'C:\Users\gwendt\Desktop\Data\WebIZ\20161007 CHIRP local id export 2010.txt'
 --	SELECT * FROM webiz.local_ids_buffer
 SELECT COUNT(1) FROM webiz.local_ids_buffer
---	7546
+--	43867
 SELECT COUNT(1) FROM webiz.local_ids
 --	0
 INSERT INTO webiz.local_ids SELECT * FROM webiz.local_ids_buffer
 DELETE FROM webiz.local_ids_buffer
 SELECT COUNT(1) FROM webiz.local_ids
---	7546
+--	43867
 
 SELECT COUNT(1) FROM webiz.races_buffer
 --	0
 EXEC bin.import_webiz_races 'C:\Users\gwendt\Desktop\Data\WebIZ\20161007 CHIRP race ethn export 2010.txt'
 --	SELECT * FROM webiz.races_buffer
 SELECT COUNT(1) FROM webiz.races_buffer
---	3955
+--	53088
 SELECT COUNT(1) FROM webiz.races
 --	0
 INSERT INTO webiz.races SELECT * FROM webiz.races_buffer
 DELETE FROM webiz.races_buffer
 SELECT COUNT(1) FROM webiz.races
---	3955
+--	53088
 
 
 
@@ -185,7 +185,7 @@ SELECT COUNT(1) AS identifiers_post_count FROM private.identifiers
 
 SELECT COUNT(1) AS observations_pre_count FROM dbo.observations
 --	0
---	Import all data into observations table (takes about 3.5 min)(join version takes about 30 seconds!)
+--	Import all data into observations table (takes about 3.5 min)(JOIN version takes about 30 seconds!)
 EXEC bin.import_into_data_warehouse
 SELECT COUNT(1) AS observations_post_count FROM dbo.observations
 --	1576259
