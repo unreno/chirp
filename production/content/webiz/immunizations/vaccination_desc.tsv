@@ -1,5 +1,5 @@
 code	value	units
-Bacillus Calmette-Guerin vaccine		
+Bacillus Calmette-Guerin vaccine	BCG	individual
 cholera vaccine	Cholera	individual
 diphtheria and tetanus toxoids adsorbed for pedia	DTaP	individual
 diphtheria antitoxin	Diphtheria	individual
@@ -31,8 +31,10 @@ DTaP-IPV-Hib-HepB historical	IPV	combination
 DTaP/DTP-Haemophilusinfluenzaetypebconjugate HepB	DTaP	combination
 DTaP/DTP-Haemophilusinfluenzaetypebconjugate HepB	Hep B	combination
 DTaP/DTP-Haemophilusinfluenzaetypebconjugate HepB	HIB	combination
-DTP-Haemophilus influenzae type b conjugate vaccin		
-Haemophilus influenzae type b conjugate and Hepati		
+DTP-Haemophilus influenzae type b conjugate vaccin	DTaP	combination
+DTP-Haemophilus influenzae type b conjugate vaccin	HIB	combination
+Haemophilus influenzae type b conjugate and Hepati	HIB	combination
+Haemophilus influenzae type b conjugate and Hepati	Hep	combination
 Haemophilus influenzae type b vaccine conjugate U	HIB	individual
 Haemophilus influenzae type b vaccine HbOC conjug	HIB	individual
 Haemophilus influenzae type b vaccine PRP-D conju	HIB	individual
@@ -56,7 +58,7 @@ hepatitis B vaccine Unspecified Formulation	Hep B	individual
 hepatitis B vaccine, pediatric or pediatric/adoles	Hep B	individual
 hepatitis B vaccine, Unspecified Formulation	Hep B	individual
 human papilloma virus vaccine	HPV	individual
-immune globulin intravenous		
+immune globulin intravenous	IGIV	individual
 Influenza High Dose Seasonal Preservative-Free	Flu	individual
 Influenza injectable Madin Darby Canine Kidney	Flu	individual
 Influenza Injectable Quadrivalent Contains Pres	Flu	individual
@@ -76,7 +78,7 @@ Influenza, Injectable, Quadrivalent, Pfree	Flu	individual
 Japanese Encephalitis for IM Administration	Encephalitis	individual
 Japanese Encephalitis Unspecified Formulation	Encephalitis	individual
 Japanese encephalitis vaccine	Encephalitis	individual
-MCV4 unspecified formulation (groups A C Y and		
+MCV4 unspecified formulation (groups A C Y and	Meningococcal	individual
 measles and rubella virus vaccine	Measles	combination
 measles and rubella virus vaccine	Rubella	combination
 measles mumps and rubella virus vaccine	Measles	combination
@@ -87,14 +89,14 @@ measles mumps rubella and varicella virus vacci	Mumps	combination
 measles mumps rubella and varicella virus vacci	Rubella	combination
 measles mumps rubella and varicella virus vacci	Varicella	combination
 measles virus vaccine	Measles	individual
-meningococal acwy Unspecified Formulation	Menigococcal	individual
-Meningococcal B fully Recombinant 3 Dose IM use		
-Meningococcal B Unspecified Formulation		
-Meningococcal B Vaccine Recombinant OMV Adjuvan		
-meningococcal C conjugate vaccine	Menigococcal	individual
-meningococcal conjugate MCV4p (MENACTRA)	Menigococcal	individual
-Meningococcal Groups C and Y and Haemophilus b Tet		
-Meningococcal oligosaccharide (groups ACY and W-		
+meningococal acwy Unspecified Formulation	Meningococcal	individual
+Meningococcal B fully Recombinant 3 Dose IM use	Meningococcal	individual
+Meningococcal B Unspecified Formulation	Meningococcal	individual
+Meningococcal B Vaccine Recombinant OMV Adjuvan	Meningococcal	individual
+meningococcal C conjugate vaccine	Meningococcal	individual
+meningococcal conjugate MCV4p (MENACTRA)	Meningococcal	individual
+Meningococcal Groups C and Y and Haemophilus b Tet	Meningococcal	individual
+Meningococcal oligosaccharide (groups ACY and W-	Meningococcal	individual
 mumps virus vaccine	Mumps	individual
 Novel Influenza-H1N1-09 All Formulations	H1N1	individual
 Novel Influenza-H1N1-09 Injectable	H1N1	individual
