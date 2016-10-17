@@ -54,6 +54,8 @@ cat webiz.sql
 ./dehyphenate_name_column.bash webiz.immunizations last_name
 ./split_date_column.bash webiz.immunizations dob
 
+./normalize_street_column.bash webiz.addresses address_line1
+./split_address_column.bash webiz.addresses address_line1
 
 cat health_lab.sql
 ./normalize_name_column.bash health_lab.newborn_screenings mom_surname
