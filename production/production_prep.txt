@@ -228,53 +228,53 @@ SELECT COUNT(1) AS observations_count_with_screenings FROM dbo.observations
 SELECT COUNT(1) AS identifiers_count_again FROM private.identifiers
 --	10801
 EXEC bin.link_immunization_records_to_birth_records 2015, 1
---	v20161014 (with dob filter on both) - <1min
 SELECT COUNT(1) AS identifiers_with_1_webiz_count FROM private.identifiers
---	11099
+--	v20161014 (with dob filter on both) --	11099
+--	v20161017 (with dob filter on both) --	11260
 EXEC bin.link_immunization_records_to_birth_records 2015, 2
---	v20161014 (with dob filter on both) - 
 SELECT COUNT(1) AS identifiers_with_2_webiz_count FROM private.identifiers
---	11312
+--	v20161014 (with dob filter on both) --	11312
+--	v20161017 (with dob filter on both) --	11605
 EXEC bin.link_immunization_records_to_birth_records 2015, 3
---	v20161014 (with dob filter on both) - 
 SELECT COUNT(1) AS identifiers_with_3_webiz_count FROM private.identifiers
---	11581
+--	v20161014 (with dob filter on both) --	11581
+--	v20161017 (with dob filter on both) --	12052
 EXEC bin.link_immunization_records_to_birth_records 2015, 4
---	v20161014 (with dob filter on both) - 
 SELECT COUNT(1) AS identifiers_with_4_webiz_count FROM private.identifiers
---	11818
+--	v20161014 (with dob filter on both) --	11818
+--	v20161017 (with dob filter on both) --	12447
 EXEC bin.link_immunization_records_to_birth_records 2015, 5
---	v20161014 (with dob filter on both) - 
 SELECT COUNT(1) AS identifiers_with_5_webiz_count FROM private.identifiers
---	12098
+--	v20161014 (with dob filter on both) --	12098
+--	v20161017 (with dob filter on both) --	12874
 EXEC bin.link_immunization_records_to_birth_records 2015, 6
---	v20161014 (with dob filter on both) - 
 SELECT COUNT(1) AS identifiers_with_6_webiz_count FROM private.identifiers
---	12341
+--	v20161014 (with dob filter on both) --	12341
+--	v20161017 (with dob filter on both) --	13301
 EXEC bin.link_immunization_records_to_birth_records 2015, 7
---	v20161014 (with dob filter on both) - 
 SELECT COUNT(1) AS identifiers_with_7_webiz_count FROM private.identifiers
---	12643
+--	v20161014 (with dob filter on both) --	12643
+--	v20161017 (with dob filter on both) --	13793
 EXEC bin.link_immunization_records_to_birth_records 2015, 8
---	v20161014 (with dob filter on both) - 
 SELECT COUNT(1) AS identifiers_with_8_webiz_count FROM private.identifiers
---	12933
+--	v20161014 (with dob filter on both) --	12933
+--	v20161017 (with dob filter on both) --	14290
 EXEC bin.link_immunization_records_to_birth_records 2015, 9
---	v20161014 (with dob filter on both) - 
 SELECT COUNT(1) AS identifiers_with_9_webiz_count FROM private.identifiers
---	13200
+--	v20161014 (with dob filter on both) --	13200
+--	v20161017 (with dob filter on both) --	14726
 EXEC bin.link_immunization_records_to_birth_records 2015, 10
---	v20161014 (with dob filter on both) - 
 SELECT COUNT(1) AS identifiers_with_10_webiz_count FROM private.identifiers
---	13465
+--	v20161014 (with dob filter on both) --	13465
+--	v20161017 (with dob filter on both) --	15166
 EXEC bin.link_immunization_records_to_birth_records 2015, 11
---	v20161014 (with dob filter on both) - 
 SELECT COUNT(1) AS identifiers_with_11_webiz_count FROM private.identifiers
---	13742
+--	v20161014 (with dob filter on both) --	13742
+--	v20161017 (with dob filter on both) --	15592
 EXEC bin.link_immunization_records_to_birth_records 2015, 12
---	v20161014 (with dob filter on both) - 
 SELECT COUNT(1) AS identifiers_with_12_webiz_count FROM private.identifiers
---	14031
+--	v20161014 (with dob filter on both) --	14031
+--	v20161017 (with dob filter on both) --	16075
 
 
 SELECT COUNT( DISTINCT cert_year_num ) FROM vital.births
@@ -301,7 +301,8 @@ JOIN private.identifiers i
 	AND i.source_table  = 'immunizations'
 	AND i.source_schema = 'webiz'
 WHERE dob BETWEEN '2015-01-01' AND '2015-12-31'
---	3230	(bummer, I expected more)
+--	3230	(bummer, 59%. I expected more)
+--	5274	(better, 97%, but still low.)
 
 
 
@@ -310,7 +311,7 @@ SELECT COUNT(1) AS observations_count_again FROM dbo.observations
 --	1579032
 EXEC bin.import_into_data_warehouse
 SELECT COUNT(1) AS observations_count_with_webizs FROM dbo.observations
---	1636509
+--	1675680
 
 
 

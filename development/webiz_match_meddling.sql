@@ -1,5 +1,4 @@
 
---	street_prefix_desc only Branch, E, N, S, W
 
 
 		DECLARE @year INTEGER = 2015;
@@ -16,6 +15,7 @@
 				,dob,bth_date,last_name,name_sur,first_name,name_fir
 				,inf_hospnum,local_id
 				,mother_last_name,mom_snam,mom_fnam,mother_first_name
+				,mother_maiden_name,maiden_n
 				,_mom_address,_mom_address_pre,_mom_address_suf
 				,_address_line1,_address_line1_pre,_address_line1_suf
 				,mom_rzip,zip_code
@@ -56,12 +56,14 @@
 					OR s._last_name_suf IN ( b._mom_snam, b._mom_snam_pre, b._mom_snam_suf, b._maiden_n,
 						b._maiden_n_pre, b._maiden_n_suf, b._name_sur, b._name_sur_pre, b._name_sur_suf )
 					) THEN 1.0 ELSE 0.0 END AS last_name_score,
+
 				CASE WHEN b._name_fir = s._first_name     THEN 0.5 ELSE 0.0 END AS first_name_score,
 				CASE WHEN b._mom_fnam = s._mother_first_name THEN 1.0 ELSE 0.0 END AS mom_first_name_score
 				
 				,s.dob,b.bth_date,s.last_name,b.name_sur,s.first_name,b.name_fir
 				,b.inf_hospnum,l.local_id
-				,s.mother_last_name,b.mom_snam,b.mom_fnam,s.mother_first_name
+				,s.mother_last_name,b.mom_snam,s.mother_first_name,b.mom_fnam
+				,s.mother_maiden_name,b.maiden_n
 				,b._mom_address,b._mom_address_pre,b._mom_address_suf
 				,a._address_line1,a._address_line1_pre,a._address_line1_suf
 				,b.mom_rzip,a.zip_code
@@ -89,7 +91,7 @@
 
 		) AS computing_scores
 		WHERE birth_score + zip_score + address_score + num_score +
-			last_name_score + first_name_score + mom_first_name_score >= 4
+			last_name_score + first_name_score + mom_first_name_score >= 3
 
 --	) AS ranked
 --	WHERE rank = 1;
