@@ -33,6 +33,7 @@ cat vital_birth.sql
 ./normalize_name_column.bash vital.births mom_snam
 ./normalize_name_column.bash vital.births mom_fnam
 ./normalize_name_column.bash vital.births name_fir
+./normalize_name_column.bash vital.births name_mid
 ./normalize_street_column.bash vital.births mom_address
 ./dehyphenate_name_column.bash vital.births maiden_n
 ./dehyphenate_name_column.bash vital.births mom_snam
@@ -48,6 +49,7 @@ cat webiz.sql
 ./normalize_name_column.bash webiz.immunizations last_name
 ./normalize_name_column.bash webiz.immunizations mother_first_name
 ./normalize_name_column.bash webiz.immunizations first_name
+./normalize_name_column.bash webiz.immunizations middle_name
 ./normalize_name_column.bash webiz.immunizations mother_maiden_name
 ./dehyphenate_name_column.bash webiz.immunizations mother_last_name
 ./dehyphenate_name_column.bash webiz.immunizations mother_maiden_name
