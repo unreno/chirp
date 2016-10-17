@@ -5,7 +5,7 @@
 		DECLARE @month INTEGER = 12;
 
 		SELECT chirp_id, patient_id,
-			birth_score + zip_score + address_score + num_score +
+			birth_score + zip_score + address_score + num_score + middle_name_score +
 				last_name_score + first_name_score + mom_first_name_score AS score,
 			RANK() OVER( PARTITION BY patient_id ORDER BY
 				birth_score + zip_score + address_score + num_score +
