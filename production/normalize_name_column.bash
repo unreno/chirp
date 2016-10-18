@@ -12,7 +12,10 @@ echo
 echo "IF COL_LENGTH('${table}','_${field}') IS NOT NULL"
 echo "	ALTER TABLE ${table} DROP COLUMN _${field};"
 echo "ALTER TABLE ${table} ADD _${field} AS"
-echo "REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( REPLACE( ${field}"
-echo "	, '-','') , ' ','') ,'''','') ,'RR','R') ,'SS','S') ,'LL','L') PERSISTED;"
+echo "REPLACE( REPLACE( REPLACE( REPLACE("
+echo "REPLACE( REPLACE( REPLACE( ${field}"
+echo "	, '-','') , ' ','') ,'''','')"
+echo "	,'RR','R') ,'SS','S') ,'LL','L'),'TT','T')"
+echo "PERSISTED;"
 echo
 
