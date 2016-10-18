@@ -9,9 +9,9 @@ UPDATE b SET imported_to_observations = 'FALSE' FROM webiz.immunizations b
 		DECLARE @year INTEGER = 2015;
 		DECLARE @month INTEGER = 1;
 
-DECLARE @mid_this_month DATE = CAST(CAST(@year AS VARCHAR) + '-' + CAST(@month AS VARCHAR) + '-10' AS DATE);
-DECLARE @begin_prev_month DATE = DATEADD(m, DATEDIFF(m,0,@mid_this_month)-1,0);
-DECLARE @end_next_month DATE = DATEADD(s,-1,DATEADD(m, DATEDIFF(m,0,@mid_this_month)+2,0));
+--	DECLARE @mid_this_month DATE = CAST(CAST(@year AS VARCHAR) + '-' + CAST(@month AS VARCHAR) + '-10' AS DATE);
+--	DECLARE @begin_prev_month DATE = DATEADD(m, DATEDIFF(m,0,@mid_this_month)-1,0);
+--	DECLARE @end_next_month DATE = DATEADD(s,-1,DATEADD(m, DATEDIFF(m,0,@mid_this_month)+2,0));
 
 		SELECT chirp_id, patient_id,
 				birth_score + num_score + address_score + zip_score +
@@ -29,6 +29,7 @@ DECLARE @end_next_month DATE = DATEADD(s,-1,DATEADD(m, DATEDIFF(m,0,@mid_this_mo
 				,mother_last_name,mom_snam
 				,mom_fnam,mother_first_name
 				,mother_maiden_name,maiden_n
+				,mom_address,address_line1
 				,birth_score,num_score,last_name_score,first_name_score,zip_score,mom_first_name_score
 				,address_score,middle_name_score,mom_last_name_score,mom_maiden_name_score
 
@@ -36,7 +37,7 @@ DECLARE @end_next_month DATE = DATEADD(s,-1,DATEADD(m, DATEDIFF(m,0,@mid_this_mo
 
 			SELECT i.chirp_id, s.patient_id,
 				CASE WHEN b.bth_date = s.dob THEN 1.0
-					WHEN b.bth_date BETWEEN DATEADD(day,-8,s.dob) AND DATEADD(day,8,s.dob) THEN 0.5
+--					WHEN b.bth_date BETWEEN DATEADD(day,-8,s.dob) AND DATEADD(day,8,s.dob) THEN 0.5
 					ELSE 0.0 END AS birth_score,
 
 				CASE WHEN b._mom_rzip = a.zip_code THEN 0.5
@@ -77,6 +78,7 @@ DECLARE @end_next_month DATE = DATEADD(s,-1,DATEADD(m, DATEDIFF(m,0,@mid_this_mo
 				,b.inf_hospnum,l.local_id
 				,s.mother_last_name,b.mom_snam,s.mother_first_name,b.mom_fnam
 				,s.mother_maiden_name,b.maiden_n
+				,b.mom_address,a.address_line1
 				,b._mom_address,b._mom_address_pre,b._mom_address_suf
 				,a._address_line1,a._address_line1_pre,a._address_line1_suf
 				,b.mom_rzip,a.zip_code
@@ -100,13 +102,13 @@ DECLARE @end_next_month DATE = DATEADD(s,-1,DATEADD(m, DATEDIFF(m,0,@mid_this_mo
 			WHERE b._bth_date_year = @year AND b._bth_date_month = @month
 				AND i2.chirp_id IS NULL
 
---				AND s._dob_year = @year AND s._dob_month = @month
-				AND s.dob BETWEEN @begin_prev_month AND @end_next_month
+				AND s._dob_year = @year AND s._dob_month = @month
+--				AND s.dob BETWEEN @begin_prev_month AND @end_next_month
 
 		) AS computing_scores
 		WHERE birth_score + zip_score + address_score + num_score +
 			middle_name_score + last_name_score + first_name_score +
-			mom_first_name_score + mom_last_name_score + mom_maiden_name_score >= 5
+			mom_first_name_score + mom_last_name_score + mom_maiden_name_score >= 4
 
 --	) AS ranked
 --	WHERE rank = 1;
