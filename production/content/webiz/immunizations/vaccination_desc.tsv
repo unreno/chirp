@@ -34,7 +34,7 @@ DTaP/DTP-Haemophilusinfluenzaetypebconjugate HepB	HIB	combination
 DTP-Haemophilus influenzae type b conjugate vaccin	DTaP	combination
 DTP-Haemophilus influenzae type b conjugate vaccin	HIB	combination
 Haemophilus influenzae type b conjugate and Hepati	HIB	combination
-Haemophilus influenzae type b conjugate and Hepati	Hep	combination
+Haemophilus influenzae type b conjugate and Hepati	Hep Unknown	combination
 Haemophilus influenzae type b vaccine conjugate U	HIB	individual
 Haemophilus influenzae type b vaccine HbOC conjug	HIB	individual
 Haemophilus influenzae type b vaccine PRP-D conju	HIB	individual
@@ -46,11 +46,11 @@ Haemophilus influenzae type b vaccine, PRP-OMP con	HIB	individual
 Haemophilus influenzae type b vaccine, PRP-T conju	HIB	individual
 hepatitis A and hepatitis B vaccine	Hep A	combination
 hepatitis A and hepatitis B vaccine	Hep B	combination
-Hepatitis A Immune Globulin	HepA	individual
-Hepatitis A vaccine adult dosage	HepA	individual
+Hepatitis A Immune Globulin	Hep A	individual
+Hepatitis A vaccine adult dosage	Hep A	individual
 hepatitis A vaccine pediatric dosage Unspecified	Hep A	individual
 hepatitis A vaccine pediatric/adolescent dosage	Hep A	individual
-Hepatitis A vaccine Unspecified Formulation	HepA	individual
+Hepatitis A vaccine Unspecified Formulation	Hep A	individual
 hepatitis B immune globulin	Hep B IgG	individual
 hepatitis B vaccine adult dosage	Hep B	individual
 hepatitis B vaccine pediatric or pediatric/adoles	Hep B	individual
@@ -101,7 +101,7 @@ mumps virus vaccine	Mumps	individual
 Novel Influenza-H1N1-09 All Formulations	H1N1	individual
 Novel Influenza-H1N1-09 Injectable	H1N1	individual
 Novel Influenza-H1N1-09 Preservative-Free Injecta	H1N1	individual
-PCV UF	PCV	individual
+PCV UF	PCV UF	individual
 pertussis vaccine	Pertussis	individual
 Pneumococcal Conjugate Vaccine 13 valent	PCV 13	individual
 pneumococcal conjugate vaccine 7 valent	Pneumococcal	individual
