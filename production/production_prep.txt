@@ -231,50 +231,62 @@ EXEC bin.link_immunization_records_to_birth_records 2015, 1
 SELECT COUNT(1) AS identifiers_with_1_webiz_count FROM private.identifiers
 --	v20161014 (with dob filter on both) --	11099
 --	v20161017 (with dob filter on both) --	11260
+--	v20161018 (with dob filter on both) --	11256
 EXEC bin.link_immunization_records_to_birth_records 2015, 2
 SELECT COUNT(1) AS identifiers_with_2_webiz_count FROM private.identifiers
 --	v20161014 (with dob filter on both) --	11312
 --	v20161017 (with dob filter on both) --	11605
+--	v20161018 (with dob filter on both) --	11597
 EXEC bin.link_immunization_records_to_birth_records 2015, 3
 SELECT COUNT(1) AS identifiers_with_3_webiz_count FROM private.identifiers
 --	v20161014 (with dob filter on both) --	11581
 --	v20161017 (with dob filter on both) --	12052
+--	v20161018 (with dob filter on both) --	12036
 EXEC bin.link_immunization_records_to_birth_records 2015, 4
 SELECT COUNT(1) AS identifiers_with_4_webiz_count FROM private.identifiers
 --	v20161014 (with dob filter on both) --	11818
 --	v20161017 (with dob filter on both) --	12447
+--	v20161018 (with dob filter on both) --	12425
 EXEC bin.link_immunization_records_to_birth_records 2015, 5
 SELECT COUNT(1) AS identifiers_with_5_webiz_count FROM private.identifiers
 --	v20161014 (with dob filter on both) --	12098
 --	v20161017 (with dob filter on both) --	12874
+--	v20161018 (with dob filter on both) --	12853
 EXEC bin.link_immunization_records_to_birth_records 2015, 6
 SELECT COUNT(1) AS identifiers_with_6_webiz_count FROM private.identifiers
 --	v20161014 (with dob filter on both) --	12341
 --	v20161017 (with dob filter on both) --	13301
+--	v20161018 (with dob filter on both) --	13269
 EXEC bin.link_immunization_records_to_birth_records 2015, 7
 SELECT COUNT(1) AS identifiers_with_7_webiz_count FROM private.identifiers
 --	v20161014 (with dob filter on both) --	12643
 --	v20161017 (with dob filter on both) --	13793
+--	v20161018 (with dob filter on both) --	13746
 EXEC bin.link_immunization_records_to_birth_records 2015, 8
 SELECT COUNT(1) AS identifiers_with_8_webiz_count FROM private.identifiers
 --	v20161014 (with dob filter on both) --	12933
 --	v20161017 (with dob filter on both) --	14290
+--	v20161018 (with dob filter on both) --	14227
 EXEC bin.link_immunization_records_to_birth_records 2015, 9
 SELECT COUNT(1) AS identifiers_with_9_webiz_count FROM private.identifiers
 --	v20161014 (with dob filter on both) --	13200
 --	v20161017 (with dob filter on both) --	14726
+--	v20161018 (with dob filter on both) --	14660
 EXEC bin.link_immunization_records_to_birth_records 2015, 10
 SELECT COUNT(1) AS identifiers_with_10_webiz_count FROM private.identifiers
 --	v20161014 (with dob filter on both) --	13465
 --	v20161017 (with dob filter on both) --	15166
+--	v20161018 (with dob filter on both) --	15086
 EXEC bin.link_immunization_records_to_birth_records 2015, 11
 SELECT COUNT(1) AS identifiers_with_11_webiz_count FROM private.identifiers
 --	v20161014 (with dob filter on both) --	13742
 --	v20161017 (with dob filter on both) --	15592
+--	v20161018 (with dob filter on both) --	15508
 EXEC bin.link_immunization_records_to_birth_records 2015, 12
 SELECT COUNT(1) AS identifiers_with_12_webiz_count FROM private.identifiers
 --	v20161014 (with dob filter on both) --	14031
 --	v20161017 (with dob filter on both) --	16075
+--	v20161018 (with dob filter on both) --	15979
 
 
 SELECT COUNT( DISTINCT cert_year_num ) FROM vital.births
@@ -310,7 +322,7 @@ JOIN private.identifiers i
 	AND i.source_table  = 'immunizations'
 	AND i.source_schema = 'webiz'
 WHERE dob BETWEEN '2015-01-01' AND '2015-12-31'
---	(423 for just January)
+--	4749	(87% - 423 for just January)
 
 
 
