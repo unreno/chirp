@@ -294,6 +294,30 @@ JOIN private.identifiers i
 WHERE bth_date BETWEEN '2015-01-01' AND '2015-12-31'
 --	5432	(as expected as this is where we started)
 
+SELECT COUNT( DISTINCT chirp_id ) FROM vital.births b
+JOIN private.identifiers i
+	ON  i.source_id = b.cert_year_num
+	AND i.source_column = 'cert_year_num'
+	AND i.source_table  = 'births'
+	AND i.source_schema = 'vital'
+WHERE bth_date BETWEEN '2015-01-01' AND '2015-12-31'
+--	5432	(BETTER be the same!) (479 in just January)
+
+SELECT COUNT( DISTINCT chirp_id )FROM webiz.immunizations b
+JOIN private.identifiers i
+	ON  i.source_id = b.patient_id
+	AND i.source_column = 'patient_id'
+	AND i.source_table  = 'immunizations'
+	AND i.source_schema = 'webiz'
+WHERE dob BETWEEN '2015-01-01' AND '2015-12-31'
+--	(423 for just January)
+
+
+
+
+
+
+-- this is an incorrect comparison as patient_id isn't a 1-to-1 relationship!!!
 SELECT COUNT( DISTINCT patient_id ) FROM webiz.immunizations b
 JOIN private.identifiers i
 	ON  i.source_id = b.patient_id
