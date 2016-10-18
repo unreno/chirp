@@ -21,8 +21,8 @@ DECLARE @end_next_month DATE = DATEADD(s,-1,DATEADD(m, DATEDIFF(m,0,@mid_this_mo
 				birth_score + num_score + address_score + zip_score +
 					first_name_score + middle_name_score + last_name_score +
 					mom_first_name_score + mom_maiden_name_score + mom_last_name_score DESC ) AS rank
-	
-	
+
+
 				,dob,bth_date,last_name,name_sur,first_name,name_fir
 				,middle_name,name_mid
 				,inf_hospnum,local_id
@@ -31,7 +31,7 @@ DECLARE @end_next_month DATE = DATEADD(s,-1,DATEADD(m, DATEDIFF(m,0,@mid_this_mo
 				,mother_maiden_name,maiden_n
 				,birth_score,num_score,last_name_score,first_name_score,zip_score,mom_first_name_score
 				,address_score,middle_name_score,mom_last_name_score,mom_maiden_name_score
-				
+
 		FROM (
 
 			SELECT i.chirp_id, s.patient_id,
@@ -104,8 +104,8 @@ DECLARE @end_next_month DATE = DATEADD(s,-1,DATEADD(m, DATEDIFF(m,0,@mid_this_mo
 				AND s.dob BETWEEN @begin_prev_month AND @end_next_month
 
 		) AS computing_scores
-		WHERE birth_score + zip_score + address_score + num_score + 
-			middle_name_score + last_name_score + first_name_score + 
+		WHERE birth_score + zip_score + address_score + num_score +
+			middle_name_score + last_name_score + first_name_score +
 			mom_first_name_score + mom_last_name_score + mom_maiden_name_score >= 5
 
 --	) AS ranked
