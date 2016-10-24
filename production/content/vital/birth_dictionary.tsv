@@ -167,7 +167,7 @@ vital	births	fa_race7	cdc_race_code	CDC Race Code
 vital	births	fa_race8	cdc_race_code	CDC Race Code	
 vital	births	fa_raceoth	standard4_yesno	Father Other Race	
 vital	births	fa_raceothlit		Father Other Race Literal	
-vital	births	fa_raceref	standard4_yesno		
+vital	births	fa_raceref	standard4_yesno	Father Race Refused	
 vital	births	fa_raceunk	standard4_yesno	Father's Race Unknown	
 vital	births	fa_samoan	standard4_yesno	Father is Samoan	
 vital	births	fa_signpat	standard3_yesno	Did Father sign paternity?	
@@ -288,7 +288,7 @@ vital	births	mom_race7	cdc_race_code	CDC Race Code
 vital	births	mom_race8	cdc_race_code	CDC Race Code	
 vital	births	mom_raceoth	standard4_yesno	Mother Other Race	
 vital	births	mom_raceothlit		Mother Other Race Literal	
-vital	births	mom_raceref	standard4_yesno		
+vital	births	mom_raceref	standard4_yesno	Mother Race Refused	
 vital	births	mom_raceunk	standard4_yesno	Mother's Race Unknown	
 vital	births	mom_samoan	standard4_yesno	Mother is Samoan	
 vital	births	mom_trans	standard2_yesno	Was Mother Transferred For Delivery	Transfers include hospital to hospital, birth facility to hospital, etc. Does not include home to hospital.
