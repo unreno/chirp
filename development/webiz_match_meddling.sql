@@ -27,9 +27,9 @@ UPDATE b SET imported_to_observations = 'FALSE' FROM webiz.immunizations b
 				,middle_name,name_mid
 				,inf_hospnum,local_id
 				,mother_last_name,mom_snam
-				,mom_fnam,mother_first_name
+				,mother_first_name,mom_fnam
 				,mother_maiden_name,maiden_n
-				,mom_address,address_line1
+				,mom_address,address_line1,address_line2,street_number,street_name
 				,birth_score,num_score,last_name_score,first_name_score,zip_score,mom_first_name_score
 				,address_score,middle_name_score,mom_last_name_score,mom_maiden_name_score
 
@@ -75,10 +75,10 @@ UPDATE b SET imported_to_observations = 'FALSE' FROM webiz.immunizations b
 
 				,s.middle_name,b.name_mid
 				,s.dob,b.bth_date,s.last_name,b.name_sur,s.first_name,b.name_fir
-				,b.inf_hospnum,l.local_id
+				,l.local_id,b.inf_hospnum
 				,s.mother_last_name,b.mom_snam,s.mother_first_name,b.mom_fnam
 				,s.mother_maiden_name,b.maiden_n
-				,b.mom_address,a.address_line1
+				,b.mom_address,a.address_line1,a.address_line2,s.street_number,s.street_name
 				,b._mom_address,b._mom_address_pre,b._mom_address_suf
 				,a._address_line1,a._address_line1_pre,a._address_line1_suf
 				,b.mom_rzip,a.zip_code
