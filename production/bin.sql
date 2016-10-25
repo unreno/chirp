@@ -36,10 +36,12 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
+--	Changing the concept to NOT match the field complication count extraction
+
 	INSERT INTO dbo.observations
 		(chirp_id, provider_id, started_at,
 			concept, value, units, source_schema, source_table, source_id, downloaded_at)
-		SELECT chirp_id, provider_id, started_at, 'immunization' AS concept,
+		SELECT chirp_id, provider_id, started_at, 'vaccination_desc' AS concept,
 			CASE WHEN c.value IS NOT NULL THEN c.value ELSE vaccination_desc END AS value,
 			c.units AS units, source_schema, source_table, source_id, downloaded_at
 		FROM (
