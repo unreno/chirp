@@ -40,7 +40,7 @@ BEGIN
 
 	INSERT INTO dbo.observations
 		(chirp_id, provider_id, started_at, ended_at,
-			concept, value, units, source_schema, source_table, source_id, downloaded_at)
+			concept, raw, value, units, source_schema, source_table, source_id, downloaded_at)
 		SELECT chirp_id, provider_id, started_at, started_at,
 			'vaccination_desc' AS concept, raw,
 			CASE WHEN c.value IS NOT NULL THEN c.value ELSE vaccination_desc END AS value,
@@ -106,10 +106,10 @@ BEGIN
 	INSERT INTO dbo.observations
 		(chirp_id, provider_id, started_at, ended_at, concept, value, raw,
 			units, source_schema, source_table, source_id, downloaded_at)
-		SELECT chirp_id, provider_id, started_at, ended_at, concept, value, value,
+		SELECT chirp_id, provider_id, started_at, started_at, concept, value, value,
 			units, source_schema, source_table, source_id, downloaded_at
 		FROM (
-			SELECT chirp_id, provider_id, started_at, started_at, cav.concept, cav.value,
+			SELECT chirp_id, provider_id, started_at, cav.concept, cav.value,
 				cav.units, source_schema, source_table, source_id, downloaded_at,
 				ROW_NUMBER() OVER ( PARTITION BY
 					chirp_id, started_at, cav.concept, cav.value, cav.units

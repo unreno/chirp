@@ -8,13 +8,13 @@
 
 
 #	Put this here so can programmatically select dev or prod
-#echo "USE master;"
-#echo "IF db_id('$DB_NAME') IS NOT NULL"
-#echo "	DROP DATABASE $DB_NAME;"
+echo "USE master;"
+echo "IF db_id('$DB_NAME') IS NOT NULL"
+echo "	DROP DATABASE $DB_NAME;"
 #-- "WITH TRUSTWORTHY ON" required for use of tSQLt Testing Framework.
 #--CREATE DATABASE $DB_NAME WITH TRUSTWORTHY ON;
-#echo "CREATE DATABASE $DB_NAME;"
-#echo "GO"
+echo "CREATE DATABASE $DB_NAME;"
+echo "GO"
 
 #	Given than Paul has to move database somewhere for Reports,
 #	DROPping and CREATEing breaks this. So STOP DOING IT.
