@@ -18,6 +18,7 @@ CREATE TABLE webiz.addresses (
 	city_desc	VARCHAR(50), --	Name of the City. Displayed in some dropdowns, reports, etc. within the application.
 	state_desc	VARCHAR(50), --	Name of the City. Displayed in some dropdowns, reports, etc. within the application.
 	zip_code	VARCHAR(10), --	The Zip Code portion of the address
+	dob	DATE, --	Date of Birth for the patient
 	county_desc	VARCHAR(50), --	Name of the County. Displayed in some dropdowns, reports, etc. within the application.
 	country_desc VARCHAR(50),
 
@@ -213,6 +214,7 @@ CREATE TABLE webiz.addresses_buffer (
 	city_desc	VARCHAR(50), --	Name of the City. Displayed in some dropdowns, reports, etc. within the application.
 	state_desc	VARCHAR(50), --	Name of the City. Displayed in some dropdowns, reports, etc. within the application.
 	zip_code	VARCHAR(10), --	The Zip Code portion of the address
+	dob	DATE, --	Date of Birth for the patient
 	county_desc	VARCHAR(50), --	Name of the County. Displayed in some dropdowns, reports, etc. within the application.
 	country_desc VARCHAR(50),
 
