@@ -34,15 +34,15 @@ DTaP/DTP-Haemophilusinfluenzaetypebconjugate HepB	HIB	combination
 DTP-Haemophilus influenzae type b conjugate vaccin	DTaP	combination
 DTP-Haemophilus influenzae type b conjugate vaccin	HIB	combination
 Haemophilus influenzae type b conjugate and Hepati	HIB	combination
-Haemophilus influenzae type b conjugate and Hepati	Hep Unknown	combination
+Haemophilus influenzae type b conjugate and Hepati	Hep B	combination
 Haemophilus influenzae type b vaccine conjugate U	HIB	individual
 Haemophilus influenzae type b vaccine HbOC conjug	HIB	individual
 Haemophilus influenzae type b vaccine PRP-D conju	HIB	individual
-Haemophilus influenzae type b vaccine PRP-OMP con	HIB	individual
+Haemophilus influenzae type b vaccine PRP-OMP con	HIB (2 dose)	individual
 Haemophilus influenzae type b vaccine PRP-T conju	HIB	individual
 Haemophilus influenzae type b vaccine, conjugate U	HIB	individual
 Haemophilus influenzae type b vaccine, HbOC conjug	HIB	individual
-Haemophilus influenzae type b vaccine, PRP-OMP con	HIB	individual
+Haemophilus influenzae type b vaccine, PRP-OMP con	HIB (2 dose)	individual
 Haemophilus influenzae type b vaccine, PRP-T conju	HIB	individual
 hepatitis A and hepatitis B vaccine	Hep A	combination
 hepatitis A and hepatitis B vaccine	Hep B	combination
@@ -81,13 +81,8 @@ Japanese encephalitis vaccine	Encephalitis	individual
 MCV4 unspecified formulation (groups A C Y and	Meningococcal	individual
 measles and rubella virus vaccine	Measles	combination
 measles and rubella virus vaccine	Rubella	combination
-measles mumps and rubella virus vaccine	Measles	combination
-measles mumps and rubella virus vaccine	Mumps	combination
-measles mumps and rubella virus vaccine	Rubella	combination
-measles mumps rubella and varicella virus vacci	Measles	combination
-measles mumps rubella and varicella virus vacci	Mumps	combination
-measles mumps rubella and varicella virus vacci	Rubella	combination
-measles mumps rubella and varicella virus vacci	Varicella	combination
+measles mumps and rubella virus vaccine	MMR	individual
+measles mumps rubella and varicella virus vacci	MMRV	individual
 measles virus vaccine	Measles	individual
 meningococal acwy Unspecified Formulation	Meningococcal	individual
 Meningococcal B fully Recombinant 3 Dose IM use	Meningococcal	individual
@@ -119,12 +114,12 @@ rabies vaccine for intramuscular injection	Rabies	individual
 respiratory syncytial virus immune globulin intra	RSV IgG	individual
 respiratory syncytial virus immune globulin, intra	RSV IgG	individual
 respiratory syncytial virus monoclonal antibody	RSV	individual
-rotavirus live monovalent vaccine	Rotavirus	individual
-rotavirus live pentavalent vaccine	Rotavirus	individual
-Rotavirus Unspecified Formulation	Rotavirus	individual
-rotavirus, live, monovalent vaccine	Rotavirus	individual
-rotavirus, live, pentavalent vaccine	Rotavirus	individual
-Rotavirus, Unspecified Formulation	Rotavirus	individual
+rotavirus live monovalent vaccine	Rotavirus (2 dose)	individual
+rotavirus live pentavalent vaccine	Rotavirus (3 dose)	individual
+Rotavirus Unspecified Formulation	Rotavirus (3 dose)	individual
+rotavirus, live, monovalent vaccine	Rotavirus (2 dose)	individual
+rotavirus, live, pentavalent vaccine	Rotavirus (3 dose)	individual
+Rotavirus, Unspecified Formulation	Rotavirus (3 dose)	individual
 rubella virus vaccine	Rubella	individual
 tetanus and diphtheria toxoids adsorbed for adult	Diphtheria	combination
 tetanus and diphtheria toxoids adsorbed for adult	Tetanus	combination
