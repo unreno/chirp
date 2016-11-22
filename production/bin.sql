@@ -954,6 +954,7 @@ BEGIN
 	) AS ranked
 	WHERE rank = 1;
 
+	--	Insert those that DO NOT have multple birth records claiming them.
 	INSERT INTO private.identifiers (
 		chirp_id, source_schema, source_table, source_column, source_id, match_method )
 		SELECT * FROM #temp_identifiers_link WHERE patient_id NOT IN (
@@ -1086,6 +1087,7 @@ from vital.births
 	) AS ranked
 	WHERE rank = 1;
 
+	--	Insert those that DO NOT have multple birth records claiming them.
 	INSERT INTO private.identifiers (
 		chirp_id, source_schema, source_table, source_column, source_id, match_method )
 		SELECT * FROM #temp_identifiers_link WHERE accession_kit_number NOT IN (
