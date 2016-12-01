@@ -362,7 +362,8 @@ SELECT COUNT(1) AS observations_count_again FROM dbo.observations
 EXEC bin.import_into_data_warehouse
 SELECT COUNT(1) AS observations_count_with_webizs FROM dbo.observations
 --	--	1675680
---	1677226
+--	--	1677226
+--	1671013
 
 
 
