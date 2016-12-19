@@ -375,6 +375,15 @@ SELECT COUNT(1) AS observations_count_with_webizs FROM dbo.observations
 
 
 --	bcp "DECLARE @colnames VARCHAR(max);SELECT @colnames = COALESCE(@colnames + ',', '') + column_name from chirp.INFORMATION_SCHEMA.COLUMNS where TABLE_NAME='observations'; select @colnames;" queryout HeadersOnly.csv -c -T
---	bcp "SELECT * FROM chirp.dbo.observations" queryout DataOnly.csv -c -t',' -T
+--
+--	#	This misses the very first "
+--	#	And adds a " at the very end.
+--
+--	#	Will need to devise a scripted way to fix this.
+--
+--	bcp "SELECT * FROM chirp.dbo.observations" queryout DataOnly.csv -c -T -t"\",\"" -r"\"\n\""
+--	awk 'BEGIN { FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)" }{print NF}' DataOnly.csv | sort | uniq -c
+--	#	should ALL be 14
 --	cat HeadersOnly.csv DataOnly.csv > Observations.csv
+
 
