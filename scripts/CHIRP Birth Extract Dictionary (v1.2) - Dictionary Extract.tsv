@@ -1,0 +1,346 @@
+EBRS Field Name	Variable Name	Field Structure	Code Description	Type	Start Position	Length
+STATE_FILE_NUMBER	Certificate Number	Automatically assigned by EBRS System	In state births= 000001-0999999, out of state births=900001-909999	Numeric	1	10
+VOID_FLAG	Void Flag		0=No or Blank, 1=Yes, 	Numeric	11	1
+NAME_LAST	Child Last Name	Free Text 		Alphanumeric	12	21
+NAME_SUFFIX	Child Name Suffix	Free Text 	I, II, III, IV, Jr, Sr	Alphanumeric	33	4
+NAME_FIRST	Child First Name	Free Text 		Alphanumeric	37	16
+NAME_MIDDLE	Child Middle Name	Free Text 		Alphanumeric	53	16
+SEX	Sex	1, 2, 9	1=Male 2=Female 9=Unknown	Alphanumeric	69	1
+DATE_OF_BIRTH	Date of Birth	mmddyyyy	mmddyyyy	Date	70	8
+TIME_OF_BIRTH	Time of Birth	00:00-23:59, 99:99	24 Hr clock, 9999=Unknown	Numeric	78	4
+FAC_TYPE_CODE	Place of Birth	Drop down Menu	1=Hospital 2=Freestanding Birth Center 3=Home (Intended) 4=Home (Not Intended) 5=Home (Unknown if Intended) 6=Clinic/Doctor's Office 7=Other 9=Unknown	Numeric	82	1
+FAC_NV_CODE	Facility Name	Drop down Menu	See NV Facility Code Table	Numeric	83	4
+FAC_ST_NV_OLD	Facility State	Drop down Menu	See State Code Table	Numeric	87	2
+FAC_CITY_NV_OLD	Facility City	Drop down Menu	See NV City Code Table	Numeric	89	3
+FAC_CNTY_NV_OLD	Facility County	Drop down Menu	See NV County Code Table	Numeric	92	2
+ATTENDANT_TITLE_CODE	Attendant Title	Drop down Menu	1=Physician 2=Doctor of Osteopathy 3=Cert.Nurse Midwife,Lic.Cert.Nurse Midwife,Lic.Nurse Midwife,Cert. Professional Midwife, Direct Entry Midwife 4=Other Midwife 5=EMT, Nurse(RN, LPN, NC), Nurse Practitioner, Physician's Assistant, Medical Records Technician, Other 9=Unknown	Numeric	94	1
+MOTHER_NAME_LAST	Mother's Last Name	Free Text 	0	Alphanumeric	95	21
+MOTHER_NAME_SUFFIX	Mother's Last Name Suffix	Drop down Menu	I, II, III, IV, Jr, Sr	Alphanumeric	116	4
+MOTHER_NAME_FIRST	Mother's First Name	Free Text 	0	Alphanumeric	120	16
+MOTHER_NAME_MIDDLE	Mother's Middle Name	Free Text 	0	Alphanumeric	136	16
+MOTHER_NAME_LAST_P	Mother's Maiden Name	Free Text 	0	Alphanumeric	152	21
+MOTHER_NAME_SUFFIX_P	Mother's Maiden Name Suffix	Drop down Menu	I, II, III, IV, Jr, Sr	Alphanumeric	173	4
+B2_MOTHER_DOB	Mother's Date of Birth	mmddyyyy	mmddyyyy	Date	177	8
+B2_MOTHER_AGE	Mother's Age	Calculated	0	Numeric	185	2
+MBIR_COUNTRY_COUNTRY_CODE_NV	Mother's Country of Birth	Drop down Menu	See NV Country Codes	Numeric	187	2
+MBIR_STATE_STATE_CODE_NV	Mother's State of Birth	Drop down Menu	See NV State Codes	Numeric	189	2
+MRES_STATE_STATE_CODE_NV	Mother's Residence State	Drop down Menu	See NV State Codes	Numeric	191	2
+MOTHER_RES_CITY_NV_OLD	Mother's Residence City	Drop down Menu	See NV City Codes	Numeric	193	3
+MOTHER_RES_CNTY_NV_OLD	Mother's Residence County	Drop down Menu	See NV County Codes	Numeric	196	2
+MOTHER_RES_ADDR1	Mother's Residence Address	Free Text 	0	Alphanumeric	198	40
+MOTHER_RES_APT	Mother's Residence Apt No	Free Text 	0	Alphanumeric	238	10
+MOTHER_RES_ZIP	Mother's Residence Zip	Drop down Menu	From Zip Code Table in System	Numeric	248	9
+MOTHER_RES_INCITY	Mother's Residence Inside City Limits?	Y, N, U	1=Yes 2=No 9=Unknown	Numeric	257	1
+B2_MOTHER_ED	Mother's Education	Drop down Menu	1=8th Grade or Less 2=9th through 12 grade, no diploma 3=High School Graduate or GED completed 4=Some college credit, but no degree 5=Associate Degree 6=Bachelor's Degree 7=Master's Degree 8=Doctorate Degree or Professional Degree 9=Unknown	Numeric	258	1
+MOTHER_OCCUPATION_CD	Mother's Occupation	Drop down Menu	See Occupation Coding Manual	Numeric	259	3
+MOTHER_INDUSTRY_CD	Mother's Industry	Drop down Menu	See Industry Coding Manual	Numeric	262	3
+MOTHER_SSN	Mother's  Soc.Sec. #	000000000	0	Numeric	265	9
+FATHER_NAME_LAST	Father's Last Name	Free Text 	Literal	Alphanumeric	274	21
+FATHER_NAME_SUFFIX	Father's Last Name Suffix	Drop down Menu	I, II, III, IV, Jr, Sr	Alphanumeric	295	4
+FATHER_NAME_FIRST	Father's First Name	Free Text 	Literal	Alphanumeric	299	16
+FATHER_NAME_MIDDLE	Father's Middle Name	Free Text 	Literal	Alphanumeric	315	16
+B2_FATHER_DOB	Father's Date of Birth	mmddyyyy	mmddyyyy	Date	331	8
+B2_FATHER_AGE	Father's Age	Calculated	0	Numeric	339	2
+FBIR_COUNTRY_COUNTRY_CODE_NV	Father's Country of Birth	Drop down Menu	See NV State Codes	Numeric	341	2
+FBIR_STATE_STATE_CODE_NV	Father's State of Birth	Drop down Menu	See NV State Codes	Numeric	343	2
+B2_FATHER_ED	Father's Education	Drop down Menu	1=8th Grade or Less 2=9th through 12 grade, no diploma 3=High School Graduate or GED completed 4=Some college credit, but no degree 5=Associate Degree 6=Bachelor's Degree 7=Master's Degree 8=Doctorate Degree or Professional Degree 9=Unknown	Numeric	345	1
+FATHER_OCCUPATION_CD	Father's Occupation	Drop down Menu	See Occupation Coding Manual	Numeric	346	3
+FATHER_INDUSTRY_CD	Father's Industry	Drop down Menu	See Industry Coding Manual	Numeric	349	3
+FATHER_SSN	Father's Soc.Sec. #	000000000	000000000	Numeric	352	9
+B2_MOTHER_EVER_MARRIED	Mother Ever Married?	Y, N, U, X	1=Yes 2=No 9=Unknown	Alphanumeric	361	1
+MOTHER_MARRIED	Mother Married at Birth, Conception, or between?	Y, N, U	1=Yes 2=No 9=Unknown	Alphanumeric	362	1
+FATHER_IS_HUSBAND	Is Husband the Father?	Y, N, U	1=Yes 2=No 9=Unknown	Alphanumeric	363	1
+FATHER_SIGN_PAT_AFFIDAVIT	Will Father Sign Paternity?	Y, N, U	1=Yes 2=No 3=Refused 8=Not Applicable 9=Unknown	Alphanumeric	364	1
+B2_TRANS_MOTHER	Mother Transferred to this Facility?	Y, N, U	1=Yes 2=No 9=Unknown	Alphanumeric	365	1
+MENSES_DATE	Date Last Normal Menses Began?	mmddyyyy	mmddyyyy	Date	366	8
+B2_PRENATAL_YESNO	Prenatal Care?	Y, N, U	1=Yes 2=No 9=Unknown	Alphanumeric	374	1
+B2_PRENATAL_DATE_BEGIN	Prenatal Begin Date	mmddyyyy	mmddyyyy	Date	375	8
+B2_PRENATAL_DATE_END	Prenatal End Date	mmddyyyy	mmddyyyy	Date	383	8
+B2_PRENAT_TOT_VISITS	Total Prenatal Visits		0	Numeric	391	2
+B2_MOTHER_HEIGHT_FEET	Mother's Height-Feet 	1-8, 9	0	Numeric	393	1
+B2_MOTHER_HEIGHT_INCH	Mother's Height-Inches 	00-11, 99	0	Numeric	394	2
+B2_MOTHER_PRE_PREG_WT	Mother's Pre-pregnancy Weight	050-400, 999	0	Numeric	396	3
+B2_MOTHER_WT_AT_DELIV	Mother's Weight at Delivery	050-450, 999	0	Numeric	399	3
+LIVE_BIRTHS_TOTAL	Total Number of Previous Live Births	00-30, 99	0	Numeric	402	2
+LIVE_BIRTHS_DATE_MMYYYY	Date of Last Live Birth-Month/Year	mmyyyy	Month, Year, 888888,999999	Numeric	404	6
+LIVE_BIRTHS_LIVING	Now Living	00-30, 99	88 if not applicable	Numeric	410	2
+LIVE_BIRTHS_DEAD	Now Deceased	00-30, 99	88 if not applicable	Numeric	412	2
+TERM_NUMBER	Other Terminations	00-30, 99	88 if not applicable	Numeric	414	2
+TERM_DATE_MMYYYY	Last Termination Date	mmyyyy	Month, Year, 888888,999999	Numeric	416	6
+B2_TOBACCO_USE	Tobacco Use?	Y, N, U	1=Yes 2=No 9=Unknown	Alphanumeric	422	1
+B2_MOTHER_CIG_OR_PACK	Units	C, P 	1=Cigarettes 2=Packs 8= Not applicable	Alphanumeric	423	1
+B2_MOTHER_CIG_PREV	Prior Pregnancy-Cigarettes	00-98, 99	0	Numeric	424	2
+B2_MOTHER_CIG_PREV_PACK	Prior Pregnancy-Packs	00-05	0	Numeric	426	2
+B2_MOTHER_CIG_FIRST_TRI	First Trimester-Cigarettes	00-98, 99	0	Numeric	428	2
+B2_MOTHER_CIG_FIRST_PACK	First Trimester-Packs	00-05	0	Numeric	430	2
+B2_MOTHER_CIG_SECOND_TRI	Second Trimester-Cigarettes	00-98, 99	0	Numeric	432	2
+B2_MOTHER_CIG_SECOND_PACK	Second Trimester-Packs	00-05	0	Numeric	434	2
+B2_MOTHER_CIG_LAST_TRI	Last Trimester-Cigarettes	00-98, 99	0	Numeric	436	2
+B2_MOTHER_CIG_LAST_PACK	Last Trimester-Packs	00-05	0	Numeric	438	2
+M_ALCOHOL_USE	Alcohol Use	Y, N, U, R	1=Yes 2=No 3=Refused 9=Unknown	Alphanumeric	440	1
+M_ALCOHOL_DRINK_WEEK	Number of Drinks per Week	00-98, 99	0	Numeric	441	2
+M_DRUG_USE	Drug Use During Pregnancy?	Y, N, U, R	1=Yes 2=No 3=Refused 9=Unknown	Alphanumeric	443	1
+M_DRUG_PRESCRIPTION	Prescription	Y, N	1=Yes 2=No	Alphanumeric	444	1
+M_DRUG_OTC	Over the Counter	Y, N	1=Yes 2=No	Alphanumeric	445	1
+M_DRUG_OTHER	Other 	Y, N	1=Yes 2=No	Alphanumeric	446	1
+M_DRUG_OTHER_LIT	Other Drugs-Description	Free Text 	Literal	Alphanumeric	447	30
+M_MR_NONE	Mrf-Medical History None	Y, N	1=Yes 2=No	Alphanumeric	477	1
+M_MR_DIAB	Mrf-Diabetes, Pre-existing	Y, N	1=Yes 2=No	Alphanumeric	478	1
+M_MR_DIAB_GEST	Mrf-Diabetes, Gestational	Y, N	1=Yes 2=No	Alphanumeric	479	1
+M_MR_HYPERT_ALL	Mrf-Hypertension	Y, N	1=Yes 2=No	Alphanumeric	480	1
+M_MR_HYPERT_CHRONIC	Mrf-Hypertension-Pre-pregnancy	Y, N	1=Yes 2=No	Alphanumeric	481	1
+M_MR_HYPERT_PREG	Mrf-Hypertension-Gestational	Y, N	1=Yes 2=No	0	482	1
+M_MR_ECLAMPSIA	Eclampsia	Y, N	1=Yes 2=No	Alphanumeric	483	1
+M_MR_PREV_PRETERM	Mrf-Previous Infant Preterm Birth	Y, N	1=Yes 2=No	Alphanumeric	484	1
+M_MR_PREV_POOR_OUTCOME	Mrf-Other Poor Outcomes	Y, N	1=Yes 2=No	Alphanumeric	485	1
+M_MR_PREG_FROM_TREATMENT	Mrf-Infertility Treatment	Y, N	1=Yes 2=No	Alphanumeric	486	1
+M_MR_INFERT_DRUGS	Drugs, Insemination	Y, N	1=Yes 2=No 8=Not Applicable	Alphanumeric	487	1
+M_MR_ASSIST_REP_TECH	Assisted Reproductive Tech	Y, N	1=Yes 2=No 8=Not Applicable	Alphanumeric	488	1
+M_MR_PREV_CESAREAN_YESNO	Mrf-Previous Cesarean	Y, N	1=Yes 2=No	Alphanumeric	489	1
+M_MR_PREV_CES_NUMB	Number of Previous Cesareans	00-10, 99	0	Numeric	490	2
+M_MR_ANEMIA	Mrf-Anemia	Y, N	1=Yes 2=No	Alphanumeric	492	1
+M_MR_CARDIAC	Mrf-Cardiac Disease	Y, N	1=Yes 2=No	Alphanumeric	493	1
+M_MR_LUNG_DISEASE	Mrf-Acute or Chronic Lung Disease	Y, N	1=Yes 2=No	Alphanumeric	494	1
+M_MR_HYDRAMINOS_OLIG	Mrf-Hydraminios/Oligohydramnios	Y, N	1=Yes 2=No	Alphanumeric	495	1
+M_MR_HEMOGLOBINOPATHY	Mrf-Hemoglobinopathy	Y, N	1=Yes 2=No	Alphanumeric	496	1
+M_MR_INCOMPENT_CERVIX	Mrf-Incompetent Cervix	Y, N	1=Yes 2=No	Alphanumeric	497	1
+M_MR_PREV_4000_PLUS	Mrf-Previous Infant 4000+grams	Y, N	1=Yes 2=No	Alphanumeric	498	1
+M_MR_RENAL_DISEASE	Mrf-Renal Disease	Y, N	1=Yes 2=No	Alphanumeric	499	1
+M_MR_RH_SENSIT	Mrf-Rh Sensitization	Y, N	1=Yes 2=No	Alphanumeric	500	1
+M_MR_UTERINE_BLEEDING	Mrf-Uterine Bleeding	Y, N	1=Yes 2=No	Alphanumeric	501	1
+M_MR_OTHER	Mrf-Other	Y, N	1=Yes 2=No	Alphanumeric	502	1
+M_MR_OTHER_LIT	Mrf-Other-Description	Free Text 	Literal	Alphanumeric	503	30
+M_INF_NONE	Mrf-Infections None	Y, N	1=Yes 2=No	Alphanumeric	534	1
+M_INF_GONORRHEA	Mrf-Gonorrhea	Y, N	1=Yes 2=No	Alphanumeric	535	1
+M_INF_SYPHILIS	Mrf-Syphilis	Y, N	1=Yes 2=No	Alphanumeric	536	1
+M_INF_CHLAMYDIA	Mrf-Chlamydia	Y, N	1=Yes 2=No	Alphanumeric	537	1
+M_INF_HEPATITIS_B	Mrf-Hepatitis B	Y, N	1=Yes 2=No	Alphanumeric	538	1
+M_INF_HEPATITIS_C	Mrf-Hepatitis C	Y, N	1=Yes 2=No	Alphanumeric	539	1
+M_INF_HPV	Mrf_Human Papillomavirus (HPV)	Y, N	1=Yes 2=No	Alphanumeric	540	1
+M_INF_HIV_AIDS	Mrf-HIV/AIDS	Y, N	1=Yes 2=No	Alphanumeric	541	1
+M_INF_CMV	Mrf-Cytomegalovirus (CMV)	Y, N	1=Yes 2=No	Alphanumeric	542	1
+M_INF_RUBELLA	Mrf-Rubella	Y, N	1=Yes 2=No	Alphanumeric	543	1
+M_INF_TOXOPLASMOSIS	Mrf-Toxoplasmosis	Y, N	1=Yes 2=No	Alphanumeric	544	1
+M_INF_GENITAL_HERPES	Mrf-Genital Herpes	Y, N	1=Yes 2=No	Alphanumeric	545	1
+M_INF_TUBERCULOSIS	Mrf-Tuberculosis	Y, N	1=Yes 2=No	Alphanumeric	546	1
+M_INF_OTHER	Mrf-Other	Y, N	1=Yes 2=No	Alphanumeric	547	1
+M_INF_OTHER_LIT	Mrf-Other-Description	Free Text 	Literal	Alphanumeric	548	30
+M_OB_NONE	Obpr-None	Y, N	1=Yes 2=No	Alphanumeric	579	1
+M_OB_CERCLAGE	Obpr-Cervical Cerclage	Y, N	1=Yes 2=No	Alphanumeric	580	1
+M_OB_TOCOLYSIS	Obpr-Tocolysis	Y, N	1=Yes 2=No	Alphanumeric	581	1
+M_OB_AMNIO	Obpr-Amniocentesis	Y, N	1=Yes 2=No	Alphanumeric	582	1
+M_OB_FETAL_MONITOR	Obpr-Electronic Fetal Monitoring	Y, N	1=Yes 2=No	Alphanumeric	583	1
+M_OB_CEPHALIC_SUCCESS	Obpr-External Cephalic Version (Successful)	Y, N	1=Yes 2=No	Alphanumeric	584	1
+M_OB_CEPHALIC_FAILED	Obpr-External Cephalic Version (Failed)	Y, N	1=Yes 2=No	Alphanumeric	585	1
+M_OB_ULTRASOUND	Obpr-Ultrasound	Y, N	1=Yes 2=No	Alphanumeric	586	1
+M_OB_OTHER	Obpr-Other	Y, N	1=Yes 2=No	Alphanumeric	587	1
+M_OB_OTHER_LIT	Obpr-Other-Description	Free Text 	Literal	Alphanumeric	588	30
+M_OL_NONE	Ol-None	Y, N	1=Yes 2=No	Alphanumeric	619	1
+M_OL_PREMATURE_ROM	Ol-Premature Rupture of Membranes (≥12hrs)	Y, N	1=Yes 2=No	Alphanumeric	620	1
+M_OL_PRECIP_LABOR	Ol-Precipitous Labor (>3hrs)	Y, N	1=Yes 2=No	Alphanumeric	621	1
+M_OL_PROLONG_LABOR	Ol-Prolonged Labor (≥20hrs)	Y, N	1=Yes 2=No	Alphanumeric	622	1
+M_CLD_NONE	Cld_None	Y, N	1=Yes 2=No	Alphanumeric	623	1
+M_CLD_INDUCTION	Cld-Induction of Labor	Y, N	1=Yes 2=No	Alphanumeric	624	1
+M_CLD_AUGMENT	Cld-Augmentation of Labor	Y, N	1=Yes 2=No	Alphanumeric	625	1
+M_CLD_NON_VERTEX	Cld-Non-Vertex Presentation	Y, N	1=Yes 2=No	Alphanumeric	626	1
+M_CLD_STEROID	Cld-Steroids for Lung Maturation Prior to Delivery	Y, N	1=Yes 2=No	Alphanumeric	627	1
+M_CLD_ANTIBIOTIC	Cld-Antibiotics During Labor	Y, N	1=Yes 2=No	Alphanumeric	628	1
+M_CLD_CHORIOAMNIO	Cld-Chorioamnionitis Diagnosed During Labor	Y, N	1=Yes 2=No	Alphanumeric	629	1
+M_CLD_MECONIUM	Cld-Meconium Staining Amniotic Fluid	Y, N	1=Yes 2=No	Alphanumeric	630	1
+M_CLD_FETAL_INTOLERANCE	Cld-Fetal Intolerance	Y, N	1=Yes 2=No	Alphanumeric	631	1
+M_CLD_EPIDURAL	Cld-Epidural or Spinal Anesthesia	Y, N	1=Yes 2=No	Alphanumeric	632	1
+M_CLD_FEBRILE	Cld-Febrile (>100°F, or 38°C)	Y, N	1=Yes 2=No	Alphanumeric	633	1
+M_CLD_ABR_PLACENTA	Cld-Abruptio Placenta	Y, N	1=Yes 2=No	Alphanumeric	634	1
+M_CLD_PLACENTA_PREVIA	Cld-Placenta Previa	Y, N	1=Yes 2=No	Alphanumeric	635	1
+M_CLD_BLEEDING	Cld-Other Excessive Bleeding	Y, N	1=Yes 2=No	Alphanumeric	636	1
+M_CLD_SEIZURES	Cld-Seizures During Labor	Y, N	1=Yes 2=No	Alphanumeric	637	1
+M_CLD_DYSFUNCTIONAL	Cld-Dysfunctional Labor	Y, N	1=Yes 2=No	Alphanumeric	638	1
+M_CLD_CEPHALOPELVIC	Cld-Cephalopelvic/Disproportion	Y, N	1=Yes 2=No	Alphanumeric	639	1
+M_CLD_CORD_PROLAPSE	Cld-Cord Prolapse	Y, N	1=Yes 2=No	Alphanumeric	640	1
+M_CLD_ANESTHETIC	Cld-Anesthetic Complications	Y, N	1=Yes 2=No	Alphanumeric	641	1
+M_CLD_OTHER	Cld-Other 	Y, N	1=Yes 2=No	Alphanumeric	642	1
+M_CLD_OTHER_LIT	Cld-Other-Description	Free Text 	Literal	Alphanumeric	643	30
+M_MD_FORCEPS_ATTEMPT	Del-Was Delivery with Forceps Attempted and Unsuccessful?	Y, N, U	1=Yes 2=No 9=Unknown	Alphanumeric	674	1
+M_MD_VACUUM_ATTEMPT	Del-Was delivery with Vacuum Attempted and Unsuccessful?	Y, N, U	1=Yes 2=No 9=Unknown	Alphanumeric	675	1
+B2_BIRPRESENT_CODE	Presr-Fetal Presentation at Birth	Drop down Menu	1=Cephalic 2=Breech 3=Other 9=Unknown	Numeric	676	1
+B2_BIRROUTE_CODE	Del-Final Route and Method of Delivery	Drop down Menu	1=Spontaneous 2=Forceps 3=Vacuum 4=Cesarean 9=Unknown	Numeric	677	1
+M_MD_CES_LABOR_ATTEMPT	Del-Trial of Labor Attempted	Y, N, U, X	1=Yes 2=No 9=Unknown	Alphanumeric	678	1
+M_MM_NONE	Mc-None	Y, N	1=Yes 2=No	Alphanumeric	680	1
+M_MM_TRANSFUSION	Mc-Maternal Transfusion	Y, N	1=Yes 2=No	Alphanumeric	681	1
+M_MM_PERINEAL_LACERAT	Mc-Third or Fourth Degree Perineal Laceration	Y, N	1=Yes 2=No	Alphanumeric	682	1
+M_MM_RUPTURED_UTERUS	Mc-Ruptured Uterus	Y, N	1=Yes 2=No	Alphanumeric	683	1
+M_MM_HYSTERECTOMY	Mc-Unplanned Hysterectomy	Y, N	1=Yes 2=No	Alphanumeric	684	1
+M_MM_ICU	Mc-Admitted to Intensive Care	Y, N	1=Yes 2=No	Alphanumeric	685	1
+M_MM_OR_PROC	Mc-Unplanned Operation following Delivery	Y, N	1=Yes 2=No	Alphanumeric	686	1
+M_MM_UNKNOWN	Mc-Unknown	Y, N	1=Yes 2=No	Alphanumeric	687	1
+APGAR_5	Apgar 5 Min	00-10, 99	99=Unknown	Numeric	688	2
+APGAR_10	Apgar 10 Min	00-10, 88, 99	88=Not applicable, 99=Unknown	Numeric	690	2
+BIRTH_WEIGHT_UNIT	Weight Unit	G, P, U	1=Grams 2=Pounds 3=Unknown	Alphanumeric	692	1
+BIRTH_WEIGHT_GRAMS	Birth Weight Grams	0000-9998, 9999	9999=Unknown	Numeric	693	4
+BIRTH_WEIGHT_LBS	Birth Weight Pounds	00-20	0	Numeric	697	2
+BIRTH_WEIGHT_OZ	Birth Weight Ounces	00-15	0	Numeric	699	2
+GESTATION_WEEKS	Gestation	00-98, 99 (>17or<47)	0	Numeric	701	2
+PLURALITY	Plurality	01-12, 99	99=Unknown	Numeric	703	2
+BIRTH_ORDER	Birth Order	01-12, 88, 99	88=Not applicable, 99=Unknown	Numeric	705	2
+B2_BORN_ALIVE	Live Birth Number	01-12, 88, 99	88=Not applicable, 99=Unknown	Numeric	707	2
+B2_MATCH_NUMBER	Plurality Match Number	000001-999999	Linked Birth Number	Numeric	709	6
+TRANS_INFANT	Infant Transferred	Y, N, U	1=Yes 2=No 9=Infant Transferred, Status Unknown	Alphanumeric	715	1
+B2_INFANT_LIVING	Infant Living	Y, N, U	1=Yes 2=No 9=Infant Transferred, Status Unknown	Alphanumeric	716	1
+M_AC_NONE	Ac-None	Y, N	1=Yes 2=No	Alphanumeric	717	1
+M_AC_VENT_LESS_30	Ac-Assisted Ventilation Immediately Following Delivery	Y, N	1=Yes 2=No	Alphanumeric	718	1
+M_AC_VENT_MORE_30	Ac-Assisted Ventilation More than 6hrs. 	Y, N	1=Yes 2=No	Alphanumeric	719	1
+M_AC_NICU	Ac-NICU Admission	Y, N	1=Yes 2=No	Alphanumeric	720	1
+M_AC_SURFACTANT	AbCN-Surfactant Replacement Therapy	Y, N	1=Yes 2=No	Alphanumeric	721	1
+M_AC_ANTIBIOTIC_SEPSIS	Ac-Antibiotics for Neonatal Sepsis	Y, N	1=Yes 2=No	Alphanumeric	722	1
+M_AC_SEIZURES	Ac-Seizures	Y, N	1=Yes 2=No	Alphanumeric	723	1
+M_AC_ANEMIA	Ac-Anemia (Hct.<39/Hgb.<13)	Y, N	1=Yes 2=No	Alphanumeric	724	1
+M_AC_FAS	Ac-Fetal Alcohol Syndrome	Y, N	1=Yes 2=No	Alphanumeric	725	1
+M_AC_HYALINE	Ac-Hyaline Membrane Disease/RDS	Y, N	1=Yes 2=No	Alphanumeric	726	1
+M_AC_MECONIUM_AS	Ac-Meconium Aspiration Syndrome	Y, N	1=Yes 2=No	Alphanumeric	727	1
+M_AC_BIRTH_INJURY	Ac-Birth Injury	Y, N	1=Yes 2=No	Alphanumeric	728	1
+M_AC_OTHER	Ac-Other Abnormal Conditions	Y, N	1=Yes 2=No	Alphanumeric	729	1
+M_AC_OTHER_LIT	Ac-Other Abnormal Conditions-Description	Free Text 	Literal	Alphanumeric	730	30
+M_ANOM_NONE	Con-None	Y, N	1=Yes 2=No	Alphanumeric	761	1
+M_ANOM_ANENCEP	Con-Anencephaly	Y, N	1=Yes 2=No	Alphanumeric	762	1
+M_ANOM_SPINA	Con-Meningomyelocele/Spina Bifida	Y, N	1=Yes 2=No	Alphanumeric	763	1
+M_ANOM_MICRO	Con-Microcephalus	Y, N	1=Yes 2=No	Alphanumeric	764	1
+M_ANOM_NERVOUS	Con-Other Central Nervous System Anomalies	Y, N	1=Yes 2=No	Alphanumeric	765	1
+M_ANOM_NERVOUS_LIT	Con-Other Central Nervous System Anomalies-Description	Free Text 	Literal	Alphanumeric	766	30
+M_ANOM_HEART	Con-Cyanotic Congenital Heart Disease	Y, N	1=Yes 2=No	Alphanumeric	796	1
+M_ANOM_HEART_MALFORM	Con-Heart Malformations	Y, N	1=Yes 2=No	Alphanumeric	797	1
+M_ANOM_CIRC	Con-Other Circulatory/Respiratory Anomalies	Y, N	1=Yes 2=No	Alphanumeric	798	1
+M_ANOM_CIRC_LIT	Con-Other Circulatory/Respiratory Anomalies-Description	Free Text 	Literal	Alphanumeric	799	30
+M_ANOM_OMPHAL	Con-Omphalocele	Y, N	1=Yes 2=No	Alphanumeric	829	1
+M_ANOM_GASTROSCHISIS	Con-Gastroschisis	Y, N	1=Yes 2=No	Alphanumeric	830	1
+M_ANOM_RECTAL	Con-Rectal Atresia/Stenosis	Y, N	1=Yes 2=No	Alphanumeric	831	1
+M_ANOM_TRACHEO	Con-Tracheo-Esophageal Fistula/Esophageal Atresia	Y, N	1=Yes 2=No	Alphanumeric	832	1
+M_ANOM_GASTRO	Con-Other Gastrointestinal Anomalies	Y, N	1=Yes 2=No	Alphanumeric	833	1
+M_ANOM_GASTRO_LIT	Con-Other Gastrointestinal Anomalies-Description	Free Text 	Literal	Alphanumeric	834	30
+M_ANOM_LIMB_REDUCT	Con-Limb Reduction Defect	Y, N	1=Yes 2=No	Alphanumeric	864	1
+M_ANOM_CLEFT_LIP	Con-Cleft Lip with or without Cleft Palate	Y, N	1=Yes 2=No	Alphanumeric	865	1
+M_ANOM_CLEFT_PALATE	Con-Cleft Palate Alone	Y, N	1=Yes 2=No	Alphanumeric	866	1
+M_ANOM_POLYDACT	Con-Polydactyly/Syndactyly/Adactyly	Y, N	1=Yes 2=No	Alphanumeric	867	1
+M_ANOM_CLUB_FOOT	Con-Club Foot	Y, N	1=Yes 2=No	Alphanumeric	868	1
+M_ANOM_DIAPH_HERNIA	Con-Diaphragmatic Hernia	Y, N	1=Yes 2=No	Alphanumeric	869	1
+M_ANOM_MUSCLE	Con-Other Musculoskeletal/integumental Anomalies	Y, N	1=Yes 2=No	Alphanumeric	870	1
+M_ANOM_MUSCLE_LIT	Con-Other Musculoskeletal/integumental Anomalies-Description	Free Text 	Literal	Alphanumeric	871	30
+M_ANOM_MALF_GENITALIA	Con-Malformed Genitalia	Y, N	1=Yes 2=No	Alphanumeric	901	1
+M_ANOM_RENAL	Con-Renal Agenesis	Y, N	1=Yes 2=No	Alphanumeric	902	1
+M_ANOM_HYPOSPADIAS	Con-Hypospadias	Y, N	1=Yes 2=No	Alphanumeric	903	1
+M_ANOM_UROGENITAL	Con-Other Urogenital Anomalies	Y, N	1=Yes 2=No	Alphanumeric	904	1
+M_ANOM_UROGENITAL_LIT	Con-Other Urogenital Anomalies-Description	Free Text 	Literal	Alphanumeric	905	30
+M_ANOM_DOWNS_CODE	Con-Down Syndrome-Karotype	C, P, N, U	1=Pending 2=Confirmed 3=No 9=Unknown	Alphanumeric	935	1
+M_ANOM_CDIT	Con-Suspected Chromosomal Disorder-Karotype	C, P, N, U	1=Pending 2=Confirmed 3=No 9=Unknown	Alphanumeric	936	1
+M_ANOM_CHROM_OTHER	Con-Other Chromosomal Anomalies	Y, N	1=Yes 2=No	Alphanumeric	937	1
+M_ANOM_CHROM_LIT	Con-Other Chromosomal Anomalies-Description	Free Text 	Literal	Alphanumeric	938	30
+M_ANOM_OTHER	Con_Other Anomalies Not Listed	Y, N	1=Yes 2=No	Alphanumeric	968	1
+M_ANOM_OTHER_LIT	Con_Other Anomalies Not Listed-Description	Free Text 	Literal	Alphanumeric	969	30
+CERTIFIERTITLEID	Certifier	Drop down Menu	1=Physician 2=Doctor of Osteopathy 3=Cert.Nurse Midwife,Lic.Cert.Nurse Midwife,Lic.Nurse Midwife,Cert. Professional Midwife, Direct Entry Midwife 4=Other Midwife 5=EMT, Nurse(RN, LPN, NC), Nurse Practitioner, Physician's Assistant, Medical Records Technician, Other 9=Unknown	Numeric	999	1
+CERTIFIER_DATE_COMP	Certifier Date	mmddyyyy	mmddyyyy	Numeric	1000	8
+REGISTRAR_REGIS_DATE	Registrar Date	mmddyyyy	mmddyyyy	Numeric	1008	8
+B2_MOTHER_WIC_YESNO	Did you receive WIC?	Y, N, U	1=Yes 2=No 9=Unknown	Alphanumeric	1016	1
+B2_SOURCE_PAY_CODE	Primary Source of Payment	Drop down Menu	1=Medicaid 2=Private Insurance 3=Self-Pay 4=Indian Health Services 5=CHAMPUS/TRICARE 6=Other Government (Fed, State, Local) 8=Other 9=Unknown	Alphanumeric	1017	1
+M_BREASTFEEDING	Infant being Breastfed	Y, N, U	1=Yes 2=No 9=Unknown	Alphanumeric	1018	1
+SSN_REQUESTED	Requested SSN?	Y, N	1=Yes 2=No	Alphanumeric	1019	1
+HOS_NUMBER	Infant Medical Record Number	0	0	Alphanumeric	1020	20
+M_MOTHER_MED_REC_NUM	Mother Medical Record Number	0	0	Alphanumeric	1040	20
+B2_HOSP_PATERNITY_COMPLETE	Hospital Paternity Action Complete?	X, Y	1=Yes 2=Not applicable	Alphanumeric	1060	1
+B2_MOTHER_ETHNIC_YESNO	Mother's Ethnicity Hispanic Origin?	N,H,U	1=Yes 2=No 9=Unknown	Alphanumeric	1061	1
+B2_MOTHER_MEXICAN	Mexican	N,H,U	1=Yes 2=No 9=Unknown	Alphanumeric	1062	1
+B2_MOTHER_PR	Puerto Rican	N,H,U	1=Yes 2=No 9=Unknown	Alphanumeric	1063	1
+B2_MOTHER_CUBAN	Cuban	N,H,U	1=Yes 2=No 9=Unknown	Alphanumeric	1064	1
+B2_MOTHER_ETHNIC_OTHER	Other	N,H,U	1=Yes 2=No 9=Unknown	Alphanumeric	1065	1
+B2_MOTHER_ETHNIC	Other Description	Free Text 	Literal	Alphanumeric	1066	20
+B2_MOTHER_RACE_WHITE	Mother's Race-White	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1086	1
+B2_MOTHER_RACE_BLACK	Mother's Race-Black or African American	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1087	1
+B2_MOTHER_RACE_AM_INDIAN	Mother's Race-Amer. Indian or Alaska Native	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1088	1
+B2_MOTHER_RACE_AM_IND_LIT	Mother's Race-Native American Indian or Alaska Native Desc.1	Free Text 	Literal	Alphanumeric	1089	30
+B2_MOTHER_RACE_ASIAN_IND	Mother's Race-Asian Indian	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1119	1
+B2_MOTHER_RACE_ASIAN_OTH	Mother's Race-Other Asian	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1120	1
+B2_MOTHER_RACE_ASIAN_LIT	Mother's Race-Other Asian Desc.1	Free Text 	Literal	Alphanumeric	1121	30
+B2_MOTHER_RACE_CHINESE	Mother's Race-Chinese	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1151	1
+B2_MOTHER_RACE_FILIPINO	Mother's Race-Filipino	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1152	1
+B2_MOTHER_RACE_JAPANESE	Mother's Race-Japanese	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1153	1
+B2_MOTHER_RACE_KOREAN	Mother's Race-Korean	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1154	1
+B2_MOTHER_RACE_VIETNAMESE	Mother's Race-Vietnamese	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1155	1
+B2_MOTHER_RACE_HAWAIIAN	Mother's Race-Native Hawaiian	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1156	1
+B2_MOTHER_RACE_GUAM	Mother's Race-Guamanian or Chamorro	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1157	1
+B2_MOTHER_RACE_SAMOAN	Mother Race-Samoan	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1158	1
+B2_MOTHER_RACE_PAC_OTHER	Mother's Race-Other Pacific Islander	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1159	1
+B2_MOTHER_RACE_PAC_LIT	Mother's Race-Other Pacific Islander Desc.1	Free Text 	Literal	Alphanumeric	1160	30
+B2_MOTHER_RACE_OTHER	Mother's Race-Other	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1190	1
+B2_MOTHER_RACE_OTHER_LIT	Mother's Race-Other Desc.1	Free Text 	Literal	Alphanumeric	1191	30
+B2_MOTHER_RACE_UNKNOWN	Mother's Race-Unknown	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1221	1
+B2_MOTHER_RACE_REFUSED	Mother's Race-Refused	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1222	1
+B2_MRACE1E	Mother's Race Tabulation Variable	0	Import from NCHS	Numeric	1223	3
+B2_MRACE2E	Mother's Race Tabulation Variable	0	Import from NCHS	Numeric	1226	3
+B2_MRACE3E	Mother's Race Tabulation Variable	0	Import from NCHS	Numeric	1229	3
+B2_MRACE4E	Mother's Race Tabulation Variable	0	Import from NCHS	Numeric	1232	3
+B2_MRACE5E	Mother's Race Tabulation Variable	0	Import from NCHS	Numeric	1235	3
+B2_MRACE6E	Mother's Race Tabulation Variable	0	Import from NCHS	Numeric	1238	3
+B2_MRACE7E	Mother's Race Tabulation Variable	0	Import from NCHS	Numeric	1241	3
+B2_MRACE8E	Mother's Race Tabulation Variable	0	Import from NCHS	Numeric	1244	3
+B2_MRACE16E	Mother's Race Tabulation Variable	0	Import from NCHS	Numeric	1247	3
+B2_MRACE18E	Mother's Race Tabulation Variable	0	Import from NCHS	Numeric	1253	3
+B2_MRACE20E	Mother's Race Tabulation Variable	0	Import from NCHS	Numeric	1259	3
+B2_MRACE22E	Mother's Race Tabulation Variable	0	Import from NCHS	Numeric	1265	3
+B2_NCHS_MO_ETHNIC_CD	Mother's Hispanic Code for Literal		Ethnic NCHS	Numeric	1271	3
+B2_NCHS_MO_ETHNIC_LIT_CD	Mother's Edited Hispanic Origin Code		Ethnic NCHS	Numeric	1274	3
+B2_MO_BRIDGED_RACE	Mother's Bridged Race			Numeric	1277	2
+B2_FATHER_ETHNIC_YESNO	Father's Ethnicity Hispanic Origin? 	N,H,U	1=Yes 2=No U=Unknown	Alphanumeric	1279	1
+B2_FATHER_MEXICAN	Mexican	N,H,U	1=Yes 2=No 9=Unknown	Alphanumeric	1280	1
+B2_FATHER_PR	Puerto Rican	N,H,U	1=Yes 2=No 9=Unknown	Alphanumeric	1281	1
+B2_FATHER_CUBAN	Cuban	N,H,U	1=Yes 2=No 9=Unknown	Alphanumeric	1282	1
+B2_FATHER_ETHNIC_OTHER	Other	N,H,U	1=Yes 2=No 9=Unknown	Alphanumeric	1283	1
+B2_FATHER_ETHNIC	Other Description	Free Text 	Literal	Alphanumeric	1284	20
+B2_FATHER_RACE_WHITE	Father's Race-White	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1304	1
+B2_FATHER_RACE_BLACK	Father Race-Black or African American	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1305	1
+B2_FATHER_RACE_AM_INDIAN	Father's Race-Amer. Indian or Alaska Native	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1306	1
+B2_FATHER_RACE_AM_IND_LIT	Father's Race-American Indian or Alaska Native Desc.1	Free Text 	Literal	Alphanumeric	1307	30
+B2_FATHER_RACE_ASIAN_IND	Father's Race-Asian Indian	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1337	1
+B2_FATHER_RACE_ASIAN_OTH	Father's Race-Other Asian	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1338	1
+B2_FATHER_RACE_ASIAN_LIT	Father's Race-Other Asian Desc.1	Free Text 	Literal	Alphanumeric	1339	30
+B2_FATHER_RACE_CHINESE	Father's Race-Chinese	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1369	1
+B2_FATHER_RACE_FILIPINO	Father's Race-Filipino	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1370	1
+B2_FATHER_RACE_JAPANESE	Father's Race-Japanese	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1371	1
+B2_FATHER_RACE_KOREAN	Father's Race-Korean	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1372	1
+B2_FATHER_RACE_VIETNAMESE	Father's Race-Vietnamese	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1373	1
+B2_FATHER_RACE_HAWAIIAN	Father's Race-Native Hawaiian	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1374	1
+B2_FATHER_RACE_GUAM	Father's Race-Guamanian or Chamorro	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1375	1
+B2_FATHER_RACE_SAMOAN	Father's Race-Samoan	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1376	1
+B2_FATHER_RACE_PAC	Father's Race-Other Pacific Islander	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1377	1
+B2_FATHER_RACE_PAC_LIT	Father's Race-Other Pacific Islander Desc.1	Free Text 	Literal	Alphanumeric	1378	30
+B2_FATHER_RACE_OTHER	Father's Race-Other	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1408	1
+B2_FATHER_RACE_OTHER_LIT	Father's Race-Other Desc.1	Free Text 	Literal	Alphanumeric	1409	30
+B2_FATHER_RACE_UNKNOWN	Father's Race-Unknown	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1439	1
+B2_FATHER_RACE_REFUSED	Father's Race-Refused	Check Box	1=Yes 2=No 9=Unknown	Alphanumeric	1440	1
+B2_FRACE1E	Father's Race Tabulation Variable	0	Import from NCHS	Numeric	1441	3
+B2_FRACE2E	Father's Race Tabulation Variable	0	Import from NCHS	Numeric	1444	3
+B2_FRACE3E	Father's Race Tabulation Variable	0	Import from NCHS	Numeric	1447	3
+B2_FRACE4E	Father's Race Tabulation Variable	0	Import from NCHS	Numeric	1450	3
+B2_FRACE5E	Father's Race Tabulation Variable	0	Import from NCHS	Numeric	1453	3
+B2_FRACE6E	Father's Race Tabulation Variable	0	Import from NCHS	Numeric	1456	3
+B2_FRACE7E	Father's Race Tabulation Variable	0	Import from NCHS	Numeric	1459	3
+B2_FRACE8E	Father's Race Tabulation Variable	0	Import from NCHS	Numeric	1462	3
+B2_FRACE16E	Father's Race Tabulation Variable	0	Import from NCHS	Numeric	1465	3
+B2_FRACE18E	Father's Race Tabulation Variable	0	Import from NCHS	Numeric	1471	3
+B2_FRACE20E	Father's Race Tabulation Variable	0	Import from NCHS	Numeric	1477	3
+B2_FRACE22E	Father's Race Tabulation Variable	0	Import from NCHS	Numeric	1483	3
+B2_NCHS_FA_ETHNIC_CD	Father's Hispanic Code for Literal		Ethnic NCHS	Numeric	1489	3
+B2_NCHS_FA_ETHNIC_LIT_CD	Father's Edited Hispanic Origin Code		Ethnic NCHS	Numeric	1492	3
+B2_FA_BRIDGED_RACE	Father's Bridged Race			Numeric	1495	2
+EVENT_YEAR		yyyy	yyyy	Date	1497	4
+ISACTIVE			T=Yes	Numeric	1501	1
+MOTHER_BIRTH_STATE	Mother Birth State			Alphanumeric	1513	2
+MOTHER_BIRTH_COUNTRY_FIPS	Mother Birth Country			Alphanumeric	1515	2
+MOTHER_RES_CITY_FIPS	Mother Residential City FIPS			Alphanumeric	1518	5
+MOTHER_RES_CNTY_FIPS	Mother Residential County FIPS			Alphanumeric	1524	3
+MOTHER_RES_STATE	Mother Residential State			Alphanumeric	1528	2
+MOTHER_RES_COUNTRY_FIPS	Mother Residential Country			Alphanumeric	1531	2
+SSN_CHILD	SSN of Child			Alphanumeric	1537	9
+DEATH_MATCHED				Alphanumeric	1558	1
+DEATH_STATE_FILE_NUMBER	Death State File Number			datetime	1559	10
+DEATH_DATE	Date of Death				1569	8
+FBIR_STATE_FIPS_ALPHA_CD				Alphanumeric	1577	2
+FATHER_BIRTH_COUNTRY_FIPS				Alphanumeric	1579	2
+REG_TYPE_CODE					1581	20
