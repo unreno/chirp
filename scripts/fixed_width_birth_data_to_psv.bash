@@ -21,7 +21,13 @@ END{
 	print names
 	print widths
 }
-' "CHIRP Birth Extract Dictionary (v1.2) - Dictionary Extract.tsv"`
+' "CHIRP Birth Extract MODIFIED Dictionary (v1.2) - Dictionary Extract.tsv"`
+
+#	"CHIRP Birth Extract Dictionary (v1.2) - Dictionary Extract.tsv"
+#	The raw file contains 21 gaps of 61 unaccount characters found by ...
+#	awk -F"\t" '{gsub(/\r/,"");print NR+1,$6,s+1,$7;s=s+$7;}' CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv
+#	The MODIFIED file has 21 UNKNOWN fields added to fill them.
+#	"CHIRP Birth Extract MODIFIED Dictionary (v1.2) - Dictionary Extract.tsv"
 
 awk -v input="$input" '
 BEGIN {
