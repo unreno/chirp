@@ -29,13 +29,17 @@ END{
 #	The MODIFIED file has 21 UNKNOWN fields added to fill them.
 #	"CHIRP Birth Extract MODIFIED Dictionary (v1.2) - Dictionary Extract.tsv"
 
-awk -v input="$input" '
+#	Gotta use gawk to use join
+
+gawk -v input="$input" '
+@include "join"
 BEGIN {
 	split(input,a,"\n")
 	split(a[1],names)
 	split(a[2],widths)
 	FIELDWIDTHS=a[2]
 	OFS="|"
+	print tolower(join(names,1,length(names),OFS))
 }
 {
 	for(i=1;i<=NF;i++){
