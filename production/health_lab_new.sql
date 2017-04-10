@@ -14,28 +14,28 @@ GO
 
 -- Where are the results????
 
-#IF OBJECT_ID('health_lab_new.newborn_screenings', 'U') IS NOT NULL
-#	DROP TABLE health_lab_new.newborn_screening_specimens;
-#CREATE TABLE health_lab_new.newborn_screening_specimens (
-#	id INT IDENTITY(1,1),
-#	CONSTRAINT health_lab_new_newborn_screening_specimens_id PRIMARY KEY CLUSTERED (id ASC),
-#-- SpecimenID,AccessionNumber,KitNumber,OrigKitNumber,TimeReceived,Unsat1,Unsat2,ParentRefused,Adopted,Deceased,DeceasedDate,ConsentGiven,BabyLast,BabyFirst,BirthDate,BirthDateNotGiven,BirthTime,BirthTimeNotGiven,BirthWeight,CollectionDate,CollectionDateNotGiven,CollectionTime,CollectionTimeNotGiven,CurrentWeight,BabySex,CollectedBy,CollectionAge,MedicalRecord,BirthType,BirthOrder,RaceWhite,RaceAfrAmer,RaceAmerInd,RaceAsian,RaceOther,RaceHispanic,BreastFeedOnly,MilkFeedOnly,SoyFeedOnly,BreastMilkFeed,BreastSoyFeed,TPN,NotFed,GestationAge,Meconiumileus,NICU,Antibiotic,BloodTransfusion,TrasfusionDate,BirthHospitalFacility,BirthHospitalFirstName,BirthHospitalLastName,BirthHospitalCode,BirthHospitalNotGiven,CollectionFacilityFacility,CollectionFacilityFirstName,CollectionFacilityLastName,CollectionFacilityCode,CollectionFacilityNotGiven,ReportToFacility,ReportToFirstName,ReportToLastName,ReportToCode,ReportToNotGiven,ReportToAddress,ReportToCity,ReportToState,ReportToZip,MotherLastName,MotherFirstName,MotherDOB,MotherMaidenName,MotherAddress,MotherCity,MotherState,MotherZip,Phone,EmergencyPhone,FatherName,FatherPhone,TestName,TestResultNumber,TestResultPlainValue,TestResultTextValue,MeasuredTime,AcceptedTime,TestPhase,TestStatus,ResultName,ResultLevel
-#
-#
-#	source_filename VARCHAR(255),
-#	--	Sadly, BULK INSERT does NOT preserve file order so this is moot.
-#	--	If remove, remove code that RESEED ID
-#	--	Actually, despite saying it doesn't, it seems to preserve the order.
-#	source_record_number INT,
-#
-#	imported_at DATETIME
-#		CONSTRAINT health_lab_new_newborn_screenings_imported_at_default
-#		DEFAULT CURRENT_TIMESTAMP NOT NULL,
-#	imported_to_observations BIT
-#		CONSTRAINT health_lab_new_newborn_screenings_imported_to_observations_default
-#		DEFAULT 'FALSE' NOT NULL,
-#);
-#GO
+--IF OBJECT_ID('health_lab_new.newborn_screenings', 'U') IS NOT NULL
+--	DROP TABLE health_lab_new.newborn_screening_specimens;
+--CREATE TABLE health_lab_new.newborn_screening_specimens (
+--	id INT IDENTITY(1,1),
+--	CONSTRAINT health_lab_new_newborn_screening_specimens_id PRIMARY KEY CLUSTERED (id ASC),
+---- SpecimenID,AccessionNumber,KitNumber,OrigKitNumber,TimeReceived,Unsat1,Unsat2,ParentRefused,Adopted,Deceased,DeceasedDate,ConsentGiven,BabyLast,BabyFirst,BirthDate,BirthDateNotGiven,BirthTime,BirthTimeNotGiven,BirthWeight,CollectionDate,CollectionDateNotGiven,CollectionTime,CollectionTimeNotGiven,CurrentWeight,BabySex,CollectedBy,CollectionAge,MedicalRecord,BirthType,BirthOrder,RaceWhite,RaceAfrAmer,RaceAmerInd,RaceAsian,RaceOther,RaceHispanic,BreastFeedOnly,MilkFeedOnly,SoyFeedOnly,BreastMilkFeed,BreastSoyFeed,TPN,NotFed,GestationAge,Meconiumileus,NICU,Antibiotic,BloodTransfusion,TrasfusionDate,BirthHospitalFacility,BirthHospitalFirstName,BirthHospitalLastName,BirthHospitalCode,BirthHospitalNotGiven,CollectionFacilityFacility,CollectionFacilityFirstName,CollectionFacilityLastName,CollectionFacilityCode,CollectionFacilityNotGiven,ReportToFacility,ReportToFirstName,ReportToLastName,ReportToCode,ReportToNotGiven,ReportToAddress,ReportToCity,ReportToState,ReportToZip,MotherLastName,MotherFirstName,MotherDOB,MotherMaidenName,MotherAddress,MotherCity,MotherState,MotherZip,Phone,EmergencyPhone,FatherName,FatherPhone,TestName,TestResultNumber,TestResultPlainValue,TestResultTextValue,MeasuredTime,AcceptedTime,TestPhase,TestStatus,ResultName,ResultLevel
+--
+--
+--	source_filename VARCHAR(255),
+--	--	Sadly, BULK INSERT does NOT preserve file order so this is moot.
+--	--	If remove, remove code that RESEED ID
+--	--	Actually, despite saying it doesn't, it seems to preserve the order.
+--	source_record_number INT,
+--
+--	imported_at DATETIME
+--		CONSTRAINT health_lab_new_newborn_screenings_imported_at_default
+--		DEFAULT CURRENT_TIMESTAMP NOT NULL,
+--	imported_to_observations BIT
+--		CONSTRAINT health_lab_new_newborn_screenings_imported_to_observations_default
+--		DEFAULT 'FALSE' NOT NULL,
+--);
+--GO
 
 IF OBJECT_ID('health_lab_new.newborn_screening_specimens_buffer', 'U') IS NOT NULL
 	DROP TABLE health_lab_new.newborn_screening_specimens_buffer;
@@ -45,8 +45,8 @@ CREATE TABLE health_lab_new.newborn_screening_specimens_buffer (
 -- SpecimenID,AccessionNumber,KitNumber,OrigKitNumber,TimeReceived,Unsat1,Unsat2,ParentRefused,Adopted,Deceased,DeceasedDate,ConsentGiven,BabyLast,BabyFirst,BirthDate,BirthDateNotGiven,BirthTime,BirthTimeNotGiven,BirthWeight,CollectionDate,CollectionDateNotGiven,CollectionTime,CollectionTimeNotGiven,CurrentWeight,BabySex,CollectedBy,CollectionAge,MedicalRecord,BirthType,BirthOrder,RaceWhite,RaceAfrAmer,RaceAmerInd,RaceAsian,RaceOther,RaceHispanic,BreastFeedOnly,MilkFeedOnly,SoyFeedOnly,BreastMilkFeed,BreastSoyFeed,TPN,NotFed,GestationAge,Meconiumileus,NICU,Antibiotic,BloodTransfusion,TrasfusionDate,BirthHospitalFacility,BirthHospitalFirstName,BirthHospitalLastName,BirthHospitalCode,BirthHospitalNotGiven,CollectionFacilityFacility,CollectionFacilityFirstName,CollectionFacilityLastName,CollectionFacilityCode,CollectionFacilityNotGiven,ReportToFacility,ReportToFirstName,ReportToLastName,ReportToCode,ReportToNotGiven,ReportToAddress,ReportToCity,ReportToState,ReportToZip,MotherLastName,MotherFirstName,MotherDOB,MotherMaidenName,MotherAddress,MotherCity,MotherState,MotherZip,Phone,EmergencyPhone,FatherName,FatherPhone,TestName,TestResultNumber,TestResultPlainValue,TestResultTextValue,MeasuredTime,AcceptedTime,TestPhase,TestStatus,ResultName,ResultLevel
 
 	SpecimenID VARCHAR(10),
-	AccessionNumber VARCHAR(10),
-	KitNumber VARCHAR(10),
+	AccessionNumber VARCHAR(15),
+	KitNumber VARCHAR(15),
 	OrigKitNumber VARCHAR(10),
 	TimeReceived DATETIME,
 	Unsat1 VARCHAR(10),
@@ -56,20 +56,20 @@ CREATE TABLE health_lab_new.newborn_screening_specimens_buffer (
 	Deceased VARCHAR(10),
 	DeceasedDate DATE,
 	ConsentGiven VARCHAR(10),
-	BabyLast VARCHAR(10),
+	BabyLast VARCHAR(20),
 	BabyFirst VARCHAR(10),
 	BirthDate DATE,
 	BirthDateNotGiven VARCHAR(10),
 	BirthTime VARCHAR(10),
 	BirthTimeNotGiven VARCHAR(10),
 	BirthWeight VARCHAR(10),
-	CollectionDate VARCHAR(10),
+	CollectionDate DATE,
 	CollectionDateNotGiven VARCHAR(10),
 	CollectionTime VARCHAR(10),
 	CollectionTimeNotGiven VARCHAR(10),
 	CurrentWeight VARCHAR(10),
 	BabySex VARCHAR(10),
-	CollectedBy VARCHAR(10),
+	CollectedBy VARCHAR(20),
 	CollectionAge VARCHAR(10),
 	MedicalRecord VARCHAR(10),
 	BirthType VARCHAR(10),
@@ -93,36 +93,36 @@ CREATE TABLE health_lab_new.newborn_screening_specimens_buffer (
 	Antibiotic VARCHAR(10),
 	BloodTransfusion VARCHAR(10),
 	TrasfusionDate VARCHAR(10),
-	BirthHospitalFacility VARCHAR(10),
-	BirthHospitalFirstName VARCHAR(10),
+	BirthHospitalFacility VARCHAR(50),
+	BirthHospitalFirstName VARCHAR(40),
 	BirthHospitalLastName VARCHAR(10),
 	BirthHospitalCode VARCHAR(10),
 	BirthHospitalNotGiven VARCHAR(10),
-	CollectionFacilityFacility VARCHAR(10),
-	CollectionFacilityFirstName VARCHAR(10),
+	CollectionFacilityFacility VARCHAR(50),
+	CollectionFacilityFirstName VARCHAR(40),
 	CollectionFacilityLastName VARCHAR(10),
 	CollectionFacilityCode VARCHAR(10),
 	CollectionFacilityNotGiven VARCHAR(10),
-	ReportToFacility VARCHAR(10),
-	ReportToFirstName VARCHAR(10),
-	ReportToLastName VARCHAR(10),
-	ReportToCode VARCHAR(10),
+	ReportToFacility VARCHAR(40),
+	ReportToFirstName VARCHAR(30),
+	ReportToLastName VARCHAR(20),
+	ReportToCode VARCHAR(20),
 	ReportToNotGiven VARCHAR(10),
-	ReportToAddress VARCHAR(10),
-	ReportToCity VARCHAR(10),
+	ReportToAddress VARCHAR(40),
+	ReportToCity VARCHAR(40),
 	ReportToState VARCHAR(10),
 	ReportToZip VARCHAR(10),
-	MotherLastName VARCHAR(10),
-	MotherFirstName VARCHAR(10),
+	MotherLastName VARCHAR(20),
+	MotherFirstName VARCHAR(20),
 	MotherDOB DATE,
 	MotherMaidenName VARCHAR(10),
-	MotherAddress VARCHAR(10),
-	MotherCity VARCHAR(10),
-	MotherState VARCHAR(10),
+	MotherAddress VARCHAR(30),
+	MotherCity VARCHAR(30),
+	MotherState VARCHAR(5),
 	MotherZip VARCHAR(10),
 	Phone VARCHAR(10),
 	EmergencyPhone VARCHAR(10),
-	FatherName VARCHAR(10),
+	FatherName VARCHAR(30),
 	FatherPhone VARCHAR(10),
 	TestName VARCHAR(10),
 	TestResultNumber VARCHAR(10),
@@ -168,10 +168,10 @@ CREATE TABLE health_lab_new.newborn_screening_specimens_buffer (
 	source_record_number INT IDENTITY(1,1),
 
 	imported_at DATETIME
-		CONSTRAINT health_lab_new_newborn_screenings_buffer_imported_at_default
+		CONSTRAINT health_lab_new_newborn_screening_specimens_buffer_imported_at_default
 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	imported_to_observations BIT
-		CONSTRAINT health_lab_new_newborn_screenings_buffer_imported_to_observations_default
+		CONSTRAINT health_lab_new_newborn_screening_specimens_buffer_imported_to_observations_default
 		DEFAULT 'FALSE' NOT NULL,
 );
 GO
@@ -309,10 +309,10 @@ CREATE TABLE health_lab_new.newborn_screening_results_buffer (
 	source_record_number INT IDENTITY(1,1),
 
 	imported_at DATETIME
-		CONSTRAINT health_lab_new_newborn_screenings_buffer_imported_at_default
+		CONSTRAINT health_lab_new_newborn_screening_results_buffer_imported_at_default
 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	imported_to_observations BIT
-		CONSTRAINT health_lab_new_newborn_screenings_buffer_imported_to_observations_default
+		CONSTRAINT health_lab_new_newborn_screening_results_buffer_imported_to_observations_default
 		DEFAULT 'FALSE' NOT NULL,
 );
 GO
@@ -332,7 +332,7 @@ CREATE VIEW health_lab_new.bulk_insert_newborn_screening_results AS SELECT
 	TestStatus,
 	ResultName,
 	ResultLevel
-FROM health_lab_new.newborn_screening_results;
+FROM health_lab_new.newborn_screening_results_buffer;
 GO
 
 
@@ -381,7 +381,7 @@ BEGIN
 		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
 
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT health_lab_new.bulk_insert_newborn_screening_specimens ' +
-		'FROM ''' + @file_with_path + ''' WITH ( ' +
+		'FROM ''' + @file_with_path + ''' WITH ( FIELDTERMINATOR = '','', ' +
 			'ROWTERMINATOR = '''+CHAR(10)+''', FIRSTROW = 2, TABLOCK )';
 
 	-- RESEEDing acts differently the first time it is called
@@ -422,7 +422,7 @@ BEGIN
 		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
 
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT health_lab_new.bulk_insert_newborn_screening_results ' +
-		'FROM ''' + @file_with_path + ''' WITH ( ' +
+		'FROM ''' + @file_with_path + ''' WITH ( FIELDTERMINATOR = ''|'', ' +
 			'ROWTERMINATOR = '''+CHAR(10)+''', FIRSTROW = 2, TABLOCK )';
 
 	-- RESEEDing acts differently the first time it is called
