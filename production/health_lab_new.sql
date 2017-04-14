@@ -444,3 +444,6 @@ GO
 
 
 
+-- sed -re 's/,([^,]+, [^,]+),/,"\1",/g'
+--	EXEC bin.import_newborn_screening_specimens 'C:\Users\gwendt\Desktop\Data\PRAMS\PRAMS_SPECIMENS_2017_1.csv'
+
