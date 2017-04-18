@@ -16,6 +16,8 @@ while [ $# -ne 0 ] ; do
 
 	sed -e 's/Unkown/Unknown/g' $1 | perl -pe 's/,(False|True),([^,]*),(False|True),([^,]*),([^,]*),(False|True),([^,]*),(False|True),([^,]*),(Male|Female|Unknown),(.*),([^,]*),([^,]*),(Single|Multiple|Unknown),([^,]*),(False|True|),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,"$11",$12,$13,$14,$15,$16,/'  > $new_name
 
+
+
 #	sed -e 's/Unkown/Unknown/g' $1 | awk '
 #		BEGIN { 
 #			TorF["True"]=TorF["False"]=0
@@ -120,4 +122,14 @@ done
 #	TestStatus VARCHAR(10),                     blank
 #	ResultName VARCHAR(10),                     blank
 #	90/CL ResultLevel VARCHAR(10),                     blank
+
+exit
+
+#sed -e 's/Unkown/Unknown/g' PRAMS_SPECIMENS_201*csv | perl -pe 's/,(False|True),([^,]*),(False|True),([^,]*),([^,]*),(False|True),([^,]*),(False|True),([^,]*),(Male|Female|Unknown),(.*?),([^,]*),([^,]*),(Single|Multiple|Unknown),([^,]*),(False|True|),(False|True|),(False|True|),(False|True|),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,"$11",$12,$13,$14,$15,$16,$17,$18,$19,/' | awk 'BEGIN{FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)"}(NF!=90){print}'  > PRAMS_SPECIMENS_NOT_90.csv
+
+#sed -e 's/Unkown/Unknown/g' PRAMS_SPECIMENS_201*csv | perl -pe 's/,(False|True),([^,]*),(False|True),([^,]*),([^,]*),(False|True),([^,]*),(False|True),([^,]*),(Male|Female|Unknown),(.*?),([^,]*),([^,]*),(Single|Multiple|Unknown),([^,]*),(False|True|),(False|True|),(False|True|),(False|True|),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,"$11",$12,$13,$14,$15,$16,$17,$18,$19,/' | perl -pe 's/,(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),([^,]*),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),([^,]*),([^,]*),(NV|NEVADA),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),(NV|NEVADA),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),/,$1,$2,$3,$4,$5,"$6",$7,$8,$9,$10,"$11",$12,$13,$14,$15,"$16",$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,"$35,$36",/' | awk 'BEGIN{FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)"}(NF!=90){print}'  > PRAMS_SPECIMENS_NOT_90.csv
+
+sed -e 's/Unkown/Unknown/g' PRAMS_SPECIMENS_201*csv | perl -pe 's/,(False|True),([^,]*),(False|True),([^,]*),([^,]*),(False|True),([^,]*),(False|True),([^,]*),(Male|Female|Unknown),(.*?),([^,]*),([^,]*),(Single|Multiple|Unknown),([^,]*),(False|True|),(False|True|),(False|True|),(False|True|),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,"$11",$12,$13,$14,$15,$16,$17,$18,$19,/' | perl -pe 's/,(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),([^,]*),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),([^,]*),([^,]*),(NV|NEVADA),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),(NV|NEVADA),/,$1,$2,$3,$4,$5,"$6",$7,$8,$9,$10,"$11",$12,$13,$14,$15,"$16",$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,/' | perl -pe 's/,(NV|NEVADA),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),(NV|NEVADA),([0-9]*),([0-9]*),([0-9]*),([^,]+),([^,]+),([0-9]*),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,"$13,$14",$15,/' | awk 'BEGIN{FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)"}(NF!=90){print}'  > PRAMS_SPECIMENS_NOT_90.csv
+
+
 
