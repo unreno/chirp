@@ -85,30 +85,30 @@ done
 #	BirthHospitalFirstName VARCHAR(40),      text
 #	52/AZ BirthHospitalLastName VARCHAR(10),      text
 #	BirthHospitalCode VARCHAR(10),           alphanumeric
-#	BirthHospitalNotGiven VARCHAR(10),         true, false
-#	CollectionFacilityFacility VARCHAR(50),      text						---- possible problem
-#	CollectionFacilityFirstName VARCHAR(40),      text						---- possible problem
-#	CollectionFacilityLastName VARCHAR(10),      text						---- possible problem
-#	CollectionFacilityCode VARCHAR(10),      alphanumeric
-#	CollectionFacilityNotGiven VARCHAR(10),     true, false
-#	ReportToFacility VARCHAR(40),               text						---- possible problem
-#	60 ReportToFirstName VARCHAR(30),               text						---- possible problem
+#	54/BB BirthHospitalNotGiven VARCHAR(10),         true, false
+#	55 CollectionFacilityFacility VARCHAR(50),      text						---- possible problem
+#	56 CollectionFacilityFirstName VARCHAR(40),      text						---- possible problem
+#	57 CollectionFacilityLastName VARCHAR(10),      text						---- possible problem
+#	58 CollectionFacilityCode VARCHAR(10),      alphanumeric
+#	59/BG CollectionFacilityNotGiven VARCHAR(10),     true, false
+#	60 ReportToFacility VARCHAR(40),               text						---- possible problem
+#	61/BI ReportToFirstName VARCHAR(30),               text						---- possible problem
 #	ReportToLastName VARCHAR(20),               text						---- possible problem
 #	ReportToCode VARCHAR(20),                   alphanumeric
-#	ReportToNotGiven VARCHAR(10),               true, false
+#	64/BL ReportToNotGiven VARCHAR(10),               true, false
 #	ReportToAddress VARCHAR(40),               text
 #	ReportToCity VARCHAR(40),               text
-#	ReportToState VARCHAR(10),               text
+#	67/BO ReportToState VARCHAR(10),               text
 #	ReportToZip VARCHAR(10),               text
 #	MotherLastName VARCHAR(20),               text
 #	MotherFirstName VARCHAR(20),               text
-#	70/BR MotherDOB DATE,                           date
-#	MotherMaidenName VARCHAR(10),             text
-#	MotherAddress VARCHAR(30),             text
-#	MotherCity VARCHAR(30),             text
-#	MotherState VARCHAR(5),             text
-#	MotherZip VARCHAR(10),             text
-#	Phone VARCHAR(10),             text
+#	71/BS MotherDOB DATE,                           date
+#	72 MotherMaidenName VARCHAR(10),             text
+#	73/BU MotherAddress VARCHAR(30),             text
+#	74 MotherCity VARCHAR(30),             text
+#	75/BW MotherState VARCHAR(5),             text
+#	76 MotherZip VARCHAR(10),             text
+#	77 Phone VARCHAR(10),             text
 #	78/BZ EmergencyPhone VARCHAR(10),             text
 #	79 FatherName VARCHAR(30),             text		--- likely a problem as father's name is last,first, no quotes
 #	80/CB FatherPhone VARCHAR(10),             text
@@ -125,11 +125,17 @@ done
 
 exit
 
-#sed -e 's/Unkown/Unknown/g' PRAMS_SPECIMENS_201*csv | perl -pe 's/,(False|True),([^,]*),(False|True),([^,]*),([^,]*),(False|True),([^,]*),(False|True),([^,]*),(Male|Female|Unknown),(.*?),([^,]*),([^,]*),(Single|Multiple|Unknown),([^,]*),(False|True|),(False|True|),(False|True|),(False|True|),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,"$11",$12,$13,$14,$15,$16,$17,$18,$19,/' | awk 'BEGIN{FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)"}(NF!=90){print}'  > PRAMS_SPECIMENS_NOT_90.csv
 
-#sed -e 's/Unkown/Unknown/g' PRAMS_SPECIMENS_201*csv | perl -pe 's/,(False|True),([^,]*),(False|True),([^,]*),([^,]*),(False|True),([^,]*),(False|True),([^,]*),(Male|Female|Unknown),(.*?),([^,]*),([^,]*),(Single|Multiple|Unknown),([^,]*),(False|True|),(False|True|),(False|True|),(False|True|),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,"$11",$12,$13,$14,$15,$16,$17,$18,$19,/' | perl -pe 's/,(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),([^,]*),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),([^,]*),([^,]*),(NV|NEVADA),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),(NV|NEVADA),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),/,$1,$2,$3,$4,$5,"$6",$7,$8,$9,$10,"$11",$12,$13,$14,$15,"$16",$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,"$35,$36",/' | awk 'BEGIN{FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)"}(NF!=90){print}'  > PRAMS_SPECIMENS_NOT_90.csv
 
-sed -e 's/Unkown/Unknown/g' PRAMS_SPECIMENS_201*csv | perl -pe 's/,(False|True),([^,]*),(False|True),([^,]*),([^,]*),(False|True),([^,]*),(False|True),([^,]*),(Male|Female|Unknown),(.*?),([^,]*),([^,]*),(Single|Multiple|Unknown),([^,]*),(False|True|),(False|True|),(False|True|),(False|True|),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,"$11",$12,$13,$14,$15,$16,$17,$18,$19,/' | perl -pe 's/,(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),([^,]*),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),([^,]*),([^,]*),(NV|NEVADA),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),(NV|NEVADA),/,$1,$2,$3,$4,$5,"$6",$7,$8,$9,$10,"$11",$12,$13,$14,$15,"$16",$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,/' | perl -pe 's/,(NV|NEVADA),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),(NV|NEVADA),([0-9]*),([0-9]*),([0-9]*),([^,]+),([^,]+),([0-9]*),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,"$13,$14",$15,/' | awk 'BEGIN{FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)"}(NF!=90){print}'  > PRAMS_SPECIMENS_NOT_90.csv
+#	still 157 out of 88379
+#sed -e 's/Unkown/Unknown/g' PRAMS_SPECIMENS_201*csv | perl -pe 's/,(False|True),([^,]*),(False|True),([^,]*),([^,]*),(False|True),([^,]*),(False|True),([^,]*),(Male|Female|Unknown),(.*?),([^,]*),([^,]*),(Single|Multiple|Unknown),([^,]*),(False|True|),(False|True|),(False|True|),(False|True|),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,"$11",$12,$13,$14,$15,$16,$17,$18,$19,/' | perl -pe 's/,(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),([^,]*),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),([^,]*),([^,]*),(NV|NEVADA|AZ|UT),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),(NV|NEVADA),/,$1,$2,$3,$4,$5,"$6",$7,$8,$9,$10,"$11",$12,$13,$14,$15,"$16",$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,/' | perl -pe 's/,(NV|NEVADA),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),(NV|NEVADA|CA|NY|FRANCE),([0-9]*),([0-9]*),([0-9]*),([A-z \\\.\-\(\)]+),([A-z \\\.\-\(\)]+),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,"$13,$14",/' | awk 'BEGIN{FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)"}(NF!=90){print}'  > PRAMS_SPECIMENS_NOT_90.csv
+#	still 142 out of 88379
+#sed -e 's/Unkown/Unknown/g' PRAMS_SPECIMENS_201*csv | perl -pe 's/,(False|True),([^,]*),(False|True),([^,]*),([^,]*),(False|True),([^,]*),(False|True),([^,]*),(Male|Female|Unknown),(.*?),([^,]*),([^,]*),(Single|Multiple|Unknown),([^,]*),(False|True|),(False|True|),(False|True|),(False|True|),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,"$11",$12,$13,$14,$15,$16,$17,$18,$19,/' | perl -pe 's/,(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),([^,]*),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),([^,]*),([^,]*),(NV|NEVADA|AZ|UT),/,$1,$2,$3,$4,$5,"$6",$7,$8,$9,$10,"$11",$12,$13,$14,$15,"$16",$17,$18,$19,$20,$21,$22,$23,/' | perl -pe 's/,(NV|NEVADA),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),(.*?),([^,]*),(NV|NEVADA|CA|NY|FRANCE),([0-9]*),([0-9]*),([0-9]*),([A-z \\\.\-\(\)]+),([A-z \\\.\-\(\)]+),/,$1,$2,$3,$4,$5,$6,"$7",$8,$9,$10,$11,$12,"$13,$14",/' | awk 'BEGIN{FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)"}(NF!=90){print}'  > PRAMS_SPECIMENS_NOT_90.csv
+
+
+
+#	still 87 out of 88379 (< 0.1%!)
+sed -e 's/Unkown/Unknown/g' PRAMS_SPECIMENS_201*csv | perl -pe 's/,(False|True),([^,]*),(False|True),([^,]*),([^,]*),(False|True),([^,]*),(False|True),([^,]*),(Male|Female|Unknown),(.*?),([^,]*),([^,]*),(Single|Multiple|Unknown),([^,]*),(False|True|),(False|True|),(False|True|),(False|True|),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,"$11",$12,$13,$14,$15,$16,$17,$18,$19,/' | perl -pe 's/,(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),([^,]*),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),([^,]*),([^,]*),(NV|NEVADA|AZ|CA|UT),/,$1,$2,$3,$4,$5,"$6",$7,$8,$9,$10,"$11",$12,$13,$14,$15,"$16",$17,$18,$19,$20,$21,$22,$23,/' | perl -pe 's/,(NV|NEVADA|AZ|CA|UT),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),(NV|NEVADA|CA|NY|AZ|UT),([0-9]*),([0-9]*),([0-9]*),([A-z \\\.\-\(\)]+),([A-z \\\.\-\(\)]+),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,"$13,$14",/' | perl -pe 's/,(NV|NEVADA|AZ|CA|UT),([0-9\-\\]+),([^,]*),([^,]*),([^,]*),([^,]*),(.*?),([^,]*),(NV|NEVADA|CA|NY|AZ|UT),([0-9\-\\]+),/,$1,$2,$3,$4,$5,$6,"$7",$8,$9,$10,/' | awk 'BEGIN{FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)"}(NF!=90){print}'  > PRAMS_SPECIMENS_NOT_90.csv
 
 
 
