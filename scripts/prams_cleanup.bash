@@ -134,8 +134,42 @@ exit
 
 
 
-#	still 87 out of 88379 (< 0.1%!)
-sed -e 's/Unkown/Unknown/g' PRAMS_SPECIMENS_201*csv | perl -pe 's/,(False|True),([^,]*),(False|True),([^,]*),([^,]*),(False|True),([^,]*),(False|True),([^,]*),(Male|Female|Unknown),(.*?),([^,]*),([^,]*),(Single|Multiple|Unknown),([^,]*),(False|True|),(False|True|),(False|True|),(False|True|),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,"$11",$12,$13,$14,$15,$16,$17,$18,$19,/' | perl -pe 's/,(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),([^,]*),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),([^,]*),([^,]*),(NV|NEVADA|AZ|CA|UT),/,$1,$2,$3,$4,$5,"$6",$7,$8,$9,$10,"$11",$12,$13,$14,$15,"$16",$17,$18,$19,$20,$21,$22,$23,/' | perl -pe 's/,(NV|NEVADA|AZ|CA|UT),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),(NV|NEVADA|CA|NY|AZ|UT),([0-9]*),([0-9]*),([0-9]*),([A-z \\\.\-\(\)]+),([A-z \\\.\-\(\)]+),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,"$13,$14",/' | perl -pe 's/,(NV|NEVADA|AZ|CA|UT),([0-9\-\\]+),([^,]*),([^,]*),([^,]*),([^,]*),(.*?),([^,]*),(NV|NEVADA|CA|NY|AZ|UT),([0-9\-\\]+),/,$1,$2,$3,$4,$5,$6,"$7",$8,$9,$10,/' | awk 'BEGIN{FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)"}(NF!=90){print}'  > PRAMS_SPECIMENS_NOT_90.csv
+#	still 83 out of 88379 (< 0.1%!)
+sed -e 's/Unkown/Unknown/g' PRAMS_SPECIMENS_201*csv | perl -pe 's/,(False|True),([^,]*),(False|True),([^,]*),([^,]*),(False|True),([^,]*),(False|True),([^,]*),(Male|Female|Unknown),(.*?),([^,]*),([^,]*),(Single|Multiple|Unknown),([^,]*),(False|True|),(False|True|),(False|True|),(False|True|),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,"$11",$12,$13,$14,$15,$16,$17,$18,$19,/' | perl -pe 's/,(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),([^,]*),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),(.*?),([^,]*),([^,]*),([^,]*),(False|True),([^,]*),([^,]*),(NV|NEVADA|AZ|CA|UT),/,$1,$2,$3,$4,$5,"$6",$7,$8,$9,$10,"$11",$12,$13,$14,$15,"$16",$17,$18,$19,$20,$21,$22,$23,/' | perl -pe 's/,(NV|NEVADA|AZ|CA|UT),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),(NV|NEVADA|CA|NY|AZ|UT),([0-9]*),([0-9]*),([0-9]*),([A-z \*\#\/\.\-\(\)'\'']+),([A-z \*\#\/\.\-\(\)'\'']+),/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,"$13,$14",/' | perl -pe 's/,(NV|NEVADA|AZ|CA|UT),([0-9\-\\]+),([^,]*),([^,]*),([^,]*),([^,]*),(.*?),([^,]*),(NV|NEVADA|CA|NY|AZ|UT),([0-9\-\\]+),/,$1,$2,$3,$4,$5,$6,"$7",$8,$9,$10,/' | awk 'BEGIN{FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)"}(NF!=90){print}'  > PRAMS_SPECIMENS_NOT_90.csv
 
-
-
+#
+#wc -l PRAMS_SPECIMENS_2*
+#    5372 PRAMS_SPECIMENS_2016_1.csv
+#    6043 PRAMS_SPECIMENS_2016_10.csv
+#    5773 PRAMS_SPECIMENS_2016_11.csv
+#    5749 PRAMS_SPECIMENS_2016_12.csv
+#    5534 PRAMS_SPECIMENS_2016_2.csv
+#    6022 PRAMS_SPECIMENS_2016_3.csv
+#    5432 PRAMS_SPECIMENS_2016_4.csv
+#    5814 PRAMS_SPECIMENS_2016_5.csv
+#    6154 PRAMS_SPECIMENS_2016_6.csv
+#    5833 PRAMS_SPECIMENS_2016_7.csv
+#    6780 PRAMS_SPECIMENS_2016_8.csv
+#    6457 PRAMS_SPECIMENS_2016_9.csv
+#    6240 PRAMS_SPECIMENS_2017_1.csv
+#    5318 PRAMS_SPECIMENS_2017_2.csv
+#    5858 PRAMS_SPECIMENS_2017_3.csv
+#   88379 total
+#	88379 total records
+#
+#	ls PRAMS_SPECIMENS_201* | wc -l
+#	15
+#	minus 15 header lines ( 88364 )
+#
+#	awk -F, '{print NF}' PRAMS_SPECIMENS_2* | sort | uniq -c
+#  70977 90
+#  16204 91
+#   1145 92
+#     28 93
+#     23 94
+#      2 96
+#
+#	Corrected and grouped
+#  70962 90
+#  17402 90+	( 19.7% are corrupted )
+#
