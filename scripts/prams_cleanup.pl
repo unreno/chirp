@@ -44,7 +44,7 @@ while (<>) {
 	s/,(NV|NEVADA|AZ|CA|UT),						# 67 BO ReportToState VARCHAR(10)
 		([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),
 		(NV|NEVADA|CA|NY|AZ|UT),					# 75 BW MotherState VARCHAR(5)
-		([0-9]*),													#	76 MotherZip VARCHAR(10)
+		([0-9\\]*),													#	76 MotherZip VARCHAR(10)
 		([0-9]*),													#	77 Phone VARCHAR(10)
 		([0-9]*),													#	78 BZ EmergencyPhone VARCHAR(10)
 		([A-z \*\#\/\.\-\(\)\']+),([A-z \*\#\/\.\-\(\)\']+),
