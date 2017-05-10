@@ -1489,3 +1489,10 @@ BEGIN
 END	--	bin.link_screening_records_to_screening_records
 GO
 
+
+--	Any time cig_pck is 2 (pack), the cig counts exist also.
+--	Using pack is redundant and as such these fields are not imported into observations above.
+--	SELECT cig_pck, prepreg_cig, prepreg_pck, first_cig, first_pck, sec_cig, sec_pck, last_cig, last_pck FROM vital.births
+
+
+
