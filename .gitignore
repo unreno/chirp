@@ -20,3 +20,4 @@ ndc.zip
 ndc/
 production/content/vital/births/Format Birth-clean.sas
 production/content/vital/deaths/Format Death-clean.sas
+/Makefile
