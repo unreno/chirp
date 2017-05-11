@@ -10,16 +10,14 @@
 #INSERT INTO vital.births SELECT * FROM vital.births_buffer
 #DELETE FROM vital.births_buffer
 
-psv_dir="/cygdrive/c/Users/gwendt/Desktop/Data/NSBR/v1.0"
-for f in $(ls $psv_dir/*psv) ; do
-	echo $f
+indir="/cygdrive/c/Users/gwendt/Desktop/Data/NSBR/v1.0"
+for file in $(ls $indir/*psv) ; do
+	echo $file
 
-#	This likely won't work as sqlcmd probably expect more Windows-like naming.
+	winfile=$(echo $file | sed -e 's;/cygdrive/c/;C:\\;' -e 's;/;\\;g')
+	echo $winfile
 
-	winf=$(echo $f | sed -e 's;/cygdrive/c/;C:\\;' -e 's;/;\\;g')
-	echo $winf
-
-	q="EXEC bin.import_birth_records '$winf';
+	q="EXEC bin.import_birth_records '$winfile';
 	INSERT INTO vital.births SELECT * FROM vital.births_buffer;
 	DELETE FROM vital.births_buffer;"
 

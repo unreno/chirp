@@ -3,6 +3,10 @@
 
 
 
+indir="/cygdrive/c/Users/gwendt/Desktop/Data/WebIZ"
+
+
+
 #--
 #--	Some stray double quotes and extra tabs muck things up so remove them.
 #--	cat "20161130 CHIRP address hist export 2010.txt.original" | tr -d \" | tr -d "\t" > "20161130 CHIRP address hist export 2010.txt"
@@ -20,6 +24,21 @@
 #SELECT COUNT(1) FROM webiz.addresses
 #--	110800
 #
+
+for file in $(ls $indir/*address*txt) ; do
+	echo $file
+
+	winfile=$(echo $file | sed -e 's;/cygdrive/c/;C:\\;' -e 's;/;\\;g')
+	echo $winfile
+
+	q="EXEC bin.import_webiz_addresses '$winfile';
+	INSERT INTO webiz.addresses SELECT * FROM webiz.addresses_buffer;
+	DELETE FROM webiz.addresses_buffer;"
+
+	echo sqlcmd -d chirp -Q "$q"
+
+done
+
 #
 #--
 #--	Some stray double quotes and extra tabs muck things up so remove them.
