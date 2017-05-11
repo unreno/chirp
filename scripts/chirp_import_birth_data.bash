@@ -11,3 +11,12 @@
 #DELETE FROM vital.births_buffer
 
 
+
+q="EXEC bin.import_birth_records 'C:\Users\gwendt\Desktop\Data\NSBR\v1.0\Washoe_2015.csv.psv';
+INSERT INTO vital.births SELECT * FROM vital.births_buffer;
+DELETE FROM vital.births_buffer;"
+
+echo "$q"
+
+#sqlcmd -d chirp -Q "$q"
+
