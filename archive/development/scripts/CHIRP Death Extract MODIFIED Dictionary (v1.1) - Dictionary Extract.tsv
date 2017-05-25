@@ -1,0 +1,116 @@
+Variable Name	Field Structure	Code Description	Type	Start Position	End Position	Length		
+Certificate Number	Automatically assigned by EBRS System	In state deaths= 000001-0999999, out of state deaths=900001-909999	Numeric	1	10	10		
+Alias Name	N, Y, U	0=No, 1=Yes, 9=Unknown 9=Blank	Numeric	11	11	1		
+Full Name	Free Text 	Last, First, Middle and Suffix	Alphanumeric	12	36	25		
+Death Year	yyyy	yyyy	Numeric	37	40	4		
+Death Month	mm	mm	Numeric	41	42	2		
+Death Day	dd	dd	Numeric	43	44	2		
+State of Death	Drop down Menu	See State Code Table	Numeric	45	46	2		
+City of Death	Drop down Menu	See City Code Table	Numeric	47	49	3		
+County of Death	Drop down Menu	See County Code Table	Numeric	50	51	2		
+Death Facility Code	Drop down Menu	See Facility Code Table	Numeric	52	55	4		
+Place of Death	Drop down Menu	1=Inpatient (Hospital, Clinic or Med Ctr), 2=Out-Patient, ER or Tauma Center, 3=DOA (Dead or Arrival), 4=Blank/Unknown, 5=Nursing Homes, Convalescent Centers and Other Patient Care, 6=Home/Residence, 7=All Other Reported Entries, 9=Unknown/Not Classifiable	Numeric	56	56	1		
+Ethnicity Hispanic Origin?	Check Box Y/N	1=Yes, 2=No	Numeric	59	59	1		
+Mexican	Check Box Y/N	1=Yes, 2=No	Numeric	60	60	1		
+Puerto Rican	Check Box Y/N	1=Yes, 2=No	Numeric	61	61	1		
+Cuban	Check Box Y/N	1=Yes, 2=No	Numeric	62	62	1		
+Other	Check Box Y/N	1=Yes, 2=No	Numeric	63	63	1		
+Other Description	Free Text 	Literal	Numeric	64	83	20		
+Race-White	Check Box Y/N	1=Yes, 2=No	Numeric	85	85	1		
+Race-Black or African American	Check Box Y/N	1=Yes, 2=No	Numeric	86	86	1		
+Race-Amer. Indian or Alaska Native	Check Box Y/N	1=Yes, 2=No	Numeric	87	87	1		
+Race-Asian Indian	Check Box Y/N	1=Yes, 2=No	Numeric	88	88	1		
+Race-Chinese	Check Box Y/N	1=Yes, 2=No	Numeric	89	89	1		
+Race-Filipino	Check Box Y/N	1=Yes, 2=No	Numeric	90	90	1		
+Race-Japanese	Check Box Y/N	1=Yes, 2=No	Numeric	91	91	1		
+Race-Korean	Check Box Y/N	1=Yes, 2=No	Numeric	92	92	1		
+Race-Vietnamese	Check Box Y/N	1=Yes, 2=No	Numeric	93	93	1		
+Race-Other Asian	Check Box Y/N	1=Yes, 2=No	Numeric	94	94	1		
+Race-Native Hawaiian	Check Box Y/N	1=Yes, 2=No	Numeric	95	95	1		
+Race-Guamanian or Chamorro	Check Box Y/N	1=Yes, 2=No	Numeric	96	96	1		
+Race-Samoan	Check Box Y/N	1=Yes, 2=No	Numeric	97	97	1		
+Race-Other Pacific Islander	Check Box Y/N	1=Yes, 2=No	Numeric	98	98	1		
+Race-Other	Check Box Y/N	1=Yes, 2=No	Numeric	99	99	1		
+Race-Native American Indian or Alaska Native Desc.1	Free Text 	Literal	Alphanumeric	100	129	30		
+Race-Other Asian Desc.1	Free Text 	Literal	Alphanumeric	130	159	30		
+Race-Other Pacific Islander Desc.1	Free Text 	Literal	Alphanumeric	160	189	30		
+Race-Other Desc.1	Free Text 	Literal	Alphanumeric	190	219	30		
+Race-Not Obtainable	Check Box Y/N	1=Yes, 2=No	Numeric	220	220	1		
+Race-Unknown	Check Box Y/N	1=Yes, 2=No	Numeric	221	221	1		
+Race-Refused	Check Box Y/N	1=Yes, 2=No	Numeric	222	222	1		
+Education (2008+)	Drop down Menu	1=None and 8th Grade or Less, 2=9th thru 12th Grade, No Diploma, 3=High School Graduate or GED, 4=Some College, but no Degree, 5=Associate Degree, AA, AS, 6=Bachelors Degree, BA,AB,BS, 7=Masters Degree, MA, MS, 8=Doctorate Degree, PHD,EDD, 9=Unknown, 9=Blank	Numeric	225	225	1		
+Age Unit	Drop down Menu	0=Years Less than 100, 1=Years 100 or More, 2=Months, 3=Weeks, 4=Days, 5=Hours, 6=Minutes, 9=Age Unknown	Numeric	226	226	1		
+Age	Calculated Age		Numeric	227	229	3		
+Birth Year	yyyy	yyyy	Numeric	230	233	4		
+Birth Month	mm	mm	Numeric	234	235	2		
+Birth Day	dd	dd	Numeric	236	237	2		
+Gender	M, F, U	1=Male, 2=Female, 9=Unknown/Blank	Numeric	238	238	1		
+Birth State	Drop down Menu	See State Code Table	Numeric	239	240	2		
+Citizen of what Country?	Drop down Menu	1=USA, 2=Canada, 3=Mexican, 4=Remainder of the World, 9=Unknown/Blank	Numeric	241	241	1		
+Marital Status	Drop down Menu	1=Married, 2=Never Married, 3=Widowed, 4=Divorced, 9=Unknown	Numeric	242	242	1		
+Social Security Number	Free Text 	000000000	Numeric	243	251	9		
+Occupation	Drop down Menu	See Occupation Code Table	Numeric	252	254	3		
+Industry	Drop down Menu	See Industry Code Table	Numeric	255	257	3		
+Resident State	Drop down Menu	See State Code Table	Numeric	258	259	2		
+Resident City	Drop down Menu	See City Code Table	Numeric	260	262	3		
+Resident County	Drop down Menu	See County Code Table	Numeric	263	264	2		
+Resident Address	Free Text 		Alphanumeric	265	304	40		
+Apt Number	Free Text 		Alphanumeric	305	314	10		
+Zip Code	Drop down Menu	From Zip Code Table in System	Numeric	315	323	9		
+Father's Last Name	Free Text 		Alphanumeric	324	348	25		
+Mother's Last Name	Free Text 		Alphanumeric	349	368	20		
+Mother's Suffix	Free Text 	I, II, III, IV, Jr, Sr	Alphanumeric	369	373	5		
+Mother's First Name	Free Text 		Alphanumeric	374	383	10		
+Mother's Middle Name	Free Text 		Alphanumeric	384	393	10		
+Method of Disposition	Drop down Menu	1=Burial, 2=Cremation, 3=Removal, 4=Donation, 5=Entombment, 9=Unknown	Numeric	394	394	1		
+Certifier Type	Drop down Menu	1=Physician, DO, Med Examiner, 2=Coroner or Sheriff, 5=Unknown, 9=Other	Numeric	398	398	1		
+Coroner Contacted?	Y, N, U	1=Yes, 2=No, 9=Unknown/Blank	Numeric	399	399	1		
+Manner of Death	Drop down Menu	1=Natural Causes, 2=Accident, 3=Suicide, 4=Homicide, 5=Pending Inverstigation, 6=Coud Not Be Determined, 9=Unknown	Numeric	400	400	1		
+ICD-10 Code from NCHS	Free Text 	Import Code from NCHS (Blank 9999)	Alphanumeric	401	404	4		
+Immediate Cause	Free Text 		Alphanumeric	405	464	60		
+First Consequence	Free Text 		Alphanumeric	465	524	60		
+Second Consequence	Free Text 		Alphanumeric	525	584	60		
+Third Consequence	Free Text 		Alphanumeric	585	644	60		
+Other Consequences	Free Text 		Alphanumeric	645	704	60		
+Communicable Disease	Y, N, U	1=Yes, 2=No, 9=Unknown	Numeric	705	705	1		
+Autopsy Performed?	Y, N, U	1=Yes, 2=No, 9=Unknown/Blank	Numeric	706	706	1		
+Did tobacco use contribute to death?	Y, N, P, U	1=Yes, 2=No, 3=Probably, 9=Unknown/Blank	Numeric	707	707	1		
+Was female pregnant?	Drop down Menu	1=Not pregnant within last year, 2=Pregnant at time of death, 3=Not pregnant, but pregnant within 42 days of death, 4=Not pregnant, but pregnant 43 days to 1 year before death, 8=Not applicable, 9=Unknown/Blank	Numeric	708	708	1		
+Injury at Work?	Y, N, U, X 	1=Yes, 2=No, 9=Unknown/Not applicable/Blank	Numeric	709	709	1		
+Injury Place	Drop down Menu	0=Other, 1=Desert, 2=Factory, 3=Farm, 4=Home, 5=Hotel, 6=Lake, 7=Mountain, 8=Office Bldg, 9=Parking Lot, 10=School, 11=Street, 99=Unknown	Numeric	710	711	2		
+Transportation Injury?	Y, N, U, X 	1=Yes, 2=No, 9=Unknown/Not applicable/Blank	Numeric	712	712	1		
+Transportation Injury Description	Drop down Menu	1=Driver/Operator, 2=Passenger, 3=Pedestrian, 4=Other, 9=Unknown/Blank	Numeric	713	713	1		
+Birth Year	yyyy	For cross-match	Numeric	715	718	4		
+Birth State File Number	00000000-99999999	For cross-match	Numeric	719	726	8		
+Supermicar1	Free Text 	Import Code from NCHS	Alphanumeric	727	731	5		
+Supermicar2	Free Text 	Import Code from NCHS	Alphanumeric	732	736	5		
+Supermicar3	Free Text 	Import Code from NCHS	Alphanumeric	737	741	5		
+Supermicar4	Free Text 	Import Code from NCHS	Alphanumeric	742	746	5		
+Supermicar5	Free Text 	Import Code from NCHS	Alphanumeric	747	751	5		
+Supermicar6	Free Text 	Import Code from NCHS	Alphanumeric	752	756	5		
+Supermicar7	Free Text 	Import Code from NCHS	Alphanumeric	757	761	5		
+Supermicar8	Free Text 	Import Code from NCHS	Alphanumeric	762	766	5		
+Supermicar9	Free Text 	Import Code from NCHS	Alphanumeric	767	771	5		
+Supermicar10	Free Text 	Import Code from NCHS	Alphanumeric	772	776	5		
+Supermicar11	Free Text 	Import Code from NCHS	Alphanumeric	777	781	5		
+Supermicar12	Free Text 	Import Code from NCHS	Alphanumeric	782	786	5		
+Supermicar13	Free Text 	Import Code from NCHS	Alphanumeric	787	791	5		
+Supermicar14	Free Text 	Import Code from NCHS	Alphanumeric	792	796	5		
+Supermicar15	Free Text 	Import Code from NCHS	Alphanumeric	797	801	5		
+Supermicar16	Free Text 	Import Code from NCHS	Alphanumeric	802	806	5		
+Supermicar17	Free Text 	Import Code from NCHS	Alphanumeric	807	811	5		
+Supermicar18	Free Text 	Import Code from NCHS	Alphanumeric	812	816	5		
+Supermicar19	Free Text 	Import Code from NCHS	Alphanumeric	817	821	5		
+Supermicar20	Free Text 	Import Code from NCHS	Alphanumeric	822	826	5		
+Hispanic Code	Free Text 	Import Code from NCHS,See Ethnic NCHS Table	Numeric	875	877	3		
+Bridged Race	Free Text 	Import Code from NCHS,See Race NCHS Table	Numeric	881	882	2		
+Death Year	Run-time Parameter		Numeric	886	889	4		
+State File Number	Run-time Parameter		Numeric	891	900	10		
+Army		1=Yes, 2=No	Numeric	901	901	1		
+Birth Country FIPS			Alphanumeric	905	906	2		
+Birth State FIPS			Alphanumeric	908	909	2		
+Resident City			Numeric	911	915	5		
+Resident County FIPS			Numeric	917	919	3		
+Resident State			Alphanumeric	922	923	2		
+Resident Country			Alphanumeric	926	927	2		
+Death State			Alphanumeric	931	932	2		
