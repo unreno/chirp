@@ -35,9 +35,13 @@ function usage(){
 
 [ $# -ne 2 ] && usage
 
-
 dictionary=$1
 datafile=$2
+
+[ -e $1 ] || echo "$1 does not exist" && usage
+[ -e $2 ] || echo "$2 does not exist" && usage
+
+
 
 #	Sadly, can't really use FS and FIELDWIDTHS in the same awk command.
 #	However, one could wrap a bash script around a couple awk commands.
