@@ -4,11 +4,14 @@ script=`basename $0`
 dictionary="CHIRP Birth Extract MODIFIED Dictionary (v1.2) - Dictionary Extract.tsv"
 datafile="CHIRP Birth Extract 20160721.txt"
 
+
 function usage(){
 	echo
 	echo "Usage: (NO EQUALS SIGNS)"
 	echo
 	echo "$script dictionary_file data_file"
+	echo
+	echo "DICTIONARY IS EXPECTING field name in column 1 and field width in 7."
 	echo
 	echo "Example:"
 	echo "$script \"CHIRP Birth Extract MODIFIED Dictionary (v1.2) - Dictionary Extract.tsv\" \"CHIRP Birth Extract 20160721.txt\""
@@ -35,11 +38,17 @@ function usage(){
 
 [ $# -ne 2 ] && usage
 
-dictionary=$1
-datafile=$2
+dictionary="$1"
+datafile="$2"
 
-[ -e $1 ] || echo "$1 does not exist" && usage
-[ -e $2 ] || echo "$2 does not exist" && usage
+if [ ! -e "$1" ] ; then
+	echo "$1 does not exist"
+	usage
+fi
+if [ ! -e "$2" ] ; then
+	echo "$2 does not exist"
+	usage
+fi
 
 
 
