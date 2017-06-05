@@ -28,19 +28,19 @@ cat private.sql
 cat dbo.sql
 
 cat vital_birth.sql
-./normalize_name_column.bash vital.births name_sur
-./normalize_name_column.bash vital.births maiden_n
-./normalize_name_column.bash vital.births mom_snam
-./normalize_name_column.bash vital.births mom_fnam
-./normalize_name_column.bash vital.births name_fir
-./normalize_name_column.bash vital.births name_mid
-./normalize_street_column.bash vital.births mom_address
-./dehyphenate_name_column.bash vital.births maiden_n
-./dehyphenate_name_column.bash vital.births mom_snam
-./dehyphenate_name_column.bash vital.births name_sur
-./split_date_column.bash vital.births bth_date
-./split_date_column.bash vital.births mom_dob
-./split_address_column.bash vital.births mom_address
+./normalize_name_column.bash vital.births name_last
+./normalize_name_column.bash vital.births mother_name_last_p
+./normalize_name_column.bash vital.births mother_name_last
+./normalize_name_column.bash vital.births mother_name_first
+./normalize_name_column.bash vital.births name_first
+./normalize_name_column.bash vital.births name_middle
+./normalize_street_column.bash vital.births mother_res_addr1
+./dehyphenate_name_column.bash vital.births mother_name_last_p
+./dehyphenate_name_column.bash vital.births mother_name_last
+./dehyphenate_name_column.bash vital.births name_last
+#./split_date_column.bash vital.births bth_date
+#./split_date_column.bash vital.births b2_mother_dob
+./split_address_column.bash vital.births mother_res_addr1
 
 cat vital_death.sql
 

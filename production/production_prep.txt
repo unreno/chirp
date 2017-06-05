@@ -1,0 +1,413 @@
+
+--	Build structure, data dictionary, concepts,
+--
+--		./registry_init.bash
+--
+
+
+--	 cd ~/Desktop/Data/NSBR/v1.2/
+--	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_2010.txt > Birth_2010.txt.psv
+--	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_2011.txt > Birth_2011.txt.psv
+--	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_2012.txt > Birth_2012.txt.psv
+--	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_2013.txt > Birth_2013.txt.psv
+--	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_2014.txt > Birth_2014.txt.psv
+--	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_2015.txt > Birth_2015.txt.psv
+--	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_2016.txt > Birth_2016.txt.psv
+--	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_201705.txt > Birth_201705.txt.psv
+
+
+
+--	Add some birth records
+
+SELECT COUNT(1) AS births_buffer_pre_count FROM vital.births_buffer
+--	0
+
+
+
+EXEC bin.import_birth_records 'C:\Users\gwendt\Desktop\Data\NSBR\v1.2\Birth_2010.txt.psv'
+SELECT COUNT(1) AS births_buffer_2010_count FROM vital.births_buffer
+--	35682
+EXEC bin.import_birth_records 'C:\Users\gwendt\Desktop\Data\NSBR\v1.2\Birth_2011.txt.psv'
+SELECT COUNT(1) AS births_buffer_2011_count FROM vital.births_buffer
+--	70699
+EXEC bin.import_birth_records 'C:\Users\gwendt\Desktop\Data\NSBR\v1.2\Birth_2012.txt.psv'
+SELECT COUNT(1) AS births_buffer_2012_count FROM vital.births_buffer
+--	105323
+EXEC bin.import_birth_records 'C:\Users\gwendt\Desktop\Data\NSBR\v1.2\Birth_2013.txt.psv'
+SELECT COUNT(1) AS births_buffer_2013_count FROM vital.births_buffer
+--	140176
+EXEC bin.import_birth_records 'C:\Users\gwendt\Desktop\Data\NSBR\v1.2\Birth_2014.txt.psv'
+SELECT COUNT(1) AS births_buffer_2014_count FROM vital.births_buffer
+--	175695
+EXEC bin.import_birth_records 'C:\Users\gwendt\Desktop\Data\NSBR\v1.2\Birth_2015.txt.psv'
+SELECT COUNT(1) AS births_buffer_2015_count FROM vital.births_buffer
+--	211652
+EXEC bin.import_birth_records 'C:\Users\gwendt\Desktop\Data\NSBR\v1.2\Birth_2016.txt.psv'
+SELECT COUNT(1) AS births_buffer_2016_count FROM vital.births_buffer
+--	247574
+EXEC bin.import_birth_records 'C:\Users\gwendt\Desktop\Data\NSBR\v1.2\Birth_201705.txt.psv'
+SELECT COUNT(1) AS births_buffer_201705_count FROM vital.births_buffer
+--	260375
+
+
+
+
+SELECT COUNT(1) AS births_pre_count FROM vital.births
+--	0
+INSERT INTO vital.births SELECT * FROM vital.births_buffer
+DELETE FROM vital.births_buffer
+SELECT COUNT(1) AS birth_post_count FROM vital.births
+--	260375
+SELECT COUNT(1) AS births_buffer_post_count FROM vital.births_buffer
+--	0
+
+
+
+
+
+--	
+--	
+--	--	Add some newborn screening contact info
+--	
+--	SELECT COUNT(1) AS screening_buffer_pre_count FROM health_lab.newborn_screenings_buffer
+--	--	0
+--	EXEC bin.import_newborn_screening_records_2015 'C:\Users\gwendt\Desktop\Data\NBS\July 2015.csv.tsv'
+--	SELECT COUNT(1) AS screening_buffer_jul_2015_count FROM health_lab.newborn_screenings_buffer
+--	--	18954
+--	EXEC bin.import_newborn_screening_records_2015 'C:\Users\gwendt\Desktop\Data\NBS\August 2015.csv.tsv'
+--	SELECT COUNT(1) AS screening_buffer_aug_2015_count FROM health_lab.newborn_screenings_buffer
+--	--	37063
+--	EXEC bin.import_newborn_screening_records_2015 'C:\Users\gwendt\Desktop\Data\NBS\September 2015.csv.tsv'
+--	SELECT COUNT(1) AS screening_buffer_sep_2015_count FROM health_lab.newborn_screenings_buffer
+--	--	55561
+--	EXEC bin.import_newborn_screening_records_2015 'C:\Users\gwendt\Desktop\Data\NBS\October 2015.csv.tsv'
+--	SELECT COUNT(1) AS screening_buffer_oct_2015_count FROM health_lab.newborn_screenings_buffer
+--	--	72897
+--	EXEC bin.import_newborn_screening_records_2015 'C:\Users\gwendt\Desktop\Data\NBS\November 2015.csv.tsv'
+--	SELECT COUNT(1) AS screening_buffer_nov_2015_count FROM health_lab.newborn_screenings_buffer
+--	--	90616
+--	EXEC bin.import_newborn_screening_records_2015 'C:\Users\gwendt\Desktop\Data\NBS\December 2015.csv.tsv'
+--	SELECT COUNT(1) AS screening_buffer_dec_2015_count FROM health_lab.newborn_screenings_buffer
+--	--	109168
+--	
+--	EXEC bin.import_newborn_screening_records_2016 'C:\Users\gwendt\Desktop\Data\NBS\January 2016.csv.tsv'
+--	SELECT COUNT(1) AS screening_buffer_jan_2016_count FROM health_lab.newborn_screenings_buffer
+--	--	125167
+--	EXEC bin.import_newborn_screening_records_2016 'C:\Users\gwendt\Desktop\Data\NBS\February 2016.csv.tsv'
+--	SELECT COUNT(1) AS screening_buffer_feb_2016_count FROM health_lab.newborn_screenings_buffer
+--	--	141759
+--	EXEC bin.import_newborn_screening_records_2016 'C:\Users\gwendt\Desktop\Data\NBS\March 2016.csv.tsv'
+--	SELECT COUNT(1) AS screening_buffer_mar_2016_count FROM health_lab.newborn_screenings_buffer
+--	--	159818
+--	
+--	SELECT COUNT(1) AS screening_pre_count FROM health_lab.newborn_screenings
+--	--	0
+--	INSERT INTO health_lab.newborn_screenings SELECT * FROM health_lab.newborn_screenings_buffer
+--	DELETE FROM health_lab.newborn_screenings_buffer
+--	SELECT COUNT(1) AS screening_post_count FROM health_lab.newborn_screenings
+--	--	159818
+--	SELECT COUNT(1) AS screening_buffer_post_count FROM health_lab.newborn_screenings_buffer
+--	--	0
+--	
+--	
+
+
+
+
+
+
+--	 cd ~/Desktop/Data/WebIZ/
+--
+--	Some stray double quotes and extra tabs muck things up so remove them.
+--
+--	mv "20170604 CHIRP address hist export.txt" "20170604 CHIRP address hist export.txt.original"
+--	cat "20170604 CHIRP address hist export.txt.original" | tr -d \" | tr -d "\t" > "20170604 CHIRP address hist export.txt"
+--
+--	Some stray double quotes and extra tabs muck things up so remove them.
+--	Also, some fields contain a carriage return so need to join these short lines.
+--	Fortunately, they are predictable
+--
+--	mv "20170604 CHIRP immunizations export.txt" "20170604 CHIRP immunizations export.txt.original"
+--	cat "20170604 CHIRP immunizations export.txt.original" | tr -d \" | tr -d "\t" | awk -F\| '(NF == 43){ print } (NF == 37){ s=$0 } (NF == 7){ print s$0 }'  > "20170604 CHIRP immunizations export.txt"
+--
+
+
+
+SELECT COUNT(1) FROM webiz.addresses_buffer
+--	0
+EXEC bin.import_webiz_addresses 'C:\Users\gwendt\Desktop\Data\WebIZ\20170604 CHIRP address hist export.txt'
+--	SELECT * FROM webiz.addresses_buffer
+SELECT COUNT(1) FROM webiz.addresses_buffer
+--	124305
+SELECT COUNT(1) FROM webiz.addresses
+--	0
+INSERT INTO webiz.addresses SELECT * FROM webiz.addresses_buffer
+DELETE FROM webiz.addresses_buffer
+SELECT COUNT(1) FROM webiz.addresses
+--	124305
+
+
+
+--
+SELECT COUNT(1) FROM webiz.immunizations_buffer
+--	0
+EXEC bin.import_webiz_immunizations 'C:\Users\gwendt\Desktop\Data\WebIZ\20170604 CHIRP immunizations export.txt'
+--	SELECT * FROM webiz.immunizations_buffer
+SELECT COUNT(1) FROM webiz.immunizations_buffer
+--	770462
+SELECT COUNT(1) FROM webiz.immunizations
+--	0
+INSERT INTO webiz.immunizations SELECT * FROM webiz.immunizations_buffer
+DELETE FROM webiz.immunizations_buffer
+SELECT COUNT(1) FROM webiz.immunizations
+--	770462
+
+
+SELECT COUNT(1) FROM webiz.insurances_buffer
+--	0
+EXEC bin.import_webiz_insurances 'C:\Users\gwendt\Desktop\Data\WebIZ\20170604 CHIRP insurance export.txt'
+--	SELECT * FROM webiz.insurances_buffer
+SELECT COUNT(1) FROM webiz.insurances_buffer
+--	3946
+SELECT COUNT(1) FROM webiz.insurances
+--	0
+INSERT INTO webiz.insurances SELECT * FROM webiz.insurances_buffer
+DELETE FROM webiz.insurances_buffer
+SELECT COUNT(1) FROM webiz.insurances
+--	3946
+
+
+SELECT COUNT(1) FROM webiz.local_ids_buffer
+--	0
+EXEC bin.import_webiz_local_ids 'C:\Users\gwendt\Desktop\Data\WebIZ\20170604 CHIRP local id export.txt'
+--	SELECT * FROM webiz.local_ids_buffer
+SELECT COUNT(1) FROM webiz.local_ids_buffer
+--	
+SELECT COUNT(1) FROM webiz.local_ids
+--	0
+INSERT INTO webiz.local_ids SELECT * FROM webiz.local_ids_buffer
+DELETE FROM webiz.local_ids_buffer
+SELECT COUNT(1) FROM webiz.local_ids
+--	
+
+SELECT COUNT(1) FROM webiz.races_buffer
+--	0
+EXEC bin.import_webiz_races 'C:\Users\gwendt\Desktop\Data\WebIZ\20170604 CHIRP race ethn export.txt'
+--	SELECT * FROM webiz.races_buffer
+SELECT COUNT(1) FROM webiz.races_buffer
+--	58575
+SELECT COUNT(1) FROM webiz.races
+--	0
+INSERT INTO webiz.races SELECT * FROM webiz.races_buffer
+DELETE FROM webiz.races_buffer
+SELECT COUNT(1) FROM webiz.races
+--	58575
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SELECT COUNT(1) AS identifiers_pre_count FROM private.identifiers
+--	0
+--	Create an identifier for each birth record
+INSERT INTO private.identifiers ( chirp_id, source_schema, 
+    source_table, source_column, source_id, match_method ) 
+  SELECT private.create_unique_chirp_id(), 'vital', 'births',
+    'state_file_number', state_file_number, 'Initial assignment' 
+  FROM vital.births b WHERE b.imported_to_observations = 'FALSE';
+
+SELECT COUNT(1) AS identifiers_post_count FROM private.identifiers
+--	260375
+SELECT COUNT(1) AS observations_pre_count FROM dbo.observations
+--	0
+--	Import all data into observations table (takes about 3.5 min)(JOIN version takes about 30 seconds!)
+EXEC bin.import_into_data_warehouse
+SELECT COUNT(1) AS observations_post_count FROM dbo.observations
+--	
+
+
+--	From here, it'll likely take about 2 hours
+--	
+--	SELECT COUNT(1) AS identifiers_count_again FROM private.identifiers
+--	--	
+--	EXEC bin.link_screening_records_to_birth_records 2015, 7
+--	SELECT COUNT(1) AS identifiers_with_7_screenings_count FROM private.identifiers
+--	--	
+--	EXEC bin.link_screening_records_to_birth_records 2015, 8
+--	SELECT COUNT(1) AS identifiers_with_8_screenings_count FROM private.identifiers
+--	--	
+--	EXEC bin.link_screening_records_to_birth_records 2015, 9
+--	SELECT COUNT(1) AS identifiers_with_9_screenings_count FROM private.identifiers
+--	--	
+--	EXEC bin.link_screening_records_to_birth_records 2015, 10
+--	SELECT COUNT(1) AS identifiers_with_10_screenings_count FROM private.identifiers
+--	--	
+--	EXEC bin.link_screening_records_to_birth_records 2015, 11
+--	SELECT COUNT(1) AS identifiers_with_11_screenings_count FROM private.identifiers
+--	--	
+--	EXEC bin.link_screening_records_to_birth_records 2015, 12
+--	SELECT COUNT(1) AS identifiers_with_12_screenings_count FROM private.identifiers
+--	--	
+--	
+--	SELECT COUNT(1) AS observations_count_again FROM dbo.observations
+--	--	
+--	EXEC bin.import_into_data_warehouse
+--	SELECT COUNT(1) AS observations_count_with_screenings FROM dbo.observations
+--	--	
+--	
+
+
+
+
+
+SELECT COUNT(1) AS identifiers_count_again FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2015, 1
+SELECT COUNT(1) AS identifiers_with_1_webiz_count FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2015, 2
+SELECT COUNT(1) AS identifiers_with_2_webiz_count FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2015, 3
+SELECT COUNT(1) AS identifiers_with_3_webiz_count FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2015, 4
+SELECT COUNT(1) AS identifiers_with_4_webiz_count FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2015, 5
+SELECT COUNT(1) AS identifiers_with_5_webiz_count FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2015, 6
+SELECT COUNT(1) AS identifiers_with_6_webiz_count FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2015, 7
+SELECT COUNT(1) AS identifiers_with_7_webiz_count FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2015, 8
+SELECT COUNT(1) AS identifiers_with_8_webiz_count FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2015, 9
+SELECT COUNT(1) AS identifiers_with_9_webiz_count FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2015, 10
+SELECT COUNT(1) AS identifiers_with_10_webiz_count FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2015, 11
+SELECT COUNT(1) AS identifiers_with_11_webiz_count FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2015, 12
+SELECT COUNT(1) AS identifiers_with_12_webiz_count FROM private.identifiers
+--	
+
+
+SELECT COUNT( DISTINCT state_file_number ) FROM vital.births
+WHERE bth_date BETWEEN '2015-01-01' AND '2015-12-31'
+--	5432	(as expected)
+SELECT COUNT( DISTINCT patient_id ) FROM webiz.immunizations
+WHERE dob BETWEEN '2015-01-01' AND '2015-12-31'
+--	Note that an individual in webiz CAN have more than one.
+--	6245	(seems reasonable given an unknown number of variables)
+
+SELECT COUNT( DISTINCT state_file_number ) FROM vital.births b
+JOIN private.identifiers i
+	ON  i.source_id = b.state_file_number
+	AND i.source_column = 'state_file_number'
+	AND i.source_table  = 'births'
+	AND i.source_schema = 'vital'
+WHERE bth_date BETWEEN '2015-01-01' AND '2015-12-31'
+--	5432	(as expected as this is where we started)
+
+SELECT COUNT( DISTINCT chirp_id ) FROM vital.births b
+JOIN private.identifiers i
+	ON  i.source_id = b.state_file_number
+	AND i.source_column = 'state_file_number'
+	AND i.source_table  = 'births'
+	AND i.source_schema = 'vital'
+WHERE bth_date BETWEEN '2015-01-01' AND '2015-12-31'
+--	5432	(BETTER be the same!) (479 in just January)
+
+SELECT COUNT( DISTINCT chirp_id )FROM webiz.immunizations b
+JOIN private.identifiers i
+	ON  i.source_id = b.patient_id
+	AND i.source_column = 'patient_id'
+	AND i.source_table  = 'immunizations'
+	AND i.source_schema = 'webiz'
+WHERE dob BETWEEN '2015-01-01' AND '2015-12-31'
+--	4749	(87% - 423 for just January)
+--	4751
+
+
+
+
+
+
+-- this is an incorrect comparison as patient_id isn't a 1-to-1 relationship!!!
+SELECT COUNT( DISTINCT patient_id ) FROM webiz.immunizations b
+JOIN private.identifiers i
+	ON  i.source_id = b.patient_id
+	AND i.source_column = 'patient_id'
+	AND i.source_table  = 'immunizations'
+	AND i.source_schema = 'webiz'
+WHERE dob BETWEEN '2015-01-01' AND '2015-12-31'
+--	3230	(bummer, 59%. I expected more)
+--	5274	(better, 97%, but still low.)
+--	5180	(it went down! sad)
+
+
+
+
+SELECT COUNT(1) AS observations_count_again FROM dbo.observations
+--	
+EXEC bin.import_into_data_warehouse
+SELECT COUNT(1) AS observations_count_with_webizs FROM dbo.observations
+--	
+
+
+
+
+
+
+
+
+
+
+--	bcp "DECLARE @colnames VARCHAR(max);SELECT @colnames = COALESCE(@colnames + ',', '') + column_name from chirp.INFORMATION_SCHEMA.COLUMNS where TABLE_NAME='observations'; select @colnames;" queryout HeadersOnly.csv -c -T
+--
+--	This misses the very first "
+--	And adds a " at the very end.
+--
+--	Will need to devise a scripted way to fix this.
+--	Why am I quoting?
+--
+--	bcp "SELECT * FROM chirp.dbo.observations" queryout DataOnly.csv -c -T -t"\",\"" -r"\"\n\""
+--	awk 'BEGIN { FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)" }{print NF}' DataOnly.csv | sort | uniq -c
+--	#	should ALL be 14
+--	cat HeadersOnly.csv DataOnly.csv > Observations.csv
+
+
+
+
+--	Don't do the above. Keeping for the moment, just in case there was good reason.
+--	Use these tab separated files. No quotes and imports easier.
+
+--	bcp "DECLARE @colnames VARCHAR(max);SELECT @colnames = COALESCE(@colnames + CHAR(9), '') + column_name from chirp.INFORMATION_SCHEMA.COLUMNS where TABLE_NAME='observations'; select @colnames;" queryout HeadersOnly.tsv -c -T
+--	bcp "SELECT * FROM chirp.dbo.observations" queryout DataOnly.tsv -c -T
+--	cat HeadersOnly.tsv DataOnly.tsv > Observations.tsv
+--	awk 'BEGIN{FS="\t"}{print NF}' Observations.tsv | uniq
+
+
+
