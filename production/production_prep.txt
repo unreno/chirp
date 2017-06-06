@@ -132,6 +132,10 @@ SELECT COUNT(1) AS births_buffer_post_count FROM vital.births_buffer
 --
 
 
+--	Doug once provided with commas
+--	mv "20170604 CHIRP local id export.txt" "20170604 CHIRP local id export.txt.original"
+--	cat "20170604 CHIRP local id export.txt.original" | sed -e "s/, THE,/,/" -e "s/,/|/g" > "20170604 CHIRP local id export.txt"
+
 
 SELECT COUNT(1) FROM webiz.addresses_buffer
 --	0
@@ -182,13 +186,13 @@ SELECT COUNT(1) FROM webiz.local_ids_buffer
 EXEC bin.import_webiz_local_ids 'C:\Users\gwendt\Desktop\Data\WebIZ\20170604 CHIRP local id export.txt'
 --	SELECT * FROM webiz.local_ids_buffer
 SELECT COUNT(1) FROM webiz.local_ids_buffer
---	
+--	52790
 SELECT COUNT(1) FROM webiz.local_ids
 --	0
 INSERT INTO webiz.local_ids SELECT * FROM webiz.local_ids_buffer
 DELETE FROM webiz.local_ids_buffer
 SELECT COUNT(1) FROM webiz.local_ids
---	
+--	52790
 
 SELECT COUNT(1) FROM webiz.races_buffer
 --	0
