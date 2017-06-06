@@ -16,8 +16,9 @@ echo "	DROP DATABASE $DB_NAME;"
 echo "CREATE DATABASE $DB_NAME;"
 echo "GO"
 
-#	Given than Paul has to move database somewhere for Reports,
+#	Given that Paul has to move database somewhere for Reports,
 #	DROPping and CREATEing breaks this. So STOP DOING IT.
+#	Actually, I think that he moved it so rock on.
 
 
 echo "USE $DB_NAME"
@@ -39,7 +40,12 @@ cat vital_birth.sql
 ./dehyphenate_name_column.bash vital.births mother_name_last
 ./dehyphenate_name_column.bash vital.births name_last
 #./split_date_column.bash vital.births bth_date
-#./split_date_column.bash vital.births b2_mother_dob
+#./split_date_column.bash vital.births mom_dob
+./split_string_date_column.bash vital.births date_of_birth
+./split_string_date_column.bash vital.births b2_mother_dob
+
+
+
 ./split_address_column.bash vital.births mother_res_addr1
 
 cat vital_death.sql

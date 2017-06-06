@@ -189,7 +189,7 @@ BEGIN
 			cav.units, source_schema, source_table, source_id, downloaded_at
 		FROM (
 			SELECT i.chirp_id,
-CAST( LEFT(date_of_birth,2)+'/'+LEFT(RIGHT(date_of_birth,6),2)+'/'+RIGHT(date_of_birth,4) AS DATE) AS started_at,
+				b._date_of_birth_date AS started_at,
 				0 AS provider_id,
 				'vital' AS source_schema,
 				'births' AS source_table,
@@ -573,19 +573,12 @@ CAST( LEFT(date_of_birth,2)+'/'+LEFT(RIGHT(date_of_birth,6),2)+'/'+RIGHT(date_of
 --			(               'reg_type_code',                CAST(reg_type_code AS VARCHAR(255)), NULL)
 
 
-
-			('DEM:DOB'            , 
-CAST( LEFT(date_of_birth,2)+'/'+LEFT(RIGHT(date_of_birth,6),2)+'/'+RIGHT(date_of_birth,4) AS VARCHAR(255))               , NULL),
---			('birth_qtr'          , CAST(DATEPART(q,bth_date) AS VARCHAR(255))   , NULL),
---			('birth_qtr'          , CAST(DATEPART(q,CAST( LEFT(date_of_birth,2)+'/'+LEFT(RIGHT(date_of_birth,6),2)+'/'+RIGHT(date_of_birth,4) AS DATE)) AS VARCHAR(255))   , NULL),
-			('birth_qtr'          , CAST((2+LEFT(date_of_birth,2))/3 AS VARCHAR(255))   , NULL),
-			('DEM:ZIP'            , CAST(mother_res_zip AS VARCHAR(255))               , NULL),
-			('DEM:Weight'         , CAST(birth_weight_grams AS VARCHAR(255))                  , 'grams'),
-			('DEM:Weight'         , CAST(
-				bin.weight_from_lbs_and_oz( birth_weight_lbs, birth_weight_oz ) AS VARCHAR(255))             , 'lbs')
-
-
-
+			('DEM:DOB'     , CAST( _date_of_birth_date AS VARCHAR(255))           , NULL),
+			('birth_qtr'   , CAST(DATEPART(q,_date_of_birth_date) AS VARCHAR(255)), NULL),
+			('DEM:ZIP'     , CAST(mother_res_zip AS VARCHAR(255))                 , NULL),
+			('DEM:Weight'  , CAST(birth_weight_grams AS VARCHAR(255))             , 'grams'),
+			('DEM:Weight'  , CAST(
+				bin.weight_from_lbs_and_oz( birth_weight_lbs, birth_weight_oz ) AS VARCHAR(255)), 'lbs')
 
 		) cav ( concept, value, units )
 		LEFT JOIN dbo.dictionary d
@@ -867,9 +860,8 @@ BEGIN
 		FROM (
 
 			SELECT i.chirp_id, s.patient_id,
---				CASE WHEN b.bth_date = s.dob THEN 1.0
-				CASE WHEN CAST( LEFT(b.date_of_birth,2)+'/'+LEFT(RIGHT(b.date_of_birth,6),2)+'/'+RIGHT(b.date_of_birth,4) AS DATE) = s.dob THEN 1.0
---					WHEN b.bth_date BETWEEN DATEADD(day,-8,s.dob) AND DATEADD(day,8,s.dob) THEN 0.5
+				CASE WHEN b._date_of_birth_date = s.dob THEN 1.0
+--					WHEN b._date_of_birth_date BETWEEN DATEADD(day,-8,s.dob) AND DATEADD(day,8,s.dob) THEN 0.5
 					ELSE 0.0 END AS birth_score,
 
 				CASE WHEN b._mother_res_zip = a.zip_code THEN 0.5
@@ -881,7 +873,7 @@ BEGIN
 					WHEN b._mother_res_addr1_suf = a._address_line1_suf THEN 0.5
 					ELSE 0.0 END AS address_score,
 
-				CASE WHEN b.inf_hospnum = l.local_id THEN 2.0
+				CASE WHEN b.hos_number = l.local_id THEN 2.0
 					ELSE 0.0 END AS num_score,
 
 				CASE WHEN b._name_first = s._first_name THEN 1.0
@@ -920,9 +912,10 @@ BEGIN
 				AND i2.source_column = 'patient_id'
 				AND i2.source_table  = 'immunizations'
 				AND i2.source_schema = 'webiz'
-			WHERE b._bth_date_year = @year AND b._bth_date_month = @month
+			WHERE YEAR(b._date_of_birth_date) = @year AND MONTH(b._date_of_birth_date) = @month
 				AND i2.chirp_id IS NULL
 
+--			WHERE b._date_of_birth_year = @year AND b._date_of_birth_month = @month
 --				AND s._dob_year = @year AND s._dob_month = @month
 				AND s.dob BETWEEN @begin_prev_month AND @end_next_month
 
@@ -988,23 +981,23 @@ BEGIN
 		FROM (
 
 			SELECT i.chirp_id, s.accession_kit_number,
-				CASE WHEN b.bth_date = s.birth_date    THEN 1.0
-					WHEN b.bth_date BETWEEN DATEADD(day,-8,s.birth_date) AND DATEADD(day,8,s.birth_date) THEN 0.5
+				CASE WHEN b._date_of_birth_date = s.birth_date THEN 1.0
+					WHEN b._date_of_birth_date BETWEEN DATEADD(day,-8,s.birth_date) AND DATEADD(day,8,s.birth_date) THEN 0.5
 					ELSE 0.0 END AS birth_score,
-				CASE WHEN CAST( LEFT(b.b2_mother_dob,2)+'/'+LEFT(RIGHT(b.b2_mother_dob,6),2)+'/'+RIGHT(b.b2_mother_dob,4) AS DATE) = s.mom_birth_date THEN 1.0
-					WHEN (CAST(RIGHT(b.b2_mother_dob,4) AS INT) = s._mom_birth_date_year AND CAST(LEFT(b.b2_mother_dob,2) AS INT) = s._mom_birth_date_month) THEN 0.5
-					WHEN (CAST(RIGHT(LEFT(b.b2_mother_dob,4),2) AS INT)  = s._mom_birth_date_day  AND CAST(LEFT(b.b2_mother_dob,2) AS INT) = s._mom_birth_date_month) THEN 0.5
-					WHEN (CAST(RIGHT(b.b2_mother_dob,2) AS INT) = s._mom_birth_date_year AND CAST(RIGHT(LEFT(b.b2_mother_dob,4),2) AS INT)   = s._mom_birth_date_day)   THEN 0.5
+				CASE WHEN b._b2_mother_dob_date = s.mom_birth_date THEN 1.0
+					WHEN ( b._b2_mother_dob_year = s._mom_birth_date_year AND b._b2_mother_dob_month = s._mom_birth_date_month ) THEN 0.5
+					WHEN ( b._b2_mother_dob_day = s._mom_birth_date_day  AND b._b2_mother_dob_month = s._mom_birth_date_month) THEN 0.5
+					WHEN ( b._b2_mother_dob_year = s._mom_birth_date_year AND b._b2_mother_dob_day = s._mom_birth_date_day)   THEN 0.5
 					ELSE 0.0 END AS mom_birth_score,
 				CASE WHEN b._mother_res_zip = s.zip_code     THEN 1.0 ELSE 0.0 END AS zip_score,
 				CASE WHEN b._mother_res_addr1 = s._address  THEN 1.0
 					WHEN b._mother_res_addr1_pre = s._address_pre THEN 0.5
 					WHEN b._mother_res_addr1_suf = s._address_suf THEN 0.5
 					ELSE 0.0 END AS address_score,
-				CASE WHEN b.inf_hospnum IN ( s.patient_id, s.patient_id_pre, s.patient_id_suf, s.patient_id_prex,
+				CASE WHEN b.hos_number IN ( s.patient_id, s.patient_id_pre, s.patient_id_suf, s.patient_id_prex,
 						s.patient_id_sufx, s.patient_id_prexi, s.patient_id_sufxi ) THEN 1.0
-					WHEN s.patient_id LIKE '%' + b.inf_hospnum + '%' THEN 0.5
-					WHEN b.inf_hospnum LIKE '%' + s.patient_id + '%' THEN 0.5
+					WHEN s.patient_id LIKE '%' + b.hos_number + '%' THEN 0.5
+					WHEN b.hos_number LIKE '%' + s.patient_id + '%' THEN 0.5
 					ELSE 0.0 END AS num_score,
 				CASE WHEN ( s._mom_surname IN ( b._mother_name_last, b._mother_name_last_pre, b._mother_name_last_suf, b._mother_name_last_p,
 						b._mother_name_last_p_pre, b._mother_name_last_p_suf, b._name_last, b._name_last_pre, b._name_last_suf )
@@ -1049,7 +1042,8 @@ from vital.births
 				AND i2.source_column = 'accession_kit_number'
 				AND i2.source_table  = 'newborn_screenings'
 				AND i2.source_schema = 'health_lab'
-			WHERE RIGHT(b.date_of_birth,2) = @year AND LEFT(b.date_of_birth,2) = @month
+--			WHERE RIGHT(b.date_of_birth,2) = @year AND LEFT(b.date_of_birth,2) = @month
+			WHERE YEAR(b._date_of_birth_date) = @year AND MONTH(b._date_of_birth_date) = @month
 				AND i2.chirp_id IS NULL
 /*
 			WHERE b._bth_date_year = @year AND b._bth_date_month = @month

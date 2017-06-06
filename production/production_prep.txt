@@ -234,10 +234,10 @@ SELECT COUNT(1) AS identifiers_post_count FROM private.identifiers
 --	260375
 SELECT COUNT(1) AS observations_pre_count FROM dbo.observations
 --	0
---	Import all data into observations table (takes about 3.5 min)(JOIN version takes about 30 seconds!)
+--	Import all data into observations table (takes about 15 minutes)
 EXEC bin.import_into_data_warehouse
 SELECT COUNT(1) AS observations_post_count FROM dbo.observations
---	
+--	71265784
 
 
 --	From here, it'll likely take about 2 hours
@@ -271,6 +271,63 @@ SELECT COUNT(1) AS observations_post_count FROM dbo.observations
 --	
 
 
+
+
+
+
+SELECT COUNT(1) AS identifiers_count_again FROM private.identifiers
+--	260375
+EXEC bin.link_immunization_records_to_birth_records 2010, 1
+--	17 minutes
+SELECT COUNT(1) FROM private.identifiers
+--	260733 ( only 358 in the month? a little lower than expected )
+EXEC bin.link_immunization_records_to_birth_records 2010, 2
+--	22 minutes
+SELECT COUNT(1) FROM private.identifiers
+--	261073
+
+
+EXEC bin.link_immunization_records_to_birth_records 2010, 3
+--	
+SELECT COUNT(1) FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2010, 4
+--	
+SELECT COUNT(1) FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2010, 5
+--	
+SELECT COUNT(1) FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2010, 6
+--	
+SELECT COUNT(1) FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2010, 7
+--	
+SELECT COUNT(1) FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2010, 8
+--	
+SELECT COUNT(1) FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2010, 9
+--	
+SELECT COUNT(1) FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2010, 10
+--	
+SELECT COUNT(1) FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2010, 11
+--	
+SELECT COUNT(1) FROM private.identifiers
+--	
+EXEC bin.link_immunization_records_to_birth_records 2010, 12
+--	
+SELECT COUNT(1) FROM private.identifiers
+--	
+--	... minutes
 
 
 

@@ -1182,3 +1182,4 @@ ALTER TABLE vital.births ADD _mother_res_zip AS CAST( mother_res_zip AS VARCHAR 
 CREATE INDEX vital_births__mother_res_zip
 	ON vital.births( _mother_res_zip );
 
+
