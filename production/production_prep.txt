@@ -337,62 +337,58 @@ SELECT COUNT(1) FROM private.identifiers
 
 
 
-SELECT COUNT(1) AS identifiers_count_again FROM private.identifiers
---	
 EXEC bin.link_immunization_records_to_birth_records 2011, 1
 --	
 SELECT COUNT(1) FROM private.identifiers
---	
+--	265890
 EXEC bin.link_immunization_records_to_birth_records 2011, 2
 --	
 SELECT COUNT(1) FROM private.identifiers
---	
+--	266332
 EXEC bin.link_immunization_records_to_birth_records 2011, 3
 --	
 SELECT COUNT(1) FROM private.identifiers
---	
+--	266808
 EXEC bin.link_immunization_records_to_birth_records 2011, 4
 --	
 SELECT COUNT(1) FROM private.identifiers
---	
+--	267271
 EXEC bin.link_immunization_records_to_birth_records 2011, 5
 --	
 SELECT COUNT(1) FROM private.identifiers
---	
+--	267794
 EXEC bin.link_immunization_records_to_birth_records 2011, 6
 --	
 SELECT COUNT(1) FROM private.identifiers
---	
+--	268295
 EXEC bin.link_immunization_records_to_birth_records 2011, 7
 --	
 SELECT COUNT(1) FROM private.identifiers
---	
+--	268749
 EXEC bin.link_immunization_records_to_birth_records 2011, 8
 --	
 SELECT COUNT(1) FROM private.identifiers
---	
+--	269238
 EXEC bin.link_immunization_records_to_birth_records 2011, 9
 --	
 SELECT COUNT(1) FROM private.identifiers
---	
+--	269702
 EXEC bin.link_immunization_records_to_birth_records 2011, 10
 --	
 SELECT COUNT(1) FROM private.identifiers
---	
+--	270160
 EXEC bin.link_immunization_records_to_birth_records 2011, 11
 --	
 SELECT COUNT(1) FROM private.identifiers
---	
+--	270596
 EXEC bin.link_immunization_records_to_birth_records 2011, 12
 --	
 SELECT COUNT(1) FROM private.identifiers
---	
---	... minutes
+--	270999
+--	27 hours
 
 
 
-SELECT COUNT(1) AS identifiers_count_again FROM private.identifiers
---	
 EXEC bin.link_immunization_records_to_birth_records 2012, 1
 --	
 SELECT COUNT(1) FROM private.identifiers
