@@ -5,6 +5,31 @@
 --
 
 
+
+IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='dev')
+	EXEC('CREATE SCHEMA dev')
+GO
+
+IF OBJECT_ID('dev.counts', 'U') IS NOT NULL
+	DROP TABLE dev.counts;
+CREATE TABLE dev.counts (
+	name VARCHAR(255),
+	count INT,
+	created_at    DATETIME 
+		CONSTRAINT dev_counts_created_at_default 
+		DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+
+
+SELECT * FROM dev.counts;
+INSERT INTO dev.counts (name,count) SELECT 'test', COUNT(1) FROM private.identifiers;
+SELECT * FROM dev.counts;
+
+
+
+
+
+
 --	 cd ~/Desktop/Data/NSBR/v1.2/
 --	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_2010.txt > Birth_2010.txt.psv
 --	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_2011.txt > Birth_2011.txt.psv
