@@ -698,12 +698,12 @@ SELECT COUNT(1) FROM private.identifiers
 
 
 SELECT COUNT( DISTINCT state_file_number ) FROM vital.births
-WHERE bth_date BETWEEN '2015-01-01' AND '2015-12-31'
---	5432	(as expected)
+WHERE _date_of_birth_date BETWEEN '2015-01-01' AND '2015-12-31'
+--	35957	--	5432	(as expected)
 SELECT COUNT( DISTINCT patient_id ) FROM webiz.immunizations
 WHERE dob BETWEEN '2015-01-01' AND '2015-12-31'
 --	Note that an individual in webiz CAN have more than one.
---	6245	(seems reasonable given an unknown number of variables)
+--	6394	--	6245	(seems reasonable given an unknown number of variables)
 
 SELECT COUNT( DISTINCT state_file_number ) FROM vital.births b
 JOIN private.identifiers i
@@ -711,8 +711,8 @@ JOIN private.identifiers i
 	AND i.source_column = 'state_file_number'
 	AND i.source_table  = 'births'
 	AND i.source_schema = 'vital'
-WHERE bth_date BETWEEN '2015-01-01' AND '2015-12-31'
---	5432	(as expected as this is where we started)
+WHERE _date_of_birth_date BETWEEN '2015-01-01' AND '2015-12-31'
+--	35957	--	5432	(as expected as this is where we started)
 
 SELECT COUNT( DISTINCT chirp_id ) FROM vital.births b
 JOIN private.identifiers i
@@ -720,8 +720,8 @@ JOIN private.identifiers i
 	AND i.source_column = 'state_file_number'
 	AND i.source_table  = 'births'
 	AND i.source_schema = 'vital'
-WHERE bth_date BETWEEN '2015-01-01' AND '2015-12-31'
---	5432	(BETTER be the same!) (479 in just January)
+WHERE _date_of_birth_date BETWEEN '2015-01-01' AND '2015-12-31'
+--	35957	--	5432	(BETTER be the same!) (479 in just January)
 
 SELECT COUNT( DISTINCT chirp_id )FROM webiz.immunizations b
 JOIN private.identifiers i
@@ -730,8 +730,7 @@ JOIN private.identifiers i
 	AND i.source_table  = 'immunizations'
 	AND i.source_schema = 'webiz'
 WHERE dob BETWEEN '2015-01-01' AND '2015-12-31'
---	4749	(87% - 423 for just January)
---	4751
+--	4860	--	4749	(87% - 423 for just January) --	4751
 
 
 
@@ -749,15 +748,22 @@ WHERE dob BETWEEN '2015-01-01' AND '2015-12-31'
 --	3230	(bummer, 59%. I expected more)
 --	5274	(better, 97%, but still low.)
 --	5180	(it went down! sad)
+--	5296	(20170612)
 
 
 
-
+--	20170612
 SELECT COUNT(1) AS observations_count_again FROM dbo.observations
---	
+--	71265784
 EXEC bin.import_into_data_warehouse
 SELECT COUNT(1) AS observations_count_with_webizs FROM dbo.observations
---	
+--	72067704	--	2067704
+--               -1265784
+--                 801920 (odd as is more than the number of immunizations?) perhaps I've mucked things up. still deving.
+
+
+SELECT COUNT(1) FROM webiz.immunizations
+--	770462
 
 
 
