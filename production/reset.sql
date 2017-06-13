@@ -1,12 +1,14 @@
 
-
-
 IF IndexProperty(Object_Id('vital.births'),
 	'vital_births_mother_res_zip', 'IndexId') IS NOT NULL
 	DROP INDEX vital_births_mother_res_zip
 		ON vital.births;
 CREATE INDEX vital_births_mother_res_zip
 	ON vital.births( mother_res_zip );
+
+
+
+
 
 
 
@@ -20,6 +22,9 @@ UPDATE x
 UPDATE x
 	SET imported_to_observations = 'FALSE'
 	FROM webiz.immunizations x;
+
+
+
 
 
 
