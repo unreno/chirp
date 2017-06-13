@@ -1171,15 +1171,24 @@ IF IndexProperty(Object_Id('vital.births'),
 CREATE INDEX vital_births_state_file_number
 	ON vital.births( state_file_number );
 
+--	
+--	IF IndexProperty(Object_Id('vital.births'),
+--		'vital_births__mother_res_zip', 'IndexId') IS NOT NULL
+--		DROP INDEX vital_births__mother_res_zip
+--			ON vital.births;
+--	IF COL_LENGTH('vital.births','_mother_res_zip') IS NOT NULL
+--		ALTER TABLE vital.births DROP COLUMN _mother_res_zip;
+--	ALTER TABLE vital.births ADD _mother_res_zip AS CAST( mother_res_zip AS VARCHAR ) PERSISTED;
+--	CREATE INDEX vital_births__mother_res_zip
+--		ON vital.births( _mother_res_zip );
+--	
+
 
 IF IndexProperty(Object_Id('vital.births'),
-	'vital_births__mother_res_zip', 'IndexId') IS NOT NULL
-	DROP INDEX vital_births__mother_res_zip
+	'vital_births_mother_res_zip', 'IndexId') IS NOT NULL
+	DROP INDEX vital_births_mother_res_zip
 		ON vital.births;
-IF COL_LENGTH('vital.births','_mother_res_zip') IS NOT NULL
-	ALTER TABLE vital.births DROP COLUMN _mother_res_zip;
-ALTER TABLE vital.births ADD _mother_res_zip AS CAST( mother_res_zip AS VARCHAR ) PERSISTED;
-CREATE INDEX vital_births__mother_res_zip
-	ON vital.births( _mother_res_zip );
+CREATE INDEX vital_births_mother_res_zip
+	ON vital.births( mother_res_zip );
 
 

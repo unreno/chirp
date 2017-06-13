@@ -203,6 +203,7 @@ BEGIN
 				AND i.source_table = 'births'
 				AND i.source_schema = 'vital'
 			WHERE imported_to_observations = 'FALSE'
+				AND mother_res_zip IN ( '89402', '89405', '89412', '89424', '89431', '89432', '89433', '89434', '89435', '89436', '89439', '89441', '89442', '89450', '89451', '89452', '89501', '89502', '89503', '89504', '89505', '89506', '89507', '89509', '89510', '89511', '89512', '89513', '89515', '89519', '89520', '89521', '89523', '89533', '89555', '89557', '89570', '89595', '89599', '89704')
 		) unimported_data
 		CROSS APPLY ( VALUES
 --			(           'state_file_number',            CAST(state_file_number AS VARCHAR(255)), NULL),
@@ -864,7 +865,7 @@ BEGIN
 --					WHEN b._date_of_birth_date BETWEEN DATEADD(day,-8,s.dob) AND DATEADD(day,8,s.dob) THEN 0.5
 					ELSE 0.0 END AS birth_score,
 
-				CASE WHEN b._mother_res_zip = a.zip_code THEN 0.5
+				CASE WHEN b.mother_res_zip = a.zip_code THEN 0.5
 					ELSE 0.0 END AS zip_score,
 
 				CASE WHEN b._mother_res_addr1 = a._address_line1 THEN 1.0
@@ -989,7 +990,7 @@ BEGIN
 					WHEN ( b._b2_mother_dob_day = s._mom_birth_date_day  AND b._b2_mother_dob_month = s._mom_birth_date_month) THEN 0.5
 					WHEN ( b._b2_mother_dob_year = s._mom_birth_date_year AND b._b2_mother_dob_day = s._mom_birth_date_day)   THEN 0.5
 					ELSE 0.0 END AS mom_birth_score,
-				CASE WHEN b._mother_res_zip = s.zip_code     THEN 1.0 ELSE 0.0 END AS zip_score,
+				CASE WHEN b.mother_res_zip = s.zip_code     THEN 1.0 ELSE 0.0 END AS zip_score,
 				CASE WHEN b._mother_res_addr1 = s._address  THEN 1.0
 					WHEN b._mother_res_addr1_pre = s._address_pre THEN 0.5
 					WHEN b._mother_res_addr1_suf = s._address_suf THEN 0.5
