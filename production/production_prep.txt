@@ -22,7 +22,7 @@ CREATE TABLE dev.counts (
 
 
 SELECT * FROM dev.counts;
---	INSERT INTO dev.counts (name,count) SELECT 'test', COUNT(1) FROM private.identifiers;
+--	INSERT INTO dev.counts WITH (TABLOCK) (name,count) SELECT 'test', COUNT(1) FROM private.identifiers;
 --	SELECT * FROM dev.counts;
 
 
@@ -79,7 +79,7 @@ SELECT COUNT(1) FROM vital.births_buffer;
 
 SELECT COUNT(1) AS births_pre_count FROM vital.births;
 --	0
-INSERT INTO vital.births SELECT * FROM vital.births_buffer;
+INSERT INTO vital.births WITH (TABLOCK) SELECT * FROM vital.births_buffer;
 DELETE FROM vital.births_buffer;
 SELECT COUNT(1) AS birth_post_count FROM vital.births;
 --	260375
@@ -127,7 +127,7 @@ SELECT COUNT(1) AS births_buffer_post_count FROM vital.births_buffer;
 --	
 --	SELECT COUNT(1) AS screening_pre_count FROM health_lab.newborn_screenings
 --	--	0
---	INSERT INTO health_lab.newborn_screenings SELECT * FROM health_lab.newborn_screenings_buffer
+--	INSERT INTO health_lab.newborn_screenings WITH (TABLOCK) SELECT * FROM health_lab.newborn_screenings_buffer
 --	DELETE FROM health_lab.newborn_screenings_buffer
 --	SELECT COUNT(1) AS screening_post_count FROM health_lab.newborn_screenings
 --	--	159818
@@ -170,7 +170,7 @@ SELECT COUNT(1) FROM webiz.addresses_buffer
 --	124305
 SELECT COUNT(1) FROM webiz.addresses
 --	0
-INSERT INTO webiz.addresses SELECT * FROM webiz.addresses_buffer
+INSERT INTO webiz.addresses WITH (TABLOCK) SELECT * FROM webiz.addresses_buffer
 DELETE FROM webiz.addresses_buffer
 SELECT COUNT(1) FROM webiz.addresses
 --	124305
@@ -186,7 +186,7 @@ SELECT COUNT(1) FROM webiz.immunizations_buffer
 --	770462
 SELECT COUNT(1) FROM webiz.immunizations
 --	0
-INSERT INTO webiz.immunizations SELECT * FROM webiz.immunizations_buffer
+INSERT INTO webiz.immunizations WITH (TABLOCK) SELECT * FROM webiz.immunizations_buffer
 DELETE FROM webiz.immunizations_buffer
 SELECT COUNT(1) FROM webiz.immunizations
 --	770462
@@ -200,7 +200,7 @@ SELECT COUNT(1) FROM webiz.insurances_buffer
 --	3946
 SELECT COUNT(1) FROM webiz.insurances
 --	0
-INSERT INTO webiz.insurances SELECT * FROM webiz.insurances_buffer
+INSERT INTO webiz.insurances WITH (TABLOCK) SELECT * FROM webiz.insurances_buffer
 DELETE FROM webiz.insurances_buffer
 SELECT COUNT(1) FROM webiz.insurances
 --	3946
@@ -214,7 +214,7 @@ SELECT COUNT(1) FROM webiz.local_ids_buffer
 --	52790
 SELECT COUNT(1) FROM webiz.local_ids
 --	0
-INSERT INTO webiz.local_ids SELECT * FROM webiz.local_ids_buffer
+INSERT INTO webiz.local_ids WITH (TABLOCK) SELECT * FROM webiz.local_ids_buffer
 DELETE FROM webiz.local_ids_buffer
 SELECT COUNT(1) FROM webiz.local_ids
 --	52790
@@ -227,7 +227,7 @@ SELECT COUNT(1) FROM webiz.races_buffer
 --	58575
 SELECT COUNT(1) FROM webiz.races
 --	0
-INSERT INTO webiz.races SELECT * FROM webiz.races_buffer
+INSERT INTO webiz.races WITH (TABLOCK) SELECT * FROM webiz.races_buffer
 DELETE FROM webiz.races_buffer
 SELECT COUNT(1) FROM webiz.races
 --	58575
@@ -253,7 +253,7 @@ SELECT COUNT(1) FROM webiz.races
 SELECT COUNT(1) AS identifiers_pre_count FROM private.identifiers
 --	0
 --	Create an identifier for each birth record
-INSERT INTO private.identifiers ( chirp_id, source_schema, 
+INSERT INTO private.identifiers WITH (TABLOCK) ( chirp_id, source_schema, 
     source_table, source_column, source_id, match_method ) 
   SELECT private.create_unique_chirp_id(), 'vital', 'births',
     'state_file_number', state_file_number, 'Initial assignment' 
@@ -314,8 +314,8 @@ BEGIN
 	BEGIN
 
 		EXEC bin.link_immunization_records_to_birth_records @y, @m;
-		INSERT INTO dev.counts (name,count)
-			SELECT 'identifiers_count_' + CAST(@y AS VARCHAR(4)) + ' ' + CAST(@m AS VARCHAR(2)), COUNT(1)
+		INSERT INTO dev.counts WITH (TABLOCK) (name,count)
+			SELECT 'identifiers_count ' + CAST(@y AS VARCHAR(4)) + ' ' + CAST(@m AS VARCHAR(2)), COUNT(1)
 			FROM private.identifiers;
 		SELECT 'identifiers_count_' + CAST(@y AS VARCHAR) + ' ' + CAST(@m AS VARCHAR);
 

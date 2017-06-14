@@ -38,7 +38,7 @@ BEGIN
 
 --	Changing the concept to NOT match the field complication count extraction
 
-	INSERT INTO dbo.observations
+	INSERT INTO dbo.observations WITH (TABLOCK)
 		(chirp_id, provider_id, started_at, ended_at,
 			concept, raw, value, units, source_schema, source_table, source_id, downloaded_at)
 		SELECT chirp_id, provider_id, started_at, started_at,
@@ -103,7 +103,7 @@ BEGIN
 	--	This seems better that GROUP BY as it allows the ordering by
 	--	one field (source_id) and selecting it and others (downloaded_at)
 
-	INSERT INTO dbo.observations
+	INSERT INTO dbo.observations WITH (TABLOCK)
 		(chirp_id, provider_id, started_at, ended_at, concept, value, raw,
 			units, source_schema, source_table, source_id, downloaded_at)
 		SELECT chirp_id, provider_id, started_at, started_at, concept, value, value,
@@ -181,7 +181,7 @@ BEGIN
 
 --	awk '{q="'"'"'"$0"'"'"'";printf( "%s%30s, %50s, NULL),\n","(",q,$0 )}' vital_birth_fields.txt 
 
-	INSERT INTO dbo.observations
+	INSERT INTO dbo.observations WITH (TABLOCK)
 		(chirp_id, provider_id, started_at, ended_at, raw,
 			concept, value, units, source_schema, source_table, source_id, downloaded_at)
 		SELECT chirp_id, provider_id, started_at, started_at, cav.value AS raw, cav.concept,
@@ -802,7 +802,8 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-	INSERT INTO private.identifiers ( chirp_id, source_schema,
+	INSERT INTO private.identifiers WITH (TABLOCK)
+		( chirp_id, source_schema,
 		source_table, source_column, source_id, match_method )
 		SELECT i.chirp_id, @schema2, @table2, @column2, @value2,
 			'Manually : '+@schema1+' '+@table1+' '+@column1+' '+@value1
@@ -929,8 +930,8 @@ BEGIN
 	WHERE rank = 1;
 
 	--	Insert those that DO NOT have multple birth records claiming them.
-	INSERT INTO private.identifiers (
-		chirp_id, source_schema, source_table, source_column, source_id, match_method )
+	INSERT INTO private.identifiers WITH (TABLOCK)
+		( chirp_id, source_schema, source_table, source_column, source_id, match_method )
 		SELECT * FROM #temp_identifiers_link WHERE patient_id NOT IN (
 			SELECT patient_id FROM #temp_identifiers_link
 				GROUP BY patient_id HAVING COUNT(1) > 1
@@ -1064,8 +1065,8 @@ from vital.births
 	WHERE rank = 1;
 
 	--	Insert those that DO NOT have multple birth records claiming them.
-	INSERT INTO private.identifiers (
-		chirp_id, source_schema, source_table, source_column, source_id, match_method )
+	INSERT INTO private.identifiers WITH (TABLOCK)
+		( chirp_id, source_schema, source_table, source_column, source_id, match_method )
 		SELECT * FROM #temp_identifiers_link WHERE accession_kit_number NOT IN (
 			SELECT accession_kit_number FROM #temp_identifiers_link
 				GROUP BY accession_kit_number HAVING COUNT(1) > 1
