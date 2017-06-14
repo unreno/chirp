@@ -13,6 +13,8 @@ GO
 IF OBJECT_ID('dev.counts', 'U') IS NOT NULL
 	DROP TABLE dev.counts;
 CREATE TABLE dev.counts (
+	id INT IDENTITY(1,1),
+		CONSTRAINT dev_counts_id PRIMARY KEY CLUSTERED (id ASC),
 	name VARCHAR(255),
 	count INT,
 	created_at    DATETIME 
@@ -329,12 +331,33 @@ END;
 
 
 
+SELECT this.id, this.name, this.count, this.count - prev.count, this.created_at, this.created_at - prev.created_at
+FROM dev.counts this
+JOIN dev.counts prev ON this.id = prev.id + 1
+WHERE DAY( this.created_at ) = DAY( GETDATE() );
 
 
 
 
 
 
+
+
+id	name	count	(No column name)	created_at	(No column name)
+97	obs_count	10439060	10439060	2017-06-14 09:37:53.883	1900-01-01 17:46:11.603
+98	identifiers_count_2010 1	38379	-10400681	2017-06-14 09:49:49.450	1900-01-01 00:11:55.567
+99	identifiers_count_2010 2	38731	352	2017-06-14 10:05:18.753	1900-01-01 00:15:29.303
+100	identifiers_count_2010 3	39133	402	2017-06-14 10:25:29.030	1900-01-01 00:20:10.277
+101	identifiers_count_2010 4	39538	405	2017-06-14 10:45:10.930	1900-01-01 00:19:41.900
+102	identifiers_count_2010 5	39972	434	2017-06-14 11:04:29.490	1900-01-01 00:19:18.560
+103	identifiers_count_2010 6	40389	417	2017-06-14 11:21:39.243	1900-01-01 00:17:09.753
+104	identifiers_count_2010 7	40803	414	2017-06-14 11:39:02.660	1900-01-01 00:17:23.417
+105	identifiers_count_2010 8	41228	425	2017-06-14 11:57:52.110	1900-01-01 00:18:49.450
+106	identifiers_count_2010 9	41647	419	2017-06-14 12:16:10.170	1900-01-01 00:18:18.060
+107	identifiers_count_2010 10	41995	348	2017-06-14 12:33:24.943	1900-01-01 00:17:14.773
+108	identifiers_count_2010 11	42427	432	2017-06-14 12:52:55.437	1900-01-01 00:19:30.493
+109	identifiers_count_2010 12	42901	474	2017-06-14 13:11:59.223	1900-01-01 00:19:03.787
+110	identifiers_count_2011 1	43378	477	2017-06-14 13:29:46.353	1900-01-01 00:17:47.130
 
 
 
