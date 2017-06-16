@@ -65,7 +65,7 @@ BEGIN
 		INSERT INTO dev.counts WITH (TABLOCK) (name,count)
 			SELECT 'identifiers_count ' + CAST(@y AS VARCHAR(4)) + ' ' + CAST(@m AS VARCHAR(2)), COUNT(1)
 			FROM private.identifiers;
-		SELECT 'identifiers_count_' + CAST(@y AS VARCHAR) + ' ' + CAST(@m AS VARCHAR);
+		SELECT 'identifiers_count ' + CAST(@y AS VARCHAR) + ' ' + CAST(@m AS VARCHAR);
 
 		SET @m = @m + 1;
 	END

@@ -574,11 +574,34 @@ BEGIN
 --			(               'reg_type_code',                CAST(reg_type_code AS VARCHAR(255)), NULL)
 
 
-			('DEM:DOB'     , CAST( _date_of_birth_date AS VARCHAR(255))           , NULL),
-			('birth_qtr'   , CAST(DATEPART(q,_date_of_birth_date) AS VARCHAR(255)), NULL),
-			('DEM:ZIP'     , CAST(mother_res_zip AS VARCHAR(255))                 , NULL),
-			('DEM:Weight'  , CAST(birth_weight_grams AS VARCHAR(255))             , 'grams'),
-			('DEM:Weight'  , CAST(
+--			('DEM:DOB'     , CAST( _date_of_birth_date AS VARCHAR(255))           , NULL),
+--			('birth_qtr'   , CAST(DATEPART(q,_date_of_birth_date) AS VARCHAR(255)), NULL),
+--			('DEM:ZIP'     , CAST(mother_res_zip AS VARCHAR(255))                 , NULL),
+--			('DEM:Weight'  , CAST(birth_weight_grams AS VARCHAR(255))             , 'grams'),
+--			('DEM:Weight'  , CAST(
+--				bin.weight_from_lbs_and_oz( birth_weight_lbs, birth_weight_oz ) AS VARCHAR(255)), 'lbs')
+
+--	Searched CASE expression:
+--	Returns result_expression of the first Boolean_expression that evaluates to TRUE.
+
+--	All those in the selected zip codes are in Washoe County. Kinda repetitive
+--			('UNR:BirthCounty'  , 'Washoe', NULL),
+--	What about 8888 ( ) or 9999 (Unknown)?
+--	
+			('UNR:BirthWeightGroup'  , CASE
+					WHEN birth_weight_grams =  9999 THEN NULL	--	'Unknown 9999'
+					WHEN birth_weight_grams =  8888 THEN NULL	--	'Unknown 8888'
+--					WHEN birth_weight_grams >  8000 THEN 'High Birth Weight'
+					WHEN birth_weight_grams >= 2500 THEN 'Normal Birth Weight (>=2,500g, <=8,000g)'
+					WHEN birth_weight_grams >= 1500 THEN 'Low Birth Weight (>=1,500g, <2,500g)'
+					ELSE 'Very Low Birth Weight (<1,500g)'
+--					WHEN birth_weight_grams >= 1000 THEN 'Very Low Birth Weight (<1,500g)'
+--					ELSE 'Extremely Low Birth Weight'
+				END , NULL),
+			('UNR:DOB'     , CAST( _date_of_birth_date AS VARCHAR(255))           , NULL),
+			('UNR:BirthQtr'   , CAST(DATEPART(q,_date_of_birth_date) AS VARCHAR(255)), NULL),
+			('UNR:BirthZIP'     , CAST(mother_res_zip AS VARCHAR(255))                 , NULL),
+			('UNR:BirthWeight'  , CAST(
 				bin.weight_from_lbs_and_oz( birth_weight_lbs, birth_weight_oz ) AS VARCHAR(255)), 'lbs')
 
 		) cav ( concept, value, units )

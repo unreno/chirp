@@ -269,7 +269,7 @@ SELECT COUNT(1) AS observations_pre_count FROM dbo.observations
 --	Import all data into observations table (takes about 15 minutes)
 EXEC bin.import_into_data_warehouse
 SELECT COUNT(1) AS observations_post_count FROM dbo.observations
---	71265784
+--	
 
 
 --	From here, it'll likely take about 2 hours
@@ -319,7 +319,7 @@ BEGIN
 		INSERT INTO dev.counts WITH (TABLOCK) (name,count)
 			SELECT 'identifiers_count ' + CAST(@y AS VARCHAR(4)) + ' ' + CAST(@m AS VARCHAR(2)), COUNT(1)
 			FROM private.identifiers;
-		SELECT 'identifiers_count_' + CAST(@y AS VARCHAR) + ' ' + CAST(@m AS VARCHAR);
+		SELECT 'identifiers_count ' + CAST(@y AS VARCHAR) + ' ' + CAST(@m AS VARCHAR);
 
 		SET @m = @m + 1;
 	END
@@ -442,14 +442,27 @@ identifiers_count_2017 12	73530	0	0
 
 
 
+INSERT INTO dev.counts WITH (TABLOCK) (name,count)
+	SELECT 'obs_count pre webiz import', COUNT(1)
+	FROM dbo.observations;
+SELECT 'obs_count pre webiz import', COUNT(1)
+	FROM dbo.observations;
+--	10439060
+
+EXEC bin.import_into_data_warehouse
+
+INSERT INTO dev.counts WITH (TABLOCK) (name,count)
+	SELECT 'obs_count post webiz import', COUNT(1)
+	FROM dbo.observations;
+SELECT 'obs_count post webiz import', COUNT(1)
+	FROM dbo.observations;
+--	11203576
 
 
 
 
 
-
-
-
+----------------------------------- THE END
 
 
 
