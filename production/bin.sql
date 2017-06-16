@@ -588,7 +588,7 @@ BEGIN
 --			('UNR:BirthCounty'  , 'Washoe', NULL),
 --	What about 8888 ( ) or 9999 (Unknown)?
 --	
-			('UNR:BirthWeightGroup'  , CASE
+			('birth_weight_group'  , CASE
 					WHEN birth_weight_grams =  9999 THEN NULL	--	'Unknown 9999'
 					WHEN birth_weight_grams =  8888 THEN NULL	--	'Unknown 8888'
 --					WHEN birth_weight_grams >  8000 THEN 'High Birth Weight'
@@ -598,10 +598,22 @@ BEGIN
 --					WHEN birth_weight_grams >= 1000 THEN 'Very Low Birth Weight (<1,500g)'
 --					ELSE 'Extremely Low Birth Weight'
 				END , NULL),
-			('UNR:DOB'     , CAST( _date_of_birth_date AS VARCHAR(255))           , NULL),
-			('UNR:BirthQtr'   , CAST(DATEPART(q,_date_of_birth_date) AS VARCHAR(255)), NULL),
-			('UNR:BirthZIP'     , CAST(mother_res_zip AS VARCHAR(255))                 , NULL),
-			('UNR:BirthWeight'  , CAST(
+			('mother_age_group', CASE 
+					WHEN b2_mother_age >= 45 THEN '45+'
+					WHEN b2_mother_age >= 40 THEN '40-44'
+					WHEN b2_mother_age >= 35 THEN '35-39'
+					WHEN b2_mother_age >= 30 THEN '30-34'
+					WHEN b2_mother_age >= 25 THEN '25-29'
+					WHEN b2_mother_age >= 20 THEN '20-24'
+					WHEN b2_mother_age >= 18 THEN '18-19'
+					WHEN b2_mother_age >= 15 THEN '15-17'
+					WHEN b2_mother_age >= 10 THEN '10-14'
+					ELSE 'Under 10'
+				END, NULL),
+			('dob'          , CAST(_date_of_birth_date AS VARCHAR(255))            , NULL),
+			('birth_quarter', CAST(DATEPART(q,_date_of_birth_date) AS VARCHAR(255)), NULL),
+			('birth_zip'    , CAST(mother_res_zip AS VARCHAR(255))                 , NULL),
+			('birth_weight' , CAST(
 				bin.weight_from_lbs_and_oz( birth_weight_lbs, birth_weight_oz ) AS VARCHAR(255)), 'lbs')
 
 		) cav ( concept, value, units )

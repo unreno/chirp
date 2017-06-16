@@ -269,7 +269,7 @@ SELECT COUNT(1) AS observations_pre_count FROM dbo.observations
 --	Import all data into observations table (takes about 15 minutes)
 EXEC bin.import_into_data_warehouse
 SELECT COUNT(1) AS observations_post_count FROM dbo.observations
---	
+--	10477085
 
 
 --	From here, it'll likely take about 2 hours
