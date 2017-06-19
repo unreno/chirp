@@ -550,7 +550,7 @@ INSERT INTO dev.counts WITH (TABLOCK) (name,count)
 	FROM dbo.observations;
 SELECT 'obs_count pre webiz import', COUNT(1)
 	FROM dbo.observations;
---	10439060
+--	10477085		--	10439060
 
 EXEC bin.import_into_data_warehouse
 
@@ -559,7 +559,7 @@ INSERT INTO dev.counts WITH (TABLOCK) (name,count)
 	FROM dbo.observations;
 SELECT 'obs_count post webiz import', COUNT(1)
 	FROM dbo.observations;
---	11203576
+--	11241601		--	11203576
 
 
 
@@ -663,27 +663,6 @@ SELECT COUNT(1) FROM webiz.immunizations
 
 
 
-
-
-
---	bcp "DECLARE @colnames VARCHAR(max);SELECT @colnames = COALESCE(@colnames + ',', '') + column_name from chirp.INFORMATION_SCHEMA.COLUMNS where TABLE_NAME='observations'; select @colnames;" queryout HeadersOnly.csv -c -T
---
---	This misses the very first "
---	And adds a " at the very end.
---
---	Will need to devise a scripted way to fix this.
---	Why am I quoting?
---
---	bcp "SELECT * FROM chirp.dbo.observations" queryout DataOnly.csv -c -T -t"\",\"" -r"\"\n\""
---	awk 'BEGIN { FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)" }{print NF}' DataOnly.csv | sort | uniq -c
---	#	should ALL be 14
---	cat HeadersOnly.csv DataOnly.csv > Observations.csv
-
-
-
-
---	Don't do the above. Keeping for the moment, just in case there was good reason.
---	Use these tab separated files. No quotes and imports easier.
 
 --	bcp "DECLARE @colnames VARCHAR(max);SELECT @colnames = COALESCE(@colnames + CHAR(9), '') + column_name from chirp.INFORMATION_SCHEMA.COLUMNS where TABLE_NAME='observations'; select @colnames;" queryout HeadersOnly.tsv -c -T
 --	bcp "SELECT * FROM chirp.dbo.observations" queryout DataOnly.tsv -c -T
