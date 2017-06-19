@@ -1,0 +1,8 @@
+
+
+#	Added the new format to the codesets
+#	After this, I will delete those that aren't encoded and set the actual codesets.
+
+awk -F"\t" '{print "vital\tbirths\t"tolower($1)"\tCODESET\t"$2"\t"$2" "$3" "$4}' ../archive/development/scripts/CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv >> content/vital/birth_dictionary.tsv 
+
+

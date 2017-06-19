@@ -382,3 +382,369 @@ vital	births	wic	standard2_yesno	WIC Food Received During Pregnancy
 vital	births	prepreg_wt		Pre-pregnancy Weight	Pre-pregnancy Weight (In lbs 70 - 362, 999)
 vital	births	del_wt		Mother's Delivery Weight	The mother's weight at the time of delivery.
 vital	births	wt_gain		Mother's Weight Gain	
+vital	births	state_file_number		Certificate Number	Certificate Number Automatically assigned by EBRS System In state births= 000001-0999999, out of state births=900001-909999
+vital	births	void_flag		Void Flag	Void Flag  0=No or Blank, 1=Yes, 
+vital	births	name_last		Child Last Name	Child Last Name Free Text  
+vital	births	name_suffix		Child Name Suffix	Child Name Suffix Free Text  I, II, III, IV, Jr, Sr
+vital	births	name_first		Child First Name	Child First Name Free Text  
+vital	births	name_middle		Child Middle Name	Child Middle Name Free Text  
+vital	births	sex	CODESET	Sex	Sex 1, 2, 9 1=Male 2=Female 9=Unknown
+vital	births	date_of_birth		Date of Birth	Date of Birth mmddyyyy mmddyyyy
+vital	births	time_of_birth		Time of Birth	Time of Birth 00:00-23:59, 99:99 24 Hr clock, 9999=Unknown
+vital	births	fac_type_code	CODESET	Place of Birth	Place of Birth Drop down Menu 1=Hospital 2=Freestanding Birth Center 3=Home (Intended) 4=Home (Not Intended) 5=Home (Unknown if Intended) 6=Clinic/Doctor's Office 7=Other 9=Unknown
+vital	births	fac_nv_code	CODESET	Facility Name	Facility Name Drop down Menu See NV Facility Code Table
+vital	births	fac_st_nv_old	CODESET	Facility State	Facility State Drop down Menu See State Code Table
+vital	births	fac_city_nv_old	CODESET	Facility City	Facility City Drop down Menu See NV City Code Table
+vital	births	fac_cnty_nv_old	CODESET	Facility County	Facility County Drop down Menu See NV County Code Table
+vital	births	attendant_title_code	CODESET	Attendant Title	Attendant Title Drop down Menu 1=Physician 2=Doctor of Osteopathy 3=Cert.Nurse Midwife,Lic.Cert.Nurse Midwife,Lic.Nurse Midwife,Cert. Professional Midwife, Direct Entry Midwife 4=Other Midwife 5=EMT, Nurse(RN, LPN, NC), Nurse Practitioner, Physician's Assistant, Medical Records Technician, Other 9=Unknown
+vital	births	mother_name_last		Mother's Last Name	Mother's Last Name Free Text  0
+vital	births	mother_name_suffix		Mother's Last Name Suffix	Mother's Last Name Suffix Drop down Menu I, II, III, IV, Jr, Sr
+vital	births	mother_name_first		Mother's First Name	Mother's First Name Free Text  0
+vital	births	mother_name_middle		Mother's Middle Name	Mother's Middle Name Free Text  0
+vital	births	mother_name_last_p		Mother's Maiden Name	Mother's Maiden Name Free Text  0
+vital	births	mother_name_suffix_p		Mother's Maiden Name Suffix	Mother's Maiden Name Suffix Drop down Menu I, II, III, IV, Jr, Sr
+vital	births	b2_mother_dob		Mother's Date of Birth	Mother's Date of Birth mmddyyyy mmddyyyy
+vital	births	b2_mother_age		Mother's Age	Mother's Age Calculated 0
+vital	births	mbir_country_country_code_nv	CODESET	Mother's Country of Birth	Mother's Country of Birth Drop down Menu See NV Country Codes
+vital	births	mbir_state_state_code_nv	CODESET	Mother's State of Birth	Mother's State of Birth Drop down Menu See NV State Codes
+vital	births	mres_state_state_code_nv	CODESET	Mother's Residence State	Mother's Residence State Drop down Menu See NV State Codes
+vital	births	mother_res_city_nv_old	CODESET	Mother's Residence City	Mother's Residence City Drop down Menu See NV City Codes
+vital	births	mother_res_cnty_nv_old	CODESET	Mother's Residence County	Mother's Residence County Drop down Menu See NV County Codes
+vital	births	mother_res_addr1		Mother's Residence Address	Mother's Residence Address Free Text  0
+vital	births	mother_res_apt		Mother's Residence Apt No	Mother's Residence Apt No Free Text  0
+vital	births	mother_res_zip		Mother's Residence Zip	Mother's Residence Zip Drop down Menu From Zip Code Table in System
+vital	births	mother_res_incity	CODESET	Mother's Residence Inside City Limits?	Mother's Residence Inside City Limits? Y, N, U 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_ed	CODESET	Mother's Education	Mother's Education Drop down Menu 1=8th Grade or Less 2=9th through 12 grade, no diploma 3=High School Graduate or GED completed 4=Some college credit, but no degree 5=Associate Degree 6=Bachelor's Degree 7=Master's Degree 8=Doctorate Degree or Professional Degree 9=Unknown
+vital	births	mother_occupation_cd	CODESET	Mother's Occupation	Mother's Occupation Drop down Menu See Occupation Coding Manual
+vital	births	mother_industry_cd	CODESET	Mother's Industry	Mother's Industry Drop down Menu See Industry Coding Manual
+vital	births	mother_ssn		Mother's  Soc.Sec. #	Mother's  Soc.Sec. # 000000000 0
+vital	births	father_name_last		Father's Last Name	Father's Last Name Free Text  Literal
+vital	births	father_name_suffix		Father's Last Name Suffix	Father's Last Name Suffix Drop down Menu I, II, III, IV, Jr, Sr
+vital	births	father_name_first		Father's First Name	Father's First Name Free Text  Literal
+vital	births	father_name_middle		Father's Middle Name	Father's Middle Name Free Text  Literal
+vital	births	b2_father_dob		Father's Date of Birth	Father's Date of Birth mmddyyyy mmddyyyy
+vital	births	b2_father_age		Father's Age	Father's Age Calculated 0
+vital	births	fbir_country_country_code_nv	CODESET	Father's Country of Birth	Father's Country of Birth Drop down Menu See NV State Codes
+vital	births	fbir_state_state_code_nv	CODESET	Father's State of Birth	Father's State of Birth Drop down Menu See NV State Codes
+vital	births	b2_father_ed	CODESET	Father's Education	Father's Education Drop down Menu 1=8th Grade or Less 2=9th through 12 grade, no diploma 3=High School Graduate or GED completed 4=Some college credit, but no degree 5=Associate Degree 6=Bachelor's Degree 7=Master's Degree 8=Doctorate Degree or Professional Degree 9=Unknown
+vital	births	father_occupation_cd	CODESET	Father's Occupation	Father's Occupation Drop down Menu See Occupation Coding Manual
+vital	births	father_industry_cd	CODESET	Father's Industry	Father's Industry Drop down Menu See Industry Coding Manual
+vital	births	father_ssn		Father's Soc.Sec. #	Father's Soc.Sec. # 000000000 000000000
+vital	births	b2_mother_ever_married	CODESET	Mother Ever Married?	Mother Ever Married? Y, N, U, X 1=Yes 2=No 9=Unknown
+vital	births	mother_married	CODESET	Mother Married at Birth, Conception, or between?	Mother Married at Birth, Conception, or between? Y, N, U 1=Yes 2=No 9=Unknown
+vital	births	father_is_husband	CODESET	Is Husband the Father?	Is Husband the Father? Y, N, U 1=Yes 2=No 9=Unknown
+vital	births	father_sign_pat_affidavit	CODESET	Will Father Sign Paternity?	Will Father Sign Paternity? Y, N, U 1=Yes 2=No 3=Refused 8=Not Applicable 9=Unknown
+vital	births	b2_trans_mother	CODESET	Mother Transferred to this Facility?	Mother Transferred to this Facility? Y, N, U 1=Yes 2=No 9=Unknown
+vital	births	menses_date		Date Last Normal Menses Began?	Date Last Normal Menses Began? mmddyyyy mmddyyyy
+vital	births	b2_prenatal_yesno	CODESET	Prenatal Care?	Prenatal Care? Y, N, U 1=Yes 2=No 9=Unknown
+vital	births	b2_prenatal_date_begin		Prenatal Begin Date	Prenatal Begin Date mmddyyyy mmddyyyy
+vital	births	b2_prenatal_date_end		Prenatal End Date	Prenatal End Date mmddyyyy mmddyyyy
+vital	births	b2_prenat_tot_visits		Total Prenatal Visits	Total Prenatal Visits  0
+vital	births	b2_mother_height_feet		Mother's Height-Feet 	Mother's Height-Feet  1-8, 9 0
+vital	births	b2_mother_height_inch		Mother's Height-Inches 	Mother's Height-Inches  00-11, 99 0
+vital	births	b2_mother_pre_preg_wt		Mother's Pre-pregnancy Weight	Mother's Pre-pregnancy Weight 050-400, 999 0
+vital	births	b2_mother_wt_at_deliv		Mother's Weight at Delivery	Mother's Weight at Delivery 050-450, 999 0
+vital	births	live_births_total		Total Number of Previous Live Births	Total Number of Previous Live Births 00-30, 99 0
+vital	births	live_births_date_mmyyyy		Date of Last Live Birth-Month/Year	Date of Last Live Birth-Month/Year mmyyyy Month, Year, 888888,999999
+vital	births	live_births_living		Now Living	Now Living 00-30, 99 88 if not applicable
+vital	births	live_births_dead		Now Deceased	Now Deceased 00-30, 99 88 if not applicable
+vital	births	term_number		Other Terminations	Other Terminations 00-30, 99 88 if not applicable
+vital	births	term_date_mmyyyy		Last Termination Date	Last Termination Date mmyyyy Month, Year, 888888,999999
+vital	births	b2_tobacco_use	CODESET	Tobacco Use?	Tobacco Use? Y, N, U 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_cig_or_pack	CODESET	Units	Units C, P  1=Cigarettes 2=Packs 8= Not applicable
+vital	births	b2_mother_cig_prev		Prior Pregnancy-Cigarettes	Prior Pregnancy-Cigarettes 00-98, 99 0
+vital	births	b2_mother_cig_prev_pack		Prior Pregnancy-Packs	Prior Pregnancy-Packs 00-05 0
+vital	births	b2_mother_cig_first_tri		First Trimester-Cigarettes	First Trimester-Cigarettes 00-98, 99 0
+vital	births	b2_mother_cig_first_pack		First Trimester-Packs	First Trimester-Packs 00-05 0
+vital	births	b2_mother_cig_second_tri		Second Trimester-Cigarettes	Second Trimester-Cigarettes 00-98, 99 0
+vital	births	b2_mother_cig_second_pack		Second Trimester-Packs	Second Trimester-Packs 00-05 0
+vital	births	b2_mother_cig_last_tri		Last Trimester-Cigarettes	Last Trimester-Cigarettes 00-98, 99 0
+vital	births	b2_mother_cig_last_pack		Last Trimester-Packs	Last Trimester-Packs 00-05 0
+vital	births	m_alcohol_use	CODESET	Alcohol Use	Alcohol Use Y, N, U, R 1=Yes 2=No 3=Refused 9=Unknown
+vital	births	m_alcohol_drink_week		Number of Drinks per Week	Number of Drinks per Week 00-98, 99 0
+vital	births	m_drug_use	CODESET	Drug Use During Pregnancy?	Drug Use During Pregnancy? Y, N, U, R 1=Yes 2=No 3=Refused 9=Unknown
+vital	births	m_drug_prescription	CODESET	Prescription	Prescription Y, N 1=Yes 2=No
+vital	births	m_drug_otc	CODESET	Over the Counter	Over the Counter Y, N 1=Yes 2=No
+vital	births	m_drug_other	CODESET	Other 	Other  Y, N 1=Yes 2=No
+vital	births	m_drug_other_lit		Other Drugs-Description	Other Drugs-Description Free Text  Literal
+vital	births	m_mr_none	CODESET	Mrf-Medical History None	Mrf-Medical History None Y, N 1=Yes 2=No
+vital	births	m_mr_diab	CODESET	Mrf-Diabetes, Pre-existing	Mrf-Diabetes, Pre-existing Y, N 1=Yes 2=No
+vital	births	m_mr_diab_gest	CODESET	Mrf-Diabetes, Gestational	Mrf-Diabetes, Gestational Y, N 1=Yes 2=No
+vital	births	m_mr_hypert_all	CODESET	Mrf-Hypertension	Mrf-Hypertension Y, N 1=Yes 2=No
+vital	births	m_mr_hypert_chronic	CODESET	Mrf-Hypertension-Pre-pregnancy	Mrf-Hypertension-Pre-pregnancy Y, N 1=Yes 2=No
+vital	births	m_mr_hypert_preg	CODESET	Mrf-Hypertension-Gestational	Mrf-Hypertension-Gestational Y, N 1=Yes 2=No
+vital	births	m_mr_eclampsia	CODESET	Eclampsia	Eclampsia Y, N 1=Yes 2=No
+vital	births	m_mr_prev_preterm	CODESET	Mrf-Previous Infant Preterm Birth	Mrf-Previous Infant Preterm Birth Y, N 1=Yes 2=No
+vital	births	m_mr_prev_poor_outcome	CODESET	Mrf-Other Poor Outcomes	Mrf-Other Poor Outcomes Y, N 1=Yes 2=No
+vital	births	m_mr_preg_from_treatment	CODESET	Mrf-Infertility Treatment	Mrf-Infertility Treatment Y, N 1=Yes 2=No
+vital	births	m_mr_infert_drugs	CODESET	Drugs, Insemination	Drugs, Insemination Y, N 1=Yes 2=No 8=Not Applicable
+vital	births	m_mr_assist_rep_tech	CODESET	Assisted Reproductive Tech	Assisted Reproductive Tech Y, N 1=Yes 2=No 8=Not Applicable
+vital	births	m_mr_prev_cesarean_yesno	CODESET	Mrf-Previous Cesarean	Mrf-Previous Cesarean Y, N 1=Yes 2=No
+vital	births	m_mr_prev_ces_numb		Number of Previous Cesareans	Number of Previous Cesareans 00-10, 99 0
+vital	births	m_mr_anemia	CODESET	Mrf-Anemia	Mrf-Anemia Y, N 1=Yes 2=No
+vital	births	m_mr_cardiac	CODESET	Mrf-Cardiac Disease	Mrf-Cardiac Disease Y, N 1=Yes 2=No
+vital	births	m_mr_lung_disease	CODESET	Mrf-Acute or Chronic Lung Disease	Mrf-Acute or Chronic Lung Disease Y, N 1=Yes 2=No
+vital	births	m_mr_hydraminos_olig	CODESET	Mrf-Hydraminios/Oligohydramnios	Mrf-Hydraminios/Oligohydramnios Y, N 1=Yes 2=No
+vital	births	m_mr_hemoglobinopathy	CODESET	Mrf-Hemoglobinopathy	Mrf-Hemoglobinopathy Y, N 1=Yes 2=No
+vital	births	m_mr_incompent_cervix	CODESET	Mrf-Incompetent Cervix	Mrf-Incompetent Cervix Y, N 1=Yes 2=No
+vital	births	m_mr_prev_4000_plus	CODESET	Mrf-Previous Infant 4000+grams	Mrf-Previous Infant 4000+grams Y, N 1=Yes 2=No
+vital	births	m_mr_renal_disease	CODESET	Mrf-Renal Disease	Mrf-Renal Disease Y, N 1=Yes 2=No
+vital	births	m_mr_rh_sensit	CODESET	Mrf-Rh Sensitization	Mrf-Rh Sensitization Y, N 1=Yes 2=No
+vital	births	m_mr_uterine_bleeding	CODESET	Mrf-Uterine Bleeding	Mrf-Uterine Bleeding Y, N 1=Yes 2=No
+vital	births	m_mr_other	CODESET	Mrf-Other	Mrf-Other Y, N 1=Yes 2=No
+vital	births	m_mr_other_lit		Mrf-Other-Description	Mrf-Other-Description Free Text  Literal
+vital	births	unknown01			  
+vital	births	m_inf_none	CODESET	Mrf-Infections None	Mrf-Infections None Y, N 1=Yes 2=No
+vital	births	m_inf_gonorrhea	CODESET	Mrf-Gonorrhea	Mrf-Gonorrhea Y, N 1=Yes 2=No
+vital	births	m_inf_syphilis	CODESET	Mrf-Syphilis	Mrf-Syphilis Y, N 1=Yes 2=No
+vital	births	m_inf_chlamydia	CODESET	Mrf-Chlamydia	Mrf-Chlamydia Y, N 1=Yes 2=No
+vital	births	m_inf_hepatitis_b	CODESET	Mrf-Hepatitis B	Mrf-Hepatitis B Y, N 1=Yes 2=No
+vital	births	m_inf_hepatitis_c	CODESET	Mrf-Hepatitis C	Mrf-Hepatitis C Y, N 1=Yes 2=No
+vital	births	m_inf_hpv	CODESET	Mrf_Human Papillomavirus (HPV)	Mrf_Human Papillomavirus (HPV) Y, N 1=Yes 2=No
+vital	births	m_inf_hiv_aids	CODESET	Mrf-HIV/AIDS	Mrf-HIV/AIDS Y, N 1=Yes 2=No
+vital	births	m_inf_cmv	CODESET	Mrf-Cytomegalovirus (CMV)	Mrf-Cytomegalovirus (CMV) Y, N 1=Yes 2=No
+vital	births	m_inf_rubella	CODESET	Mrf-Rubella	Mrf-Rubella Y, N 1=Yes 2=No
+vital	births	m_inf_toxoplasmosis	CODESET	Mrf-Toxoplasmosis	Mrf-Toxoplasmosis Y, N 1=Yes 2=No
+vital	births	m_inf_genital_herpes	CODESET	Mrf-Genital Herpes	Mrf-Genital Herpes Y, N 1=Yes 2=No
+vital	births	m_inf_tuberculosis	CODESET	Mrf-Tuberculosis	Mrf-Tuberculosis Y, N 1=Yes 2=No
+vital	births	m_inf_other	CODESET	Mrf-Other	Mrf-Other Y, N 1=Yes 2=No
+vital	births	m_inf_other_lit		Mrf-Other-Description	Mrf-Other-Description Free Text  Literal
+vital	births	unknown02			  
+vital	births	m_ob_none	CODESET	Obpr-None	Obpr-None Y, N 1=Yes 2=No
+vital	births	m_ob_cerclage	CODESET	Obpr-Cervical Cerclage	Obpr-Cervical Cerclage Y, N 1=Yes 2=No
+vital	births	m_ob_tocolysis	CODESET	Obpr-Tocolysis	Obpr-Tocolysis Y, N 1=Yes 2=No
+vital	births	m_ob_amnio	CODESET	Obpr-Amniocentesis	Obpr-Amniocentesis Y, N 1=Yes 2=No
+vital	births	m_ob_fetal_monitor	CODESET	Obpr-Electronic Fetal Monitoring	Obpr-Electronic Fetal Monitoring Y, N 1=Yes 2=No
+vital	births	m_ob_cephalic_success	CODESET	Obpr-External Cephalic Version (Successful)	Obpr-External Cephalic Version (Successful) Y, N 1=Yes 2=No
+vital	births	m_ob_cephalic_failed	CODESET	Obpr-External Cephalic Version (Failed)	Obpr-External Cephalic Version (Failed) Y, N 1=Yes 2=No
+vital	births	m_ob_ultrasound	CODESET	Obpr-Ultrasound	Obpr-Ultrasound Y, N 1=Yes 2=No
+vital	births	m_ob_other	CODESET	Obpr-Other	Obpr-Other Y, N 1=Yes 2=No
+vital	births	m_ob_other_lit		Obpr-Other-Description	Obpr-Other-Description Free Text  Literal
+vital	births	unknown03			  
+vital	births	m_ol_none	CODESET	Ol-None	Ol-None Y, N 1=Yes 2=No
+vital	births	m_ol_premature_rom	CODESET	Ol-Premature Rupture of Membranes (≥12hrs)	Ol-Premature Rupture of Membranes (≥12hrs) Y, N 1=Yes 2=No
+vital	births	m_ol_precip_labor	CODESET	Ol-Precipitous Labor (>3hrs)	Ol-Precipitous Labor (>3hrs) Y, N 1=Yes 2=No
+vital	births	m_ol_prolong_labor	CODESET	Ol-Prolonged Labor (≥20hrs)	Ol-Prolonged Labor (≥20hrs) Y, N 1=Yes 2=No
+vital	births	m_cld_none	CODESET	Cld_None	Cld_None Y, N 1=Yes 2=No
+vital	births	m_cld_induction	CODESET	Cld-Induction of Labor	Cld-Induction of Labor Y, N 1=Yes 2=No
+vital	births	m_cld_augment	CODESET	Cld-Augmentation of Labor	Cld-Augmentation of Labor Y, N 1=Yes 2=No
+vital	births	m_cld_non_vertex	CODESET	Cld-Non-Vertex Presentation	Cld-Non-Vertex Presentation Y, N 1=Yes 2=No
+vital	births	m_cld_steroid	CODESET	Cld-Steroids for Lung Maturation Prior to Delivery	Cld-Steroids for Lung Maturation Prior to Delivery Y, N 1=Yes 2=No
+vital	births	m_cld_antibiotic	CODESET	Cld-Antibiotics During Labor	Cld-Antibiotics During Labor Y, N 1=Yes 2=No
+vital	births	m_cld_chorioamnio	CODESET	Cld-Chorioamnionitis Diagnosed During Labor	Cld-Chorioamnionitis Diagnosed During Labor Y, N 1=Yes 2=No
+vital	births	m_cld_meconium	CODESET	Cld-Meconium Staining Amniotic Fluid	Cld-Meconium Staining Amniotic Fluid Y, N 1=Yes 2=No
+vital	births	m_cld_fetal_intolerance	CODESET	Cld-Fetal Intolerance	Cld-Fetal Intolerance Y, N 1=Yes 2=No
+vital	births	m_cld_epidural	CODESET	Cld-Epidural or Spinal Anesthesia	Cld-Epidural or Spinal Anesthesia Y, N 1=Yes 2=No
+vital	births	m_cld_febrile	CODESET	Cld-Febrile (>100°F, or 38°C)	Cld-Febrile (>100°F, or 38°C) Y, N 1=Yes 2=No
+vital	births	m_cld_abr_placenta	CODESET	Cld-Abruptio Placenta	Cld-Abruptio Placenta Y, N 1=Yes 2=No
+vital	births	m_cld_placenta_previa	CODESET	Cld-Placenta Previa	Cld-Placenta Previa Y, N 1=Yes 2=No
+vital	births	m_cld_bleeding	CODESET	Cld-Other Excessive Bleeding	Cld-Other Excessive Bleeding Y, N 1=Yes 2=No
+vital	births	m_cld_seizures	CODESET	Cld-Seizures During Labor	Cld-Seizures During Labor Y, N 1=Yes 2=No
+vital	births	m_cld_dysfunctional	CODESET	Cld-Dysfunctional Labor	Cld-Dysfunctional Labor Y, N 1=Yes 2=No
+vital	births	m_cld_cephalopelvic	CODESET	Cld-Cephalopelvic/Disproportion	Cld-Cephalopelvic/Disproportion Y, N 1=Yes 2=No
+vital	births	m_cld_cord_prolapse	CODESET	Cld-Cord Prolapse	Cld-Cord Prolapse Y, N 1=Yes 2=No
+vital	births	m_cld_anesthetic	CODESET	Cld-Anesthetic Complications	Cld-Anesthetic Complications Y, N 1=Yes 2=No
+vital	births	m_cld_other	CODESET	Cld-Other 	Cld-Other  Y, N 1=Yes 2=No
+vital	births	m_cld_other_lit		Cld-Other-Description	Cld-Other-Description Free Text  Literal
+vital	births	unknown04		  
+vital	births	m_md_forceps_attempt	CODESET	Del-Was Delivery with Forceps Attempted and Unsuccessful?	Del-Was Delivery with Forceps Attempted and Unsuccessful? Y, N, U 1=Yes 2=No 9=Unknown
+vital	births	m_md_vacuum_attempt	CODESET	Del-Was delivery with Vacuum Attempted and Unsuccessful?	Del-Was delivery with Vacuum Attempted and Unsuccessful? Y, N, U 1=Yes 2=No 9=Unknown
+vital	births	b2_birpresent_code	CODESET	Presr-Fetal Presentation at Birth	Presr-Fetal Presentation at Birth Drop down Menu 1=Cephalic 2=Breech 3=Other 9=Unknown
+vital	births	b2_birroute_code	CODESET	Del-Final Route and Method of Delivery	Del-Final Route and Method of Delivery Drop down Menu 1=Spontaneous 2=Forceps 3=Vacuum 4=Cesarean 9=Unknown
+vital	births	m_md_ces_labor_attempt	CODESET	Del-Trial of Labor Attempted	Del-Trial of Labor Attempted Y, N, U, X 1=Yes 2=No 9=Unknown
+vital	births	unknown05			  
+vital	births	m_mm_none	CODESET	Mc-None	Mc-None Y, N 1=Yes 2=No
+vital	births	m_mm_transfusion	CODESET	Mc-Maternal Transfusion	Mc-Maternal Transfusion Y, N 1=Yes 2=No
+vital	births	m_mm_perineal_lacerat	CODESET	Mc-Third or Fourth Degree Perineal Laceration	Mc-Third or Fourth Degree Perineal Laceration Y, N 1=Yes 2=No
+vital	births	m_mm_ruptured_uterus	CODESET	Mc-Ruptured Uterus	Mc-Ruptured Uterus Y, N 1=Yes 2=No
+vital	births	m_mm_hysterectomy	CODESET	Mc-Unplanned Hysterectomy	Mc-Unplanned Hysterectomy Y, N 1=Yes 2=No
+vital	births	m_mm_icu	CODESET	Mc-Admitted to Intensive Care	Mc-Admitted to Intensive Care Y, N 1=Yes 2=No
+vital	births	m_mm_or_proc	CODESET	Mc-Unplanned Operation following Delivery	Mc-Unplanned Operation following Delivery Y, N 1=Yes 2=No
+vital	births	m_mm_unknown	CODESET	Mc-Unknown	Mc-Unknown Y, N 1=Yes 2=No
+vital	births	apgar_5		Apgar 5 Min	Apgar 5 Min 00-10, 99 99=Unknown
+vital	births	apgar_10		Apgar 10 Min	Apgar 10 Min 00-10, 88, 99 88=Not applicable, 99=Unknown
+vital	births	birth_weight_unit	CODESET	Weight Unit	Weight Unit G, P, U 1=Grams 2=Pounds 3=Unknown
+vital	births	birth_weight_grams		Birth Weight Grams	Birth Weight Grams 0000-9998, 9999 9999=Unknown
+vital	births	birth_weight_lbs		Birth Weight Pounds	Birth Weight Pounds 00-20 0
+vital	births	birth_weight_oz		Birth Weight Ounces	Birth Weight Ounces 00-15 0
+vital	births	gestation_weeks		Gestation	Gestation 00-98, 99 (>17or<47) 0
+vital	births	plurality		Plurality	Plurality 01-12, 99 99=Unknown
+vital	births	birth_order		Birth Order	Birth Order 01-12, 88, 99 88=Not applicable, 99=Unknown
+vital	births	b2_born_alive		Live Birth Number	Live Birth Number 01-12, 88, 99 88=Not applicable, 99=Unknown
+vital	births	b2_match_number		Plurality Match Number	Plurality Match Number 000001-999999 Linked Birth Number
+vital	births	trans_infant	CODESET	Infant Transferred	Infant Transferred Y, N, U 1=Yes 2=No 9=Infant Transferred, Status Unknown
+vital	births	b2_infant_living	CODESET	Infant Living	Infant Living Y, N, U 1=Yes 2=No 9=Infant Transferred, Status Unknown
+vital	births	m_ac_none	CODESET	Ac-None	Ac-None Y, N 1=Yes 2=No
+vital	births	m_ac_vent_less_30	CODESET	Ac-Assisted Ventilation Immediately Following Delivery	Ac-Assisted Ventilation Immediately Following Delivery Y, N 1=Yes 2=No
+vital	births	m_ac_vent_more_30	CODESET	Ac-Assisted Ventilation More than 6hrs. 	Ac-Assisted Ventilation More than 6hrs.  Y, N 1=Yes 2=No
+vital	births	m_ac_nicu	CODESET	Ac-NICU Admission	Ac-NICU Admission Y, N 1=Yes 2=No
+vital	births	m_ac_surfactant	CODESET	AbCN-Surfactant Replacement Therapy	AbCN-Surfactant Replacement Therapy Y, N 1=Yes 2=No
+vital	births	m_ac_antibiotic_sepsis	CODESET	Ac-Antibiotics for Neonatal Sepsis	Ac-Antibiotics for Neonatal Sepsis Y, N 1=Yes 2=No
+vital	births	m_ac_seizures	CODESET	Ac-Seizures	Ac-Seizures Y, N 1=Yes 2=No
+vital	births	m_ac_anemia	CODESET	Ac-Anemia (Hct.<39/Hgb.<13)	Ac-Anemia (Hct.<39/Hgb.<13) Y, N 1=Yes 2=No
+vital	births	m_ac_fas	CODESET	Ac-Fetal Alcohol Syndrome	Ac-Fetal Alcohol Syndrome Y, N 1=Yes 2=No
+vital	births	m_ac_hyaline	CODESET	Ac-Hyaline Membrane Disease/RDS	Ac-Hyaline Membrane Disease/RDS Y, N 1=Yes 2=No
+vital	births	m_ac_meconium_as	CODESET	Ac-Meconium Aspiration Syndrome	Ac-Meconium Aspiration Syndrome Y, N 1=Yes 2=No
+vital	births	m_ac_birth_injury	CODESET	Ac-Birth Injury	Ac-Birth Injury Y, N 1=Yes 2=No
+vital	births	m_ac_other	CODESET	Ac-Other Abnormal Conditions	Ac-Other Abnormal Conditions Y, N 1=Yes 2=No
+vital	births	m_ac_other_lit		Ac-Other Abnormal Conditions-Description	Ac-Other Abnormal Conditions-Description Free Text  Literal
+vital	births	unknown06			  
+vital	births	m_anom_none	CODESET	Con-None	Con-None Y, N 1=Yes 2=No
+vital	births	m_anom_anencep	CODESET	Con-Anencephaly	Con-Anencephaly Y, N 1=Yes 2=No
+vital	births	m_anom_spina	CODESET	Con-Meningomyelocele/Spina Bifida	Con-Meningomyelocele/Spina Bifida Y, N 1=Yes 2=No
+vital	births	m_anom_micro	CODESET	Con-Microcephalus	Con-Microcephalus Y, N 1=Yes 2=No
+vital	births	m_anom_nervous	CODESET	Con-Other Central Nervous System Anomalies	Con-Other Central Nervous System Anomalies Y, N 1=Yes 2=No
+vital	births	m_anom_nervous_lit		Con-Other Central Nervous System Anomalies-Description	Con-Other Central Nervous System Anomalies-Description Free Text  Literal
+vital	births	m_anom_heart	CODESET	Con-Cyanotic Congenital Heart Disease	Con-Cyanotic Congenital Heart Disease Y, N 1=Yes 2=No
+vital	births	m_anom_heart_malform	CODESET	Con-Heart Malformations	Con-Heart Malformations Y, N 1=Yes 2=No
+vital	births	m_anom_circ	CODESET	Con-Other Circulatory/Respiratory Anomalies	Con-Other Circulatory/Respiratory Anomalies Y, N 1=Yes 2=No
+vital	births	m_anom_circ_lit		Con-Other Circulatory/Respiratory Anomalies-Description	Con-Other Circulatory/Respiratory Anomalies-Description Free Text  Literal
+vital	births	m_anom_omphal	CODESET	Con-Omphalocele	Con-Omphalocele Y, N 1=Yes 2=No
+vital	births	m_anom_gastroschisis	CODESET	Con-Gastroschisis	Con-Gastroschisis Y, N 1=Yes 2=No
+vital	births	m_anom_rectal	CODESET	Con-Rectal Atresia/Stenosis	Con-Rectal Atresia/Stenosis Y, N 1=Yes 2=No
+vital	births	m_anom_tracheo	CODESET	Con-Tracheo-Esophageal Fistula/Esophageal Atresia	Con-Tracheo-Esophageal Fistula/Esophageal Atresia Y, N 1=Yes 2=No
+vital	births	m_anom_gastro	CODESET	Con-Other Gastrointestinal Anomalies	Con-Other Gastrointestinal Anomalies Y, N 1=Yes 2=No
+vital	births	m_anom_gastro_lit		Con-Other Gastrointestinal Anomalies-Description	Con-Other Gastrointestinal Anomalies-Description Free Text  Literal
+vital	births	m_anom_limb_reduct	CODESET	Con-Limb Reduction Defect	Con-Limb Reduction Defect Y, N 1=Yes 2=No
+vital	births	m_anom_cleft_lip	CODESET	Con-Cleft Lip with or without Cleft Palate	Con-Cleft Lip with or without Cleft Palate Y, N 1=Yes 2=No
+vital	births	m_anom_cleft_palate	CODESET	Con-Cleft Palate Alone	Con-Cleft Palate Alone Y, N 1=Yes 2=No
+vital	births	m_anom_polydact	CODESET	Con-Polydactyly/Syndactyly/Adactyly	Con-Polydactyly/Syndactyly/Adactyly Y, N 1=Yes 2=No
+vital	births	m_anom_club_foot	CODESET	Con-Club Foot	Con-Club Foot Y, N 1=Yes 2=No
+vital	births	m_anom_diaph_hernia	CODESET	Con-Diaphragmatic Hernia	Con-Diaphragmatic Hernia Y, N 1=Yes 2=No
+vital	births	m_anom_muscle	CODESET	Con-Other Musculoskeletal/integumental Anomalies	Con-Other Musculoskeletal/integumental Anomalies Y, N 1=Yes 2=No
+vital	births	m_anom_muscle_lit		Con-Other Musculoskeletal/integumental Anomalies-Description	Con-Other Musculoskeletal/integumental Anomalies-Description Free Text  Literal
+vital	births	m_anom_malf_genitalia	CODESET	Con-Malformed Genitalia	Con-Malformed Genitalia Y, N 1=Yes 2=No
+vital	births	m_anom_renal	CODESET	Con-Renal Agenesis	Con-Renal Agenesis Y, N 1=Yes 2=No
+vital	births	m_anom_hypospadias	CODESET	Con-Hypospadias	Con-Hypospadias Y, N 1=Yes 2=No
+vital	births	m_anom_urogenital	CODESET	Con-Other Urogenital Anomalies	Con-Other Urogenital Anomalies Y, N 1=Yes 2=No
+vital	births	m_anom_urogenital_lit		Con-Other Urogenital Anomalies-Description	Con-Other Urogenital Anomalies-Description Free Text  Literal
+vital	births	m_anom_downs_code	CODESET	Con-Down Syndrome-Karotype	Con-Down Syndrome-Karotype C, P, N, U 1=Pending 2=Confirmed 3=No 9=Unknown
+vital	births	m_anom_cdit	CODESET	Con-Suspected Chromosomal Disorder-Karotype	Con-Suspected Chromosomal Disorder-Karotype C, P, N, U 1=Pending 2=Confirmed 3=No 9=Unknown
+vital	births	m_anom_chrom_other	CODESET	Con-Other Chromosomal Anomalies	Con-Other Chromosomal Anomalies Y, N 1=Yes 2=No
+vital	births	m_anom_chrom_lit		Con-Other Chromosomal Anomalies-Description	Con-Other Chromosomal Anomalies-Description Free Text  Literal
+vital	births	m_anom_other	CODESET	Con_Other Anomalies Not Listed	Con_Other Anomalies Not Listed Y, N 1=Yes 2=No
+vital	births	m_anom_other_lit		Con_Other Anomalies Not Listed-Description	Con_Other Anomalies Not Listed-Description Free Text  Literal
+vital	births	certifiertitleid	CODESET	Certifier	Certifier Drop down Menu 1=Physician 2=Doctor of Osteopathy 3=Cert.Nurse Midwife,Lic.Cert.Nurse Midwife,Lic.Nurse Midwife,Cert. Professional Midwife, Direct Entry Midwife 4=Other Midwife 5=EMT, Nurse(RN, LPN, NC), Nurse Practitioner, Physician's Assistant, Medical Records Technician, Other 9=Unknown
+vital	births	certifier_date_comp		Certifier Date	Certifier Date mmddyyyy mmddyyyy
+vital	births	registrar_regis_date		Registrar Date	Registrar Date mmddyyyy mmddyyyy
+vital	births	b2_mother_wic_yesno	CODESET	Did you receive WIC?	Did you receive WIC? Y, N, U 1=Yes 2=No 9=Unknown
+vital	births	b2_source_pay_code	CODESET	Primary Source of Payment	Primary Source of Payment Drop down Menu 1=Medicaid 2=Private Insurance 3=Self-Pay 4=Indian Health Services 5=CHAMPUS/TRICARE 6=Other Government (Fed, State, Local) 8=Other 9=Unknown
+vital	births	m_breastfeeding	CODESET	Infant being Breastfed	Infant being Breastfed Y, N, U 1=Yes 2=No 9=Unknown
+vital	births	ssn_requested	CODESET	Requested SSN?	Requested SSN? Y, N 1=Yes 2=No
+vital	births	hos_number		Infant Medical Record Number	Infant Medical Record Number 0 0
+vital	births	m_mother_med_rec_num		Mother Medical Record Number	Mother Medical Record Number 0 0
+vital	births	b2_hosp_paternity_complete	CODESET	Hospital Paternity Action Complete?	Hospital Paternity Action Complete? X, Y 1=Yes 2=Not applicable
+vital	births	b2_mother_ethnic_yesno	CODESET	Mother's Ethnicity Hispanic Origin?	Mother's Ethnicity Hispanic Origin? N,H,U 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_mexican	CODESET	Mexican	Mexican N,H,U 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_pr	CODESET	Puerto Rican	Puerto Rican N,H,U 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_cuban	CODESET	Cuban	Cuban N,H,U 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_ethnic_other	CODESET	Other	Other N,H,U 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_ethnic		Other Description	Other Description Free Text  Literal
+vital	births	b2_mother_race_white	CODESET	Mother's Race-White	Mother's Race-White Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_race_black	CODESET	Mother's Race-Black or African American	Mother's Race-Black or African American Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_race_am_indian	CODESET	Mother's Race-Amer. Indian or Alaska Native	Mother's Race-Amer. Indian or Alaska Native Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_race_am_ind_lit		Mother's Race-Native American Indian or Alaska Native Desc.1	Mother's Race-Native American Indian or Alaska Native Desc.1 Free Text  Literal
+vital	births	b2_mother_race_asian_ind	CODESET	Mother's Race-Asian Indian	Mother's Race-Asian Indian Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_race_asian_oth	CODESET	Mother's Race-Other Asian	Mother's Race-Other Asian Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_race_asian_lit	CODESET	Mother's Race-Other Asian Desc.1	Mother's Race-Other Asian Desc.1 Free Text  Literal
+vital	births	b2_mother_race_chinese	CODESET	Mother's Race-Chinese	Mother's Race-Chinese Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_race_filipino	CODESET	Mother's Race-Filipino	Mother's Race-Filipino Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_race_japanese	CODESET	Mother's Race-Japanese	Mother's Race-Japanese Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_race_korean	CODESET	Mother's Race-Korean	Mother's Race-Korean Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_race_vietnamese	CODESET	Mother's Race-Vietnamese	Mother's Race-Vietnamese Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_race_hawaiian	CODESET	Mother's Race-Native Hawaiian	Mother's Race-Native Hawaiian Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_race_guam	CODESET	Mother's Race-Guamanian or Chamorro	Mother's Race-Guamanian or Chamorro Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_race_samoan	CODESET	Mother Race-Samoan	Mother Race-Samoan Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_race_pac_other	CODESET	Mother's Race-Other Pacific Islander	Mother's Race-Other Pacific Islander Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_race_pac_lit		Mother's Race-Other Pacific Islander Desc.1	Mother's Race-Other Pacific Islander Desc.1 Free Text  Literal
+vital	births	b2_mother_race_other	CODESET	Mother's Race-Other	Mother's Race-Other Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_race_other_lit		Mother's Race-Other Desc.1	Mother's Race-Other Desc.1 Free Text  Literal
+vital	births	b2_mother_race_unknown	CODESET	Mother's Race-Unknown	Mother's Race-Unknown Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mother_race_refused	CODESET	Mother's Race-Refused	Mother's Race-Refused Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_mrace1e	CODESET	Mother's Race Tabulation Variable	Mother's Race Tabulation Variable 0 Import from NCHS
+vital	births	b2_mrace2e	CODESET	Mother's Race Tabulation Variable	Mother's Race Tabulation Variable 0 Import from NCHS
+vital	births	b2_mrace3e	CODESET	Mother's Race Tabulation Variable	Mother's Race Tabulation Variable 0 Import from NCHS
+vital	births	b2_mrace4e	CODESET	Mother's Race Tabulation Variable	Mother's Race Tabulation Variable 0 Import from NCHS
+vital	births	b2_mrace5e	CODESET	Mother's Race Tabulation Variable	Mother's Race Tabulation Variable 0 Import from NCHS
+vital	births	b2_mrace6e	CODESET	Mother's Race Tabulation Variable	Mother's Race Tabulation Variable 0 Import from NCHS
+vital	births	b2_mrace7e	CODESET	Mother's Race Tabulation Variable	Mother's Race Tabulation Variable 0 Import from NCHS
+vital	births	b2_mrace8e	CODESET	Mother's Race Tabulation Variable	Mother's Race Tabulation Variable 0 Import from NCHS
+vital	births	b2_mrace16e	CODESET	Mother's Race Tabulation Variable	Mother's Race Tabulation Variable 0 Import from NCHS
+vital	births	unknown07			  
+vital	births	b2_mrace18e	CODESET	Mother's Race Tabulation Variable	Mother's Race Tabulation Variable 0 Import from NCHS
+vital	births	unknown08			  
+vital	births	b2_mrace20e	CODESET	Mother's Race Tabulation Variable	Mother's Race Tabulation Variable 0 Import from NCHS
+vital	births	unknown09			  
+vital	births	b2_mrace22e	CODESET	Mother's Race Tabulation Variable	Mother's Race Tabulation Variable 0 Import from NCHS
+vital	births	unknown10			  
+vital	births	b2_nchs_mo_ethnic_cd	CODESET	Mother's Hispanic Code for Literal	Mother's Hispanic Code for Literal  Ethnic NCHS
+vital	births	b2_nchs_mo_ethnic_lit_cd	CODESET	Mother's Edited Hispanic Origin Code	Mother's Edited Hispanic Origin Code  Ethnic NCHS
+vital	births	b2_mo_bridged_race	CODESET	Mother's Bridged Race	Mother's Bridged Race  
+vital	births	b2_father_ethnic_yesno	CODESET	Father's Ethnicity Hispanic Origin? 	Father's Ethnicity Hispanic Origin?  N,H,U 1=Yes 2=No U=Unknown
+vital	births	b2_father_mexican	CODESET	Mexican	Mexican N,H,U 1=Yes 2=No 9=Unknown
+vital	births	b2_father_pr	CODESET	Puerto Rican	Puerto Rican N,H,U 1=Yes 2=No 9=Unknown
+vital	births	b2_father_cuban	CODESET	Cuban	Cuban N,H,U 1=Yes 2=No 9=Unknown
+vital	births	b2_father_ethnic_other	CODESET	Other	Other N,H,U 1=Yes 2=No 9=Unknown
+vital	births	b2_father_ethnic		Other Description	Other Description Free Text  Literal
+vital	births	b2_father_race_white	CODESET	Father's Race-White	Father's Race-White Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_father_race_black	CODESET	Father Race-Black or African American	Father Race-Black or African American Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_father_race_am_indian	CODESET	Father's Race-Amer. Indian or Alaska Native	Father's Race-Amer. Indian or Alaska Native Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_father_race_am_ind_lit		Father's Race-American Indian or Alaska Native Desc.1	Father's Race-American Indian or Alaska Native Desc.1 Free Text  Literal
+vital	births	b2_father_race_asian_ind	CODESET	Father's Race-Asian Indian	Father's Race-Asian Indian Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_father_race_asian_oth	CODESET	Father's Race-Other Asian	Father's Race-Other Asian Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_father_race_asian_lit		Father's Race-Other Asian Desc.1	Father's Race-Other Asian Desc.1 Free Text  Literal
+vital	births	b2_father_race_chinese	CODESET	Father's Race-Chinese	Father's Race-Chinese Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_father_race_filipino	CODESET	Father's Race-Filipino	Father's Race-Filipino Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_father_race_japanese	CODESET	Father's Race-Japanese	Father's Race-Japanese Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_father_race_korean	CODESET	Father's Race-Korean	Father's Race-Korean Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_father_race_vietnamese	CODESET	Father's Race-Vietnamese	Father's Race-Vietnamese Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_father_race_hawaiian	CODESET	Father's Race-Native Hawaiian	Father's Race-Native Hawaiian Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_father_race_guam	CODESET	Father's Race-Guamanian or Chamorro	Father's Race-Guamanian or Chamorro Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_father_race_samoan	CODESET	Father's Race-Samoan	Father's Race-Samoan Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_father_race_pac	CODESET	Father's Race-Other Pacific Islander	Father's Race-Other Pacific Islander Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_father_race_pac_lit		Father's Race-Other Pacific Islander Desc.1	Father's Race-Other Pacific Islander Desc.1 Free Text  Literal
+vital	births	b2_father_race_other	CODESET	Father's Race-Other	Father's Race-Other Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_father_race_other_lit		Father's Race-Other Desc.1	Father's Race-Other Desc.1 Free Text  Literal
+vital	births	b2_father_race_unknown	CODESET	Father's Race-Unknown	Father's Race-Unknown Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_father_race_refused	CODESET	Father's Race-Refused	Father's Race-Refused Check Box 1=Yes 2=No 9=Unknown
+vital	births	b2_frace1e	CODESET	Father's Race Tabulation Variable	Father's Race Tabulation Variable 0 Import from NCHS
+vital	births	b2_frace2e	CODESET	Father's Race Tabulation Variable	Father's Race Tabulation Variable 0 Import from NCHS
+vital	births	b2_frace3e	CODESET	Father's Race Tabulation Variable	Father's Race Tabulation Variable 0 Import from NCHS
+vital	births	b2_frace4e	CODESET	Father's Race Tabulation Variable	Father's Race Tabulation Variable 0 Import from NCHS
+vital	births	b2_frace5e	CODESET	Father's Race Tabulation Variable	Father's Race Tabulation Variable 0 Import from NCHS
+vital	births	b2_frace6e	CODESET	Father's Race Tabulation Variable	Father's Race Tabulation Variable 0 Import from NCHS
+vital	births	b2_frace7e	CODESET	Father's Race Tabulation Variable	Father's Race Tabulation Variable 0 Import from NCHS
+vital	births	b2_frace8e	CODESET	Father's Race Tabulation Variable	Father's Race Tabulation Variable 0 Import from NCHS
+vital	births	b2_frace16e	CODESET	Father's Race Tabulation Variable	Father's Race Tabulation Variable 0 Import from NCHS
+vital	births	unknown11			  
+vital	births	b2_frace18e	CODESET	Father's Race Tabulation Variable	Father's Race Tabulation Variable 0 Import from NCHS
+vital	births	unknown12			  
+vital	births	b2_frace20e	CODESET	Father's Race Tabulation Variable	Father's Race Tabulation Variable 0 Import from NCHS
+vital	births	unknown13			  
+vital	births	b2_frace22e	CODESET	Father's Race Tabulation Variable	Father's Race Tabulation Variable 0 Import from NCHS
+vital	births	unknown14			  
+vital	births	b2_nchs_fa_ethnic_cd	CODESET	Father's Hispanic Code for Literal	Father's Hispanic Code for Literal  Ethnic NCHS
+vital	births	b2_nchs_fa_ethnic_lit_cd	CODESET	Father's Edited Hispanic Origin Code	Father's Edited Hispanic Origin Code  Ethnic NCHS
+vital	births	b2_fa_bridged_race		Father's Bridged Race	Father's Bridged Race  
+vital	births	event_year			 yyyy yyyy
+vital	births	isactive			  T=Yes
+vital	births	unknown15			  
+vital	births	mother_birth_state		Mother Birth State	Mother Birth State  
+vital	births	mother_birth_country_fips		Mother Birth Country	Mother Birth Country  
+vital	births	unknown16			  
+vital	births	mother_res_city_fips		Mother Residential City FIPS	Mother Residential City FIPS  
+vital	births	unknown17			  
+vital	births	mother_res_cnty_fips		Mother Residential County FIPS	Mother Residential County FIPS  
+vital	births	unknown18			  
+vital	births	mother_res_state		Mother Residential State	Mother Residential State  
+vital	births	unknown19			  
+vital	births	mother_res_country_fips		Mother Residential Country	Mother Residential Country  
+vital	births	unknown20			  
+vital	births	ssn_child		SSN of Child	SSN of Child  
+vital	births	unknown21			  
+vital	births	death_matched			  
+vital	births	death_state_file_number		Death State File Number	Death State File Number  
+vital	births	death_date		Date of Death	Date of Death  
+vital	births	fbir_state_fips_alpha_cd			  
+vital	births	father_birth_country_fips			  
+vital	births	reg_type_code			  
