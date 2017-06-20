@@ -628,7 +628,7 @@ vital	births	certifiertitleid	CODESET	Certifier	Certifier Drop down Menu 1=Physi
 vital	births	certifier_date_comp		Certifier Date	Certifier Date mmddyyyy mmddyyyy
 vital	births	registrar_regis_date		Registrar Date	Registrar Date mmddyyyy mmddyyyy
 vital	births	b2_mother_wic_yesno	ynu	Did you receive WIC?	Did you receive WIC? Y, N, U 1=Yes 2=No 9=Unknown
-vital	births	b2_source_pay_code	CODESET	Primary Source of Payment	Primary Source of Payment Drop down Menu 1=Medicaid 2=Private Insurance 3=Self-Pay 4=Indian Health Services 5=CHAMPUS/TRICARE 6=Other Government (Fed, State, Local) 8=Other 9=Unknown
+vital	births	b2_source_pay_code	source_pay	Primary Source of Payment	Primary Source of Payment Drop down Menu 1=Medicaid 2=Private Insurance 3=Self-Pay 4=Indian Health Services 5=CAMPUS/TRICARE 6=Other Government (Fed, State, Local) 8=Other 9=Unknown
 vital	births	m_breastfeeding	ynu	Infant being Breastfed	Infant being Breastfed Y, N, U 1=Yes 2=No 9=Unknown
 vital	births	ssn_requested	yn	Requested SSN?	Requested SSN? Y, N 1=Yes 2=No
 vital	births	hos_number		Infant Medical Record Number	Infant Medical Record Number 0 0
