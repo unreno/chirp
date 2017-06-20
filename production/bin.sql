@@ -612,6 +612,7 @@ BEGIN
 				END, NULL),
 			('dob'          , CAST(_date_of_birth_date AS VARCHAR(255))            , NULL),
 			('birth_quarter', CAST(DATEPART(q,_date_of_birth_date) AS VARCHAR(255)), NULL),
+			('DEM:ZIP'    , CAST(mother_res_zip AS VARCHAR(255))                 , NULL),
 			('birth_zip'    , CAST(mother_res_zip AS VARCHAR(255))                 , NULL),
 			('birth_weight' , CAST(
 				bin.weight_from_lbs_and_oz( birth_weight_lbs, birth_weight_oz ) AS VARCHAR(255)), 'lbs')
