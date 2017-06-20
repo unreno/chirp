@@ -68,8 +68,8 @@ vital	births	acn_urogen	standard4_yesno	Other Urogenital Anomalies
 vital	births	acn_urogenlit		Other Urogenital Anomalies (Literal)	
 vital	births	alcohol	standard1_yesno	Alcohol Use	Any alcohol consumption before or during pregnancy?
 vital	births	drink_wk		Number of drinks per week	
-vital	births	apgar_10		APGAR Score at 10 minutes	A systematic measure for evaluating the physical condition of the infant at specific intervals following birth. =88 given to signify that APGAR 10 not done as APGAR 5 passed.
-vital	births	apgar_5		APGAR Score at 5 minutes	A systematic measure for evaluating the physical condition of the infant at specific intervals following birth.
+vital	births	original_apgar_10		APGAR Score at 10 minutes	A systematic measure for evaluating the physical condition of the infant at specific intervals following birth. =88 given to signify that APGAR 10 not done as APGAR 5 passed.
+vital	births	original_apgar_5		APGAR Score at 5 minutes	A systematic measure for evaluating the physical condition of the infant at specific intervals following birth.
 vital	births	attendant	attendant	Attendant Type	
 vital	births	birth_rco			Not used. All NULL.
 vital	births	born_alive		Number of Live Born	Number of Live Born. Most are 88. Only applicable to multiple births. The variable is in conjunction with plurality and delivery order. Born_alive will only have something other than an 88 in the case of multiples. So, it is out of 'x' many multiples, how many were born alive.
