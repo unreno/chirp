@@ -1,14 +1,14 @@
 schema	table	field	codeset	label	description
 vital	births	cert_num		Birth Certificate Number	Birth Certificate Number (only unique per year)
 vital	births	cert_yr		Birth Certificate Year	The infant's birth certificate year in which the date of birth occured.
-vital	births	ssn_child		Child's Social Security Number	
+vital	births	ORIGINAL_ssn_child		Child's Social Security Number	
 vital	births	ssn_date		Social Security entered Date	
 vital	births	ssn_request	standard2_yesno	Social Security Number Requested	
 vital	births	name_fir		Child's First Name	
 vital	births	name_mid		Child's Middle Name	
 vital	births	name_sur		Child's Surname	
 vital	births	name_sux		Child's Suffix	
-vital	births	sex	sex	Child's Sex	The sex of the infant.
+vital	births	ORIGINAL_sex	sex	Child's Sex	The sex of the infant.
 vital	births	bth_date		Child's Birth Date	The infant's date of birth.
 vital	births	bth_time		Child's Birth Time	The infant's time of birth. (3-4 digit integer for hours and minutes)
 vital	births	birth_ci	city	Birth City	
@@ -68,8 +68,8 @@ vital	births	acn_urogen	standard4_yesno	Other Urogenital Anomalies
 vital	births	acn_urogenlit		Other Urogenital Anomalies (Literal)	
 vital	births	alcohol	standard1_yesno	Alcohol Use	Any alcohol consumption before or during pregnancy?
 vital	births	drink_wk		Number of drinks per week	
-vital	births	original_apgar_10		APGAR Score at 10 minutes	A systematic measure for evaluating the physical condition of the infant at specific intervals following birth. =88 given to signify that APGAR 10 not done as APGAR 5 passed.
-vital	births	original_apgar_5		APGAR Score at 5 minutes	A systematic measure for evaluating the physical condition of the infant at specific intervals following birth.
+vital	births	ORIGINAL_apgar_10		APGAR Score at 10 minutes	A systematic measure for evaluating the physical condition of the infant at specific intervals following birth. =88 given to signify that APGAR 10 not done as APGAR 5 passed.
+vital	births	ORIGINAL_apgar_5		APGAR Score at 5 minutes	A systematic measure for evaluating the physical condition of the infant at specific intervals following birth.
 vital	births	attendant	attendant	Attendant Type	
 vital	births	birth_rco			Not used. All NULL.
 vital	births	born_alive		Number of Live Born	Number of Live Born. Most are 88. Only applicable to multiple births. The variable is in conjunction with plurality and delivery order. Born_alive will only have something other than an 88 in the case of multiples. So, it is out of 'x' many multiples, how many were born alive.
@@ -110,7 +110,7 @@ vital	births	cld_seizures	standard4_yesno	Seizures During Labor
 vital	births	cld_steroid	standard4_yesno	Steroids for Lung Maturity Prior to Delivery	Steroids (glucocorticoids) for fetal lung maturation received by the mother before delivery. Includes: betamethasone, dexamethasone, or hydrocortisone specifically given to accelerate fetal lung maturation in anticipation of preterm delivery. Does not include steroid medication given to the mother as an antiinflammatory treatment before or after delivery.
 vital	births	dat_concep		Date of Conception	
 vital	births	death_cert		Death Certificate Number	
-vital	births	death_date		Date of Death	
+vital	births	ORIGINAL_death_date		Date of Death	
 vital	births	death_match		Death Match	
 vital	births	drug_use	standard1_yesno	Drug Use	Any drug use before or during pregnancy?
 vital	births	du_otc		Over The Counter Drug Use	
@@ -345,7 +345,7 @@ vital	births	ol_prerom	standard4_yesno	Premature Rupture of Membranes	Prolonged,
 vital	births	ol_prolonglbr	standard4_yesno	Prolonged Labor	Prolonged Labor greater than or equal to 20 hours.
 vital	births	pat_complete	standard3_yesno	Is paternity complete?	
 vital	births	place	place	Place of Birth	The type of place where the birth occurred; Hospital, Freestanding birthing center -  No direct physical connection with an operative delivery center, Home birth -  The birth occurred at a private residence, Clinic/Doctor's office, Other.
-vital	births	plurality		Number of Fetuses Delivered During This Pregnancy	The number of fetuses delivered live or dead at any time in the pregnancy regardless of gestational age, or if the fetuses were delivered at different dates in the pregnancy. 'Reabsorbed' fetuses (those that are not delivered: expulsed or extracted from the mother) should not be counted.
+vital	births	ORIGINAL_plurality		Number of Fetuses Delivered During This Pregnancy	The number of fetuses delivered live or dead at any time in the pregnancy regardless of gestational age, or if the fetuses were delivered at different dates in the pregnancy. 'Reabsorbed' fetuses (those that are not delivered: expulsed or extracted from the mother) should not be counted.
 vital	births	pre_begin		Prenatal Care Begin Date	The date a physician or other health care professional first examined and/or counseled the pregnant woman for the pregnancy.
 vital	births	pre_begda		Prenatal Care Begin Day (1-31)	
 vital	births	pre_begmo		Prenatal Care Begin Month (1-12)	
