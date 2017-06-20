@@ -388,9 +388,9 @@ BEGIN
 			(                     'apgar_5',                      CAST(apgar_5 AS VARCHAR(255)), NULL),
 			(                    'apgar_10',                     CAST(apgar_10 AS VARCHAR(255)), NULL),
 			(           'birth_weight_unit',            CAST(birth_weight_unit AS VARCHAR(255)), NULL),
-			(          'birth_weight_grams',           CAST(birth_weight_grams AS VARCHAR(255)), NULL),
-			(            'birth_weight_lbs',             CAST(birth_weight_lbs AS VARCHAR(255)), NULL),
-			(             'birth_weight_oz',              CAST(birth_weight_oz AS VARCHAR(255)), NULL),
+			(          'birth_weight_grams',           CAST(birth_weight_grams AS VARCHAR(255)), 'grams'),
+			(            'birth_weight_lbs',             CAST(birth_weight_lbs AS VARCHAR(255)), 'lbs'),
+			(             'birth_weight_oz',              CAST(birth_weight_oz AS VARCHAR(255)), 'oz'),
 			(             'gestation_weeks',              CAST(gestation_weeks AS VARCHAR(255)), NULL),
 			(                   'plurality',                    CAST(plurality AS VARCHAR(255)), NULL),
 			(                 'birth_order',                  CAST(birth_order AS VARCHAR(255)), NULL),
@@ -612,7 +612,7 @@ BEGIN
 				END, NULL),
 			('dob'          , CAST(_date_of_birth_date AS VARCHAR(255))            , NULL),
 			('birth_quarter', CAST(DATEPART(q,_date_of_birth_date) AS VARCHAR(255)), NULL),
-			('DEM:ZIP'    , CAST(mother_res_zip AS VARCHAR(255))                 , NULL),
+			('DEM:ZIP'      , CAST(mother_res_zip AS VARCHAR(255))                 , NULL),
 			('birth_zip'    , CAST(mother_res_zip AS VARCHAR(255))                 , NULL),
 			('birth_weight' , CAST(
 				bin.weight_from_lbs_and_oz( birth_weight_lbs, birth_weight_oz ) AS VARCHAR(255)), 'lbs')
