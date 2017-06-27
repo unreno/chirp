@@ -1,12 +1,21 @@
 code	value
+1	White
 01	White
+2	Black
 02	Black
+3	American Indian/Alaskan Native
 03	American Indian/Alaskan Native
+4	Asian Indian
 04	Asian Indian
+5	Chinese
 05	Chinese
+6	Filipino
 06	Filipino
+7	Japanese
 07	Japanese
+8	Korean
 08	Korean
+9	Vietnamese
 09	Vietnamese
 10	Other Asian
 11	Native Hawaiian
