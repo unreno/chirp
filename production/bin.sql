@@ -564,7 +564,7 @@ BEGIN
 --			(                   'unknown19',                    CAST(unknown19 AS VARCHAR(255)), NULL),
 			(     'mother_res_country_fips',      CAST(mother_res_country_fips AS VARCHAR(255)), NULL),
 --			(                   'unknown20',                    CAST(unknown20 AS VARCHAR(255)), NULL),
-			(                   'ssn_child',                    CAST(ssn_child AS VARCHAR(255)), NULL),
+--			(                   'ssn_child',                    CAST(ssn_child AS VARCHAR(255)), NULL),
 --			(                   'unknown21',                    CAST(unknown21 AS VARCHAR(255)), NULL),
 			(               'death_matched',                CAST(death_matched AS VARCHAR(255)), NULL),
 --			(     'death_state_file_number',      CAST(death_state_file_number AS VARCHAR(255)), NULL),
