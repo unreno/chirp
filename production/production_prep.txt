@@ -120,9 +120,40 @@ SELECT COUNT(1) AS deaths_buffer_pre_count FROM vital.deaths_buffer;
 
 EXEC bin.import_death_records 'C:\Users\gwendt\Desktop\Data\NSDR\v1.2\Death_2010.txt.psv';
 SELECT COUNT(1) FROM vital.deaths_buffer;
---	35682
+--	20375
+EXEC bin.import_death_records 'C:\Users\gwendt\Desktop\Data\NSDR\v1.2\Death_2011.txt.psv';
+SELECT COUNT(1) FROM vital.deaths_buffer;
+--	41477
+EXEC bin.import_death_records 'C:\Users\gwendt\Desktop\Data\NSDR\v1.2\Death_2012.txt.psv';
+SELECT COUNT(1) FROM vital.deaths_buffer;
+--	63069
+EXEC bin.import_death_records 'C:\Users\gwendt\Desktop\Data\NSDR\v1.2\Death_2013.txt.psv';
+SELECT COUNT(1) FROM vital.deaths_buffer;
+--	85377
+EXEC bin.import_death_records 'C:\Users\gwendt\Desktop\Data\NSDR\v1.2\Death_2014.txt.psv';
+SELECT COUNT(1) FROM vital.deaths_buffer;
+--	108009
+EXEC bin.import_death_records 'C:\Users\gwendt\Desktop\Data\NSDR\v1.2\Death_2015.txt.psv';
+SELECT COUNT(1) FROM vital.deaths_buffer;
+--	131684
+EXEC bin.import_death_records 'C:\Users\gwendt\Desktop\Data\NSDR\v1.2\Death_2016.txt.psv';
+SELECT COUNT(1) FROM vital.deaths_buffer;
+--	156375
+EXEC bin.import_death_records 'C:\Users\gwendt\Desktop\Data\NSDR\v1.2\Death_201705.txt.psv';
+SELECT COUNT(1) FROM vital.deaths_buffer;
+--	166127
 
 
+
+
+SELECT COUNT(1) AS deaths_pre_count FROM vital.deaths;
+--	0
+INSERT INTO vital.deaths WITH (TABLOCK) SELECT * FROM vital.deaths_buffer;
+DELETE FROM vital.deaths_buffer;
+SELECT COUNT(1) AS death_post_count FROM vital.deaths;
+--	166127
+SELECT COUNT(1) AS deaths_buffer_post_count FROM vital.deaths_buffer;
+--	0
 
 
 

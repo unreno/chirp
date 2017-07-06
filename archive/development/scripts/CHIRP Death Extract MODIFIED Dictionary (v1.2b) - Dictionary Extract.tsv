@@ -1,14 +1,14 @@
 Field Name	Variable Name	Field Structure	Code Description	Type	Start Position	Length	End Position	codeset	field name	datatype based on content
 certificate_number	Certificate Number	Automatically assigned by EBRS System	In state deaths= 000001-0999999, out of state deaths=900001-909999	Numeric	1	10	10		certificate_number	VARCHAR(10)
-alias_name	Alias Name	N, Y, U	0=No, 1=Yes, 9=Unknown 9=Blank	Numeric	11	1	11		alias_name	VARCHAR(1)
+alias_name	Alias Name	N, Y, U	0=No, 1=Yes, 9=Unknown 9=Blank	Numeric	11	1	11		alias_name	INT
 full_name	Full Name	Free Text 	Last, First, Middle and Suffix	Alphanumeric	12	25	36		full_name	VARCHAR(25)
-death_year	Death Year	yyyy	yyyy	Numeric	37	4	40		death_year	VARCHAR(4)
-death_month	Death Month	mm	mm	Numeric	41	2	42		death_month	VARCHAR(2)
-death_day	Death Day	dd	dd	Numeric	43	2	44		death_day	VARCHAR(2)
-state_of_death	State of Death	Drop down Menu	See State Code Table	Numeric	45	2	46	state	state_of_death	VARCHAR(2)
+death_year	Death Year	yyyy	yyyy	Numeric	37	4	40		death_year	INT
+death_month	Death Month	mm	mm	Numeric	41	2	42		death_month	INT
+death_day	Death Day	dd	dd	Numeric	43	2	44		death_day	INT
+state_of_death	State of Death	Drop down Menu	See State Code Table	Numeric	45	2	46	state	state_of_death	INT
 city_of_death	City of Death	Drop down Menu	See City Code Table	Numeric	47	3	49	city	city_of_death	VARCHAR(3)
-county_of_death	County of Death	Drop down Menu	See County Code Table	Numeric	50	2	51	county	county_of_death	VARCHAR(2)
-death_facility_code	Death Facility Code	Drop down Menu	See Facility Code Table	Numeric	52	4	55	facility	death_facility_code	VARCHAR(4)
+county_of_death	County of Death	Drop down Menu	See County Code Table	Numeric	50	2	51	county	county_of_death	INT
+death_facility_code	Death Facility Code	Drop down Menu	See Facility Code Table	Numeric	52	4	55	facility	death_facility_code	INT
 place_of_death	Place of Death	Drop down Menu	1=Inpatient (Hospital, Clinic or Med Ctr) 2=Out-Patient, ER or Tauma Center 3=DOA (Dead or Arrival) 4=Blank/Unknown 5=Nursing Homes, Convalescent Centers and Other Patient Care 6=Home/Residence 7=All Other Reported Entries 9=Unknown/Not Classifiable1=Inpatient (Hospital, Clinic or Med Ctr)	Numeric	56	1	56		place_of_death	VARCHAR(1)
 UNKNOWN01					57	2	58		unknown01	VARCHAR(2)
 ethnic_yesno	Ethnicity Hispanic Origin?	Check Box Y/N	1=Yes, 2=No	Numeric	59	1	59	yn	ethnic_yesno	VARCHAR(1)
@@ -41,16 +41,16 @@ race_not_obtainable	Race-Not Obtainable	Check Box Y/N	1=Yes, 2=No	Numeric	220	1	
 race_unknown	Race-Unknown	Check Box Y/N	1=Yes, 2=No	Numeric	221	1	221	yn	race_unknown	VARCHAR(1)
 race_refused	Race-Refused	Check Box Y/N	1=Yes, 2=No	Numeric	222	1	222	yn	race_refused	VARCHAR(1)
 UNKNOWN03					223	2	224		unknown03	VARCHAR(2)
-education	Education (2008+)	Drop down Menu	1=None and 8th Grade or Less 2=9th thru 12th Grade, No Diploma 3=High School Graduate or GED 4=Some College, but no Degree 5=Associate Degree, AA, AS 6=Bachelors Degree, BA,AB,BS 7=Masters Degree, MA, MS 8=Doctorate Degree, PHD,EDD 9=Unknown 9=Blank	Numeric	225	1	225	education	education	VARCHAR(1)
-age_unit	Age Unit	Drop down Menu	0=Years Less than 100 1=Years 100 or More 2=Months 3=Weeks 4=Days 5=Hours 6=Minutes 9=Age Unknown	Numeric	226	1	226		age_unit	VARCHAR(1)
-age	Age	Calculated Age		Numeric	227	3	229		age	VARCHAR(3)
-birth_year	Birth Year	yyyy	yyyy	Numeric	230	4	233		birth_year	VARCHAR(4)
-birth_month	Birth Month	mm	mm	Numeric	234	2	235		birth_month	VARCHAR(2)
-birth_day	Birth Day	dd	dd	Numeric	236	2	237		birth_day	VARCHAR(2)
-gender	Gender	M, F, U	1=Male 2=Female 9=Unknown/Blank	Numeric	238	1	238	sex	gender	VARCHAR(1)
-birth_state	Birth State	Drop down Menu	See State Code Table	Numeric	239	2	240	state	birth_state	VARCHAR(2)
-citizen_of	Citizen of what Country?	Drop down Menu	1=USA 2=Canada 3=Mexican 4=Remainder of the World 9=Unknown/Blank	Numeric	241	1	241		citizen_of	VARCHAR(1)
-marital_status	Marital Status	Drop down Menu	1=Married 2=Never Married 3=Widowed 4=Divorced 9=Unknown	Numeric	242	1	242		marital_status	VARCHAR(1)
+education	Education (2008+)	Drop down Menu	1=None and 8th Grade or Less 2=9th thru 12th Grade, No Diploma 3=High School Graduate or GED 4=Some College, but no Degree 5=Associate Degree, AA, AS 6=Bachelors Degree, BA,AB,BS 7=Masters Degree, MA, MS 8=Doctorate Degree, PHD,EDD 9=Unknown 9=Blank	Numeric	225	1	225	education	education	INT
+age_unit	Age Unit	Drop down Menu	0=Years Less than 100 1=Years 100 or More 2=Months 3=Weeks 4=Days 5=Hours 6=Minutes 9=Age Unknown	Numeric	226	1	226		age_unit	INT
+age	Age	Calculated Age		Numeric	227	3	229		age	INT
+birth_year	Birth Year	yyyy	yyyy	Numeric	230	4	233		birth_year	INT
+birth_month	Birth Month	mm	mm	Numeric	234	2	235		birth_month	INT
+birth_day	Birth Day	dd	dd	Numeric	236	2	237		birth_day	INT
+gender	Gender	M, F, U	1=Male 2=Female 9=Unknown/Blank	Numeric	238	1	238	sex	gender	INT
+birth_state	Birth State	Drop down Menu	See State Code Table	Numeric	239	2	240	state	birth_state	INT
+citizen_of	Citizen of what Country?	Drop down Menu	1=USA 2=Canada 3=Mexican 4=Remainder of the World 9=Unknown/Blank	Numeric	241	1	241		citizen_of	INT
+marital_status	Marital Status	Drop down Menu	1=Married 2=Never Married 3=Widowed 4=Divorced 9=Unknown	Numeric	242	1	242		marital_status	INT
 ssn	Social Security Number	Free Text 	000000000	Numeric	243	9	251		ssn	VARCHAR(9)
 occupation	Occupation	Drop down Menu	See Occupation Code Table	Numeric	252	3	254	occupation	occupation	VARCHAR(3)
 industry	Industry	Drop down Menu	See Industry Code Table	Numeric	255	3	257	industry	industry	VARCHAR(3)
@@ -65,27 +65,27 @@ mother_last_name	Mother's Last Name	Free Text 		Alphanumeric	349	20	368		mother_
 mother_suffix	Mother's Suffix	Free Text 	I, II, III, IV, Jr, Sr	Alphanumeric	369	5	373		mother_suffix	VARCHAR(5)
 mother_first_name	Mother's First Name	Free Text 		Alphanumeric	374	10	383		mother_first_name	VARCHAR(10)
 mother_middle_name	Mother's Middle Name	Free Text 		Alphanumeric	384	10	393		mother_middle_name	VARCHAR(10)
-method_of_disposition	Method of Disposition	Drop down Menu	1=Burial 2=Cremation 3=Removal 4=Donation 5=Entombment 9=Unknown	Numeric	394	1	394		method_of_disposition	VARCHAR(1)
+method_of_disposition	Method of Disposition	Drop down Menu	1=Burial 2=Cremation 3=Removal 4=Donation 5=Entombment 9=Unknown	Numeric	394	1	394		method_of_disposition	INT
 UNKNOWN04					395	3	397		unknown04	VARCHAR(3)
-certifier_type	Certifier Type	Drop down Menu	1=Physician, DO, Med Examiner 2=Coroner or Sheriff 5=Unknown 9=Other	Numeric	398	1	398		certifier_type	VARCHAR(1)
-coroner_contacted	Coroner Contacted?	Y, N, U	1=Yes 2=No 9=Unknown/Blank	Numeric	399	1	399	ynu	coroner_contacted	VARCHAR(1)
-manner_of_death	Manner of Death	Drop down Menu	1=Natural Causes 2=Accident 3=Suicide 4=Homicide 5=Pending Inverstigation 6=Coud Not Be Determined 9=Unknown	Numeric	400	1	400		manner_of_death	VARCHAR(1)
+certifier_type	Certifier Type	Drop down Menu	1=Physician, DO, Med Examiner 2=Coroner or Sheriff 5=Unknown 9=Other	Numeric	398	1	398		certifier_type	INT
+coroner_contacted	Coroner Contacted?	Y, N, U	1=Yes 2=No 9=Unknown/Blank	Numeric	399	1	399	ynu	coroner_contacted	INT
+manner_of_death	Manner of Death	Drop down Menu	1=Natural Causes 2=Accident 3=Suicide 4=Homicide 5=Pending Inverstigation 6=Could Not Be Determined 9=Unknown	Numeric	400	1	400		manner_of_death	VARCHAR(1)
 nchs_icd10	ICD-10 Code from NCHS	Free Text 	Import Code from NCHS (Blank 9999)	Alphanumeric	401	4	404		nchs_icd10	VARCHAR(4)
 immediate_cause	Immediate Cause	Free Text 		Alphanumeric	405	60	464		immediate_cause	VARCHAR(60)
 first_consequence	First Consequence	Free Text 		Alphanumeric	465	60	524		first_consequence	VARCHAR(60)
 second_consequence	Second Consequence	Free Text 		Alphanumeric	525	60	584		second_consequence	VARCHAR(60)
 third_consequence	Third Consequence	Free Text 		Alphanumeric	585	60	644		third_consequence	VARCHAR(60)
 other_consequences	Other Consequences	Free Text 		Alphanumeric	645	60	704		other_consequences	VARCHAR(60)
-communicable_disease	Communicable Disease	Y, N, U	1=Yes 2=No 9=Unknown	Numeric	705	1	705	ynu	communicable_disease	VARCHAR(1)
-autopsy_performed	Autopsy Performed?	Y, N, U	1=Yes 2=No 9=Unknown/Blank	Numeric	706	1	706	ynu	autopsy_performed	VARCHAR(1)
-tobacco_use	Did tobacco use contribute to death?	Y, N, P, U	1=Yes 2=No 3=Probably 9=Unknown/Blank	Numeric	707	1	707		tobacco_use	VARCHAR(1)
-female_pregnant	Was female pregnant?	Drop down Menu	1=Not pregnant within last year 2=Pregnant at time of death 3=Not pregnant, but pregnant within 42 days of death 4=Not pregnant, but pregnant 43 days to 1 year before death 8=Not applicable 9=Unknown/Blank	Numeric	708	1	708		female_pregnant	VARCHAR(1)
-injury_at_work	Injury at Work?	Y, N, U, X 	1=Yes 2=No 9=Unknown/Not applicable/Blank	Numeric	709	1	709	ynu	injury_at_work	VARCHAR(1)
-injury_place	Injury Place	Drop down Menu	0=Other 1=Desert 2=Factory 3=Farm 4=Home 5=Hotel 6=Lake 7=Mountain 8=Office Bldg 9=Parking Lot 10=School 11=Street 99=Unknown	Numeric	710	2	711		injury_place	VARCHAR(2)
-transportation_injury	Transportation Injury?	Y, N, U, X 	1=Yes 2=No 9=Unknown/Not applicable/Blank	Numeric	712	1	712	ynu	transportation_injury	VARCHAR(1)
+communicable_disease	Communicable Disease	Y, N, U	1=Yes 2=No 9=Unknown	Numeric	705	1	705	ynu	communicable_disease	INT
+autopsy_performed	Autopsy Performed?	Y, N, U	1=Yes 2=No 9=Unknown/Blank	Numeric	706	1	706	ynu	autopsy_performed	INT
+tobacco_use	Did tobacco use contribute to death?	Y, N, P, U	1=Yes 2=No 3=Probably 9=Unknown/Blank	Numeric	707	1	707		tobacco_use	INT
+female_pregnant	Was female pregnant?	Drop down Menu	1=Not pregnant within last year 2=Pregnant at time of death 3=Not pregnant, but pregnant within 42 days of death 4=Not pregnant, but pregnant 43 days to 1 year before death 8=Not applicable 9=Unknown/Blank	Numeric	708	1	708		female_pregnant	INT
+injury_at_work	Injury at Work?	Y, N, U, X 	1=Yes 2=No 9=Unknown/Not applicable/Blank	Numeric	709	1	709	ynu	injury_at_work	INT
+injury_place	Injury Place	Drop down Menu	0=Other 1=Desert 2=Factory 3=Farm 4=Home 5=Hotel 6=Lake 7=Mountain 8=Office Bldg 9=Parking Lot 10=School 11=Street 99=Unknown	Numeric	710	2	711		injury_place	INT
+transportation_injury	Transportation Injury?	Y, N, U, X 	1=Yes 2=No 9=Unknown/Not applicable/Blank	Numeric	712	1	712	ynu	transportation_injury	INT
 transportation_injury_lit	Transportation Injury Description	Drop down Menu	1=Driver/Operator 2=Passenger 3=Pedestrian 4=Other 9=Unknown/Blank	Numeric	713	1	713		transportation_injury_lit	VARCHAR(1)
 UNKNOWN05					714	1	714		unknown05	VARCHAR(1)
-birth_year_2	Birth Year	yyyy	For cross-match	Numeric	715	4	718		birth_year_2	VARCHAR(4)
+birth_year_2	Birth Year	yyyy	For cross-match	Numeric	715	4	718		birth_year_2	INT
 birth_state_file_number	Birth State File Number	00000000-99999999	For cross-match	Numeric	719	8	726		birth_state_file_number	VARCHAR(8)
 supermicar1	Supermicar1	Free Text 	Import Code from NCHS	Alphanumeric	727	5	731	cdc_race_code	supermicar1	VARCHAR(5)
 supermicar2	Supermicar2	Free Text 	Import Code from NCHS	Alphanumeric	732	5	736	cdc_race_code	supermicar2	VARCHAR(5)
@@ -108,11 +108,11 @@ supermicar18	Supermicar18	Free Text 	Import Code from NCHS	Alphanumeric	812	5	81
 supermicar19	Supermicar19	Free Text 	Import Code from NCHS	Alphanumeric	817	5	821	cdc_race_code	supermicar19	VARCHAR(5)
 supermicar20	Supermicar20	Free Text 	Import Code from NCHS	Alphanumeric	822	5	826	cdc_race_code	supermicar20	VARCHAR(5)
 UNKNOWN06					827	48	874		unknown06	VARCHAR(48)
-hispanic_code	Hispanic Code	Free Text 	Import Code from NCHS See Ethnic NCHS Table	Numeric	875	3	877	hisp_nchs	hispanic_code	VARCHAR(3)
+hispanic_code	Hispanic Code	Free Text 	Import Code from NCHS See Ethnic NCHS Table	Numeric	875	3	877	hisp_nchs	hispanic_code	INT
 UNKNOWN07					878	3	880		unknown07	VARCHAR(3)
-bridged_race	Bridged Race	Free Text 	Import Code from NCHS See Race NCHS Table	Numeric	881	2	882	bridge_race	bridged_race	VARCHAR(2)
+bridged_race	Bridged Race	Free Text 	Import Code from NCHS See Race NCHS Table	Numeric	881	2	882	bridge_race	bridged_race	INT
 UNKNOWN08					883	3	885		unknown08	VARCHAR(3)
-death_year_2	Death Year	Run-time Parameter		Numeric	886	4	889		death_year_2	VARCHAR(4)
+death_year_2	Death Year	Run-time Parameter		Numeric	886	4	889		death_year_2	INT
 UNKNOWN09					890	1	890		unknown09	VARCHAR(1)
 state_file_number	State File Number	Run-time Parameter		Numeric	891	10	900		state_file_number	VARCHAR(10)
 army	Army		1=Yes, 2=No	Numeric	901	1	901	yn	army	VARCHAR(1)
