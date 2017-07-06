@@ -18,3 +18,20 @@ Out of the ~160k death records, only ~1500 were born in Nevada after 2009.
 It does not include the birth county, so it is difficult to determine if should find a match.
 Only about 200-300 death records match a birth record state file number.
 
+SELECT b.date_of_birth, d.birth_month, d.birth_day, d.birth_year, b.state_file_number, d.birth_state_file_number
+FROM private.identifiers i
+ JOIN vital.births b ON b.state_file_number = i.source_id 
+ JOIN vital.deaths d ON d.ssn = b.ssn_child
+AND d.birth_year > 2009
+AND d.birth_state = 29 
+WHERE i.source_column = 'state_file_number'
+
+
+SELECT b.date_of_birth, d.birth_month, d.birth_day, d.birth_year, b.state_file_number, d.birth_state_file_number, b.ssn_child, d.ssn
+FROM private.identifiers i
+ JOIN vital.births b ON b.state_file_number = i.source_id 
+ JOIN vital.deaths d ON b.state_file_number = CAST(d.birth_year AS VARCHAR(4)) + d.birth_state_file_number
+AND d.birth_year > 2009
+AND d.birth_state = 29 
+WHERE i.source_column = 'state_file_number'
+
