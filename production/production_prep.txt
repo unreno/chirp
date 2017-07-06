@@ -33,14 +33,14 @@ SELECT * FROM dev.counts;
 
 
 --	 cd ~/Desktop/Data/NSBR/v1.2/
---	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_2010.txt > Birth_2010.txt.psv
---	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_2011.txt > Birth_2011.txt.psv
---	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_2012.txt > Birth_2012.txt.psv
---	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_2013.txt > Birth_2013.txt.psv
---	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_2014.txt > Birth_2014.txt.psv
---	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_2015.txt > Birth_2015.txt.psv
---	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_2016.txt > Birth_2016.txt.psv
---	 chirp_convert_fixed_width_birth_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv Birth_201705.txt > Birth_201705.txt.psv
+--	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Birth_2010.txt > Birth_2010.txt.psv
+--	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Birth_2011.txt > Birth_2011.txt.psv
+--	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Birth_2012.txt > Birth_2012.txt.psv
+--	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Birth_2013.txt > Birth_2013.txt.psv
+--	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Birth_2014.txt > Birth_2014.txt.psv
+--	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Birth_2015.txt > Birth_2015.txt.psv
+--	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Birth_2016.txt > Birth_2016.txt.psv
+--	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Birth\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Birth_201705.txt > Birth_201705.txt.psv
 
 
 
@@ -87,6 +87,39 @@ SELECT COUNT(1) AS birth_post_count FROM vital.births;
 --	260375
 SELECT COUNT(1) AS births_buffer_post_count FROM vital.births_buffer;
 --	0
+
+
+
+
+
+
+
+
+
+
+
+
+--	 cd ~/Desktop/Data/NSDR/v1.2/
+--	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Death\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Death_2010.txt > Death_2010.txt.psv
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

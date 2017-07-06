@@ -1,60 +1,132 @@
-schema	table	field	codeset	label	description
-vital	deaths	age1_groups	age1_groups		
-vital	deaths	age2_groups	age2_groups		
-vital	deaths	age3_groups	age3_groups		
-vital	deaths	age4_groups	age4_groups		
-vital	deaths	age5_groups	age5_groups		
-vital	deaths	age_unit	age_unit		
-vital	deaths	autopsy	autopsy		
-vital	deaths	birth_st	state		
-vital	deaths	burial	burial		
-vital	deaths	business	business		
-vital	deaths	certifier	certifier		
-vital	deaths	citizen	citizen		
-vital	deaths	city	city		
-vital	deaths	coroner	coroner		
-vital	deaths	county	county		
-vital	deaths	death_ci	city		
-vital	deaths	death_co	county		
-vital	deaths	death_st	state		
-vital	deaths	doa_inpa	doa_inpa		
-vital	deaths	edu	edu		
-vital	deaths	ethnic	ethnic		
-vital	deaths	ethnicnchs	ethnicnchs		
-vital	deaths	fem_preg	fem_preg		
-vital	deaths	funeral	funeral		
-vital	deaths	hisp_nchs	hisp_nchs		
-vital	deaths	icd1_grp	icd1_grp		
-vital	deaths	icd2_grp	icd2_grp		
-vital	deaths	icd3_grp	icd3_grp		
-vital	deaths	icd4_grp	icd4_grp		
-vital	deaths	icd5_grp	icd5_grp		
-vital	deaths	icd6_grp	icd6_grp		
-vital	deaths	icd7_grp	icd7_grp		
-vital	deaths	industry	industry		
-vital	deaths	inf1_grp	inf1_grp		
-vital	deaths	inf2_grp	inf2_grp		
-vital	deaths	inf3_grp	inf3_grp		
-vital	deaths	inf4_grp	inf4_grp		
-vital	deaths	inf5_grp	inf5_grp		
-vital	deaths	injur_pl	injur_pl		
-vital	deaths	injur_transp	injur_transp		
-vital	deaths	injur_transplace	injur_transplace		
-vital	deaths	injur_wk	injur_wk		
-vital	deaths	instit	instit		
-vital	deaths	manner	manner		
-vital	deaths	manner_death	manner		
-vital	deaths	marital	marital		
-vital	deaths	military	standard1_yesno		
-vital	deaths	occ_grp	occ_grp		
-vital	deaths	occup	occup		
-vital	deaths	race	race		
-vital	deaths	race_eth	race_eth		
-vital	deaths	race_nchsbrg	race_nchsbrg		
-vital	deaths	res_ci	city		
-vital	deaths	res_co	county		
-vital	deaths	res_st	state		
-vital	deaths	sex	sex		
-vital	deaths	standard1_yesno	standard1_yesno		
-vital	deaths	state	state		
-vital	deaths	tobacco	tobacco		
+vital	deaths	field name	codeset	Variable Name	Variable Name Field Structure Code Description
+vital	deaths	certificate_number		Certificate Number	Certificate Number Automatically assigned by EBRS System In state deaths= 000001-0999999, out of state deaths=900001-909999
+vital	deaths	alias_name		Alias Name	Alias Name N, Y, U 0=No, 1=Yes, 9=Unknown 9=Blank
+vital	deaths	full_name		Full Name	Full Name Free Text  Last, First, Middle and Suffix
+vital	deaths	death_year		Death Year	Death Year yyyy yyyy
+vital	deaths	death_month		Death Month	Death Month mm mm
+vital	deaths	death_day		Death Day	Death Day dd dd
+vital	deaths	state_of_death	state	State of Death	State of Death Drop down Menu See State Code Table
+vital	deaths	city_of_death	city	City of Death	City of Death Drop down Menu See City Code Table
+vital	deaths	county_of_death	county	County of Death	County of Death Drop down Menu See County Code Table
+vital	deaths	death_facility_code	facility	Death Facility Code	Death Facility Code Drop down Menu See Facility Code Table
+vital	deaths	place_of_death		Place of Death	Place of Death Drop down Menu 1=Inpatient (Hospital, Clinic or Med Ctr) 2=Out-Patient, ER or Tauma Center 3=DOA (Dead or Arrival) 4=Blank/Unknown 5=Nursing Homes, Convalescent Centers and Other Patient Care 6=Home/Residence 7=All Other Reported Entries 9=Unknown/Not Classifiable1=Inpatient (Hospital, Clinic or Med Ctr)
+vital	deaths	unknown01			  
+vital	deaths	ethnic_yesno	yn	Ethnicity Hispanic Origin?	Ethnicity Hispanic Origin? Check Box Y/N 1=Yes, 2=No
+vital	deaths	mexican	yn	Mexican	Mexican Check Box Y/N 1=Yes, 2=No
+vital	deaths	puerto_rican	yn	Puerto Rican	Puerto Rican Check Box Y/N 1=Yes, 2=No
+vital	deaths	cuban	yn	Cuban	Cuban Check Box Y/N 1=Yes, 2=No
+vital	deaths	other_race	yn	Other	Other Check Box Y/N 1=Yes, 2=No
+vital	deaths	other_race_lit		Other Description	Other Description Free Text  Literal
+vital	deaths	unknown02			  
+vital	deaths	race_white	yn	Race-White	Race-White Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_black	yn	Race-Black or African American	Race-Black or African American Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_amer_indian	yn	Race-Amer. Indian or Alaska Native	Race-Amer. Indian or Alaska Native Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_asian_indian	yn	Race-Asian Indian	Race-Asian Indian Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_chinese	yn	Race-Chinese	Race-Chinese Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_filipino	yn	Race-Filipino	Race-Filipino Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_japanese	yn	Race-Japanese	Race-Japanese Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_korean	yn	Race-Korean	Race-Korean Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_vietnamese	yn	Race-Vietnamese	Race-Vietnamese Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_other_asian	yn	Race-Other Asian	Race-Other Asian Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_native_hawaiian	yn	Race-Native Hawaiian	Race-Native Hawaiian Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_guam	yn	Race-Guamanian or Chamorro	Race-Guamanian or Chamorro Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_samoan	yn	Race-Samoan	Race-Samoan Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_other_pacific	yn	Race-Other Pacific Islander	Race-Other Pacific Islander Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_other	yn	Race-Other	Race-Other Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_native_american_lit		Race-Native American Indian or Alaska Native Desc.1	Race-Native American Indian or Alaska Native Desc.1 Free Text  Literal
+vital	deaths	race_other_asian_lit		Race-Other Asian Desc.1	Race-Other Asian Desc.1 Free Text  Literal
+vital	deaths	race_other_pacific_lit		Race-Other Pacific Islander Desc.1	Race-Other Pacific Islander Desc.1 Free Text  Literal
+vital	deaths	race_other_lit		Race-Other Desc.1	Race-Other Desc.1 Free Text  Literal
+vital	deaths	race_not_obtainable	yn	Race-Not Obtainable	Race-Not Obtainable Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_unknown	yn	Race-Unknown	Race-Unknown Check Box Y/N 1=Yes, 2=No
+vital	deaths	race_refused	yn	Race-Refused	Race-Refused Check Box Y/N 1=Yes, 2=No
+vital	deaths	unknown03			  
+vital	deaths	education	education	Education (2008+)	Education (2008+) Drop down Menu 1=None and 8th Grade or Less 2=9th thru 12th Grade, No Diploma 3=High School Graduate or GED 4=Some College, but no Degree 5=Associate Degree, AA, AS 6=Bachelors Degree, BA,AB,BS 7=Masters Degree, MA, MS 8=Doctorate Degree, PHD,EDD 9=Unknown 9=Blank
+vital	deaths	age_unit		Age Unit	Age Unit Drop down Menu 0=Years Less than 100 1=Years 100 or More 2=Months 3=Weeks 4=Days 5=Hours 6=Minutes 9=Age Unknown
+vital	deaths	age		Age	Age Calculated Age 
+vital	deaths	birth_year		Birth Year	Birth Year yyyy yyyy
+vital	deaths	birth_month		Birth Month	Birth Month mm mm
+vital	deaths	birth_day		Birth Day	Birth Day dd dd
+vital	deaths	gender	sex	Gender	Gender M, F, U 1=Male 2=Female 9=Unknown/Blank
+vital	deaths	birth_state	state	Birth State	Birth State Drop down Menu See State Code Table
+vital	deaths	citizen_of		Citizen of what Country?	Citizen of what Country? Drop down Menu 1=USA 2=Canada 3=Mexican 4=Remainder of the World 9=Unknown/Blank
+vital	deaths	marital_status		Marital Status	Marital Status Drop down Menu 1=Married 2=Never Married 3=Widowed 4=Divorced 9=Unknown
+vital	deaths	ssn		Social Security Number	Social Security Number Free Text  000000000
+vital	deaths	occupation	occupation	Occupation	Occupation Drop down Menu See Occupation Code Table
+vital	deaths	industry	industry	Industry	Industry Drop down Menu See Industry Code Table
+vital	deaths	resident_state	state	Resident State	Resident State Drop down Menu See State Code Table
+vital	deaths	resident_city	city	Resident City	Resident City Drop down Menu See City Code Table
+vital	deaths	resident_county	county	Resident County	Resident County Drop down Menu See County Code Table
+vital	deaths	resident_address		Resident Address	Resident Address Free Text  
+vital	deaths	apt_number		Apt Number	Apt Number Free Text  
+vital	deaths	zip_code		Zip Code	Zip Code Drop down Menu From Zip Code Table in System
+vital	deaths	father_last_name		Father's Last Name	Father's Last Name Free Text  
+vital	deaths	mother_last_name		Mother's Last Name	Mother's Last Name Free Text  
+vital	deaths	mother_suffix		Mother's Suffix	Mother's Suffix Free Text  I, II, III, IV, Jr, Sr
+vital	deaths	mother_first_name		Mother's First Name	Mother's First Name Free Text  
+vital	deaths	mother_middle_name		Mother's Middle Name	Mother's Middle Name Free Text  
+vital	deaths	method_of_disposition		Method of Disposition	Method of Disposition Drop down Menu 1=Burial 2=Cremation 3=Removal 4=Donation 5=Entombment 9=Unknown
+vital	deaths	unknown04			  
+vital	deaths	certifier_type		Certifier Type	Certifier Type Drop down Menu 1=Physician, DO, Med Examiner 2=Coroner or Sheriff 5=Unknown 9=Other
+vital	deaths	coroner_contacted	ynu	Coroner Contacted?	Coroner Contacted? Y, N, U 1=Yes 2=No 9=Unknown/Blank
+vital	deaths	manner_of_death		Manner of Death	Manner of Death Drop down Menu 1=Natural Causes 2=Accident 3=Suicide 4=Homicide 5=Pending Inverstigation 6=Coud Not Be Determined 9=Unknown
+vital	deaths	nchs_icd10		ICD-10 Code from NCHS	ICD-10 Code from NCHS Free Text  Import Code from NCHS (Blank 9999)
+vital	deaths	immediate_cause		Immediate Cause	Immediate Cause Free Text  
+vital	deaths	first_consequence		First Consequence	First Consequence Free Text  
+vital	deaths	second_consequence		Second Consequence	Second Consequence Free Text  
+vital	deaths	third_consequence		Third Consequence	Third Consequence Free Text  
+vital	deaths	other_consequences		Other Consequences	Other Consequences Free Text  
+vital	deaths	communicable_disease	ynu	Communicable Disease	Communicable Disease Y, N, U 1=Yes 2=No 9=Unknown
+vital	deaths	autopsy_performed	ynu	Autopsy Performed?	Autopsy Performed? Y, N, U 1=Yes 2=No 9=Unknown/Blank
+vital	deaths	tobacco_use		Did tobacco use contribute to death?	Did tobacco use contribute to death? Y, N, P, U 1=Yes 2=No 3=Probably 9=Unknown/Blank
+vital	deaths	female_pregnant		Was female pregnant?	Was female pregnant? Drop down Menu 1=Not pregnant within last year 2=Pregnant at time of death 3=Not pregnant, but pregnant within 42 days of death 4=Not pregnant, but pregnant 43 days to 1 year before death 8=Not applicable 9=Unknown/Blank
+vital	deaths	injury_at_work	ynu	Injury at Work?	Injury at Work? Y, N, U, X  1=Yes 2=No 9=Unknown/Not applicable/Blank
+vital	deaths	injury_place		Injury Place	Injury Place Drop down Menu 0=Other 1=Desert 2=Factory 3=Farm 4=Home 5=Hotel 6=Lake 7=Mountain 8=Office Bldg 9=Parking Lot 10=School 11=Street 99=Unknown
+vital	deaths	transportation_injury	ynu	Transportation Injury?	Transportation Injury? Y, N, U, X  1=Yes 2=No 9=Unknown/Not applicable/Blank
+vital	deaths	transportation_injury_lit		Transportation Injury Description	Transportation Injury Description Drop down Menu 1=Driver/Operator 2=Passenger 3=Pedestrian 4=Other 9=Unknown/Blank
+vital	deaths	unknown05			  
+vital	deaths	birth_year_2		Birth Year	Birth Year yyyy For cross-match
+vital	deaths	birth_state_file_number		Birth State File Number	Birth State File Number 00000000-99999999 For cross-match
+vital	deaths	supermicar1	cdc_race_code	Supermicar1	Supermicar1 Free Text  Import Code from NCHS
+vital	deaths	supermicar2	cdc_race_code	Supermicar2	Supermicar2 Free Text  Import Code from NCHS
+vital	deaths	supermicar3	cdc_race_code	Supermicar3	Supermicar3 Free Text  Import Code from NCHS
+vital	deaths	supermicar4	cdc_race_code	Supermicar4	Supermicar4 Free Text  Import Code from NCHS
+vital	deaths	supermicar5	cdc_race_code	Supermicar5	Supermicar5 Free Text  Import Code from NCHS
+vital	deaths	supermicar6	cdc_race_code	Supermicar6	Supermicar6 Free Text  Import Code from NCHS
+vital	deaths	supermicar7	cdc_race_code	Supermicar7	Supermicar7 Free Text  Import Code from NCHS
+vital	deaths	supermicar8	cdc_race_code	Supermicar8	Supermicar8 Free Text  Import Code from NCHS
+vital	deaths	supermicar9	cdc_race_code	Supermicar9	Supermicar9 Free Text  Import Code from NCHS
+vital	deaths	supermicar10	cdc_race_code	Supermicar10	Supermicar10 Free Text  Import Code from NCHS
+vital	deaths	supermicar11	cdc_race_code	Supermicar11	Supermicar11 Free Text  Import Code from NCHS
+vital	deaths	supermicar12	cdc_race_code	Supermicar12	Supermicar12 Free Text  Import Code from NCHS
+vital	deaths	supermicar13	cdc_race_code	Supermicar13	Supermicar13 Free Text  Import Code from NCHS
+vital	deaths	supermicar14	cdc_race_code	Supermicar14	Supermicar14 Free Text  Import Code from NCHS
+vital	deaths	supermicar15	cdc_race_code	Supermicar15	Supermicar15 Free Text  Import Code from NCHS
+vital	deaths	supermicar16	cdc_race_code	Supermicar16	Supermicar16 Free Text  Import Code from NCHS
+vital	deaths	supermicar17	cdc_race_code	Supermicar17	Supermicar17 Free Text  Import Code from NCHS
+vital	deaths	supermicar18	cdc_race_code	Supermicar18	Supermicar18 Free Text  Import Code from NCHS
+vital	deaths	supermicar19	cdc_race_code	Supermicar19	Supermicar19 Free Text  Import Code from NCHS
+vital	deaths	supermicar20	cdc_race_code	Supermicar20	Supermicar20 Free Text  Import Code from NCHS
+vital	deaths	unknown06			  
+vital	deaths	hispanic_code	hisp_nchs	Hispanic Code	Hispanic Code Free Text  Import Code from NCHS See Ethnic NCHS Table
+vital	deaths	unknown07			  
+vital	deaths	bridged_race	bridge_race	Bridged Race	Bridged Race Free Text  Import Code from NCHS See Race NCHS Table
+vital	deaths	unknown08			  
+vital	deaths	death_year_2		Death Year	Death Year Run-time Parameter 
+vital	deaths	unknown09			  
+vital	deaths	state_file_number		State File Number	State File Number Run-time Parameter 
+vital	deaths	army	yn	Army	Army  1=Yes, 2=No
+vital	deaths	unknown10			  
+vital	deaths	birth_country_fips		Birth Country FIPS	Birth Country FIPS  
+vital	deaths	unknown11			  
+vital	deaths	birth_state_fips		Birth State FIPS	Birth State FIPS  
+vital	deaths	unknown12			  
+vital	deaths	resident_city_2		Resident City	Resident City  
+vital	deaths	unknown13			  
+vital	deaths	resident_county_fips		Resident County FIPS	Resident County FIPS  
+vital	deaths	unknown14			  
+vital	deaths	resident_state_2	state	Resident State	Resident State  
+vital	deaths	unknown15			  
+vital	deaths	resident_country		Resident Country	Resident Country  
+vital	deaths	unknown16			  
+vital	deaths	death_state	state	Death State	Death State  

@@ -1,0 +1,13 @@
+
+
+Of course, Microsoft STILL puts its Control-M's at the end of a line in a tsv. This is attached to the last column so need to remove it if going to print it.
+
+awk -F"\t" '{gsub("\r","",$11); print "\t"tolower($1)" "$11","}' ../archive/development/scripts/CHIRP\ Death\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv >> vital_death.sql
+
+awk -F"\t" '{gsub("\r","",$11); print "vital\tdeaths\t"tolower($1)"\t"$9"\t"$2"\t"$2" "$3" "$4}' ../archive/development/scripts/CHIRP\ Death\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv >> content/vital/death_dictionary.tsv
+
+
+awk -F"\t" '{print "vital\tdeaths\t"tolower($1)"\tCODESET\t"$2"\t"$2" "$3" "$4}' ../archive/development/scripts/CHIRP\ Death\ Extract\ MODIFIED\ Dictionary\ \(v1.2\)\ -\ Dictionary\ Extract.tsv >> content/vital/death_dictionary.tsv
+
+
+

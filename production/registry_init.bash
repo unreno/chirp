@@ -52,6 +52,25 @@ cat vital_birth.sql
 
 cat vital_death.sql
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 cat webiz.sql
 ./normalize_name_column.bash webiz.immunizations mother_last_name
 ./normalize_name_column.bash webiz.immunizations last_name
