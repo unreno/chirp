@@ -84,7 +84,7 @@ injury_at_work	Injury at Work?	Y, N, U, X 	1=Yes 2=No 9=Unknown/Not applicable/B
 injury_place	Injury Place	Drop down Menu	0=Other 1=Desert 2=Factory 3=Farm 4=Home 5=Hotel 6=Lake 7=Mountain 8=Office Bldg 9=Parking Lot 10=School 11=Street 99=Unknown	Numeric	710	2	711		injury_place	VARCHAR(2)
 transportation_injury	Transportation Injury?	Y, N, U, X 	1=Yes 2=No 9=Unknown/Not applicable/Blank	Numeric	712	1	712	ynu	transportation_injury	VARCHAR(1)
 transportation_injury_lit	Transportation Injury Description	Drop down Menu	1=Driver/Operator 2=Passenger 3=Pedestrian 4=Other 9=Unknown/Blank	Numeric	713	1	713		transportation_injury_lit	VARCHAR(1)
-UNKNOWN05									unknown05	VARCHAR(1)
+UNKNOWN05					714	1	714		unknown05	VARCHAR(1)
 birth_year_2	Birth Year	yyyy	For cross-match	Numeric	715	4	718		birth_year_2	VARCHAR(4)
 birth_state_file_number	Birth State File Number	00000000-99999999	For cross-match	Numeric	719	8	726		birth_state_file_number	VARCHAR(8)
 supermicar1	Supermicar1	Free Text 	Import Code from NCHS	Alphanumeric	727	5	731	cdc_race_code	supermicar1	VARCHAR(5)

@@ -101,9 +101,26 @@ SELECT COUNT(1) AS births_buffer_post_count FROM vital.births_buffer;
 
 --	 cd ~/Desktop/Data/NSDR/v1.2/
 --	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Death\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Death_2010.txt > Death_2010.txt.psv
+--	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Death\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Death_2011.txt > Death_2011.txt.psv
+--	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Death\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Death_2012.txt > Death_2012.txt.psv
+--	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Death\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Death_2013.txt > Death_2013.txt.psv
+--	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Death\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Death_2014.txt > Death_2014.txt.psv
+--	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Death\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Death_2015.txt > Death_2015.txt.psv
+--	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Death\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Death_2016.txt > Death_2016.txt.psv
+--	 chirp_convert_fixed_width_birth_or_death_data_to_psv.bash CHIRP\ Death\ Extract\ MODIFIED\ Dictionary\ \(v1.2b\)\ -\ Dictionary\ Extract.tsv Death_201705.txt > Death_201705.txt.psv
 
 
 
+--	Add some death records
+
+SELECT COUNT(1) AS deaths_buffer_pre_count FROM vital.deaths_buffer;
+--	0
+
+
+
+EXEC bin.import_death_records 'C:\Users\gwendt\Desktop\Data\NSDR\v1.2\Death_2010.txt.psv';
+SELECT COUNT(1) FROM vital.deaths_buffer;
+--	35682
 
 
 
