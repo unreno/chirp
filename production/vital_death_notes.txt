@@ -11,3 +11,10 @@ awk -F"\t" '{print "vital\tdeaths\t"tolower($1)"\tCODESET\t"$2"\t"$2" "$3" "$4}'
 
 
 
+
+It seems that this data set includes all who've died in Nevada in the time frame
+regardless or birth date or birth place.
+Out of the ~160k death records, only ~1500 were born in Nevada after 2009.
+It does not include the birth county, so it is difficult to determine if should find a match.
+Only about 200-300 death records match a birth record state file number.
+
