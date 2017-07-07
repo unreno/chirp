@@ -44,6 +44,7 @@ SELECT COUNT(1) AS observations_pre_count FROM dbo.observations
 EXEC bin.import_into_data_warehouse
 SELECT COUNT(1) AS observations_post_count FROM dbo.observations
 --	10439060
+--	10485466
 
 
 INSERT INTO dev.counts WITH (TABLOCK) (name,count) SELECT 'obs_count', COUNT(1) FROM dbo.observations;
@@ -110,5 +111,11 @@ SELECT this.name, this.count, (this.count - prev.count) AS num,
 FROM dev.counts this
 JOIN dev.counts prev ON this.id = prev.id + 1
 
+
+
+SELECT COUNT(DISTINCT chirp_id) FROM private.identifiers i
+WHERE i.source_schema = 'webiz'
+
+SELECT COUNT(DISTINCT chirp_id) FROM private.identifiers i
 
 
