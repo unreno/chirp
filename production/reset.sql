@@ -73,10 +73,42 @@ BEGIN
 END;
 
 
+--	That will take quite a while.
 
 
 EXEC bin.import_into_data_warehouse
 INSERT INTO dev.counts WITH (TABLOCK) (name,count) SELECT 'obs_count', COUNT(1) FROM dbo.observations;
+
+
+SELECT * FROM dev.counts
+
+
+
+SELECT count, 100.0*sum/total AS percentage
+FROM (
+  SELECT count, COUNT(1) AS sum,
+    (SELECT COUNT(1) FROM private.identifiers WHERE source_schema = 'vital') AS total
+  FROM (
+    SELECT chirp_id, COUNT(1) AS count
+    FROM private.identifiers
+    GROUP BY chirp_id
+  ) x
+  GROUP BY count
+) y
+ORDER BY count
+
+
+--	count percentage
+--	1 16.094674556213
+--	2 74.774490466798
+--	3 8.794214332675
+--	4 0.336620644312
+
+
+SELECT this.name, this.count, (this.count - prev.count) AS num,
+  DATEPART(minute, this.created_at - prev.created_at) AS minutes
+FROM dev.counts this
+JOIN dev.counts prev ON this.id = prev.id + 1
 
 
 
