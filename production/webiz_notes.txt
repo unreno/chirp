@@ -1,0 +1,17 @@
+
+
+
+SELECT w.last_name, w.first_name, w.middle_name, w.dob, w.street_number, w.street_name,
+	w.city_desc, w.zip_code, w.mother_last_name, w.mother_first_name, w.mother_maiden_name, 
+	b.name_last, b.name_suffix, b.name_first, b.name_middle, b.mother_name_last, b.mother_name_suffix,
+	b.mother_name_first, b.mother_name_middle, b.mother_res_addr1
+FROM private.identifiers i
+LEFT JOIN private.identifiers i2 ON i.chirp_id = i2.chirp_id AND i2.source_table = 'immunizations'
+JOIN vital.births b ON i.source_id = b.state_file_number
+JOIN webiz.immunizations w ON b._date_of_birth_date = w.dob
+WHERE i.source_table = 'births'
+AND i2.source_table IS NULL
+AND w.imported_to_observations = 'FALSE'
+AND b._date_of_birth_year = 2017
+ORDER BY b._date_of_birth_date
+

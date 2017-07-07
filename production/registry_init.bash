@@ -50,6 +50,9 @@ cat vital_birth.sql
 
 ./split_address_column.bash vital.births mother_res_addr1
 
+./varchar_to_int_column.bash vital.births hos_number
+
+
 cat vital_death.sql
 
 
@@ -85,6 +88,9 @@ cat webiz.sql
 
 ./normalize_street_column.bash webiz.addresses address_line1
 ./split_address_column.bash webiz.addresses address_line1
+
+./varchar_to_int_column.bash webiz.local_ids local_id
+
 
 cat health_lab.sql
 ./normalize_name_column.bash health_lab.newborn_screenings mom_surname

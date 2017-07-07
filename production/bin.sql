@@ -905,13 +905,13 @@ BEGIN
 				CASE WHEN b.mother_res_zip = a.zip_code THEN 0.5
 					ELSE 0.0 END AS zip_score,
 
-				CASE WHEN b._mother_res_addr1 = a._address_line1 THEN 1.0
-					WHEN b._mother_res_addr1 = a._address_line1_prehash THEN 1.0
-					WHEN b._mother_res_addr1_pre = a._address_line1_pre THEN 0.5
+				CASE WHEN b._mother_res_addr1 IN ( a._address_line1, s._address_line1, a._address_line1_prehash THEN 1.0
+					WHEN b._mother_res_addr1_pre IN ( a._address_line1_pre, s.street_number ) THEN 0.5
 					WHEN b._mother_res_addr1_suf = a._address_line1_suf THEN 0.5
 					ELSE 0.0 END AS address_score,
 
 				CASE WHEN b.hos_number = l.local_id THEN 2.0
+					WHEN b._hos_number_int = l._local_id_int THEN 1.0
 					ELSE 0.0 END AS num_score,
 
 				CASE WHEN b._name_first = s._first_name THEN 1.0
