@@ -905,7 +905,7 @@ BEGIN
 				CASE WHEN b.mother_res_zip = a.zip_code THEN 0.5
 					ELSE 0.0 END AS zip_score,
 
-				CASE WHEN b._mother_res_addr1 IN ( a._address_line1, s._address_line1, a._address_line1_prehash ) THEN 1.0
+				CASE WHEN b._mother_res_addr1 IN ( a._address_line1, s._address_line1, a._address_line1_prehash, a._address_line1_precomma ) THEN 1.0
 					WHEN b._mother_res_addr1_pre IN ( a._address_line1_pre, s.street_number ) THEN 0.5
 					WHEN b._mother_res_addr1_suf = a._address_line1_suf THEN 0.5
 					ELSE 0.0 END AS address_score,
