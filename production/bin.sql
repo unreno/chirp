@@ -905,13 +905,13 @@ BEGIN
 				CASE WHEN b.mother_res_zip = a.zip_code THEN 0.5
 					ELSE 0.0 END AS zip_score,
 
-				CASE WHEN b._mother_res_addr1 IN ( a._address_line1, s._address_line1, a._address_line1_prehash, a._address_line1_precomma ) THEN 1.0
-					WHEN b._mother_res_addr1_pre IN ( a._address_line1_pre, s.street_number ) THEN 0.5
+				CASE WHEN b._mother_res_addr1 IN ( a._address_line1, s._address_line1, a._address_line1_prehash, a._address_line1_precomma ) THEN 2.0
+					WHEN b._mother_res_addr1_pre IN ( a._address_line1_pre, s.street_number ) THEN 1.0
 					WHEN b._mother_res_addr1_suf = a._address_line1_suf THEN 0.5
 					ELSE 0.0 END AS address_score,
 
-				CASE WHEN b.hos_number = l.local_id THEN 2.0
-					WHEN b._hos_number_int = l._local_id_int THEN 1.0
+				CASE WHEN b.hos_number = l.local_id THEN 3.0
+					WHEN b._hos_number_int = l._local_id_int THEN 2.0
 					ELSE 0.0 END AS num_score,
 
 				CASE WHEN b._name_first = s._first_name THEN 1.0
@@ -919,9 +919,23 @@ BEGIN
 				CASE WHEN b._name_middle = s._middle_name THEN 1.0
 					ELSE 0.0 END AS middle_name_score,
 				CASE WHEN ( b._name_last IN ( s._last_name, s._last_name_pre, s._last_name_suf )
-					OR b._name_last_pre IN ( s._last_name, s._last_name_pre, s._last_name_suf )
-					OR b._name_last_suf IN ( s._last_name, s._last_name_pre, s._last_name_suf ) )
-					THEN 1.0 ELSE 0.0 END AS last_name_score,
+						OR b._name_last_pre IN ( s._last_name, s._last_name_pre, s._last_name_suf )
+						OR b._name_last_suf IN ( s._last_name, s._last_name_pre, s._last_name_suf ) ) THEN 1.0 
+					WHEN ( 
+						b._name_last IN ( s._mother_last_name, s._mother_last_name_pre, s._mother_last_name_suf,
+							s._mother_maiden_name, s._mother_maiden_name_pre, s._mother_maiden_name_suf )
+						OR b._name_last_pre IN ( s._mother_last_name, s._mother_last_name_pre, s._mother_last_name_suf,
+							s._mother_maiden_name, s._mother_maiden_name_pre, s._mother_maiden_name_suf )
+						OR b._name_last_suf IN ( s._mother_last_name, s._mother_last_name_pre, s._mother_last_name_suf,
+							s._mother_maiden_name, s._mother_maiden_name_pre, s._mother_maiden_name_suf )
+						OR s._last_name IN ( b._mother_name_last, b._mother_name_last_pre, b._mother_name_last_suf,
+							b._mother_name_last_p, b._mother_name_last_p_pre, b._mother_name_last_p_suf )
+						OR s._last_name_pre IN ( b._mother_name_last, b._mother_name_last_pre, b._mother_name_last_suf,
+							b._mother_name_last_p, b._mother_name_last_p_pre, b._mother_name_last_p_suf )
+						OR s._last_name_suf IN ( b._mother_name_last, b._mother_name_last_pre, b._mother_name_last_suf,
+							b._mother_name_last_p, b._mother_name_last_p_pre, b._mother_name_last_p_suf )
+						) THEN 0.5
+					ELSE 0.0 END AS last_name_score,
 
 				CASE WHEN b._mother_name_first = s._mother_first_name THEN 1.0
 					ELSE 0.0 END AS mom_first_name_score,
@@ -960,7 +974,7 @@ BEGIN
 		) AS computing_scores
 		WHERE birth_score + zip_score + address_score + num_score +
 			middle_name_score + last_name_score + first_name_score +
-			mom_first_name_score + mom_last_name_score + mom_maiden_name_score >= 4
+			mom_first_name_score + mom_last_name_score + mom_maiden_name_score >= 5
 
 	) AS ranked
 	WHERE rank = 1;
