@@ -107,7 +107,7 @@ ORDER BY count
 
 
 SELECT this.name, this.count, (this.count - prev.count) AS num,
-  DATEPART(minute, this.created_at - prev.created_at) AS minutes
+  DATEDIFF(minute, prev.created_at, this.created_at) AS minutes
 FROM dev.counts this
 JOIN dev.counts prev ON this.id = prev.id + 1
 
