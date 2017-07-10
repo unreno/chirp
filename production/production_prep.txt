@@ -403,7 +403,8 @@ BEGIN
 		INSERT INTO dev.counts WITH (TABLOCK) (name,count)
 			SELECT 'identifiers_count ' + CAST(@y AS VARCHAR(4)) + ' ' + CAST(@m AS VARCHAR(2)), COUNT(1)
 			FROM private.identifiers;
-		SELECT 'identifiers_count ' + CAST(@y AS VARCHAR) + ' ' + CAST(@m AS VARCHAR);
+		SELECT 'identifiers_count ' + CAST(@y AS VARCHAR) + ' ' + CAST(@m AS VARCHAR), COUNT(1)
+			FROM private.identifiers;
 		SET @m = @m + 1;
 	END
 	SET @y = @y + 1;
@@ -424,6 +425,13 @@ ORDER BY count
 
 
 count	percentage
+1	15.789612097304
+2	74.992767915844
+3	8.875739644970
+4	0.341880341880
+
+
+count	percentage
 1	16.094674556213
 2	74.774490466798
 3	8.794214332675
@@ -433,9 +441,107 @@ count	percentage
 SELECT this.name, this.count, (this.count - prev.count) AS num, 
 	DATEPART(minute, this.created_at - prev.created_at) AS minutes
 FROM dev.counts this
-JOIN dev.counts prev ON this.id = prev.id + 1
-WHERE DAY( this.created_at ) > DAY( GETDATE() ) - 2;
+JOIN dev.counts prev ON this.id = prev.id + 1;
 
+
+
+name	count	num	minutes
+identifiers_count 2010 1	38379	-10447087	17
+identifiers_count 2010 2	38731	352	20
+identifiers_count 2010 3	39133	402	44
+identifiers_count 2010 4	39538	405	26
+identifiers_count 2010 5	39972	434	26
+identifiers_count 2010 6	40389	417	25
+identifiers_count 2010 7	40804	415	25
+identifiers_count 2010 8	41229	425	25
+identifiers_count 2010 9	41648	419	23
+identifiers_count 2010 10	41997	349	23
+identifiers_count 2010 11	42431	434	28
+identifiers_count 2010 12	42907	476	28
+identifiers_count 2011 1	43384	477	26
+identifiers_count 2011 2	43790	406	22
+identifiers_count 2011 3	44246	456	27
+identifiers_count 2011 4	44684	438	27
+identifiers_count 2011 5	45186	502	31
+identifiers_count 2011 6	45668	482	28
+identifiers_count 2011 7	46096	428	26
+identifiers_count 2011 8	46566	470	28
+identifiers_count 2011 9	47005	439	28
+identifiers_count 2011 10	47447	442	27
+identifiers_count 2011 11	47860	413	26
+identifiers_count 2011 12	48230	370	21
+identifiers_count 2012 1	48544	314	20
+identifiers_count 2012 2	48866	322	18
+identifiers_count 2012 3	49334	468	26
+identifiers_count 2012 4	49728	394	23
+identifiers_count 2012 5	50132	404	23
+identifiers_count 2012 6	50492	360	22
+identifiers_count 2012 7	50922	430	28
+identifiers_count 2012 8	51330	408	29
+identifiers_count 2012 9	51731	401	27
+identifiers_count 2012 10	52093	362	23
+identifiers_count 2012 11	52457	364	22
+identifiers_count 2012 12	52830	373	21
+identifiers_count 2013 1	53202	372	21
+identifiers_count 2013 2	53527	325	20
+identifiers_count 2013 3	53918	391	23
+identifiers_count 2013 4	54277	359	21
+identifiers_count 2013 5	54673	396	20
+identifiers_count 2013 6	55184	511	21
+identifiers_count 2013 7	55653	469	21
+identifiers_count 2013 8	56080	427	18
+identifiers_count 2013 9	56517	437	18
+identifiers_count 2013 10	56916	399	15
+identifiers_count 2013 11	57299	383	15
+identifiers_count 2013 12	57694	395	15
+identifiers_count 2014 1	58112	418	15
+identifiers_count 2014 2	58474	362	13
+identifiers_count 2014 3	58848	374	15
+identifiers_count 2014 4	59257	409	17
+identifiers_count 2014 5	59631	374	16
+identifiers_count 2014 6	60015	384	17
+identifiers_count 2014 7	60480	465	19
+identifiers_count 2014 8	60884	404	17
+identifiers_count 2014 9	61274	390	16
+identifiers_count 2014 10	61682	408	16
+identifiers_count 2014 11	62067	385	17
+identifiers_count 2014 12	62475	408	18
+identifiers_count 2015 1	62921	446	19
+identifiers_count 2015 2	63257	336	13
+identifiers_count 2015 3	63685	428	16
+identifiers_count 2015 4	64068	383	16
+identifiers_count 2015 5	64489	421	16
+identifiers_count 2015 6	64895	406	17
+identifiers_count 2015 7	65357	462	19
+identifiers_count 2015 8	65833	476	19
+identifiers_count 2015 9	66251	418	16
+identifiers_count 2015 10	66675	424	14
+identifiers_count 2015 11	67081	406	13
+identifiers_count 2015 12	67556	475	14
+identifiers_count 2016 1	67937	381	12
+identifiers_count 2016 2	68349	412	10
+identifiers_count 2016 3	68723	374	10
+identifiers_count 2016 4	69078	355	9
+identifiers_count 2016 5	69497	419	10
+identifiers_count 2016 6	69912	415	9
+identifiers_count 2016 7	70311	399	8
+identifiers_count 2016 8	70706	395	7
+identifiers_count 2016 9	71115	409	7
+identifiers_count 2016 10	71464	349	5
+identifiers_count 2016 11	71813	349	4
+identifiers_count 2016 12	72212	399	4
+identifiers_count 2017 1	72538	326	3
+identifiers_count 2017 2	72850	312	2
+identifiers_count 2017 3	73187	337	2
+identifiers_count 2017 4	73523	336	2
+identifiers_count 2017 5	73681	158	0
+identifiers_count 2017 6	73681	0	0
+identifiers_count 2017 7	73681	0	0
+identifiers_count 2017 8	73681	0	0
+identifiers_count 2017 9	73681	0	0
+identifiers_count 2017 10	73681	0	0
+identifiers_count 2017 11	73681	0	0
+identifiers_count 2017 12	73681	0	0
 
 
 
@@ -656,7 +762,7 @@ INSERT INTO dev.counts WITH (TABLOCK) (name,count)
 	FROM dbo.observations;
 SELECT 'obs_count post webiz import', COUNT(1)
 	FROM dbo.observations;
---	11241601		--	11203576
+--	11250913	--	11241601		--	11203576
 
 
 
