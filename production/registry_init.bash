@@ -40,7 +40,9 @@ cat vital_birth.sql
 ./normalize_street_column.bash vital.births mother_res_addr1
 ./dehyphenate_name_column.bash vital.births mother_name_last_p
 ./dehyphenate_name_column.bash vital.births mother_name_last
+./dehyphenate_name_column.bash vital.births mother_name_first
 ./dehyphenate_name_column.bash vital.births name_last
+./dehyphenate_name_column.bash vital.births name_first
 #./split_date_column.bash vital.births bth_date
 #./split_date_column.bash vital.births mom_dob
 ./split_string_date_column.bash vital.births date_of_birth
@@ -83,7 +85,9 @@ cat webiz.sql
 ./normalize_name_column.bash webiz.immunizations mother_maiden_name
 ./dehyphenate_name_column.bash webiz.immunizations mother_last_name
 ./dehyphenate_name_column.bash webiz.immunizations mother_maiden_name
+./dehyphenate_name_column.bash webiz.immunizations mother_first_name
 ./dehyphenate_name_column.bash webiz.immunizations last_name
+./dehyphenate_name_column.bash webiz.immunizations first_name
 ./split_date_column.bash webiz.immunizations dob
 
 ./normalize_street_column.bash webiz.addresses address_line1

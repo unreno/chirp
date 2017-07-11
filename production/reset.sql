@@ -1,7 +1,10 @@
 
 
 
-TRUNCATE TABLE private.identifiers;
+--	TRUNCATE TABLE private.identifiers;
+
+DELETE FROM private.identifiers where source_schema = 'webiz';
+
 TRUNCATE TABLE dbo.observations;
 
 UPDATE x WITH (TABLOCK)
@@ -50,6 +53,14 @@ SELECT COUNT(1) AS observations_post_count FROM dbo.observations
 INSERT INTO dev.counts WITH (TABLOCK) (name,count) SELECT 'obs_count', COUNT(1) FROM dbo.observations;
 
 
+INSERT INTO dev.counts WITH (TABLOCK) (name,count)
+	SELECT 'identifiers_count 0 0', COUNT(1)
+	FROM private.identifiers;
+INSERT INTO dev.counts WITH (TABLOCK) (name,count)
+	SELECT 'distinct webiz chirp_ids 0 0',
+	COUNT(DISTINCT chirp_id) FROM private.identifiers i
+	WHERE i.source_schema = 'webiz';
+
 
 
 
@@ -66,7 +77,16 @@ BEGIN
 		INSERT INTO dev.counts WITH (TABLOCK) (name,count)
 			SELECT 'identifiers_count ' + CAST(@y AS VARCHAR(4)) + ' ' + CAST(@m AS VARCHAR(2)), COUNT(1)
 			FROM private.identifiers;
-		SELECT 'identifiers_count ' + CAST(@y AS VARCHAR) + ' ' + CAST(@m AS VARCHAR);
+		SELECT 'identifiers_count ' + CAST(@y AS VARCHAR(4)) + ' ' + CAST(@m AS VARCHAR(2)), COUNT(1)
+		FROM private.identifiers;
+
+		INSERT INTO dev.counts WITH (TABLOCK) (name,count)
+			SELECT 'distinct webiz chirp_ids ' + CAST(@y AS VARCHAR(4)) + ' ' + CAST(@m AS VARCHAR(2)), 
+			COUNT(DISTINCT chirp_id) FROM private.identifiers i
+			WHERE i.source_schema = 'webiz';
+		SELECT 'distinct webiz chirp_ids ' + CAST(@y AS VARCHAR(4)) + ' ' + CAST(@m AS VARCHAR(2)), 
+			COUNT(DISTINCT chirp_id) FROM private.identifiers i
+			WHERE i.source_schema = 'webiz';
 
 		SET @m = @m + 1;
 	END
@@ -81,7 +101,7 @@ EXEC bin.import_into_data_warehouse
 INSERT INTO dev.counts WITH (TABLOCK) (name,count) SELECT 'obs_count', COUNT(1) FROM dbo.observations;
 
 
-SELECT * FROM dev.counts
+SELECT * FROM dev.counts;
 
 
 
@@ -96,7 +116,7 @@ FROM (
   ) x
   GROUP BY count
 ) y
-ORDER BY count
+ORDER BY count;
 
 
 --	count percentage
@@ -109,13 +129,13 @@ ORDER BY count
 SELECT this.name, this.count, (this.count - prev.count) AS num,
   DATEDIFF(minute, prev.created_at, this.created_at) AS minutes
 FROM dev.counts this
-JOIN dev.counts prev ON this.id = prev.id + 1
+JOIN dev.counts prev ON this.id = prev.id + 1;
 
 
 
 SELECT COUNT(DISTINCT chirp_id) FROM private.identifiers i
-WHERE i.source_schema = 'webiz'
+WHERE i.source_schema = 'webiz';
 
-SELECT COUNT(DISTINCT chirp_id) FROM private.identifiers i
+SELECT COUNT(DISTINCT chirp_id) FROM private.identifiers i;
 
 

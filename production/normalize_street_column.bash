@@ -99,7 +99,12 @@ field=$2
 #
 
 add_nest(){
-	nest="REPLACE(${*},' TRAIL',' ')"
+	nest="${*}"
+#	Perhaps should always expand or always abbreviate?
+#	Replacing with spaces is just destroying info.
+#	Of course, I've noticed some cases where one was STREET and another was ROAD.
+#	Removing removes this user induced limitation.
+	nest="REPLACE(${nest},' TRAIL',' ')"
 	nest="REPLACE(${nest},' TRL',' ')"
 #	order matters. BOULEVARD contains RD, so do before RD extraction"
 	nest="REPLACE(${nest},' BOULEVARD',' ')"
@@ -118,17 +123,25 @@ add_nest(){
 	nest="REPLACE(${nest},' AVE',' ')"
 	nest="REPLACE(${nest},' APT',' ')"
 	nest="REPLACE(${nest},' UNIT',' ')"
-	nest="REPLACE(${nest},' MOUNT',' MT')"		#	why keep?
+#	why keep? what about MNT? Or MTN? Or MTAIN? (Actually MTAIN is a result of this replacement)
+#	nest="REPLACE(${nest},' MOUNT',' MT')"
+	nest="REPLACE(${nest},' MOUNTAIN',' ')"
+	nest="REPLACE(${nest},' MOUNT',' ')"
+	nest="REPLACE(${nest},' MTN',' ')"
 	nest="REPLACE(${nest},' PARKWAY',' ')"
 	nest="REPLACE(${nest},' PKWY',' ')"
 	nest="REPLACE(${nest},' WAY',' ')"
+	nest="REPLACE(${nest},' PLACE',' ')"
 	nest="REPLACE(${nest},' PL',' ')"
+	nest="REPLACE(${nest},' STREET',' ')"
+	nest="REPLACE(${nest},' ST',' ')"
 	nest="REPLACE(${nest},'NORTH','N')"
 	nest="REPLACE(${nest},'SOUTH','S')"
 	nest="REPLACE(${nest},'EAST','E')"
 	nest="REPLACE(${nest},'WEST','W')"
 	nest="REPLACE(${nest},'SS','S')"
 	nest="REPLACE(${nest},'OO','O')"
+	nest="REPLACE(${nest},'NN','N')"
 	nest="REPLACE(${nest},' ','')"
 	echo $nest
 }
@@ -144,8 +157,6 @@ echo "	PERSISTED;"
 echo
 
 #	Take everything up to first , (comma)
-
-#	Take everything up to first # (hash)
 s="SUBSTRING( ${field}, 1, ISNULL(NULLIF(CHARINDEX('#',${field})-1,-1),LEN(${field})))"
 s=$(add_nest "$s")
 echo 

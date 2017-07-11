@@ -500,6 +500,15 @@ GO
 
 
 
+--IF COL_LENGTH('webiz.immunizations','_address_line1') IS NOT NULL
+--	ALTER TABLE webiz.immunizations DROP COLUMN _address_line1;
+--ALTER TABLE webiz.immunizations ADD _address_line1 AS
+--	NULLIF(REPLACE(
+--		ISNULL(street_number,'') + ' ' + 
+--		ISNULL(street_prefix_desc,'') + ' ' + 
+--		ISNULL(street_name,''),
+--	'  ', ' '),' ') PERSISTED;
+
 IF COL_LENGTH('webiz.immunizations','_address_line1') IS NOT NULL
 	ALTER TABLE webiz.immunizations DROP COLUMN _address_line1;
 ALTER TABLE webiz.immunizations ADD _address_line1 AS
@@ -507,5 +516,9 @@ ALTER TABLE webiz.immunizations ADD _address_line1 AS
 		ISNULL(street_number,'') + ' ' + 
 		ISNULL(street_prefix_desc,'') + ' ' + 
 		ISNULL(street_name,''),
-	'  ', ' '),' ') PERSISTED;
+	' ', ''),'') PERSISTED;
+
+--	normalize?
+
+
 

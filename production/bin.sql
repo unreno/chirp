@@ -46,7 +46,7 @@ BEGIN
 			CASE WHEN c.value IS NOT NULL THEN c.value ELSE vaccination_desc END AS value,
 			c.units AS units, source_schema, source_table, source_id, downloaded_at
 		FROM (
-			SELECT i.chirp_id, 
+			SELECT i.chirp_id,
 				vaccination_date AS started_at,
 				vaccination_desc AS raw,
 				'webiz' AS source_schema,
@@ -179,7 +179,7 @@ BEGIN
 
 --awk -F, 'BEGIN{OFS=","}(/^--/){print}(!/^--/){gsub(/^[ ]+/,"",$2);gsub(/[ ]+$/,"",$2); gsub(/CAST \(/,"CAST(",$2);printf "%-25s, %-45s,%s\n", $1, $2,$3}' temp
 
---	awk '{q="'"'"'"$0"'"'"'";printf( "%s%30s, %50s, NULL),\n","(",q,$0 )}' vital_birth_fields.txt 
+--	awk '{q="'"'"'"$0"'"'"'";printf( "%s%30s, %50s, NULL),\n","(",q,$0 )}' vital_birth_fields.txt
 
 	INSERT INTO dbo.observations WITH (TABLOCK)
 		(chirp_id, provider_id, started_at, ended_at, raw,
@@ -598,7 +598,7 @@ BEGIN
 --					WHEN birth_weight_grams >= 1000 THEN 'Very Low Birth Weight (<1,500g)'
 --					ELSE 'Extremely Low Birth Weight'
 				END , NULL),
-			('mother_age_group', CASE 
+			('mother_age_group', CASE
 					WHEN b2_mother_age >= 45 THEN '45+'
 					WHEN b2_mother_age >= 40 THEN '40-44'
 					WHEN b2_mother_age >= 35 THEN '35-39'
@@ -875,9 +875,9 @@ BEGIN
 	IF OBJECT_ID('tempdb..#temp_identifiers_link', 'U') IS NOT NULL
 		DROP TABLE #temp_identifiers_link;
 
-	DECLARE @mid_this_month DATE = CAST(CAST(@year AS VARCHAR) + '-' + CAST(@month AS VARCHAR) + '-10' AS DATE);
-	DECLARE @begin_prev_month DATE = DATEADD(m, DATEDIFF(m,0,@mid_this_month)-1,0);
-	DECLARE @end_next_month DATE = DATEADD(s,-1,DATEADD(m, DATEDIFF(m,0,@mid_this_month)+2,0));
+--	DECLARE @mid_this_month DATE = CAST(CAST(@year AS VARCHAR) + '-' + CAST(@month AS VARCHAR) + '-10' AS DATE);
+--	DECLARE @begin_prev_month DATE = DATEADD(m, DATEDIFF(m,0,@mid_this_month)-1,0);
+--	DECLARE @end_next_month DATE = DATEADD(s,-1,DATEADD(m, DATEDIFF(m,0,@mid_this_month)+2,0));
 
 	-- NEED to assign aliases to all columns here that aren't variables, like these fixed value strings.
 	SELECT DISTINCT chirp_id, 'webiz' AS ss, 'immunizations' AS st,
@@ -898,6 +898,7 @@ BEGIN
 		FROM (
 
 			SELECT i.chirp_id, s.patient_id,
+--	With LEFT JOIN ON date of birth, this is always true.
 				CASE WHEN b._date_of_birth_date = s.dob THEN 1.0
 --					WHEN b._date_of_birth_date BETWEEN DATEADD(day,-8,s.dob) AND DATEADD(day,8,s.dob) THEN 0.5
 					ELSE 0.0 END AS birth_score,
@@ -916,13 +917,15 @@ BEGIN
 					ELSE 0.0 END AS num_score,
 
 				CASE WHEN b._name_first = s._first_name THEN 1.0
+					WHEN b._name_first_pre = s._first_name_pre THEN 1.0
 					ELSE 0.0 END AS first_name_score,
 				CASE WHEN b._name_middle = s._middle_name THEN 1.0
+					WHEN LEFT(b._name_middle,1) = LEFT(s._middle_name,1) THEN 0.5
 					ELSE 0.0 END AS middle_name_score,
 				CASE WHEN ( b._name_last IN ( s._last_name, s._last_name_pre, s._last_name_suf )
 						OR b._name_last_pre IN ( s._last_name, s._last_name_pre, s._last_name_suf )
-						OR b._name_last_suf IN ( s._last_name, s._last_name_pre, s._last_name_suf ) ) THEN 1.0 
-					WHEN ( 
+						OR b._name_last_suf IN ( s._last_name, s._last_name_pre, s._last_name_suf ) ) THEN 1.0
+					WHEN (
 						b._name_last IN ( s._mother_last_name, s._mother_last_name_pre, s._mother_last_name_suf,
 							s._mother_maiden_name, s._mother_maiden_name_pre, s._mother_maiden_name_suf )
 						OR b._name_last_pre IN ( s._mother_last_name, s._mother_last_name_pre, s._mother_last_name_suf,
@@ -940,9 +943,12 @@ BEGIN
 
 				CASE WHEN b._mother_name_first = s._mother_first_name THEN 1.0
 					ELSE 0.0 END AS mom_first_name_score,
-				CASE WHEN ( s._mother_last_name IN ( b._mother_name_last, b._mother_name_last_pre, b._mother_name_last_suf )
-					OR s._mother_last_name_pre IN ( b._mother_name_last, b._mother_name_last_pre, b._mother_name_last_suf )
-					OR s._mother_last_name_suf IN ( b._mother_name_last, b._mother_name_last_pre, b._mother_name_last_suf ) )
+				CASE WHEN ( s._mother_last_name IN
+						( b._mother_name_last, b._mother_name_last_pre, b._mother_name_last_suf )
+					OR s._mother_last_name_pre IN
+						( b._mother_name_last, b._mother_name_last_pre, b._mother_name_last_suf )
+					OR s._mother_last_name_suf IN
+						( b._mother_name_last, b._mother_name_last_pre, b._mother_name_last_suf ) )
 					THEN 1.0 ELSE 0.0 END AS mom_last_name_score,
 				CASE WHEN ( s._mother_maiden_name IN ( b._mother_name_last_p, b._mother_name_last_p_pre, b._mother_name_last_p_suf )
 					OR s._mother_maiden_name_pre IN ( b._mother_name_last_p, b._mother_name_last_p_pre, b._mother_name_last_p_suf )
@@ -955,7 +961,9 @@ BEGIN
 				AND i.source_column = 'state_file_number'
 				AND i.source_table  = 'births'
 				AND i.source_schema = 'vital'
-			CROSS JOIN webiz.immunizations s
+--		CROSS JOIN webiz.immunizations s
+--		Requiring same date of birth should speed things up.
+			LEFT JOIN webiz.immunizations s ON b._date_of_birth_date = s.dob
 			LEFT JOIN webiz.local_ids l
 				ON s.patient_id = l.patient_id
 			LEFT JOIN webiz.addresses a
@@ -970,7 +978,7 @@ BEGIN
 
 --			WHERE b._date_of_birth_year = @year AND b._date_of_birth_month = @month
 --				AND s._dob_year = @year AND s._dob_month = @month
-				AND s.dob BETWEEN @begin_prev_month AND @end_next_month
+--				AND s.dob BETWEEN @begin_prev_month AND @end_next_month
 
 		) AS computing_scores
 		WHERE birth_score + zip_score + address_score + num_score +

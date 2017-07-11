@@ -393,6 +393,10 @@ DECLARE @m INT = 1;
 INSERT INTO dev.counts WITH (TABLOCK) (name,count)
 	SELECT 'identifiers_count 0 0', COUNT(1)
 	FROM private.identifiers;
+INSERT INTO dev.counts WITH (TABLOCK) (name,count)
+	SELECT 'distinct webiz chirp_ids 0 0',
+	COUNT(DISTINCT chirp_id) FROM private.identifiers i
+	WHERE i.source_schema = 'webiz';
 
 WHILE @y < 2018
 BEGIN
@@ -403,8 +407,17 @@ BEGIN
 		INSERT INTO dev.counts WITH (TABLOCK) (name,count)
 			SELECT 'identifiers_count ' + CAST(@y AS VARCHAR(4)) + ' ' + CAST(@m AS VARCHAR(2)), COUNT(1)
 			FROM private.identifiers;
-		SELECT 'identifiers_count ' + CAST(@y AS VARCHAR) + ' ' + CAST(@m AS VARCHAR), COUNT(1)
+		SELECT 'identifiers_count ' + CAST(@y AS VARCHAR(4)) + ' ' + CAST(@m AS VARCHAR(2)), COUNT(1)
 			FROM private.identifiers;
+
+		INSERT INTO dev.counts WITH (TABLOCK) (name,count)
+			SELECT 'distinct webiz chirp_ids ' + CAST(@y AS VARCHAR(4)) + ' ' + CAST(@m AS VARCHAR(2)), 
+			COUNT(DISTINCT chirp_id) FROM private.identifiers i
+			WHERE i.source_schema = 'webiz';
+		SELECT 'distinct webiz chirp_ids ' + CAST(@y AS VARCHAR(4)) + ' ' + CAST(@m AS VARCHAR(2)), 
+			COUNT(DISTINCT chirp_id) FROM private.identifiers i
+			WHERE i.source_schema = 'webiz';
+
 		SET @m = @m + 1;
 	END
 	SET @y = @y + 1;
