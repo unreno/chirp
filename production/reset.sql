@@ -139,3 +139,16 @@ WHERE i.source_schema = 'webiz';
 SELECT COUNT(DISTINCT chirp_id) FROM private.identifiers i;
 
 
+SELECT TOP 50 this.name, this.count, (this.count - prev.count) AS num, 
+	DATEDIFF( minute, prev.created_at,this.created_at) AS minutes
+FROM dev.counts this
+JOIN dev.counts prev ON this.id = prev.id + 2
+WHERE this.id > 0 AND this.name like 'identifiers%'
+ORDER BY this.id DESC
+
+SELECT TOP 50 this.name, this.count, (this.count - prev.count) AS num, 
+	DATEDIFF( minute, prev.created_at,this.created_at) AS minutes
+FROM dev.counts this
+JOIN dev.counts prev ON this.id = prev.id + 2
+WHERE this.id > 0 AND this.name like 'distinct%'
+ORDER BY this.id DESC
