@@ -395,7 +395,8 @@ BEGIN
 			(                   'plurality',                    CAST(plurality AS VARCHAR(255)), NULL),
 			(                 'birth_order',                  CAST(birth_order AS VARCHAR(255)), NULL),
 			(               'b2_born_alive',                CAST(b2_born_alive AS VARCHAR(255)), NULL),
-			(             'b2_match_number',              CAST(b2_match_number AS VARCHAR(255)), NULL),
+--	Not entirely sure what this is but it is kinda unique.
+--			(             'b2_match_number',              CAST(b2_match_number AS VARCHAR(255)), NULL),
 			(                'trans_infant',                 CAST(trans_infant AS VARCHAR(255)), NULL),
 			(            'b2_infant_living',             CAST(b2_infant_living AS VARCHAR(255)), NULL),
 			(                   'm_ac_none',                    CAST(m_ac_none AS VARCHAR(255)), NULL),
