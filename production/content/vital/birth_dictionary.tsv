@@ -405,7 +405,7 @@ vital	births	mother_name_last_p		Mother's Maiden Name	Mother's Maiden Name Free 
 vital	births	mother_name_suffix_p		Mother's Maiden Name Suffix	Mother's Maiden Name Suffix Drop down Menu I, II, III, IV, Jr, Sr
 vital	births	b2_mother_dob		Mother's Date of Birth	Mother's Date of Birth mmddyyyy mmddyyyy
 vital	births	b2_mother_age		Mother's Age	Mother's Age Calculated 0
-vital	births	mbir_country_country_code_nv	CODESET	Mother's Country of Birth	Mother's Country of Birth Drop down Menu See NV Country Codes
+vital	births	mbir_country_country_code_nv		Mother's Country of Birth	Mother's Country of Birth Drop down Menu See NV Country Codes
 vital	births	mbir_state_state_code_nv	state	Mother's State of Birth	Mother's State of Birth Drop down Menu See NV State Codes
 vital	births	mres_state_state_code_nv	state	Mother's Residence State	Mother's Residence State Drop down Menu See NV State Codes
 vital	births	mother_res_city_nv_old	city	Mother's Residence City	Mother's Residence City Drop down Menu See NV City Codes
