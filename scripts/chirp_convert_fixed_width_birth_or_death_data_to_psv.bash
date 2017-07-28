@@ -91,7 +91,7 @@ BEGIN {
 	split(a[2],widths)
 	FIELDWIDTHS=a[2]
 	OFS="|"
-	print tolower(join(names,1,length(names),OFS))
+#	print tolower(join(names,1,length(names),OFS))
 }
 {
 	for(i=1;i<=NF;i++){

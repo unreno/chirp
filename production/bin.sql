@@ -1182,7 +1182,9 @@ BEGIN
 
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT vital.bulk_insert_births ' +
 		'FROM ''' + @file_with_path + ''' WITH ( ' +
-			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 2, TABLOCK )';
+			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 1, TABLOCK )';
+--	No more header row
+--			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 2, TABLOCK )';
 --			'ROWTERMINATOR = '''+CHAR(10)+''', FIRSTROW = 2, TABLOCK )';
 
 	-- RESEEDing acts differently the first time it is called
@@ -1223,7 +1225,9 @@ BEGIN
 
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT vital.bulk_insert_deaths ' +
 		'FROM ''' + @file_with_path + ''' WITH ( ' +
-			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 2, TABLOCK )';
+			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 1, TABLOCK )';
+--	No more header row.
+--			'ROWTERMINATOR = '''+CHAR(10)+''', FIELDTERMINATOR = ''|'', FIRSTROW = 2, TABLOCK )';
 --			'ROWTERMINATOR = '''+CHAR(10)+''', FIRSTROW = 2, TABLOCK )';
 
 	-- RESEEDing acts differently the first time it is called
