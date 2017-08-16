@@ -35,31 +35,24 @@ while (<>) {
 		(NV|NEVADA|AZ|CA|UT),
 	/,$1,$2,$3,$4,$5,"$6",$7,$8,$9,$10,"$11",$12,$13,$14,$15,"$16",$17,$18,$19,$20,$21,$22,$23,/x;
 
-#	#	Do this before the next one as the next one adds double quotes
-#	s/,(NV|NEVADA|AZ|CA|UT),						#	67 BO ReportToState VARCHAR(10)
-#		([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),([^,]*),
-#		(NV|NEVADA|CA|NY|AZ|UT),					#	75 BW MotherState VARCHAR(5)
-#		([0-9\\]*),													#	76 MotherZip VARCHAR(10)
-#		([0-9]*),													#	77 Phone VARCHAR(10)
-#		([0-9]*),													#	78 BZ EmergencyPhone VARCHAR(10)
-#		([A-z \*\#\/\.\-\(\)\']+),([A-z \*\#\/\.\-\(\)\']+),
-#																			#	79 FatherName VARCHAR(30) can contain commas
-#	/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,"$13,$14",/x;
-#
-#	s/,(NV|NEVADA|AZ|CA|UT),						#	67 BO ReportToState VARCHAR(10)
-#		([0-9\-\\]+),([^,]*),([^,]*),([^,]*),([^,]*),
-#																			#	68 ReportToZip VARCHAR(10)
-#																			#	69 MotherLastName VARCHAR(20)
-#																			#	70 MotherFirstName VARCHAR(20)
-#																			#	71 BS MotherDOB DATE
-#																			#	72 MotherMaidenName VARCHAR(10)
-##		(.*?),														#	73 BU MotherAddress VARCHAR(30)	can contain commas
-#		([^,]*),													#	74 MotherCity VARCHAR(30)
-#		(NV|NEVADA|CA|NY|AZ|UT),					#	75 BW MotherState VARCHAR(5) 5? likely never actually NEVADA
-#		([0-9\-\\]+),
-#	/,$1,$2,$3,$4,$5,$6,"$7",$8,$9,$10,/x;
+	#	Do this before the next one as the next one adds double quotes
+	s/,(NY|NV|NEVADA|AZ|CA|UT),					#	67 BO ReportToState VARCHAR(10)
+		([^,]*),													#	68 ReportToZip VARCHAR(10)
+		([^,]*),													#	69 MotherLastName VARCHAR(20)
+		([^,]*),													#	70 MotherFirstName VARCHAR(20)
+		([^,]*),													#	71 BS MotherDOB DATE
+		([^,]*),													#	72 MotherMaidenName VARCHAR(10)
+		(.*?),														#	73 BU MotherAddress VARCHAR(30)	can contain commas -------
+		([^,]*),													#	74 MotherCity VARCHAR(30)
+		(NV|NEVADA|CA|NY|AZ|UT),					#	75 BW MotherState VARCHAR(5)
+		([0-9\\]*),												#	76 MotherZip VARCHAR(10)
+		([0-9]*),													#	77 Phone VARCHAR(10)
+		([0-9]*),													#	78 BZ EmergencyPhone VARCHAR(10)
+		([A-z \*\#\/\.\-\(\)\']+),([A-z \*\#\/\.\-\(\)\']+),
+																			#	79 FatherName VARCHAR(30) can contain commas
+	/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,"$13,$14",/x;
 
-	s/,(HI|NV|NEVADA|AZ|CA|UT),					#	67 BO ReportToState VARCHAR(10)
+	s/,(NY|NV|NEVADA|AZ|CA|UT),					#	67 BO ReportToState VARCHAR(10)
 		([0-9\-\\]+),											#	68 ReportToZip VARCHAR(10)
 		([^,]*),													#	69 MotherLastName VARCHAR(20)
 		([^,]*),													#	70 MotherFirstName VARCHAR(20)
@@ -67,13 +60,10 @@ while (<>) {
 		([^,]*),													#	72 MotherMaidenName VARCHAR(10)
 		(.*?),														#	73 BU MotherAddress VARCHAR(30)	can contain commas
 		([^,]*),													#	74 MotherCity VARCHAR(30)
-		(HI|NV|NEVADA|CA|NY|AZ|UT),				#	75 BW MotherState VARCHAR(5) 5? likely never actually NEVADA
-		([0-9\-\\]*),											#	76 MotherZip VARCHAR(10)
-		([0-9]*),													#	77 Phone VARCHAR(10)
-		([0-9]*),													#	78 BZ EmergencyPhone VARCHAR(10)
-		([A-z \*\#\/\.\-\(\)\']+),([A-z \*\#\/\.\-\(\)\']+),
-																			#	79 FatherName VARCHAR(30) can contain commas
-	/,$1,$2,$3,$4,$5,$6,"$7",$8,$9,$10,$11,$12,"$13,$14",/x;
+		(NV|NEVADA|CA|NY|AZ|UT),					#	75 BW MotherState VARCHAR(5) 5? likely never actually NEVADA
+		([0-9\-\\]+),											#	76 MotherZip VARCHAR(10)
+	/,$1,$2,$3,$4,$5,$6,"$7",$8,$9,$10,/x;
+
 
 } continue {
 	print;
