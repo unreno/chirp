@@ -9,7 +9,7 @@ while (<>) {
 
 	s/"//g;	#	Only ever used incorrectly as ,BABY BOY "A", which is invalid csv
 
-	s/,([^,]+), ([^,]+),/"$1, $2"/g;
+	s/,([^,]+), ([^,]+),/,"$1, $2",/g;	#	merge if field starts with a space ,something, else, => ,"something, else",
 
 	s/,(False|True),
 		([^,]*),(False|True),
