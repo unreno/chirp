@@ -7,6 +7,8 @@ while (<>) {
 
 	s/Unkown/Unknown/g;	#	mispelled many times
 
+	s/"//g;	#	Only ever used incorrectly as ,BABY BOY "A", which is invalid csv
+
 	s/,(False|True),
 		([^,]*),(False|True),
 		([^,]*),([^,]*),(False|True),
@@ -58,4 +60,8 @@ while (<>) {
 __END__
 
 awk 'BEGIN{FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)"}(NF!=90){print}'  > PRAMS_SPECIMENS_NOT_90.csv
+
+#	some field actually contain double quotes, but the field isn't double quoted (eg. ,BOY "A",)
+#	actually just removing all double quotes so stick with the above
+awk 'BEGIN{FPAT = "(\"([^\"]|\"\")*\")|([^,]*)"}(NF!=90){print}'  > PRAMS_SPECIMENS_NOT_90.csv
 
