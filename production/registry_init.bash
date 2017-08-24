@@ -96,17 +96,30 @@ cat webiz.sql
 ./varchar_to_int_column.bash webiz.local_ids local_id
 
 
-cat health_lab.sql
-./normalize_name_column.bash health_lab.newborn_screenings mom_surname
-./normalize_name_column.bash health_lab.newborn_screenings last_name
-./normalize_name_column.bash health_lab.newborn_screenings mom_first_name
-./normalize_name_column.bash health_lab.newborn_screenings first_name
-./normalize_street_column.bash health_lab.newborn_screenings address
-./dehyphenate_name_column.bash health_lab.newborn_screenings last_name
-./dehyphenate_name_column.bash health_lab.newborn_screenings mom_surname
-./split_date_column.bash health_lab.newborn_screenings birth_date
-./split_date_column.bash health_lab.newborn_screenings mom_birth_date
-./split_address_column.bash health_lab.newborn_screenings address
+#cat health_lab.sql
+#./normalize_name_column.bash health_lab.newborn_screenings mom_surname
+#./normalize_name_column.bash health_lab.newborn_screenings last_name
+#./normalize_name_column.bash health_lab.newborn_screenings mom_first_name
+#./normalize_name_column.bash health_lab.newborn_screenings first_name
+#./normalize_street_column.bash health_lab.newborn_screenings address
+#./dehyphenate_name_column.bash health_lab.newborn_screenings last_name
+#./dehyphenate_name_column.bash health_lab.newborn_screenings mom_surname
+#./split_date_column.bash health_lab.newborn_screenings birth_date
+#./split_date_column.bash health_lab.newborn_screenings mom_birth_date
+#./split_address_column.bash health_lab.newborn_screenings address
+
+
+
+
+cat health_lab_prams.sql
+
+
+
+
+
+
+
+
 
 
 

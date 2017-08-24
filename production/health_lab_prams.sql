@@ -1,50 +1,50 @@
 
-IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='health_lab_new')
-	EXEC('CREATE SCHEMA health_lab_new')
+IF NOT EXISTS ( SELECT * FROM sys.schemas WHERE name='health_lab')
+	EXEC('CREATE SCHEMA health_lab')
 GO
 
 
--- July 2015 - December 2015
--- "Accession Number","Kit Number","Patient ID","Last Name","First Name","Maiden Name","Birth Date","Place of birth","Address 1","City","State","Zip Code","Phone no. 1","Phone no. 2","Location","Entry Mode","Rank","Mother's surname","Mother's first name","Mother's maiden name","Mother's date of birth","Contact facility","Contact Address 1"
-
--- January 2016 -
--- "Accession Number","Kit Number","Patient ID","Last Name","First Name","Birth Date","Address 1","City","State","Zip Code","Phone no. 1","Weight  Birth","Mother's surname","Mother's first name","Mother's maiden name","Mother's date of birth","Contact facility","Contact Address 1"
-
--- Minus a few, plus "Weight Birth"
-
--- Where are the results????
-
---IF OBJECT_ID('health_lab_new.newborn_screenings', 'U') IS NOT NULL
---	DROP TABLE health_lab_new.newborn_screening_specimens;
---CREATE TABLE health_lab_new.newborn_screening_specimens (
---	id INT IDENTITY(1,1),
---	CONSTRAINT health_lab_new_newborn_screening_specimens_id PRIMARY KEY CLUSTERED (id ASC),
+IF OBJECT_ID('health_lab.prams_specimens', 'U') IS NOT NULL
+	DROP TABLE health_lab.prams_specimens;
+CREATE TABLE health_lab.prams_specimens (
+	id INT IDENTITY(1,1),
+	CONSTRAINT health_lab_prams_specimens_id PRIMARY KEY CLUSTERED (id ASC),
 ---- SpecimenID,AccessionNumber,KitNumber,OrigKitNumber,TimeReceived,Unsat1,Unsat2,ParentRefused,Adopted,Deceased,DeceasedDate,ConsentGiven,BabyLast,BabyFirst,BirthDate,BirthDateNotGiven,BirthTime,BirthTimeNotGiven,BirthWeight,CollectionDate,CollectionDateNotGiven,CollectionTime,CollectionTimeNotGiven,CurrentWeight,BabySex,CollectedBy,CollectionAge,MedicalRecord,BirthType,BirthOrder,RaceWhite,RaceAfrAmer,RaceAmerInd,RaceAsian,RaceOther,RaceHispanic,BreastFeedOnly,MilkFeedOnly,SoyFeedOnly,BreastMilkFeed,BreastSoyFeed,TPN,NotFed,GestationAge,Meconiumileus,NICU,Antibiotic,BloodTransfusion,TrasfusionDate,BirthHospitalFacility,BirthHospitalFirstName,BirthHospitalLastName,BirthHospitalCode,BirthHospitalNotGiven,CollectionFacilityFacility,CollectionFacilityFirstName,CollectionFacilityLastName,CollectionFacilityCode,CollectionFacilityNotGiven,ReportToFacility,ReportToFirstName,ReportToLastName,ReportToCode,ReportToNotGiven,ReportToAddress,ReportToCity,ReportToState,ReportToZip,MotherLastName,MotherFirstName,MotherDOB,MotherMaidenName,MotherAddress,MotherCity,MotherState,MotherZip,Phone,EmergencyPhone,FatherName,FatherPhone,TestName,TestResultNumber,TestResultPlainValue,TestResultTextValue,MeasuredTime,AcceptedTime,TestPhase,TestStatus,ResultName,ResultLevel
---
---
---	source_filename VARCHAR(255),
---	--	Sadly, BULK INSERT does NOT preserve file order so this is moot.
---	--	If remove, remove code that RESEED ID
---	--	Actually, despite saying it doesn't, it seems to preserve the order.
---	source_record_number INT,
---
---	imported_at DATETIME
---		CONSTRAINT health_lab_new_newborn_screenings_imported_at_default
---		DEFAULT CURRENT_TIMESTAMP NOT NULL,
---	imported_to_observations BIT
---		CONSTRAINT health_lab_new_newborn_screenings_imported_to_observations_default
---		DEFAULT 'FALSE' NOT NULL,
---);
---GO
 
-IF OBJECT_ID('health_lab_new.newborn_screening_specimens_buffer', 'U') IS NOT NULL
-	DROP TABLE health_lab_new.newborn_screening_specimens_buffer;
-CREATE TABLE health_lab_new.newborn_screening_specimens_buffer (
---	id INT IDENTITY(1,1),
---	CONSTRAINT health_lab_new_newborn_screening_specimens_id PRIMARY KEY CLUSTERED (id ASC),
+
+
+--	copy the buffer structure (once complete)
+
+
+
+
+
+	source_filename VARCHAR(255),
+	--	Sadly, BULK INSERT does NOT preserve file order so this is moot.
+	--	If remove, remove code that RESEED ID
+	--	Actually, despite saying it doesn't, it seems to preserve the order.
+	source_record_number INT,	--	 IDENTITY(1,1),
+
+	imported_at DATETIME
+		CONSTRAINT health_lab_prams_specimens_imported_at_default
+		DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	imported_to_observations BIT
+		CONSTRAINT health_lab_prams_specimens_imported_to_observations_default
+		DEFAULT 'FALSE' NOT NULL,
+);
+GO
+
+
+
+
+
+
+IF OBJECT_ID('health_lab.prams_specimens_buffer', 'U') IS NOT NULL
+	DROP TABLE health_lab.prams_specimens_buffer;
+CREATE TABLE health_lab.prams_specimens_buffer (
 -- SpecimenID,AccessionNumber,KitNumber,OrigKitNumber,TimeReceived,Unsat1,Unsat2,ParentRefused,Adopted,Deceased,DeceasedDate,ConsentGiven,BabyLast,BabyFirst,BirthDate,BirthDateNotGiven,BirthTime,BirthTimeNotGiven,BirthWeight,CollectionDate,CollectionDateNotGiven,CollectionTime,CollectionTimeNotGiven,CurrentWeight,BabySex,CollectedBy,CollectionAge,MedicalRecord,BirthType,BirthOrder,RaceWhite,RaceAfrAmer,RaceAmerInd,RaceAsian,RaceOther,RaceHispanic,BreastFeedOnly,MilkFeedOnly,SoyFeedOnly,BreastMilkFeed,BreastSoyFeed,TPN,NotFed,GestationAge,Meconiumileus,NICU,Antibiotic,BloodTransfusion,TrasfusionDate,BirthHospitalFacility,BirthHospitalFirstName,BirthHospitalLastName,BirthHospitalCode,BirthHospitalNotGiven,CollectionFacilityFacility,CollectionFacilityFirstName,CollectionFacilityLastName,CollectionFacilityCode,CollectionFacilityNotGiven,ReportToFacility,ReportToFirstName,ReportToLastName,ReportToCode,ReportToNotGiven,ReportToAddress,ReportToCity,ReportToState,ReportToZip,MotherLastName,MotherFirstName,MotherDOB,MotherMaidenName,MotherAddress,MotherCity,MotherState,MotherZip,Phone,EmergencyPhone,FatherName,FatherPhone,TestName,TestResultNumber,TestResultPlainValue,TestResultTextValue,MeasuredTime,AcceptedTime,TestPhase,TestStatus,ResultName,ResultLevel
 
-	SpecimenID VARCHAR(10),
+	SpecimenID INTEGER,	--	VARCHAR(10),
 	AccessionNumber VARCHAR(15),
 	KitNumber VARCHAR(15),
 	OrigKitNumber VARCHAR(10),
@@ -58,19 +58,19 @@ CREATE TABLE health_lab_new.newborn_screening_specimens_buffer (
 	ConsentGiven VARCHAR(10),
 	BabyLast VARCHAR(20),
 	BabyFirst VARCHAR(10),
-	BirthDate DATE,
+	BirthDate DATE,	--	or DATETIME
 	BirthDateNotGiven VARCHAR(10),
 	BirthTime VARCHAR(10),
 	BirthTimeNotGiven VARCHAR(10),
 	BirthWeight VARCHAR(10),
-	CollectionDate DATE,
+	CollectionDate DATE,	--	or DATETIME
 	CollectionDateNotGiven VARCHAR(10),
 	CollectionTime VARCHAR(10),
 	CollectionTimeNotGiven VARCHAR(10),
 	CurrentWeight VARCHAR(10),
 	BabySex VARCHAR(10),
 	CollectedBy VARCHAR(20),
-	CollectionAge VARCHAR(10),
+	CollectionAge INTEGER,	--	VARCHAR(10),
 	MedicalRecord VARCHAR(10),
 	BirthType VARCHAR(10),
 	BirthOrder VARCHAR(10),
@@ -87,7 +87,7 @@ CREATE TABLE health_lab_new.newborn_screening_specimens_buffer (
 	BreastSoyFeed VARCHAR(10),
 	TPN VARCHAR(10),
 	NotFed VARCHAR(10),
-	GestationAge VARCHAR(10),
+	GestationAge INTEGER,	--	VARCHAR(10),
 	Meconiumileus VARCHAR(10),
 	NICU VARCHAR(10),
 	Antibiotic VARCHAR(10),
@@ -114,7 +114,7 @@ CREATE TABLE health_lab_new.newborn_screening_specimens_buffer (
 	ReportToZip VARCHAR(10),
 	MotherLastName VARCHAR(20),
 	MotherFirstName VARCHAR(20),
-	MotherDOB DATE,
+	MotherDOB DATE,	--	or DATETIME
 	MotherMaidenName VARCHAR(10),
 	MotherAddress VARCHAR(30),
 	MotherCity VARCHAR(30),
@@ -124,6 +124,7 @@ CREATE TABLE health_lab_new.newborn_screening_specimens_buffer (
 	EmergencyPhone VARCHAR(10),
 	FatherName VARCHAR(30),
 	FatherPhone VARCHAR(10),
+		--	Don't think any of this is included here? In PRAMS_RESULTS?
 	TestName VARCHAR(10),
 	TestResultNumber VARCHAR(10),
 	TestResultPlainValue VARCHAR(10),
@@ -168,10 +169,10 @@ CREATE TABLE health_lab_new.newborn_screening_specimens_buffer (
 	source_record_number INT IDENTITY(1,1),
 
 	imported_at DATETIME
-		CONSTRAINT health_lab_new_newborn_screening_specimens_buffer_imported_at_default
+		CONSTRAINT health_lab_prams_specimens_buffer_imported_at_default
 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	imported_to_observations BIT
-		CONSTRAINT health_lab_new_newborn_screening_specimens_buffer_imported_to_observations_default
+		CONSTRAINT health_lab_prams_specimens_buffer_imported_to_observations_default
 		DEFAULT 'FALSE' NOT NULL,
 );
 GO
@@ -180,10 +181,10 @@ GO
 
 
 
-IF OBJECT_ID ( 'health_lab_new.bulk_insert_newborn_screening_specimens', 'V' ) IS NOT NULL
-	DROP VIEW health_lab_new.bulk_insert_newborn_screening_specimens;
+IF OBJECT_ID ( 'health_lab.bulk_insert_prams_specimens', 'V' ) IS NOT NULL
+	DROP VIEW health_lab.bulk_insert_prams_specimens;
 GO
-CREATE VIEW health_lab_new.bulk_insert_newborn_screening_specimens AS SELECT
+CREATE VIEW health_lab.bulk_insert_prams_specimens AS SELECT
 	SpecimenID,
 	AccessionNumber,
 	KitNumber,
@@ -274,7 +275,7 @@ CREATE VIEW health_lab_new.bulk_insert_newborn_screening_specimens AS SELECT
 	TestStatus,
 	ResultName,
 	ResultLevel
-FROM health_lab_new.newborn_screening_specimens_buffer;
+FROM health_lab.prams_specimens_buffer;
 GO
 
 
@@ -282,18 +283,54 @@ GO
 
 
 
-IF OBJECT_ID('health_lab_new.newborn_screening_results_buffer', 'U') IS NOT NULL
-	DROP TABLE health_lab_new.newborn_screening_results_buffer;
-CREATE TABLE health_lab_new.newborn_screening_results_buffer (
+IF OBJECT_ID('health_lab.prams_results', 'U') IS NOT NULL
+	DROP TABLE health_lab.prams_results;
+CREATE TABLE health_lab.prams_results(
+	id INT IDENTITY(1,1),
+	CONSTRAINT health_lab_prams_results_id PRIMARY KEY CLUSTERED (id ASC),
+--	AccessionNumber,TestName,TestResultNumber,TestResultPlainValue,TestResultTextValue,MeasuredTime,AcceptedTime,TestPhase,TestStatus,ResultName,ResultLevel
+
+	
+
+--	copy of buffer structure (once complete)
+
+
+
+
+
+	source_filename VARCHAR(255),
+
+	--	Sadly, BULK INSERT does NOT preserve file order so this is moot.
+	--	If remove, remove code that RESEED ID
+	--	Actually, despite saying it doesn't, it seems to preserve the order.
+	source_record_number INT,	-- IDENTITY(1,1),
+
+	imported_at DATETIME
+		CONSTRAINT health_lab_prams_results_imported_at_default
+		DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	imported_to_observations BIT
+		CONSTRAINT health_lab_prams_results_imported_to_observations_default
+		DEFAULT 'FALSE' NOT NULL,
+);
+GO
+
+
+
+
+
+
+IF OBJECT_ID('health_lab.prams_results_buffer', 'U') IS NOT NULL
+	DROP TABLE health_lab.prams_results_buffer;
+CREATE TABLE health_lab.prams_results_buffer (
 --	id INT IDENTITY(1,1),
 --	CONSTRAINT health_lab_new_newborn_screening_results_id PRIMARY KEY CLUSTERED (id ASC),
 --	AccessionNumber,TestName,TestResultNumber,TestResultPlainValue,TestResultTextValue,MeasuredTime,AcceptedTime,TestPhase,TestStatus,ResultName,ResultLevel
 
 	AccessionNumber VARCHAR(255),
 	TestName VARCHAR(255),
-	TestResultNumber VARCHAR(255),
-	TestResultPlainValue VARCHAR(255),
-	TestResultTextValue VARCHAR(255),
+	TestResultNumber INTEGER,	--	VARCHAR(255),
+	TestResultPlainValue FLOAT,	--	VARCHAR(255),
+	TestResultTextValue FLOAT,	--	VARCHAR(255),
 	MeasuredTime DATETIME,
 	AcceptedTime DATETIME,
 	TestPhase VARCHAR(255),
@@ -309,18 +346,18 @@ CREATE TABLE health_lab_new.newborn_screening_results_buffer (
 	source_record_number INT IDENTITY(1,1),
 
 	imported_at DATETIME
-		CONSTRAINT health_lab_new_newborn_screening_results_buffer_imported_at_default
+		CONSTRAINT health_lab_prams_results_buffer_imported_at_default
 		DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	imported_to_observations BIT
-		CONSTRAINT health_lab_new_newborn_screening_results_buffer_imported_to_observations_default
+		CONSTRAINT health_lab_prams_results_buffer_imported_to_observations_default
 		DEFAULT 'FALSE' NOT NULL,
 );
 GO
 
-IF OBJECT_ID ( 'health_lab_new.bulk_insert_newborn_screening_results', 'V' ) IS NOT NULL
-	DROP VIEW health_lab_new.bulk_insert_newborn_screening_results;
+IF OBJECT_ID ( 'health_lab.bulk_insert_prams_results', 'V' ) IS NOT NULL
+	DROP VIEW health_lab.bulk_insert_prams_results;
 GO
-CREATE VIEW health_lab_new.bulk_insert_newborn_screening_results AS SELECT
+CREATE VIEW health_lab.bulk_insert_prams_results AS SELECT
 	AccessionNumber,
 	TestName,
 	TestResultNumber,
@@ -332,7 +369,7 @@ CREATE VIEW health_lab_new.bulk_insert_newborn_screening_results AS SELECT
 	TestStatus,
 	ResultName,
 	ResultLevel
-FROM health_lab_new.newborn_screening_results_buffer;
+FROM health_lab.prams_results_buffer;
 GO
 
 
@@ -361,10 +398,10 @@ GO
 
 
 
-IF OBJECT_ID ( 'bin.import_newborn_screening_specimens', 'P' ) IS NOT NULL
-	DROP PROCEDURE bin.import_newborn_screening_specimens;
+IF OBJECT_ID ( 'bin.import_prams_specimens', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_prams_specimens;
 GO
-CREATE PROCEDURE bin.import_newborn_screening_specimens( @file_with_path VARCHAR(255) )
+CREATE PROCEDURE bin.import_prams_specimens( @file_with_path VARCHAR(255) )
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -380,32 +417,32 @@ BEGIN
 	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1,
 		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
 
-	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT health_lab_new.bulk_insert_newborn_screening_specimens ' +
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT health_lab.bulk_insert_prams_specimens ' +
 		'FROM ''' + @file_with_path + ''' WITH ( FIELDTERMINATOR = '','', ' +
 			'ROWTERMINATOR = '''+CHAR(10)+''', FIRSTROW = 2, TABLOCK )';
 
 	-- RESEEDing acts differently the first time it is called
 	-- making the very first id 0. All calls after will set it to 1????
 	-- So, basically, don't RESEED the very first time.
-	IF EXISTS (SELECT * FROM sys.identity_columns WHERE object_id = OBJECT_ID( 'health_lab_new.newborn_screening_specimens_buffer','U') AND last_value IS NOT NULL)
-		DBCC CHECKIDENT( 'health_lab_new.newborn_screening_specimens_buffer', RESEED, 0);
+	IF EXISTS (SELECT * FROM sys.identity_columns WHERE object_id = OBJECT_ID( 'health_lab.prams_specimens_buffer','U') AND last_value IS NOT NULL)
+		DBCC CHECKIDENT( 'health_lab.prams_specimens_buffer', RESEED, 0);
 
-	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE health_lab_new.newborn_screening_specimens_buffer ' +
+	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE health_lab.prams_specimens_buffer ' +
 		'ADD CONSTRAINT temp_source_filename ' +
 		'DEFAULT ''' + @filename + ''' FOR source_filename';
 	EXEC(@alter_cmd);
 	EXEC(@bulk_cmd);
-	ALTER TABLE health_lab_new.newborn_screening_specimens_buffer
+	ALTER TABLE health_lab.prams_specimens_buffer
 		DROP CONSTRAINT temp_source_filename;
 
-END	--	bin.import_newborn_screening_specimens
+END	--	bin.import_prams_specimens
 GO
 
 
-IF OBJECT_ID ( 'bin.import_newborn_screening_results', 'P' ) IS NOT NULL
-	DROP PROCEDURE bin.import_newborn_screening_results;
+IF OBJECT_ID ( 'bin.import_prams_results', 'P' ) IS NOT NULL
+	DROP PROCEDURE bin.import_prams_results;
 GO
-CREATE PROCEDURE bin.import_newborn_screening_results( @file_with_path VARCHAR(255) )
+CREATE PROCEDURE bin.import_prams_results( @file_with_path VARCHAR(255) )
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -421,25 +458,25 @@ BEGIN
 	DECLARE @filename VARCHAR(255) = REVERSE( SUBSTRING( @rf, 1,
 		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
 
-	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT health_lab_new.bulk_insert_newborn_screening_results ' +
+	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT health_lab.bulk_insert_prams_results ' +
 		'FROM ''' + @file_with_path + ''' WITH ( FIELDTERMINATOR = ''|'', ' +
 			'ROWTERMINATOR = '''+CHAR(10)+''', FIRSTROW = 2, TABLOCK )';
 
 	-- RESEEDing acts differently the first time it is called
 	-- making the very first id 0. All calls after will set it to 1????
 	-- So, basically, don't RESEED the very first time.
-	IF EXISTS (SELECT * FROM sys.identity_columns WHERE object_id = OBJECT_ID( 'health_lab_new.newborn_screening_specimens_buffer','U') AND last_value IS NOT NULL)
-		DBCC CHECKIDENT( 'health_lab_new.newborn_screening_specimens_buffer', RESEED, 0);
+	IF EXISTS (SELECT * FROM sys.identity_columns WHERE object_id = OBJECT_ID( 'health_lab.prams_results_buffer','U') AND last_value IS NOT NULL)
+		DBCC CHECKIDENT( 'health_lab.prams_results_buffer', RESEED, 0);
 
-	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE health_lab_new.newborn_screening_specimens_buffer ' +
+	DECLARE @alter_cmd VARCHAR(1000) = 'ALTER TABLE health_lab.prams_results_buffer ' +
 		'ADD CONSTRAINT temp_source_filename ' +
 		'DEFAULT ''' + @filename + ''' FOR source_filename';
 	EXEC(@alter_cmd);
 	EXEC(@bulk_cmd);
-	ALTER TABLE health_lab_new.newborn_screening_specimens_buffer
+	ALTER TABLE health_lab.prams_results_buffer
 		DROP CONSTRAINT temp_source_filename;
 
-END	--	bin.import_newborn_screening_results
+END	--	bin.import_prams_results
 GO
 
 
