@@ -47,38 +47,38 @@ CREATE TABLE health_lab.prams_specimens_buffer (
 	SpecimenID INTEGER,	--	VARCHAR(10),
 	AccessionNumber VARCHAR(15),
 	KitNumber VARCHAR(15),
-	OrigKitNumber VARCHAR(10),
+	OrigKitNumber VARCHAR(15),
 	TimeReceived DATETIME,
-	Unsat1 VARCHAR(10),
-	Unsat2 VARCHAR(10),
-	ParentRefused VARCHAR(10),
-	Adopted VARCHAR(10),
-	Deceased VARCHAR(10),
+	Unsat1 VARCHAR(60),
+	Unsat2 VARCHAR(60),
+	ParentRefused VARCHAR(5),
+	Adopted VARCHAR(5),
+	Deceased VARCHAR(5),
 	DeceasedDate DATE,
-	ConsentGiven VARCHAR(10),
-	BabyLast VARCHAR(20),
-	BabyFirst VARCHAR(10),
-	BirthDate DATE,	--	or DATETIME
-	BirthDateNotGiven VARCHAR(10),
+	ConsentGiven VARCHAR(15),
+	BabyLast VARCHAR(35),
+	BabyFirst VARCHAR(30),	--	VARCHAR(10),	--	14
+	BirthDate DATE,	--	or DATETIME		--	15
+	BirthDateNotGiven VARCHAR(5),
 	BirthTime VARCHAR(10),
-	BirthTimeNotGiven VARCHAR(10),
-	BirthWeight VARCHAR(10),
+	BirthTimeNotGiven VARCHAR(5),
+	BirthWeight VARCHAR(15),
 	CollectionDate DATE,	--	or DATETIME
-	CollectionDateNotGiven VARCHAR(10),
+	CollectionDateNotGiven VARCHAR(5),
 	CollectionTime VARCHAR(10),
-	CollectionTimeNotGiven VARCHAR(10),
-	CurrentWeight VARCHAR(10),
+	CollectionTimeNotGiven VARCHAR(5),
+	CurrentWeight VARCHAR(15),		--	24
 	BabySex VARCHAR(10),
-	CollectedBy VARCHAR(20),
+	CollectedBy VARCHAR(35),
 	CollectionAge INTEGER,	--	VARCHAR(10),
-	MedicalRecord VARCHAR(10),
+	MedicalRecord VARCHAR(30),
 	BirthType VARCHAR(10),
-	BirthOrder VARCHAR(10),
-	RaceWhite VARCHAR(10),
-	RaceAfrAmer VARCHAR(10),
-	RaceAmerInd VARCHAR(10),
-	RaceAsian VARCHAR(10),
-	RaceOther VARCHAR(10),
+	BirthOrder VARCHAR(5),
+	RaceWhite VARCHAR(5),
+	RaceAfrAmer VARCHAR(5),
+	RaceAmerInd VARCHAR(5),
+	RaceAsian VARCHAR(5),	--	34
+	RaceOther VARCHAR(5),
 	RaceHispanic VARCHAR(10),
 	BreastFeedOnly VARCHAR(10),
 	MilkFeedOnly VARCHAR(10),
@@ -87,54 +87,54 @@ CREATE TABLE health_lab.prams_specimens_buffer (
 	BreastSoyFeed VARCHAR(10),
 	TPN VARCHAR(10),
 	NotFed VARCHAR(10),
-	GestationAge INTEGER,	--	VARCHAR(10),
+	GestationAge INTEGER,	--	VARCHAR(10),			--	44
 	Meconiumileus VARCHAR(10),
 	NICU VARCHAR(10),
 	Antibiotic VARCHAR(10),
 	BloodTransfusion VARCHAR(10),
-	TrasfusionDate VARCHAR(10),
-	BirthHospitalFacility VARCHAR(50),
+	TrasfusionDate DATE,		--	VARCHAR(10),
+	BirthHospitalFacility VARCHAR(60),
 	BirthHospitalFirstName VARCHAR(40),
-	BirthHospitalLastName VARCHAR(10),
+	BirthHospitalLastName VARCHAR(20),
 	BirthHospitalCode VARCHAR(10),
-	BirthHospitalNotGiven VARCHAR(10),
-	CollectionFacilityFacility VARCHAR(50),
+	BirthHospitalNotGiven VARCHAR(10),		--	54
+	CollectionFacilityFacility VARCHAR(60),
 	CollectionFacilityFirstName VARCHAR(40),
-	CollectionFacilityLastName VARCHAR(10),
+	CollectionFacilityLastName VARCHAR(20),
 	CollectionFacilityCode VARCHAR(10),
 	CollectionFacilityNotGiven VARCHAR(10),
-	ReportToFacility VARCHAR(40),
+	ReportToFacility VARCHAR(60),
 	ReportToFirstName VARCHAR(30),
 	ReportToLastName VARCHAR(20),
 	ReportToCode VARCHAR(20),
-	ReportToNotGiven VARCHAR(10),
+	ReportToNotGiven VARCHAR(10),				--	64
 	ReportToAddress VARCHAR(40),
 	ReportToCity VARCHAR(40),
 	ReportToState VARCHAR(10),
 	ReportToZip VARCHAR(10),
-	MotherLastName VARCHAR(20),
-	MotherFirstName VARCHAR(20),
+	MotherLastName VARCHAR(30),
+	MotherFirstName VARCHAR(30),
 	MotherDOB DATE,	--	or DATETIME
-	MotherMaidenName VARCHAR(10),
-	MotherAddress VARCHAR(30),
-	MotherCity VARCHAR(30),
-	MotherState VARCHAR(5),
+	MotherMaidenName VARCHAR(40),
+	MotherAddress VARCHAR(45),
+	MotherCity VARCHAR(25),				--	74
+	MotherState VARCHAR(25),
 	MotherZip VARCHAR(10),
 	Phone VARCHAR(10),
-	EmergencyPhone VARCHAR(10),
-	FatherName VARCHAR(30),
-	FatherPhone VARCHAR(10),
-		--	Don't think any of this is included here? In PRAMS_RESULTS?
-	TestName VARCHAR(10),
-	TestResultNumber VARCHAR(10),
-	TestResultPlainValue VARCHAR(10),
+	EmergencyPhone VARCHAR(15),
+	FatherName VARCHAR(55),
+	FatherPhone VARCHAR(75),	--	can be international with comments
+		--	Don't think any of the following is included here? In PRAMS_RESULTS?
+	TestName VARCHAR(30),
+	TestResultNumber VARCHAR(25),
+	TestResultPlainValue VARCHAR(10),		---	83
 	TestResultTextValue VARCHAR(10),
 	MeasuredTime VARCHAR(10),
 	AcceptedTime VARCHAR(10),
 	TestPhase VARCHAR(10),
 	TestStatus VARCHAR(10),
 	ResultName VARCHAR(10),
-	ResultLevel VARCHAR(10),
+
 
 --	accession_number VARCHAR(15),	--Accession Number
 --	kit_number VARCHAR(15),	--Kit Number
@@ -418,8 +418,8 @@ BEGIN
 		ISNULL(NULLIF(CHARINDEX(CHAR(92), @rf )-1,-1),LEN(@rf))));
 
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT health_lab.bulk_insert_prams_specimens ' +
-		'FROM ''' + @file_with_path + ''' WITH ( FIELDTERMINATOR = '','', ' +
-			'ROWTERMINATOR = '''+CHAR(10)+''', FIRSTROW = 2, TABLOCK )';
+		'FROM ''' + @file_with_path + ''' WITH ( FIELDTERMINATOR = ''|'', ' +
+			'ROWTERMINATOR = '''+CHAR(10)+''', FIRSTROW = 1, TABLOCK )';
 
 	-- RESEEDing acts differently the first time it is called
 	-- making the very first id 0. All calls after will set it to 1????
@@ -460,7 +460,7 @@ BEGIN
 
 	DECLARE @bulk_cmd VARCHAR(1000) = 'BULK INSERT health_lab.bulk_insert_prams_results ' +
 		'FROM ''' + @file_with_path + ''' WITH ( FIELDTERMINATOR = ''|'', ' +
-			'ROWTERMINATOR = '''+CHAR(10)+''', FIRSTROW = 2, TABLOCK )';
+			'ROWTERMINATOR = '''+CHAR(10)+''', FIRSTROW = 1, TABLOCK )';
 
 	-- RESEEDing acts differently the first time it is called
 	-- making the very first id 0. All calls after will set it to 1????

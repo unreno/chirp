@@ -14,16 +14,21 @@ while (<>) {
 
 	#	The /x modifier permits multiline regex and inline comments.
 
+
+#	sadly, this groups the wrong one.
 	s/,(False|True),
 		([^,]*),(False|True),
 		([^,]*),([^,]*),(False|True),
 		([^,]*),(False|True),([^,]*),
 		(Male|Female|Unknown),
 		(.*?),												#	26 Z CollectedBy VARCHAR(20) can contain commas
-		([^,]*),([^,]*),
+		([^,]*),											#	27   CollectionAge
+		([^,]*),											#	28   MedicalRecord
 		(Single|Multiple|Unknown),		#	29 AC BirthType VARCHAR(10)
 		([^,]*),(False|True|),(False|True|),(False|True|),(False|True|),
 	/,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,"$11",$12,$13,$14,$15,$16,$17,$18,$19,/x;
+
+
 
 	s/,(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),(Yes|No|Unknown),([^,]*),
 		(.*?),												#	50 AX BirthHospitalFacility VARCHAR(50) can contain commas

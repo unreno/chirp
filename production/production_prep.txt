@@ -166,6 +166,16 @@ SELECT COUNT(1) AS deaths_buffer_post_count FROM vital.deaths_buffer;
 
 
 
+--	 awk 'BEGIN{FPAT = "(\"([^\"]|\"\")*\")|([^,\"]*)";OFS="|"}{$100=$100}1' PRAMS_SPECIMENS_CLEANUP_MERGE.csv | grep -vs SpecimenID > PRAMS_SPECIMENS_CLEANUP_MERGE.csv.psv
+--	Given that using FPAT ignores FS, saying $1=$1 (or whichever) seems to create another column after it
+--	in this case, 1 is a simple true condition without an action and so has the same effect as ( true ){ print }
+--	EXEC bin.import_prams_specimens 'C:\Users\gwendt\Desktop\Data\PRAMS\PRAMS_SPECIMENS_CLEANUP_MERGE.csv.psv'
+
+--	OK, so my parsing efforts were in vain and continue to be an issue. just selecting those with 90 columnd
+--	awk -F, 'BEGIN{OFS="|"}(NF==90 && $1 != "SpecimenID"){$1=$1;print}' PRAMS_SPECIMENS_201* > PRAMS_SPECIMENS_ALL_90.psv
+
+EXEC bin.import_prams_specimens 'C:\Users\gwendt\Desktop\Data\PRAMS\PRAMS_SPECIMENS_ALL_90.psv'
+
 
 
 
